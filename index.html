@@ -59,7 +59,7 @@ body.light .score-fill        { background: var(--green); }
 body.light .sig-chip.sig-t1   { border-color: rgba(10,158,92,0.4); color: var(--green); }
 body.light thead th           { background: var(--surface); }
 body.light .alloc-card        { box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
-body.light .drawer            { box-shadow: -4px 0 24px rgba(0,0,0,0.1); }
+body.light .drawer            { box-shadow: 0 20px 60px rgba(0,0,0,0.18); }
 body.light .contact-card      { box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
 
 /* toggle button */
@@ -89,25 +89,8 @@ header {
   border: 1px solid var(--border2); background: var(--card); color: var(--muted);
 }
 .hdr-btn:hover { color: var(--text); border-color: var(--muted); }
-.hdr-btn.primary { background: var(--green); color: #080b0f; border-color: var(--green); font-weight: 700; }
-.hdr-btn.primary:hover { opacity: 0.85; }
 .hdr-status { font-family: var(--mono); font-size: 9px; color: var(--muted); }
 .hdr-status span { color: var(--green); }
-
-/* ── NAV TABS ── */
-.nav-tabs {
-  display: flex; gap: 0; background: var(--surface);
-  border-bottom: 1px solid var(--border); padding: 0 2rem;
-}
-.nav-tab {
-  font-family: var(--mono); font-size: 11px; font-weight: 600;
-  padding: 0.75rem 1.25rem; border: none; background: transparent;
-  cursor: pointer; color: var(--muted); border-bottom: 2px solid transparent;
-  letter-spacing: 0.04em; transition: all 0.15s; white-space: nowrap;
-}
-.nav-tab:hover { color: var(--text); }
-.nav-tab.active { color: var(--text); border-bottom-color: var(--green); }
-.nav-tab .tab-count { font-size: 9px; margin-left: 6px; opacity: 0.6; }
 
 /* ── SECTION WRAPPER ── */
 .section { display: none; }
@@ -229,10 +212,10 @@ tbody td { padding: 9px 10px; vertical-align: top; }
 
 /* ── DRAWER ── */
 .drawer-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(8,11,15,0.72); backdrop-filter: blur(3px); }
-.drawer-overlay.open { display: flex; justify-content: flex-end; }
-.drawer { width: 660px; max-width: 96vw; height: 100vh; background: var(--surface); border-left: 1px solid var(--border2); overflow-y: auto; display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.25s cubic-bezier(0.16,1,0.3,1); }
-.drawer-overlay.open .drawer { transform: translateX(0); }
-.drawer-head { display: flex; align-items: flex-start; justify-content: space-between; padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--surface); z-index: 1; }
+.drawer-overlay.open { display: flex; align-items: center; justify-content: center; padding: 3vh 2vw; }
+.drawer { width: 1100px; max-width: 94vw; height: 94vh; max-height: 94vh; background: var(--surface); border: 1px solid var(--border2); border-radius: 12px; overflow-y: auto; display: flex; flex-direction: column; box-shadow: 0 20px 60px rgba(0,0,0,0.45); transform: scale(0.96); opacity: 0; transition: transform 0.2s cubic-bezier(0.16,1,0.3,1), opacity 0.2s; }
+.drawer-overlay.open .drawer { transform: scale(1); opacity: 1; }
+.drawer-head { display: flex; align-items: flex-start; justify-content: space-between; padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--surface); z-index: 1; border-radius: 12px 12px 0 0; }
 .drawer-head-left { flex: 1; min-width: 0; }
 .dr-firm { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.01em; }
 .dr-plan { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-top: 2px; }
@@ -255,26 +238,51 @@ tbody td { padding: 9px 10px; vertical-align: top; }
 .sig-table tr:last-child td { border-bottom: none; }
 .sig-label-cell { width: 130px; padding-right: 10px; }
 .sig-val-cell { color: var(--text); }
-.sig-link-cell { text-align: right; white-space: nowrap; }
 .contact-card { background: var(--card); border: 1px solid var(--border2); border-radius: 6px; padding: 9px 12px; margin-bottom: 7px; }
 .contact-card:last-child { margin-bottom: 0; }
 .cc-name { font-weight: 600; font-size: 12px; }
 .cc-title { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-top: 1px; }
 .cc-row { font-family: var(--mono); font-size: 10px; color: var(--blue); margin-top: 3px; }
-.dol-viewer { background: var(--card); border: 1px solid var(--border2); border-radius: 6px; overflow: hidden; }
-.dol-tabs { display: flex; border-bottom: 1px solid var(--border2); overflow-x: auto; }
-.dol-tab { font-family: var(--mono); font-size: 10px; padding: 6px 13px; border: none; background: transparent; cursor: pointer; color: var(--muted); white-space: nowrap; border-right: 1px solid var(--border2); transition: background 0.1s; }
-.dol-tab:hover { background: var(--card2); color: var(--text); }
-.dol-tab.active { color: var(--text); background: var(--card2); }
-.dol-tab.tc { color: var(--green); } .dol-tab.td { color: var(--cyan); } .dol-tab.th { color: var(--purple); } .dol-tab.tm { color: var(--yellow); }
-.dol-panel { padding: 0.75rem 1rem; display: none; }
-.dol-panel.active { display: block; }
-.dol-link-row { display: flex; align-items: center; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid var(--border); font-family: var(--mono); font-size: 10px; }
-.dol-link-row:last-child { border-bottom: none; }
-.dol-link-desc { color: var(--muted); }
-.dol-open { display: inline-flex; align-items: center; gap: 4px; background: var(--card2); border: 1px solid var(--border2); border-radius: 4px; padding: 3px 9px; color: var(--text); font-family: var(--mono); font-size: 9px; cursor: pointer; text-decoration: none; transition: border-color 0.15s; }
-.dol-open:hover { border-color: var(--muted); }
-.dol-open.primary { background: var(--green-dim); border-color: var(--green); color: var(--green); }
+
+/* Enrich feature */
+.enrich-btn {
+  font-family: var(--mono); font-size: 9px; font-weight: 700; letter-spacing: 0.05em;
+  padding: 3px 9px; border-radius: 3px; border: 1px solid var(--purple);
+  background: var(--purple-dim); color: var(--purple); cursor: pointer;
+  text-transform: uppercase; transition: opacity 0.15s;
+}
+.enrich-btn:hover { opacity: 0.75; }
+.enrich-btn:disabled { opacity: 0.5; cursor: default; }
+.enrich-btn.loading::after {
+  content: ''; display: inline-block; width: 8px; height: 8px; margin-left: 6px;
+  border: 1.5px solid var(--purple); border-top-color: transparent; border-radius: 50%;
+  animation: enrich-spin 0.6s linear infinite; vertical-align: middle;
+}
+@keyframes enrich-spin { to { transform: rotate(360deg); } }
+.enrich-status { font-family: var(--mono); font-size: 9px; color: var(--muted); margin-top: 6px; }
+.enrich-status.err { color: var(--red, #e05a5a); }
+.enrich-status.ok { color: var(--green); }
+
+.contact-card.ai-found { border-color: var(--purple); background: var(--purple-dim); }
+.contact-card.ai-found .cc-name::after {
+  content: 'AI FOUND'; font-family: var(--mono); font-size: 8px; font-weight: 700;
+  color: var(--purple); border: 1px solid var(--purple); border-radius: 2px;
+  padding: 1px 4px; margin-left: 7px; vertical-align: middle; letter-spacing: 0.05em;
+}
+.cc-source { font-family: var(--mono); font-size: 9px; color: var(--dim); margin-top: 3px; }
+.cc-confidence { font-family: var(--mono); font-size: 8px; padding: 1px 5px; border-radius: 2px; margin-left: 6px; }
+.cc-confidence.high { background: var(--green-dim); color: var(--green); }
+.cc-confidence.medium { background: var(--yellow-dim); color: var(--yellow); }
+.cc-confidence.low { background: var(--border2); color: var(--muted); }
+
+.assessment-flag {
+  display: inline-block; font-family: var(--mono); font-size: 9px; font-weight: 700;
+  padding: 2px 6px; border-radius: 3px; margin-top: 6px; letter-spacing: 0.03em;
+}
+.assessment-flag.not-relevant { background: var(--yellow-dim); color: var(--yellow); border: 1px solid var(--yellow); }
+.assessment-flag.relevant { background: var(--green-dim); color: var(--green); border: 1px solid var(--green); }
+.assessment-reason { font-family: var(--mono); font-size: 9px; color: var(--muted); margin-top: 4px; line-height: 1.4; }
+.enrich-meta { font-family: var(--mono); font-size: 8px; color: var(--dim); margin-top: 8px; }
 
 /* ── EMPTY / LOADING ── */
 .empty-state { text-align: center; padding: 4rem 2rem; color: var(--muted); }
@@ -350,20 +358,8 @@ tbody td { padding: 9px 10px; vertical-align: top; }
     <span class="hdr-status" id="hdr-status">No data loaded</span>
     <button class="theme-btn" id="theme-btn" title="Toggle light/dark mode">☀</button>
     <button class="hdr-btn" id="glossary-btn">? Glossary</button>
-    <button class="hdr-btn primary" id="load-data-btn">
-      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-      Load 9at_intelligence.json
-    </button>
-    <input type="file" id="file-data" accept=".json" style="display:none">
   </div>
 </header>
-
-<!-- ── NAV TABS ── -->
-<div class="nav-tabs">
-  <button class="nav-tab active" id="tab-db">
-    Allocator Database <span class="tab-count" id="tc-db"></span>
-  </button>
-</div>
 
 <!-- ══════════════════════════════════════════════════════
      ALLOCATOR DATABASE
@@ -434,7 +430,7 @@ tbody td { padding: 9px 10px; vertical-align: top; }
   <div class="table-wrap" id="db-table-wrap">
     <div class="empty-state">
       <h2>// no data loaded</h2>
-      <p>Click <strong style="color:var(--text)">Load 9at_intelligence.json</strong> above.</p>
+      <p>Couldn't load <strong style="color:var(--text)">9at_intelligence.json</strong>. Make sure it's in the same folder as this page and reload.</p>
     </div>
   </div>
 </div>
@@ -458,6 +454,7 @@ tbody td { padding: 9px 10px; vertical-align: top; }
 // ── State ────────────────────────────────────────────────────────────────────
 let dbData  = [];
 let dbIndex = {};
+let enrichIndex = {};
 
 const SIG_TIER = {
   schedule_c:1, schedule_c_fund:1, schedule_d_adviser:1,
@@ -488,23 +485,6 @@ function ebadge(ep) {
   const lbl = {READY:'✓ READY',HIGH:'★ ENRICH',LOW:'· LOW',SKIP:'— SKIP'};
   return ep&&ep!=='SKIP' ? `<span class="ebadge ep-${ep}">${lbl[ep]||ep}</span>` : '';
 }
-function schedCls(sig) {
-  if((sig||'').startsWith('schedule_c')) return 'sched-c';
-  if((sig||'').startsWith('schedule_d')) return 'sched-d';
-  if((sig||'').startsWith('schedule_h')) return 'sched-h';
-  return 'sched-x';
-}
-function dolUrls(ein, sig, filingUrl) {
-  const base   = 'https://www.efast.dol.gov/5500Search/';
-  const direct = filingUrl || '';
-  const main   = direct || base;
-  let schedLbl2 = 'Form 5500';
-  if((sig||'').startsWith('schedule_c')) schedLbl2='Schedule C';
-  if((sig||'').startsWith('schedule_d')) schedLbl2='Schedule D';
-  if((sig||'').startsWith('schedule_h')) schedLbl2='Schedule H';
-  return { browse:main, schedUrl:main, schedLbl2, hasDirect:!!direct, search:base,
-           c:main, d:main, h:main };
-}
 
 // ── Load combined JSON ────────────────────────────────────────────────────────
 function loadData(data) {
@@ -520,7 +500,6 @@ function loadData(data) {
   document.getElementById('d-schc').textContent   = fmtN(s.has_schedule_c       || dbData.filter(a=>(a.service_providers||[]).length>0).length);
   document.getElementById('d-schdh').textContent  = fmtN(s.has_schedule_d_h     || dbData.filter(a=>(a.investments||[]).length>0).length);
   document.getElementById('d-email').textContent  = fmtN(s.leads_with_emails    || dbData.filter(a=>(a.contact_count||0)>0).length);
-  document.getElementById('tc-db').textContent    = dbData.length.toLocaleString();
   document.getElementById('hdr-status').innerHTML = `<span>${dbData.length.toLocaleString()} allocators loaded</span>`;
 
   // Enrichment priority panel
@@ -808,6 +787,133 @@ function renderSchedH(sh) {
 // ══════════════════════════════════════════════════════════════════════════════
 // SHARED DRAWER — works for both sections
 // ══════════════════════════════════════════════════════════════════════════════
+// ── Enrich feature ──────────────────────────────────────────────────────────
+const ENRICH_WORKER_URL = 'https://9at-enrich.michaelshayevich92.workers.dev/';
+
+function confidenceBadge(conf) {
+  const c = (conf||'').toLowerCase();
+  if(!['high','medium','low'].includes(c)) return '';
+  return `<span class="cc-confidence ${c}">${c}</span>`;
+}
+
+function renderContactsSection(ein, ref, contacts) {
+  const enrich = enrichIndex[ein] || null;
+  const aiContacts = enrich?.contacts || [];
+  const assessment = enrich?.existing_contact_assessment || null;
+
+  let html = `<div class="dsec" id="contacts-section">
+    <div class="dsec-title">
+      Investment Decision-Makers <span class="dsec-badge">${contacts.length} contact${contacts.length!==1?'s':''}</span>
+      <button class="enrich-btn" id="enrich-btn" onclick="runEnrich('${esc(ein)}')">⚡ Enrich</button>
+    </div>
+    <div id="enrich-status-area"></div>`;
+
+  if(contacts.length) {
+    contacts.forEach(c => {
+      let flagHtml = '';
+      // Flag the existing Form-5500 contact if the AI assessed it and found it likely irrelevant.
+      if(assessment && assessment.name && c.name && assessment.name.trim().toLowerCase() === c.name.trim().toLowerCase()) {
+        if(assessment.likelyInvestmentDecisionMaker === false) {
+          flagHtml = `<div class="assessment-flag not-relevant">⚠ Likely not an investment contact</div>
+            ${assessment.reasoning?`<div class="assessment-reason">${esc(assessment.reasoning)}</div>`:''}`;
+        } else if(assessment.likelyInvestmentDecisionMaker === true) {
+          flagHtml = `<div class="assessment-flag relevant">✓ Likely investment-relevant</div>
+            ${assessment.reasoning?`<div class="assessment-reason">${esc(assessment.reasoning)}</div>`:''}`;
+        }
+      }
+      html += `<div class="contact-card">
+        <div class="cc-name">${esc(c.name)}</div>
+        ${c.title?`<div class="cc-title">${esc(c.title)}</div>`:''}
+        ${c.email?`<div class="cc-row">✉ ${esc(c.email)}</div>`:''}
+        ${c.phone?`<div class="cc-row" style="color:var(--muted)">☎ ${esc(c.phone)}</div>`:''}
+        ${flagHtml}
+      </div>`;
+    });
+  } else {
+    html += `<div style="font-family:var(--mono);font-size:11px;color:var(--dim);padding:4px 0">No contacts found. Run Hunter.io on this firm.</div>`;
+  }
+
+  // AI-found contacts, rendered distinctly from Form 5500 contacts.
+  if(aiContacts.length) {
+    aiContacts.forEach(c => {
+      html += `<div class="contact-card ai-found">
+        <div class="cc-name">${esc(c.name)}${confidenceBadge(c.confidence)}</div>
+        ${c.title?`<div class="cc-title">${esc(c.title)}</div>`:''}
+        ${c.source?`<div class="cc-source">Source: ${esc(c.source)}</div>`:''}
+      </div>`;
+    });
+  }
+
+  if(enrich) {
+    const when = enrich.enriched_at ? new Date(enrich.enriched_at).toLocaleString() : '';
+    html += `<div class="enrich-meta">Last enriched ${esc(when)}${enrich.notes?` — ${esc(enrich.notes)}`:''}</div>`;
+  }
+
+  html += `</div>`;
+  return html;
+}
+
+async function runEnrich(ein) {
+  const ref = dbIndex[ein];
+  if(!ref) return;
+
+  const pw = prompt('Enter password to run AI enrichment for this firm:');
+  if(pw === null) return; // cancelled
+  if(!pw) { alert('Password required.'); return; }
+
+  const btn = document.getElementById('enrich-btn');
+  const statusArea = document.getElementById('enrich-status-area');
+  if(btn) { btn.disabled = true; btn.classList.add('loading'); btn.textContent = 'Enriching'; }
+  if(statusArea) statusArea.innerHTML = `<div class="enrich-status">Searching the web and writing results to GitHub — this can take 10-30 seconds…</div>`;
+
+  // Pick the best existing contact to evaluate: prefer one that looks investment-flavored,
+  // otherwise just send the first contact on file (if any).
+  const contacts = ref.contacts || [];
+  const existingContact = contacts.length ? { name: contacts[0].name, title: contacts[0].title } : undefined;
+
+  try {
+    const res = await fetch(ENRICH_WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        password: pw,
+        firm: ref.firm_name,
+        ein: ein,
+        existingContact: existingContact,
+        website: undefined,
+      }),
+    });
+
+    const data = await res.json();
+
+    if(!res.ok) {
+      throw new Error(data.error || `Request failed (${res.status})`);
+    }
+
+    // Merge the fresh result straight into local state so the drawer updates
+    // immediately, without needing a page reload.
+    enrichIndex[ein] = {
+      firm_name: ref.firm_name,
+      ein: ein,
+      enriched_at: new Date().toISOString(),
+      contacts: (data.enrichment?.parsed?.contacts) || [],
+      existing_contact_assessment: (data.enrichment?.parsed?.existingContactAssessment) || null,
+      notes: (data.enrichment?.parsed?.notes) || null,
+      grounding_sources: data.enrichment?.groundingSources || [],
+    };
+
+    if(statusArea) statusArea.innerHTML = `<div class="enrich-status ok">✓ Done — saved to GitHub.</div>`;
+
+    // Re-render just the contacts section in place.
+    const section = document.getElementById('contacts-section');
+    if(section) section.outerHTML = renderContactsSection(ein, ref, [...(ref.contacts||[])]);
+
+  } catch(err) {
+    if(btn) { btn.disabled = false; btn.classList.remove('loading'); btn.textContent = '⚡ Enrich'; }
+    if(statusArea) statusArea.innerHTML = `<div class="enrich-status err">✗ ${esc(err.message)}</div>`;
+  }
+}
+
 function openDrawer(ein) {
   const ref = dbIndex[ein];
   if(!ref) return;
@@ -828,8 +934,6 @@ function openDrawer(ein) {
     return rank(a.title)-rank(b.title);
   });
 
-  const urls   = dolUrls(ein, (ref.at9_relationships||[])[0]?.signal||'', ref.filing_url||'');
-  const sigSet = new Set((ref.at9_relationships||[]).map(r=>r.dol_schedule||''));
   const sched  = ref.schedule_detail || {};
 
   let html = '';
@@ -854,7 +958,6 @@ function openDrawer(ein) {
       <div class="dsec-title">9AT Relationship Map <span class="dsec-badge">${rels.length} signal${rels.length!==1?'s':''}</span></div>
       <table class="sig-table">`;
     rels.forEach(r => {
-      const rUrls = dolUrls(ein, r.signal, ref.filing_url||'');
       html += `<tr>
         <td class="sig-label-cell">${sigChip(r.signal)}</td>
         <td class="sig-val-cell">
@@ -862,10 +965,6 @@ function openDrawer(ein) {
           <div style="font-family:var(--mono);font-size:10px;color:var(--cyan);margin-top:2px">${esc(r.matched_name)}</div>
           ${r.adviser_details?.['Total AUM $']?`<div style="font-family:var(--mono);font-size:10px;color:var(--muted)">AUM: ${esc(r.adviser_details['Total AUM $'])}</div>`:''}
           <div style="font-family:var(--mono);font-size:9px;color:var(--dim);margin-top:1px">Match score: ${r.match_score||0}%  ·  Tier ${r.tier}</div>
-        </td>
-        <td class="sig-link-cell">
-          <a class="sched-btn ${schedCls(r.signal)}" href="${esc(rUrls.schedUrl)}" target="_blank">${esc(rUrls.schedLbl2)} ↗</a>
-          ${r.adviser_details?.Url?`<br><a class="sched-btn sched-x" style="margin-top:3px" href="${esc(r.adviser_details.Url)}" target="_blank">9AT ↗</a>`:''}
         </td>
       </tr>`;
     });
@@ -889,9 +988,6 @@ function openDrawer(ein) {
           ${am['Country/Region']?`<div style="font-size:10px;color:var(--muted)">Region: ${esc(am['Country/Region'])}</div>`:''}
           ${fm['fund_name']?`<div style="font-size:10px;color:var(--cyan)">Fund: ${esc(fm['fund_name'])}</div>`:''}
           <div style="font-family:var(--mono);font-size:9px;color:var(--dim)">Item ${esc(sp.item)}</div>
-        </td>
-        <td class="sig-link-cell">
-          ${am.Url?`<a class="sched-btn sched-c" href="${esc(am.Url)}" target="_blank">9AT ↗</a>`:''}
         </td>
       </tr>`;
     });
@@ -917,9 +1013,6 @@ function openDrawer(ein) {
           ${am['Total AUM $']?`<div style="font-size:10px;color:var(--muted)">AUM: ${esc(am['Total AUM $'])}</div>`:''}
           ${fm['fund_name']&&fm['fund_name']!==inv.name?`<div style="font-size:10px;color:var(--cyan)">Matched: ${esc(fm['fund_name'])}</div>`:''}
         </td>
-        <td class="sig-link-cell">
-          ${am.Url||fm.Url?`<a class="sched-btn sched-x" href="${esc(am.Url||fm.Url)}" target="_blank">9AT ↗</a>`:''}
-        </td>
       </tr>`;
     });
     if(invs.length>20) html += `<tr><td colspan="3" style="font-family:var(--mono);font-size:9px;color:var(--muted);padding-top:6px">… and ${invs.length-20} more entries</td></tr>`;
@@ -927,19 +1020,7 @@ function openDrawer(ein) {
   }
 
   // Contacts
-  html += `<div class="dsec">
-    <div class="dsec-title">Investment Decision-Makers <span class="dsec-badge">${contacts.length} contact${contacts.length!==1?'s':''}</span></div>`;
-  if(contacts.length) {
-    contacts.forEach(c => { html += `<div class="contact-card">
-      <div class="cc-name">${esc(c.name)}</div>
-      ${c.title?`<div class="cc-title">${esc(c.title)}</div>`:''}
-      ${c.email?`<div class="cc-row">✉ ${esc(c.email)}</div>`:''}
-      ${c.phone?`<div class="cc-row" style="color:var(--muted)">☎ ${esc(c.phone)}</div>`:''}
-    </div>`; });
-  } else {
-    html += `<div style="font-family:var(--mono);font-size:11px;color:var(--dim);padding:4px 0">No contacts found. Run Hunter.io on this firm.</div>`;
-  }
-  html += `</div>`;
+  html += renderContactsSection(ein, ref, contacts);
 
   const hasSchedData = sched && (
     (sched.schedule_c?.item1?.length || sched.schedule_c?.item2?.length || sched.schedule_c?.item3?.length) ||
@@ -971,67 +1052,22 @@ function openDrawer(ein) {
     html += '</div>';
   }
 
-  // DOL Filings
-  const tabs = [{id:'main',label:'Form 5500',cls:'tm',desc:'All filings for this EIN',url:urls.browse}];
-  if(sigSet.has('C')||sps.length) tabs.push({id:'c',label:'Schedule C',cls:'tc',desc:'Service provider fees paid (Part 1)',url:urls.c});
-  if(sigSet.has('D')||invs.some(i=>i.schedule==='D')) tabs.push({id:'d',label:'Schedule D',cls:'td',desc:'DFE / pooled fund investments (Part 2)',url:urls.d});
-  if(sigSet.has('H')||invs.some(i=>i.schedule==='H')) tabs.push({id:'h',label:'Schedule H',cls:'th',desc:'Large plan financial info',url:urls.h});
-
-  html += `<div class="dsec">
-    <div class="dsec-title">DOL Form 5500 Filings <span class="dsec-badge">EFAST2</span></div>
-    <div class="dol-viewer">
-      <div class="dol-tabs">`;
-  tabs.forEach((t,i)=>{ html+=`<button class="dol-tab ${t.cls}${i===0?' active':''}" onclick="switchDolTab('${t.id}')">${t.label}</button>`; });
-  html += `</div>`;
-  tabs.forEach((t,i)=>{ html+=`<div class="dol-panel${i===0?' active':''}" id="dol-p-${t.id}">
-    <div class="dol-link-row">
-      <span class="dol-link-desc">${esc(t.desc)}</span>
-      <a class="dol-open primary" href="${esc(t.url)}" target="_blank">Open EFAST2 Search ↗</a>
-    </div>
-    <div class="dol-link-row">
-      <span class="dol-link-desc" style="color:${urls.hasDirect?'var(--green)':'var(--yellow)'};font-size:9px">
-        ${urls.hasDirect
-          ? '✓ Direct link — opens this specific filing on EFAST2'
-          : `Search EIN: ${esc(ref?.ein||ein||'')} — then open the filing and click the schedule tab`}
-      </span>
-    </div>
-  </div>`; });
-  html += `</div></div>`;
-
   document.getElementById('drawer-body').innerHTML = html;
   document.getElementById('drawer-overlay').classList.add('open');
   document.getElementById('drawer').scrollTop = 0;
 }
 
-function switchDolTab(id) {
-  document.querySelectorAll('.dol-tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.dol-panel').forEach(p=>p.classList.remove('active'));
-  document.querySelector(`.dol-tab[onclick="switchDolTab('${id}')"]`)?.classList.add('active');
-  document.getElementById('dol-p-'+id)?.classList.add('active');
-}
-
 document.getElementById('drawer-close').addEventListener('click',()=>document.getElementById('drawer-overlay').classList.remove('open'));
 document.getElementById('drawer-overlay').addEventListener('click',e=>{ if(e.target===document.getElementById('drawer-overlay')) document.getElementById('drawer-overlay').classList.remove('open'); });
 
-// ── File loading ─────────────────────────────────────────────────────────────
-function readJson(file, cb) {
-  const r = new FileReader();
-  r.onload = e => {
-    setTimeout(() => {
-      try { cb(JSON.parse(e.target.result)); }
-      catch(err) { alert('Could not parse JSON: '+err.message); }
-    }, 0);
-  };
-  r.readAsText(file);
-}
-document.getElementById('load-data-btn').addEventListener('click', ()=>document.getElementById('file-data').click());
-document.getElementById('file-data').addEventListener('change', e=>{
-  const f = e.target.files[0];
-  if(f) readJson(f, d => loadData(d));
-});
+// ── Data loading ─────────────────────────────────────────────────────────────
 
 // Auto-load if file is in the same folder
 fetch('9at_intelligence.json').then(r=>r.ok?r.json():Promise.reject()).then(loadData).catch(()=>{});
+
+// Load enrichment.json (AI-found contacts) alongside the main data file.
+// Soft-fails if the file doesn't exist yet (e.g. before the first Enrich run).
+fetch('enrichment.json').then(r=>r.ok?r.json():Promise.reject()).then(d=>{ enrichIndex = d || {}; }).catch(()=>{ enrichIndex = {}; });
 </script>
 
 <!-- ── GLOSSARY ── -->
@@ -1044,10 +1080,9 @@ fetch('9at_intelligence.json').then(r=>r.ok?r.json():Promise.reject()).then(load
     </div>
     <div class="gsec"><h3>Allocator Profile Drawer</h3>
       <div class="grow"><span class="gterm">Identity</span><span class="gdef">Name, EIN, plan, location, participant count, and enrichment status.</span></div>
-      <div class="grow"><span class="gterm">9AT Relationship Map</span><span class="gdef">Every signal that fired for this firm — what schedule it came from, what was matched, and a direct link to that schedule on DOL EFAST2.</span></div>
+      <div class="grow"><span class="gterm">9AT Relationship Map</span><span class="gdef">Every signal that fired for this firm — what schedule it came from and what was matched.</span></div>
       <div class="grow"><span class="gterm">Service Providers</span><span class="gdef">All firms this plan paid fees to (Schedule C Part 1, all 3 items), with 9AT adviser/fund matches where found.</span></div>
       <div class="grow"><span class="gterm">Fund Holdings</span><span class="gdef">DFE pooled fund investments from Schedule D Part 2, matched to 9AT funds where possible.</span></div>
-      <div class="grow"><span class="gterm">DOL Filings</span><span class="gdef">Tabbed links to each relevant schedule on EFAST2. Tabs only appear for schedules that have data for this firm.</span></div>
     </div>
     <div class="gsec"><h3>Signal Types</h3>
       <div class="grow"><span class="gterm">Sched C</span><span class="gdef"><strong>Tier 1.</strong> Plan paid fees to this adviser (Schedule C Part 1).</span></div>
