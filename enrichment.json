@@ -362,5 +362,55 @@
       "https://www.google.com/search?q=time+in+Kano,+NG",
       "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFi60z2CvyLW5qE2302gR-0WYxxOGEmOzHdcmsidej85MWYIR9GPFZp7HUektQ9DjBb8bUaWDSEo1tZ7chu3_o_ZmNBq8I0P1U7JVk7B14UHW3f09rTy7Lc2rr344Fgup84bY2vMh_stUDgAgF2"
     ]
+  },
+  "611756067": {
+    "firm_name": "ATRIUM HOSPITALITY LP",
+    "ein": "611756067",
+    "enriched_at": "2026-06-30T21:29:31.004Z",
+    "contacts": [
+      {
+        "name": "Michael Panzer",
+        "title": "SVP Capital Investments Strategies",
+        "email": "",
+        "phone": "",
+        "contact_type": "general",
+        "contact_notes": "No direct email or phone found. General firm contact information is available on the company website.",
+        "source": "https://atriumhospitality.com/our-team/",
+        "confidence": "high"
+      },
+      {
+        "name": "Rob Mangiarelli",
+        "title": "Chief Executive Officer",
+        "email": "",
+        "phone": "",
+        "contact_type": "general",
+        "contact_notes": "No direct email or phone found. General firm contact information is available on the company website.",
+        "source": "https://atriumhospitality.com/our-team/",
+        "confidence": "high"
+      },
+      {
+        "name": "Chris Dunne",
+        "title": "Chief Financial Officer & Treasurer",
+        "email": "",
+        "phone": "",
+        "contact_type": "general",
+        "contact_notes": "No direct email or phone found. General firm contact information is available on the company website.",
+        "source": "https://atriumhospitality.com/our-team/",
+        "confidence": "high"
+      }
+    ],
+    "existing_contact_assessment": {
+      "name": "ANNELIESSE COOPER",
+      "title": "Plan Administrator (Form 5500)",
+      "likelyInvestmentDecisionMaker": false,
+      "reasoning": "Anneliesse Cooper is listed on the Atrium Hospitality website as Chief Human Resources Officer. This role is typically focused on HR and benefits administration, not investment decision-making. The 'Plan Administrator (Form 5500)' title is consistent with an HR/benefits role."
+    },
+    "notes": "General firm contact information found: Email: info@atriumhospitality.com, Phone: 833-287-4864. No direct contact information for specific individuals was published on the official website or other credible public sources.",
+    "grounding_sources": [
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEcKayom1nuqxj065vjOl-OHhYm_mlLxR2adUry_OHdjkm1pYOujUzEi-OFrrpHaSAvq7ZaJVdnhNdmcNp__Xa3UUKi5oS4YTeKbWH--UkOG-U_J_cKxK_8wm-Ry6zDUnOmc9oj",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHIBnBo1H_bJsYY2KxuP7jtq-dBxQnseAy2RYmtNk2weX4dS9f_n3DH3Zv-fYOCoXyyfO_X9UWhM4w0PhuRtnXdmT6A_DMnOYjS6P7CbjFuqXPMruY_5gTBFNEcnds=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEY5u5yJQ6FA5G2O3sVHhf0enQNaKZBt4r4Wgf9uFtnvN8GKDsvLluskk9FEMYHYMDM_UTNc-xoTLB6C5vz0dVp0CnO6wh3KmO6OL0fEa9lnxewLSzLNBSXabvpbtQkXKHV8VKIDg==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFuVI9Q3JqOkGOtWXbzldO_PxLZ5biDIajRgtDbmmSUqFyHLZOPGfWc5AZM1U3E7Z8kJj0w74D1-x9M8ys_JAWVBvUXo_beeGWI6ykJpNoBYaYbYHuZiiZ4AvO4MCw05SVNPcI="
+    ]
   }
 }
