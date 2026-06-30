@@ -465,6 +465,61 @@
       "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFi60z2CvyLW5qE2302gR-0WYxxOGEmOzHdcmsidej85MWYIR9GPFZp7HUektQ9DjBb8bUaWDSEo1tZ7chu3_o_ZmNBq8I0P1U7JVk7B14UHW3f09rTy7Lc2rr344Fgup84bY2vMh_stUDgAgF2"
     ]
   },
+  "582508794": {
+    "firm_name": "DELTA APPAREL, INC.",
+    "ein": "582508794",
+    "enriched_at": "2026-06-30T21:30:58.082Z",
+    "contacts": [
+      {
+        "name": "Justin Grow",
+        "title": "Executive Vice President & Chief Administrative Officer",
+        "email": "investor.relations@deltaapparel.com",
+        "phone": "864-232-5200 x6604",
+        "contact_type": "direct",
+        "contact_notes": "Email and phone listed as 'Company Contact' for investor relations in a press release.",
+        "source": "Delta Apparel, Inc. SEC Filing (Form 8-K, December 7, 2023)",
+        "confidence": "high"
+      },
+      {
+        "name": "Tom Filandro",
+        "title": "Investor Relations (ICR, Inc.)",
+        "email": "",
+        "phone": "646-277-1235",
+        "contact_type": "direct",
+        "contact_notes": "Phone number listed as external investor relations contact for ICR, Inc.",
+        "source": "Delta Apparel, Inc. Press Releases (e.g., December 1, 2023, July 2, 2024)",
+        "confidence": "high"
+      },
+      {
+        "name": "J. Tim Pruban",
+        "title": "Chief Restructuring Officer (Focus Management Group)",
+        "email": "info@focusmg.com",
+        "phone": "773-724-2082",
+        "contact_type": "general",
+        "contact_notes": "General contact information for Focus Management Group, where J. Tim Pruban is President and serves as CRO for Delta Apparel. No direct email or phone for him was found.",
+        "source": "Focus Management Group website, News articles regarding Delta Apparel's CRO appointment",
+        "confidence": "medium"
+      }
+    ],
+    "existing_contact_assessment": {
+      "name": "JEOFFREY BURTCH- BANKRUPTCY TRUSTEE",
+      "title": "Plan Administrator (Form 5500)",
+      "likelyInvestmentDecisionMaker": false,
+      "reasoning": "Jeoffrey L. Burtch is identified as a Chapter 7 Bankruptcy Trustee involved in bankruptcy cases, including one related to Delta Apparel, Inc. (Case No. 24-11469 (LSS)). His role as a bankruptcy trustee or plan administrator is a legal and administrative function focused on managing a bankrupt estate, not making investment decisions for an operating company. Delta Apparel, Inc. itself filed for Chapter 11 bankruptcy on June 30, 2024."
+    },
+    "notes": "Robert W. Humphreys (former CEO) and S. Simone C. Walsh (former CFO) were initially considered but were excluded as they have both resigned from their positions at Delta Apparel, Inc.. The company filed for Chapter 11 bankruptcy on June 30, 2024.",
+    "grounding_sources": [
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEURBczN7IYOSGnUIdusmXx5kajzzot68wS1CFNRvaes48aDvnDOFEgQoF-dEZj7OgsIvqU5Vtn52t6L6Qa71tgZWxnL_HBQE1vi6O6lwpLjJ2MDLOpQQIHnGONszU=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGKyUHE99P8uhzk1sumz9cImAUfIj2wQt093kbg-XC2VOfGId2wi7DEW4RwvT0Kp_i3-5cNjWgIegvV6PvMknHVH-2M1ooxP2sQxFsIPWiSb49W",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH4LwzRmb3f1yzRLQ5Qq1QrGoBNgCjyRDlpzygWX2PDc8k2XgDDZuJlum-c3lJ9VeLvHnJUCT9CXC-tgn1rz_j8vjRTnj3dkRmaGhhwGBIxw3f0bQ0XdcAlCeRDhA==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEK32jgScdtQRniO-kTNo7MjMah8O4AGcAIc9lFTLGIKxtXA_kOIQkewO0nPtv6OQefFGF1gxi8njcpz89bgjA_7hKJkxi3FHuL2YtYMG-4_EjwyI1KAi3kf4Fjug==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEG-L53y-kmKPCQvzQgSIk-C9jv3PcxL0g5Nf3enHc9_JKqb0jms7Bb8Axrkv7Wx7bmNDtit43LKsK3FjVfglDqKkscc0fWZP_Tcnhy6LoWVWwiJ-1fqswGGpBVps3byVzEA59-lsJ2T8zNc81v_Sk92BVVniFCFVESg4VOCQ2vNy5tthtC4MpNmrTwxPfFaiT3Brwud-8GjedH",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF6Ql8JKL5TEEzF6uOEvTn00M_SnORJsz0muTMB5h7zb3tDuSqjkc8Glpf8t5_9g3NJrjOkHO1tjrt9gbkWcu8iTygCSBkHQd-joclL5Xv8LaoBLBLoQM3zJa-RlgzuKej1IYJS_mcXfxTfa9zrV00FsLFWSNDiCDqMQOzao_mBDVzS2KdbzCwdz14nlA7EwRZVkJECgyDSSLgIsB3cAQ14LlfqMnzIROeClCiYlcrJfCLMGtU6mlKPgEKQbsO0",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEcCiU3kv1y8XiIgYQ4AUWiJdeqastUWlqzuBX1EpZdRNpmdLDkXxsqykPHt2xPN64aCZJVEwiUSrxUjC13gpqnkXju0FDPiwbDcfYCXqGpP7vlMlHgWTpuPAQ3G9NeU3C8jAvI5Idg_juXllpx7hguOiA90QXuw_RJQfZ0dQ8ahaWN5VYTk3momxPkMQ8xENO9OiIGQhZ5EDVzzMwoNuGklUCTSpUb0mU8pSgJlgL7PtE=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHmdKgj_Ew-S0v2LGQ_Kmuwih0rcZJ5L0hRVvxkkdBQCV42qpIPnHgVgxuQ5qHIpsUbJM_k0fMXsW6pW2u9A3oiXGzIc1_fsJ5pUPu8StmwelT_gNs=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHB1Xs66_xjwWXgjK8xg7oAXMWtdP0ZNDfI_HJaB3o3z_Ql1ZvBqthBqUKYpxroPtlotGRYaW97qAFXFMzaS-Rw7MKh5XT73wTc1McaPDK0YJYY0sTaJUVfMuO8Nd9Onpg3GTLCdCa-nCteGugASeRja95VtbgEJrdq_0eXV7MLUUzNiJLo1gxWYEzmSoiAWO9N39bH1enHVhf_MU4E"
+    ]
+  },
   "611756067": {
     "firm_name": "ATRIUM HOSPITALITY LP",
     "ein": "611756067",
