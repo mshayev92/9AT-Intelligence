@@ -124,5 +124,34 @@
       "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFDb8IM_FaUjde2lj7wKVpdTARXeYGBVbpepSa3QjZeSZY3BX6CdzpPWdTT6-7cG2k6Zy-N0CSuqUpjD_WGi7VGmTzMZ8DPBJ3zsIA-m-NvmrbD89c9qL02U1HvpLnIbzkmrDLNmPp04BmFRpMx9rKziYM0bQsjC3mOHxPh3st7JGTKzVVnvstb-zy2ZYT2Kdh18nbEO0TtNN7BURPTopiP5e2zQr_jlsbaXqLUIg==",
       "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFK1OOY8t8O6RwczkWzoPvPkFzEASG8AJLLgOxKRExKF3e-B-kiYIDyyJJXBIyVdJCjYZqzRF2wmRXVhMBZc1QKzvO-0SNYUM2uEnVhtHEAgKB7Q0x-ziBh_M38LYtJVo4buvmGLfs6odPVZoBd-PISs8IJsgQQ"
     ]
+  },
+  "541189694": {
+    "firm_name": "SECURIGUARD, INC.",
+    "ein": "541189694",
+    "enriched_at": "2026-06-30T20:17:57.426Z",
+    "contacts": [
+      {
+        "name": "Patricia DeL. Marvil",
+        "title": "Chairman & Chief Executive Officer",
+        "email": "",
+        "phone": "(703) 821-6777",
+        "contact_type": "general",
+        "contact_notes": "No direct email found. General firm phone number provided. Role is not investment-focused.",
+        "source": "Securiguard Leadership page on securiguardinc.com [cite: 6 (from previous search)]",
+        "confidence": "high"
+      }
+    ],
+    "existing_contact_assessment": {
+      "name": "REGINA KANO",
+      "title": "Plan Administrator (Form 5500)",
+      "likelyInvestmentDecisionMaker": false,
+      "reasoning": "SECURIGUARD, INC. is primarily a security services company, not a financial firm. A 'Plan Administrator (Form 5500)' typically handles the administrative aspects of employee benefit plans, such as 401k, rather than making investment decisions for the firm's capital. No information was found online to suggest her role involves investment decision-making for the firm."
+    },
+    "notes": "SECURIGUARD, INC. is a security services company, not a financial firm. Therefore, no individuals with titles directly related to investment decision-making, allocation, or investor relations (in the context of a financial firm) were found on their official website or other credible public sources. The contact listed is a key leader, but their role is in security operations and management, not investment management. The provided phone number is a general firm contact. No direct email addresses for individuals or a general investor relations email were found for the U.S.-based SECURIGUARD, INC.",
+    "grounding_sources": [
+      "https://www.google.com/search?q=time+in+Bunkure,+NG",
+      "https://www.google.com/search?q=time+in+Kano,+NG",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFi60z2CvyLW5qE2302gR-0WYxxOGEmOzHdcmsidej85MWYIR9GPFZp7HUektQ9DjBb8bUaWDSEo1tZ7chu3_o_ZmNBq8I0P1U7JVk7B14UHW3f09rTy7Lc2rr344Fgup84bY2vMh_stUDgAgF2"
+    ]
   }
 }
