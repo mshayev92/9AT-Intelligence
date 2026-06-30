@@ -575,6 +575,34 @@ let dbData  = [];
 let dbIndex = {};
 let enrichIndex = {};
 
+// Fast-lookup caches mirroring enrichIndex, kept in sync at the few points
+// where enrichIndex actually changes (bulk load + single-firm enrich). This
+// turns aiHasEmail()/wasAiEnriched() — called for every row, often inside
+// sort comparators — from an object-lookup-plus-array-scan into an O(1) Set
+// lookup. Purely a perf cache; never read/written anywhere else.
+let aiEmailEins = new Set();
+let aiEnrichedEins = new Set();
+function rebuildAiCaches() {
+  aiEmailEins = new Set();
+  aiEnrichedEins = new Set();
+  for(const ein in enrichIndex) {
+    aiEnrichedEins.add(ein);
+    if((enrichIndex[ein].contacts||[]).some(c => c && c.email)) aiEmailEins.add(ein);
+  }
+}
+function setEnrichRecord(ein, rec) {
+  enrichIndex[ein] = rec;
+  aiEnrichedEins.add(ein);
+  if((rec.contacts||[]).some(c => c && c.email)) aiEmailEins.add(ein); else aiEmailEins.delete(ein);
+}
+
+// Bumped whenever dbData/enrichIndex/contactedSet change in a way that can
+// affect filtered results, so getFilteredDB() can safely cache its output
+// across calls that share the same filter/search/sort inputs (e.g. clicking
+// between pages of the same filtered view doesn't need to re-filter+re-sort
+// the whole dataset each time).
+let dbVersion = 0;
+
 const SIG_TIER = {
   schedule_c:1, schedule_c_fund:1, schedule_d_adviser:1,
   schedule_d_fund:1, schedule_h:1, direct_adviser:2, direct_fund_adviser:2,
@@ -594,14 +622,12 @@ let lastStats = {};
 // (the original enrich_priority==='READY'), OR the AI enrichment run found
 // a usable contact email for it.
 function aiHasEmail(ein) {
-  const enrich = enrichIndex[ein];
-  if(!enrich) return false;
-  return (enrich.contacts||[]).some(c => c && c.email);
+  return !!ein && aiEmailEins.has(ein);
 }
 // True if AI enrichment has been run for this firm at all (regardless of
 // whether it turned up a usable email).
 function wasAiEnriched(ein) {
-  return !!enrichIndex[ein];
+  return !!ein && aiEnrichedEins.has(ein);
 }
 // True if the firm has a usable email either on file already, or found by
 // AI enrichment. Used for the "Has Email" stat so AI-found emails count.
@@ -642,6 +668,7 @@ function reconcileEnrichedFirms() {
   if(moved.length) {
     // Stop tracking them as "selected for enrichment" since they're done.
     moved.forEach(a => { if(a.ein) epSelected.delete(a.ein); });
+    dbVersion++;
     refreshEnrichStats();
     renderDB();
     renderEnrichPanel();
@@ -669,6 +696,7 @@ function setContacted(ein, val) {
   if(!ein) return;
   if(val) contactedSet.add(ein); else contactedSet.delete(ein);
   saveContacted();
+  dbVersion++;
 }
 loadContacted();
 
@@ -759,11 +787,41 @@ function ebadge(ep) {
   return ep&&ep!=='SKIP' ? `<span class="ebadge ep-${ep}">${lbl[ep]||ep}</span>` : '';
 }
 
+// ── Search index cache ───────────────────────────────────────────────────────
+// getFilteredDB() does a substring search across many fields per allocator
+// (firm/plan/location, service providers, investments, signal connections,
+// on-file contacts, AI-found contacts). Rebuilding that joined/lowercased
+// string from scratch for every row on every keystroke is wasted work since
+// the underlying fields rarely change. Instead we precompute it once per row
+// (cached on the row as `_hay`) and only refresh it when the inputs that feed
+// it actually change: a fresh data load, or new AI enrichment results.
+function buildHay(a) {
+  const rels = a.at9_relationships || [];
+  const aiContacts = (enrichIndex[a.ein]?.contacts) || [];
+  return [
+    a.firm_name, a.plan_name, a.location,
+    ...(a.service_providers||[]).map(s=>s.provider_name),
+    ...(a.investments||[]).map(i=>i.name),
+    ...rels.map(r=>r.matched_name+' '+r.connection),
+    ...(a.contacts||[]).map(c=>c.name+' '+c.title+' '+(c.email||'')),
+    ...aiContacts.map(c=>c.name+' '+c.title+' '+(c.email||'')),
+  ].join(' ').toLowerCase();
+}
+function refreshHayForEin(ein) {
+  const a = dbIndex[ein];
+  if(a) a._hay = buildHay(a);
+}
+function refreshAllHay() {
+  dbData.forEach(a => { a._hay = buildHay(a); });
+}
+
 // ── Load combined JSON ────────────────────────────────────────────────────────
 function loadData(data) {
   dbData  = data.allocators || [];
   dbIndex = {};
   dbData.forEach(a => { dbIndex[a.ein] = a; });
+  refreshAllHay();
+  dbVersion++;
 
   const s = data.stats || {};
   lastStats = s;
@@ -786,6 +844,13 @@ function loadData(data) {
 }
 
 // ── Filter + sort ─────────────────────────────────────────────────────────────
+// Memoized on (filter/search/sort inputs + dbVersion) so that actions which
+// don't change those inputs — e.g. paging through the same filtered view, or
+// the CSV export / copy-emails buttons reading back the view that's already
+// on screen — reuse the last computed result instead of re-filtering and
+// re-sorting the full dataset.
+let _filteredCacheKey = null;
+let _filteredCacheRows = null;
 function getFilteredDB() {
   const q       = document.getElementById('db-search').value.toLowerCase();
   const sigF    = document.getElementById('db-filter-signal').value;
@@ -793,6 +858,9 @@ function getFilteredDB() {
   const dataF   = document.getElementById('db-filter-data').value;
   const outreachF = document.getElementById('db-filter-outreach').value;
   const sort    = document.getElementById('db-sort').value;
+
+  const cacheKey = q+'\u0001'+sigF+'\u0001'+enrichF+'\u0001'+dataF+'\u0001'+outreachF+'\u0001'+sort+'\u0001'+dbVersion;
+  if(_filteredCacheKey === cacheKey) return _filteredCacheRows;
 
   let rows = dbData.filter(a => {
     const rels  = a.at9_relationships || [];
@@ -812,22 +880,24 @@ function getFilteredDB() {
     if(outreachF==='contacted'     && !isContacted(a.ein)) return false;
     if(outreachF==='not_contacted' && isContacted(a.ein)) return false;
     if(!q) return true;
-    const aiContacts = (enrichIndex[a.ein]?.contacts) || [];
-    const hay = [
-      a.firm_name, a.plan_name, a.location,
-      ...(a.service_providers||[]).map(s=>s.provider_name),
-      ...(a.investments||[]).map(i=>i.name),
-      ...(rels).map(r=>r.matched_name+' '+r.connection),
-      ...(a.contacts||[]).map(c=>c.name+' '+c.title+' '+(c.email||'')),
-      ...(aiContacts).map(c=>c.name+' '+c.title+' '+(c.email||'')),
-    ].join(' ').toLowerCase();
-    return hay.includes(q);
+    return (a._hay || buildHay(a)).includes(q);
   });
 
   if(sort==='firm_az')           rows.sort((a,b)=>(a.firm_name||'').localeCompare(b.firm_name||''));
   else if(sort==='participants_desc') rows.sort((a,b)=>(Number(b.participants)||0)-(Number(a.participants)||0));
   else if(sort==='signals_desc') rows.sort((a,b)=>(b.at9_relationships||[]).length-(a.at9_relationships||[]).length);
-  else rows.sort((a,b)=>(ENRICH_ORDER[effectivePriority(a)]||9)-(ENRICH_ORDER[effectivePriority(b)]||9)||(Number(b.participants)||0)-(Number(a.participants)||0));
+  else {
+    // Default sort needs effectivePriority(a) for every row; compute it once
+    // per row up front (Schwartzian transform) instead of letting the sort
+    // comparator recompute it on both sides of every comparison.
+    rows = rows
+      .map(a => ({ a, p: ENRICH_ORDER[effectivePriority(a)]||9, n: Number(a.participants)||0 }))
+      .sort((x,y) => x.p-y.p || y.n-x.n)
+      .map(x => x.a);
+  }
+
+  _filteredCacheKey = cacheKey;
+  _filteredCacheRows = rows;
   return rows;
 }
 
@@ -1443,7 +1513,7 @@ async function enrichFirmCore(ein) {
     // Merge the fresh result straight into local state so the UI updates
     // immediately, without needing a page reload.
     const foundContacts = (data.enrichment?.parsed?.contacts) || [];
-    enrichIndex[ein] = {
+    setEnrichRecord(ein, {
       firm_name: ref.firm_name,
       ein: ein,
       enriched_at: new Date().toISOString(),
@@ -1451,7 +1521,9 @@ async function enrichFirmCore(ein) {
       existing_contact_assessment: (data.enrichment?.parsed?.existingContactAssessment) || null,
       notes: (data.enrichment?.parsed?.notes) || null,
       grounding_sources: data.enrichment?.groundingSources || [],
-    };
+    });
+    refreshHayForEin(ein);
+    dbVersion++;
     // The call can succeed without actually turning up a usable email — that's
     // not a failure, but it's also not "Ready", so callers need to be able to
     // tell the difference.
@@ -1670,12 +1742,15 @@ fetch('9at_intelligence.json').then(r=>r.ok?r.json():Promise.reject()).then(d=>{
 // Soft-fails if the file doesn't exist yet (e.g. before the first Enrich run).
 fetch('enrichment.json').then(r=>r.ok?r.json():Promise.reject()).then(d=>{
   enrichIndex = d || {};
+  rebuildAiCaches();
+  refreshAllHay();
+  dbVersion++;
   // enrichment.json can resolve before or after 9at_intelligence.json — once
   // both are in, recompute the Ready/Enrich stats and re-render so AI-found
   // emails are reflected immediately. reconcileEnrichedFirms() covers the
   // recompute/re-render itself (it's a no-op if dbData isn't loaded yet).
   reconcileEnrichedFirms();
-}).catch(()=>{ enrichIndex = {}; });
+}).catch(()=>{ enrichIndex = {}; rebuildAiCaches(); });
 </script>
 
 <!-- ── GLOSSARY ── -->
