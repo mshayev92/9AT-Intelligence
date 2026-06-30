@@ -2,38 +2,53 @@
   "232259884": {
     "firm_name": "VERIZON COMMUNICATIONS INC.",
     "ein": "232259884",
-    "enriched_at": "2026-06-30T19:24:21.263Z",
+    "enriched_at": "2026-06-30T19:57:51.936Z",
     "contacts": [
       {
         "name": "Larry Fulton",
         "title": "Chief Investment Officer (CIO) for Verizon Investment Management Corp (VIMCO)",
-        "source": "https://cieba.org/board-biographies/, https://www.pionline.com/events/laurence-fulton, https://www.top1000funds.com/funds/verizon-investment-management/, https://www.ai-cio.com/power-100/2022-power-100/laurence-fulton/",
-        "confidence": "high"
-      },
-      {
-        "name": "Colleen Ostrowski",
-        "title": "Senior Vice President and Head of Investor Relations",
-        "source": "https://www.verizon.com/about/investors/contact-investor-relations, https://www.pionline.com/investment-council-member-bio-ostrowski, https://www.youtube.com/watch?v=y20qG2_z_7o",
+        "email": "",
+        "phone": "",
+        "contact_type": "none",
+        "contact_notes": "No direct email or phone number found. General firm-level investor relations contact information is available but not tied to this specific person.",
+        "source": "Board Biographies - cieba, Pensions and Investments, Top1000funds.com, AI CIO",
         "confidence": "high"
       },
       {
         "name": "Stephen Blundin",
         "title": "Vice President – Equities & Alternatives, Verizon Investment Management Corp.",
-        "source": "https://www.ai-cio.com/nextgens/2019-nextgens/stephen-blundin/",
+        "email": "",
+        "phone": "",
+        "contact_type": "none",
+        "contact_notes": "No direct email or phone number found. General firm-level investor relations contact information is available but not tied to this specific person.",
+        "source": "Chief Investment Officer - AI CIO",
+        "confidence": "high"
+      },
+      {
+        "name": "Colleen Ostrowski",
+        "title": "Senior Vice President and Head of Investor Relations",
+        "email": "",
+        "phone": "(212) 395-1525",
+        "contact_type": "general",
+        "contact_notes": "No direct email found. General Investor Relations phone number from a 2008 SEC filing.",
+        "source": "Investment Council Member Bio Ostrowski, About Verizon, YouTube",
         "confidence": "high"
       }
     ],
-    "existing_contact_assessment": null,
-    "notes": null,
+    "existing_contact_assessment": {
+      "name": "ARLEEN PRESTON",
+      "title": "Plan Administrator (Form 5500)",
+      "likelyInvestmentDecisionMaker": false,
+      "reasoning": "Searches for 'Arleen Preston Verizon' did not yield any current information linking her to investment decision-making roles. Her title 'Plan Administrator (Form 5500)' typically indicates a role in benefits administration, HR, or plan compliance, rather than direct investment management."
+    },
+    "notes": "The general investor relations phone number (212) 395-1525 was found in a 2008 SEC filing. While dated, it is the most specific IR phone number found from an official source. Other phone numbers found were for shareowner services (Computershare) or from a third-party real estate site for Verizon Wireless, which are not suitable for institutional investor relations for Verizon Communications Inc. No direct email addresses were found for any of the named contacts.",
     "grounding_sources": [
-      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEHRgNmxUStTH0SFE4-WhkKQbeNTMWlXIVA7S35D7DcWJjIRNZnFtGLAnBNiI5I4svNr9wA6bpD8ymKW8ITHiw-YA8gwKDsrjHLHjBg8IdY4cWldvlPiRvrylz74LeYQMClCA==",
-      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFjvaE25EkHpJ9hObIV2Qe9IlLfWDemv9YZ9XsOV1xDuChC_6zdP0-qO7-Pf-WVtMKSTygrQyhg-15_hIOLEVnC__ufkXSS29uxP6Fw6txfrMAAE2ygkzctevaptBaOokZjgPAc9Lm6CIe-z-Qw-niwkO0bYmYgH3cpJD4QvGIk0Cg6ZDA9gl_u7G_oy2Sa0Mbv",
-      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH25cIrKLii_z3_aTt8WWjXTYiA5ubuSorf5p2q8-otJbFFq0KdRlsihbM3_jQP-eutNOtTwHuvokyHGPWzFQ8CObShRFPOGkSw61t4VF5vN4yJ_iRqjwLQI9y7XWprlZ0sQ7ScAmuu4rKsWBfYetdYxhy8iy2D0SROEsF2pYv9Rzpc",
-      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF4-7G8g_-IoTxDeGFwoSlHN5_xuB-LdhoL8lyGJgKhhfSgOOuJ2_4aFnkcLEuHYV-pXdjmiqpb2PeMulBvBUib_7kRaeHxRYYk6vj_yNmN1iRUrU7tHLlPYi3ouzMGGYr131tJ9FWH5scd-GeKM2Xtf7CQ_64=",
-      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEJCAerZh--G1oiGgRsT6Z-6b1aFP50nmFWspTCBA8VkmOLlqMo4E3G1seCsKUTpNzDuDtN1NEsOIVuW_Rdh2e3NaF0IESeDkeKhlcXZZZdM7pbTaU8CM8LrNzu50rXEqTzMiEYGNRb-Sql2AGx9sIRoF0Eq8S3Msiw2yksvg==",
-      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGYjY3S3_WRJ4PKDNgtvHvZzQr3y9R5iqKjCrpEfQuOGbXcbsYtWlv_Ya8g4by-qcPCJelcRZcmUekQu3NZsUXDPmMdWwt82eA6ws080i93xQE8Gaxho0AxGVaWFTJyywlCYhz5icwaUD7epnoGuI6tykEL2-P9",
-      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHGVvghGljEw3C32wTh5UlweLj6LYtypeaAYB8j0xdVjNPQ6MFLACEP_7pH-cXnZYhah1uGuc7o6TVhuhGB-eVw3I6_6sZdcKwF4phJzYeh6KBUmW6ZbNuXJinAzAtiscH5z3KRjWY=",
-      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEwzqLiXc6NYOEzcUxlYZ1ZUvea2C1cdzgwptDNCswRrfNQxtuvZqdyrt89iUeTfGKOUiCcxz9p7dS_6bq7ZiFlod_PSr_AMSAqFsgE4eEb0n8HZ9lhSl2UmPLBXHbWT-hekaHpQLub2P1HsnHoBXg="
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFzSFlDAnyY7ZuYzt-AL-dTkpDSJ3XL67r58RXZbsO-D4hAKJZmSV2txkPtkZvTGb_T6MwK2wXYzH6xePprK3jcn0QUmkWlw3ysEr0O4oWeSxDlEQWT7jaT9GtDz312IzENQyb7LBAUVHCdY1ewnnUaaTohTIJMFrBcoxjTSIZHCP8lyucBd84=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEq-E55_5v60HwZwI1QPeIp2XYX5vocX2OT35qFqdloWQz6XEk-Il62OUlMTv3eQkiKwPwvtlch-w-XJrPEUkUDG1WwQonpTMy_xAKhMd3MXaZgogSV3dMBJv8nJ-1z2Sd7ljlmp6wB3P9mOKLqFoN9zJE-ZdpO",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFDBzqI3mvW37ilxjtkOATIkaddkKjEE7EcWzQ3GmC_FgV1YdBL9bAojZe8CkARSZPaJWmDh3PWYXtLGqWvxWhz5siNm8-4RUHV0u_o_IRNDG45ZNTg7d7ASJtG8XKhzzw5SnB328diFbD93-t8N_0s",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHA8LGzrd8Lu4ukCHzIge0Hg-Z2GKN6ICEHaItUxrL_pA--FWYBj2O88kRqDcvSztiSdkEOa9D4HoEligg9sOBFN5V1l03YfOUnGYLL0DEcLQJqf9c5Dyalu_i6jvZnvuxu2bkHmPZGhbNdBeStUEe_tO4PPnyAgP7YOyqFFno1ZHGZOgQ31ZLCJkrfvqo7ll9YByDt1AlIX8_HyvWXlVsZ",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQELXRt3D6HjRViga_hzx6KsfTK4pzRVKReYC741iARWDLvZ62yG1gEN7fVworZXt1zUdtnVU-JRouLRv8fAfQbDDLvy2-opOGEhFEa1HGYZjVhgM9PIzOqMaSx3kFDX-549jwp_wi_msSQ3Iz8N1w301jD3lx-pfcUNeA==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGHh_yfi8_SYaERI8c6YkduDDS8a32qIWCUEJf1X3zO3LxURvKtEdiO0IcC3B1u5Qc5Z_9zyAzirQfmfEcusCXFcsxCNRu5WO4H6suaLv4eqqF3W9sZczCbXS3mf2f5dvupHtvmxceW1524L4iY4ui7LyZ5QLghlIcch__tmu7nlh-cvFy00qSseYWhk6G3shfMo6w8qcWF6m-DxjY="
     ]
   },
   "472817157": {
