@@ -303,6 +303,37 @@
       "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGBZsftl31G9Fe2Ik4s5AlNfgtuQwdyZyT9SM1VOkIDlc_PRsTfh0CiPH9c43Zsvs4yPNBvRrcBNvD_B1hRRGIRSlyA7QI-6nr2bYlHOFTZtDHt678FUQVn2CCdAPz9TAOQbJWlsEaK4z8ykw=="
     ]
   },
+  "522239640": {
+    "firm_name": "VISION TECHNOLOGIES LLC.",
+    "ein": "522239640",
+    "enriched_at": "2026-06-30T21:29:21.983Z",
+    "contacts": [
+      {
+        "name": "Lorri Jefferson",
+        "title": "President / Chief Compliance Officer / Investment Advisor Representative",
+        "email": "",
+        "phone": "",
+        "contact_type": "none",
+        "contact_notes": "No direct email or phone found. The Form ADV lists a placeholder phone number (000-000-0000). No general firm-level investor relations contact found for the financial advisory firm.",
+        "source": "Radient Analytics Form ADV filing for VISION TECH FINANCIAL ADVISORS, Vision Tech Group website",
+        "confidence": "high"
+      }
+    ],
+    "existing_contact_assessment": {
+      "name": "JONATHAN PHILLIPS",
+      "title": "Plan Administrator (Form 5500)",
+      "likelyInvestmentDecisionMaker": false,
+      "reasoning": "JONATHAN PHILLIPS is listed as Executive Vice President, Finance at Vision Technologies, a systems integrator company, not the financial advisory firm 'VISION TECH FINANCIAL ADVISORS, VISION TECH GROUP LLC'. His title 'Plan Administrator' is typically associated with managing employee benefit plans, which aligns with an EVP of Finance role at a large operating company, rather than being an investment decision-maker or allocator for an external financial advisory firm."
+    },
+    "notes": "The firm name 'VISION TECHNOLOGIES LLC' is ambiguous. Based on the request for 'investment / investor relations contacts at a financial firm', the most relevant entity found is 'VISION TECH FINANCIAL ADVISORS, a DBA of Vision Tech Group LLC', which is an Investment Adviser Firm. Other entities with 'Vision Technologies LLC' in their name are primarily IT/AV/security integrators or other technology-focused businesses. Only one investment decision-maker, Lorri Jefferson, was identified for the financial advisory firm, and no usable contact information (direct or general) was found.",
+    "grounding_sources": [
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFHxbBKaLl1KNr0httrqTrXzpXdhxSHPovaVhEzoHIXYxsZ_b5FeL43jXFIWngmIpOLmel3tof-YmgOWZorCMUcrZO5Ziy0ST7S35riQKjR_O-Hxe6bAqF0QfytL0HqE8JZ7SpBDLw3ttXhswc9zBIJbpDp78kh8rDanvFing==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFfRMe7veF0S62MeIqtnGbHF6FEbadq-qadaYp1WVqPxkJE0gI6ya6k5dM_EjHinJdOlCKCvlKEvHw1PDaN9BpXmA9OTSqoi4YBvEspijSwsYRqoE3qQui951TwcqLcjic=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHv0tSSrxsIJFATdTCZWoWautPItfeWv-JoezXE_3vIq3kclRJqORq-7k7xMU-Agog6zH_Pn1tm8Gm3wRPIho3CVuEPQ0O6W7KmarPCXvkbttFs4GDxD_dLIH3ULZKakXcz7A==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEXvCWqt3q5KHRQOV6DbUQcAwCxb1Z6cJTgnSdTA0PEouSKlFkvIn8BzMWIsY5zC-IXlTS0Aw3MN6CAfCKvHnHbP9pLy_CT8vHGaE3-i5FI6yuYKpbKwUNccjCkuNuD1y42PdNq_MKnUWgi9b0=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFzFL-2vQREH6fQWMJXhbsE_MoQO-Vy8pQKzDHyFy6zWE8dNg3dX5npEHh9aTLeMt4CLh044MH0U-p35NQvmkXqx00hhkjSftAyPFtm06SoVGPaHpu3hv2oIKXt3HS0H51tZZzh4ZYT4QCK"
+    ]
+  },
   "541189694": {
     "firm_name": "SECURIGUARD, INC.",
     "ein": "541189694",
