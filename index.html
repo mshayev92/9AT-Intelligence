@@ -197,6 +197,10 @@ select { cursor: pointer; }
 select option { background: var(--card); }
 .ctrl-label { font-family: var(--mono); font-size: 10px; color: var(--muted); white-space: nowrap; }
 .result-count { font-family: var(--mono); font-size: 10px; color: var(--muted); padding: 0.5rem 2rem 0; }
+.result-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 0.5rem 2rem 0; flex-wrap: wrap; }
+.result-bar .result-count { padding: 0; }
+.result-actions { display: flex; gap: 8px; }
+.hdr-btn.small { padding: 4px 9px; font-size: 9px; }
 
 /* ── TABLE ── */
 .table-wrap { padding: 0.75rem 2rem 3rem; overflow-x: auto; }
@@ -258,6 +262,8 @@ tbody td { padding: 9px 10px; vertical-align: top; }
 .alloc-card:hover { border-color: var(--muted); border-left-color: var(--card-accent, var(--muted)); background: var(--card2); }
 .alloc-card.tier1 { --card-accent: var(--green); }
 .alloc-card.tier2 { --card-accent: var(--cyan); }
+.alloc-card.contacted { opacity: 0.55; }
+.alloc-card.contacted:hover { opacity: 0.85; }
 .ac-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
 .ac-head > div:first-child { min-width: 0; flex: 1 1 auto; }
 .ac-name { font-weight: 700; font-size: 13.5px; line-height: 1.3; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -272,6 +278,9 @@ tbody td { padding: 9px 10px; vertical-align: top; }
 .ac-bottom { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
 .ac-loc { font-family: var(--mono); font-size: 9px; color: var(--muted); }
 .ac-parts { font-family: var(--mono); font-size: 9px; color: var(--muted); }
+.ac-contacted { display: flex; align-items: center; gap: 6px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); font-family: var(--mono); font-size: 9.5px; color: var(--muted); cursor: pointer; user-select: none; }
+.ac-contacted input { accent-color: var(--green); cursor: pointer; width: 12px; height: 12px; }
+.alloc-card.contacted .ac-contacted { color: var(--green); }
 
 /* ── DRAWER ── */
 .drawer-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(8,11,15,0.72); backdrop-filter: blur(3px); }
@@ -296,6 +305,8 @@ tbody td { padding: 9px 10px; vertical-align: top; }
 .field-val { font-family: var(--mono); font-size: 11px; color: var(--text); word-break: break-word; }
 .field-val a { color: var(--cyan); text-decoration: none; }
 .field-val a:hover { text-decoration: underline; }
+.dr-contacted-toggle { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; user-select: none; }
+.dr-contacted-toggle input { accent-color: var(--green); cursor: pointer; width: 13px; height: 13px; }
 .sig-table { width: 100%; border-collapse: collapse; }
 .sig-table td { padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 11px; vertical-align: top; }
 .sig-table tr:last-child td { border-bottom: none; }
@@ -306,6 +317,10 @@ tbody td { padding: 9px 10px; vertical-align: top; }
 .cc-name { font-weight: 600; font-size: 12px; }
 .cc-title { font-family: var(--mono); font-size: 10px; color: var(--text2); margin-top: 1px; }
 .cc-row { font-family: var(--mono); font-size: 10px; color: var(--blue); margin-top: 3px; }
+.cc-row.copyable { cursor: pointer; display: inline-flex; align-items: center; gap: 5px; transition: color 0.12s; }
+.cc-row.copyable:hover { color: var(--green); }
+.cc-row.copyable .copy-hint { font-size: 8px; color: var(--dim); opacity: 0; transition: opacity 0.12s; }
+.cc-row.copyable:hover .copy-hint { opacity: 1; }
 
 /* Enrich feature */
 .enrich-btn {
@@ -325,6 +340,7 @@ tbody td { padding: 9px 10px; vertical-align: top; }
 .enrich-status { font-family: var(--mono); font-size: 9px; color: var(--muted); margin-top: 6px; }
 .enrich-status.err { color: var(--red, #e05a5a); }
 .enrich-status.ok { color: var(--green); }
+.enrich-status.warn { color: var(--yellow); }
 
 .contact-card.ai-found { border-color: var(--purple); background: var(--purple-dim); }
 .contact-card.ai-found .cc-name::after {
@@ -441,6 +457,7 @@ tbody td { padding: 9px 10px; vertical-align: top; }
     <div class="stat"><div class="stat-label">Has Sched C Data</div><div class="stat-value cyan" id="d-schc">—</div></div>
     <div class="stat"><div class="stat-label">Has Sched D/H</div><div class="stat-value purple" id="d-schdh">—</div></div>
     <div class="stat"><div class="stat-label">Has Email</div><div class="stat-value blue" id="d-email">—</div></div>
+    <div class="stat"><div class="stat-label">Contacted</div><div class="stat-value green" id="d-contacted">—</div></div>
   </div>
 
   <div class="enrich-panel" id="enrich-panel">
@@ -507,6 +524,12 @@ tbody td { padding: 9px 10px; vertical-align: top; }
       <option value="email">Email contact</option>
       <option value="contact">Any contact</option>
     </select>
+    <span class="ctrl-label">Outreach</span>
+    <select id="db-filter-outreach">
+      <option value="all">All</option>
+      <option value="not_contacted">Not contacted yet</option>
+      <option value="contacted">Already contacted</option>
+    </select>
     <span class="ctrl-label">Sort</span>
     <select id="db-sort">
       <option value="enrich">Priority (default)</option>
@@ -515,7 +538,13 @@ tbody td { padding: 9px 10px; vertical-align: top; }
       <option value="signals_desc">Most signals ↓</option>
     </select>
   </div>
-  <div class="result-count" id="db-count"></div>
+  <div class="result-bar">
+    <div class="result-count" id="db-count"></div>
+    <div class="result-actions">
+      <button class="hdr-btn small" id="copy-emails-btn" title="Copy every email address in the current filtered view">⧉ Copy Emails</button>
+      <button class="hdr-btn small" id="export-csv-btn" title="Export the current filtered view as CSV">⇩ Export CSV</button>
+    </div>
+  </div>
   <div class="pagination" id="db-pagination"></div>
   <div class="table-wrap" id="db-table-wrap">
     <div class="empty-state">
@@ -620,6 +649,29 @@ function reconcileEnrichedFirms() {
   return moved;
 }
 
+// ── Outreach tracking ────────────────────────────────────────────────────────
+// Lets the person mark a firm as "contacted" so it's easy to see what's left
+// to reach out to. Persisted locally per-browser (this is a solo/small-team
+// tool, not a shared CRM, so localStorage is sufficient).
+const CONTACTED_KEY = '9at_contacted_v1';
+let contactedSet = new Set();
+function loadContacted() {
+  try {
+    const raw = localStorage.getItem(CONTACTED_KEY);
+    contactedSet = new Set(raw ? JSON.parse(raw) : []);
+  } catch { contactedSet = new Set(); }
+}
+function saveContacted() {
+  try { localStorage.setItem(CONTACTED_KEY, JSON.stringify(Array.from(contactedSet))); } catch {}
+}
+function isContacted(ein) { return !!ein && contactedSet.has(ein); }
+function setContacted(ein, val) {
+  if(!ein) return;
+  if(val) contactedSet.add(ein); else contactedSet.delete(ein);
+  saveContacted();
+}
+loadContacted();
+
 // ── Enrichment password caching ─────────────────────────────────────────────
 // Ask for the password once per browser, then reuse it until it expires.
 const ENRICH_PW_KEY = '9at_enrich_pw_v1';
@@ -656,6 +708,11 @@ function refreshEnrichStats() {
   document.getElementById('d-ready').textContent  = fmtN(dbData.filter(a=>effectivePriority(a)==='READY').length);
   document.getElementById('d-enrich').textContent = fmtN(dbData.filter(a=>effectivePriority(a)==='HIGH').length);
   document.getElementById('d-email').textContent  = fmtN(dbData.filter(hasAnyEmail).length);
+  refreshContactedStat();
+}
+function refreshContactedStat() {
+  const el = document.getElementById('d-contacted');
+  if(el) el.textContent = fmtN(dbData.filter(a=>isContacted(a.ein)).length);
 }
 
 // ── Enrichment priority popup state ─────────────────────────────────────────
@@ -717,6 +774,7 @@ function loadData(data) {
   document.getElementById('d-schc').textContent   = fmtN(s.has_schedule_c       || dbData.filter(a=>(a.service_providers||[]).length>0).length);
   document.getElementById('d-schdh').textContent  = fmtN(s.has_schedule_d_h     || dbData.filter(a=>(a.investments||[]).length>0).length);
   document.getElementById('d-email').textContent  = fmtN(dbData.filter(hasAnyEmail).length);
+  refreshContactedStat();
   document.getElementById('hdr-status').innerHTML = `<span>${dbData.length.toLocaleString()} allocators loaded</span>`;
 
   // Enrichment priority panel
@@ -733,6 +791,7 @@ function getFilteredDB() {
   const sigF    = document.getElementById('db-filter-signal').value;
   const enrichF = document.getElementById('db-filter-enrich').value;
   const dataF   = document.getElementById('db-filter-data').value;
+  const outreachF = document.getElementById('db-filter-outreach').value;
   const sort    = document.getElementById('db-sort').value;
 
   let rows = dbData.filter(a => {
@@ -750,13 +809,17 @@ function getFilteredDB() {
     if(dataF==='schdh'     && !(a.investments||[]).length) return false;
     if(dataF==='email'     && !hasAnyEmail(a)) return false;
     if(dataF==='contact'   && !(a.contact_count_any>0)) return false;
+    if(outreachF==='contacted'     && !isContacted(a.ein)) return false;
+    if(outreachF==='not_contacted' && isContacted(a.ein)) return false;
     if(!q) return true;
+    const aiContacts = (enrichIndex[a.ein]?.contacts) || [];
     const hay = [
       a.firm_name, a.plan_name, a.location,
       ...(a.service_providers||[]).map(s=>s.provider_name),
       ...(a.investments||[]).map(i=>i.name),
       ...(rels).map(r=>r.matched_name+' '+r.connection),
       ...(a.contacts||[]).map(c=>c.name+' '+c.title+' '+(c.email||'')),
+      ...(aiContacts).map(c=>c.name+' '+c.title+' '+(c.email||'')),
     ].join(' ').toLowerCase();
     return hay.includes(q);
   });
@@ -777,6 +840,7 @@ function renderDBCard(a) {
   const spCount  = (a.service_providers||[]).length;
   const invCount = (a.investments||[]).length;
   const conCount = a.contact_count_any||0;
+  const contacted = isContacted(a.ein);
 
   // 9AT signal chips — shown upfront on the card
   let sigBlock = '';
@@ -795,7 +859,7 @@ function renderDBCard(a) {
     sigBlock = `<div class="ac-sigs"><span style="font-family:var(--mono);font-size:9px;color:var(--dim)">No 9AT signal</span></div>`;
   }
 
-  return `<div class="alloc-card${tierCls}" onclick="openDrawer('${esc(a.ein)}')">
+  return `<div class="alloc-card${tierCls}${contacted?' contacted':''}" onclick="openDrawer('${esc(a.ein)}')">
     <div class="ac-head">
       <div>
         <div class="ac-name">${esc(a.firm_name||'—')}</div>
@@ -813,7 +877,32 @@ function renderDBCard(a) {
       <span class="ac-loc">${esc(a.location)||'—'}</span>
       <span class="ac-parts">${a.participants ? fmtN(a.participants)+' participants' : ''}</span>
     </div>
+    <label class="ac-contacted" onclick="event.stopPropagation()">
+      <input type="checkbox" ${contacted?'checked':''} onchange="toggleContacted('${esc(a.ein)}', this.checked)">
+      <span>${contacted?'✓ Contacted':'Mark contacted'}</span>
+    </label>
   </div>`;
+}
+
+function toggleContacted(ein, checked) {
+  setContacted(ein, checked);
+  renderDB();
+  refreshContactedStat();
+  // Keep the drawer's contacted control in sync if it's open for this firm.
+  const drawerBtn = document.getElementById('drawer-contacted-toggle');
+  if(drawerBtn && drawerBtn.getAttribute('data-ein') === ein) {
+    drawerBtn.checked = checked;
+    const lbl = document.getElementById('drawer-contacted-label');
+    if(lbl) lbl.textContent = checked ? '✓ Marked as contacted' : 'Not contacted yet';
+  }
+}
+
+function toggleContactedFromDrawer(ein, checked) {
+  setContacted(ein, checked);
+  const lbl = document.getElementById('drawer-contacted-label');
+  if(lbl) lbl.textContent = checked ? '✓ Marked as contacted' : 'Not contacted yet';
+  renderDB(); // keep the card grid behind the drawer in sync
+  refreshContactedStat();
 }
 
 function renderPagination(containerId, currentPage, totalPages, goFn) {
@@ -856,10 +945,74 @@ function renderDB() {
 
 function goDBPage(p) { dbPage=p; renderDB(); window.scrollTo(0,0); }
 
+// ── Best email + CSV export / bulk copy ─────────────────────────────────────
+// Picks the single best email to use for outreach: prefer an existing Form
+// 5500 contact's email, fall back to the first AI-found contact with one.
+function bestEmail(a) {
+  const onFile = (a.contacts||[]).find(c => c && c.email);
+  if(onFile) return onFile.email;
+  const aiContacts = (enrichIndex[a.ein]?.contacts) || [];
+  const aiFound = aiContacts.find(c => c && c.email);
+  return aiFound ? aiFound.email : '';
+}
+function bestContactName(a) {
+  const onFile = (a.contacts||[]).find(c => c && c.email);
+  if(onFile) return onFile.name||'';
+  const aiContacts = (enrichIndex[a.ein]?.contacts) || [];
+  const aiFound = aiContacts.find(c => c && c.email);
+  return aiFound ? (aiFound.name||'') : '';
+}
+
+function csvCell(v) {
+  const s = v==null ? '' : String(v);
+  return /[",\n]/.test(s) ? `"${s.replace(/"/g,'""')}"` : s;
+}
+
+function exportFilteredCSV() {
+  const rows = getFilteredDB();
+  if(!rows.length) { alert('No rows to export — adjust your filters.'); return; }
+  const headers = ['Firm Name','Plan Name','EIN','Location','Participants','Enrich Status','Best Contact Name','Best Email','9AT Signals','Contacted'];
+  const lines = [headers.map(csvCell).join(',')];
+  rows.forEach(a => {
+    lines.push([
+      a.firm_name||'', a.plan_name||'', a.ein||'', a.location||'', a.participants||'',
+      effectivePriority(a), bestContactName(a), bestEmail(a),
+      (a.at9_relationships||[]).length, isContacted(a.ein) ? 'Yes' : 'No',
+    ].map(csvCell).join(','));
+  });
+  const blob = new Blob([lines.join('\n')], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  const stamp = new Date().toISOString().slice(0,10);
+  link.href = url;
+  link.download = `9at_allocators_${stamp}.csv`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+}
+
+function copyFilteredEmails() {
+  const rows = getFilteredDB();
+  const emails = [...new Set(rows.map(bestEmail).filter(Boolean))];
+  if(!emails.length) { alert('No emails found in the current filtered view.'); return; }
+  navigator.clipboard?.writeText(emails.join(', ')).then(() => {
+    const btn = document.getElementById('copy-emails-btn');
+    if(!btn) return;
+    const prev = btn.textContent;
+    btn.textContent = `✓ Copied ${emails.length}`;
+    setTimeout(() => { btn.textContent = prev; }, 1800);
+  }).catch(() => { alert('Could not copy to clipboard.'); });
+}
+
+document.getElementById('export-csv-btn').addEventListener('click', exportFilteredCSV);
+document.getElementById('copy-emails-btn').addEventListener('click', copyFilteredEmails);
+
 document.getElementById('db-search').addEventListener('input', debounce(()=>{ dbPage=1; renderDB(); }, 250));
 document.getElementById('db-filter-signal').addEventListener('change', ()=>{ dbPage=1; renderDB(); });
 document.getElementById('db-filter-enrich').addEventListener('change', ()=>{ dbPage=1; renderDB(); });
 document.getElementById('db-filter-data').addEventListener('change', ()=>{ dbPage=1; renderDB(); });
+document.getElementById('db-filter-outreach').addEventListener('change', ()=>{ dbPage=1; renderDB(); });
 document.getElementById('db-sort').addEventListener('change', ()=>{ dbPage=1; renderDB(); });
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -1166,6 +1319,18 @@ function renderSchedH(sh) {
 // ── Enrich feature ──────────────────────────────────────────────────────────
 const ENRICH_WORKER_URL = 'https://9at-enrich.michaelshayevich92.workers.dev/';
 
+// Click-to-copy for contact emails. Briefly swaps the row's hint text to
+// confirm the copy, then reverts.
+function copyEmail(el, email) {
+  navigator.clipboard?.writeText(email).then(() => {
+    const hint = el.querySelector('.copy-hint');
+    if(!hint) return;
+    const prev = hint.textContent;
+    hint.textContent = 'copied!';
+    setTimeout(() => { hint.textContent = prev; }, 1200);
+  }).catch(() => {});
+}
+
 function confidenceBadge(conf) {
   const c = (conf||'').toLowerCase();
   if(!['high','medium','low'].includes(c)) return '';
@@ -1189,6 +1354,7 @@ function renderContactsSection(ein, ref, contacts) {
     <div class="dsec-title">
       Investment Decision-Makers <span class="dsec-badge">${contacts.length} contact${contacts.length!==1?'s':''}</span>
       <button class="enrich-btn" id="enrich-btn" onclick="runEnrich('${esc(ein)}')">⚡ Enrich</button>
+      ${(enrich && !aiHasEmail(ein)) ? `<span class="ebadge ep-ENRICHED_NO_EMAIL" style="margin-left:6px" title="AI enrichment ran but found no usable email">⚠ NO EMAIL</span>` : ''}
     </div>
     <div id="enrich-status-area"></div>`;
 
@@ -1208,7 +1374,7 @@ function renderContactsSection(ein, ref, contacts) {
       html += `<div class="contact-card">
         <div class="cc-name">${esc(c.name)}</div>
         ${c.title?`<div class="cc-title">${esc(c.title)}</div>`:''}
-        ${c.email?`<div class="cc-row">✉ ${esc(c.email)}</div>`:''}
+        ${c.email?`<div class="cc-row copyable" onclick="copyEmail(this,'${esc(c.email).replace(/'/g,"\\'")}')" title="Click to copy">✉ ${esc(c.email)} <span class="copy-hint">copy</span></div>`:''}
         ${c.phone?`<div class="cc-row" style="color:var(--muted)">☎ ${esc(c.phone)}</div>`:''}
         ${flagHtml}
       </div>`;
@@ -1223,7 +1389,7 @@ function renderContactsSection(ein, ref, contacts) {
       html += `<div class="contact-card ai-found">
         <div class="cc-name">${esc(c.name)}${confidenceBadge(c.confidence)}${contactTypeBadge(c.contact_type)}</div>
         ${c.title?`<div class="cc-title">${esc(c.title)}</div>`:''}
-        ${c.email?`<div class="cc-row">✉ ${esc(c.email)}</div>`:''}
+        ${c.email?`<div class="cc-row copyable" onclick="copyEmail(this,'${esc(c.email).replace(/'/g,"\\'")}')" title="Click to copy">✉ ${esc(c.email)} <span class="copy-hint">copy</span></div>`:''}
         ${c.phone?`<div class="cc-row" style="color:var(--muted)">☎ ${esc(c.phone)}</div>`:''}
         ${(!c.email && !c.phone && c.contact_notes)?`<div class="cc-source">${esc(c.contact_notes)}</div>`:''}
         ${c.source?`<div class="cc-source">Source: ${esc(c.source)}</div>`:''}
@@ -1318,7 +1484,11 @@ async function runEnrich(ein) {
     return;
   }
 
-  if(statusArea) statusArea.innerHTML = `<div class="enrich-status ok">✓ Done — saved to GitHub.</div>`;
+  if(statusArea) {
+    statusArea.innerHTML = result.foundEmail
+      ? `<div class="enrich-status ok">✓ Done — found a usable email, saved to GitHub.</div>`
+      : `<div class="enrich-status warn">⚠ Search completed, but no usable email was found. Saved notes to GitHub — try Hunter.io or manual research.</div>`;
+  }
 
   // Re-render just the contacts section in place.
   const section = document.getElementById('contacts-section');
@@ -1370,6 +1540,12 @@ function openDrawer(ein) {
       <span class="field-label">Location</span><span class="field-val">${esc(ref.location)||'—'}</span>
       <span class="field-label">Participants</span><span class="field-val">${fmtN(ref.participants)}</span>
       <span class="field-label">Enrich Status</span><span class="field-val">${ebadge(effectivePriority(ref))} <span style="font-family:var(--mono);font-size:10px;color:var(--muted)">${esc(effectiveReason(ref))}</span></span>
+      <span class="field-label">Outreach</span><span class="field-val">
+        <label class="dr-contacted-toggle">
+          <input type="checkbox" id="drawer-contacted-toggle" data-ein="${esc(ein)}" ${isContacted(ein)?'checked':''} onchange="toggleContactedFromDrawer('${esc(ein)}', this.checked)">
+          <span id="drawer-contacted-label">${isContacted(ein)?'✓ Marked as contacted':'Not contacted yet'}</span>
+        </label>
+      </span>
     </div>
   </div>`;
 
@@ -1510,6 +1686,8 @@ fetch('enrichment.json').then(r=>r.ok?r.json():Promise.reject()).then(d=>{
     <div class="gsec"><h3>Sections</h3>
       <div class="grow"><span class="gterm">Allocator Database</span><span class="gdef">All Form 5500 filers in one table. Firms with a 9AT signal show their connection upfront. Filter by signal type, enrichment priority, or schedule data availability.</span></div>
       <div class="grow"><span class="gterm">9AT Connection</span><span class="gdef">The column shown for every row — firms with no 9AT link show a dash, firms with a match show signal chips and the specific connection.</span></div>
+      <div class="grow"><span class="gterm">Mark Contacted</span><span class="gdef">Check the box on a card or in the drawer to mark a firm as already reached out to. Dims the card and lets you filter by outreach status. Stored locally in this browser.</span></div>
+      <div class="grow"><span class="gterm">Export CSV / Copy Emails</span><span class="gdef">Both act on the current filtered view (not just the visible page) — export every matching firm to a spreadsheet, or copy every email found for that view to paste into a mail client.</span></div>
     </div>
     <div class="gsec"><h3>Allocator Profile Drawer</h3>
       <div class="grow"><span class="gterm">Identity</span><span class="gdef">Name, EIN, plan, location, participant count, and enrichment status.</span></div>
@@ -1549,6 +1727,17 @@ fetch('enrichment.json').then(r=>r.ok?r.json():Promise.reject()).then(d=>{
 document.getElementById('glossary-btn').addEventListener('click',()=>document.getElementById('glossary-overlay').classList.add('open'));
 document.getElementById('gclose').addEventListener('click',()=>document.getElementById('glossary-overlay').classList.remove('open'));
 document.getElementById('glossary-overlay').addEventListener('click',e=>{ if(e.target===document.getElementById('glossary-overlay')) document.getElementById('glossary-overlay').classList.remove('open'); });
+
+// ── Escape key closes whichever overlay is topmost open ─────────────────────
+document.addEventListener('keydown', e => {
+  if(e.key !== 'Escape') return;
+  const drawer    = document.getElementById('drawer-overlay');
+  const enrich    = document.getElementById('enrich-overlay');
+  const glossary  = document.getElementById('glossary-overlay');
+  if(drawer.classList.contains('open'))        drawer.classList.remove('open');
+  else if(enrich.classList.contains('open'))    enrich.classList.remove('open');
+  else if(glossary.classList.contains('open'))  glossary.classList.remove('open');
+});
 </script>
 </body>
 </html>
