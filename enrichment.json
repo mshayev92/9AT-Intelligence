@@ -54,12 +54,31 @@
   "472817157": {
     "firm_name": "LYNDRA THERAPEUTICS, INC.",
     "ein": "472817157",
-    "enriched_at": "2026-06-30T19:25:44.840Z",
-    "contacts": [],
-    "existing_contact_assessment": null,
-    "notes": "As of March 26, 2025, Lyndra Therapeutics, Inc. has ceased operations. Therefore, current investment decision-makers, allocators, or investor relations contacts are not applicable. Inquiries can be directed to Craig Jalbert at cjalbert@vlpc.com.",
+    "enriched_at": "2026-06-30T20:17:18.788Z",
+    "contacts": [
+      {
+        "name": "Craig Jalbert",
+        "title": "Principal at Verdolino & Lowey PC, Lead for Wind-Down Process",
+        "email": "cjalbert@vlpc.com",
+        "phone": "",
+        "contact_type": "general",
+        "contact_notes": "Email provided as the contact for all inquiries after Lyndra Therapeutics ceased operations.",
+        "source": "LeadIQ, Fierce Biotech, Endpoints News",
+        "confidence": "high"
+      }
+    ],
+    "existing_contact_assessment": {
+      "name": "CRAIG JALBERT",
+      "title": "Plan Administrator (Form 5500)",
+      "likelyInvestmentDecisionMaker": false,
+      "reasoning": "Craig Jalbert's role as 'Plan Administrator' on Form 5500 typically relates to employee benefit plans, not investment decision-making for the firm's capital. Furthermore, current information indicates he is a principal at an accounting firm (Verdolino & Lowey PC) and has been brought in to lead the wind-down process for Lyndra Therapeutics, which ceased operations as of March 26, 2025. His current function is administrative and related to the company's closure, not active investment management or allocation for a going concern."
+    },
+    "notes": "Lyndra Therapeutics, Inc. ceased operations as of March 26, 2025. All inquiries should be directed to Craig Jalbert. Therefore, there are no active investment decision-makers, allocators, or traditional investor relations contacts at the firm in an ongoing capacity. The contact provided is for inquiries related to the company's wind-down.",
     "grounding_sources": [
-      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFKtEUcrlGTs3DgCINpsP3I3fxCSJu1bowvUQj_KWsFnFUtL1vWhX17suB8EXv2zBqu0n8DLMf3CB_NYYnjiWyb2LN5zmqUh4Gzv4tCLH6FOKPW96rqBqgNupIhr1ucAIVdExpK7j9uTy7XgSGq0-tpZ3Ik2hsYlaxuE4pe"
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGORk1y-dMWdnwRcZpsW0HRgICV8hN1Z9IFi-AwAue1__LBerw2Cf0nHnSOo1KIbO8slVKjQ6q_R8s-ejDyWLJkn4RWKGHU_xTL5p1Vupw65tXFX-Te3pQ-pPPnaa4_kuw2inOvMtAnFF-VrM2FJV8p4Awz0TfqfcXGvwo=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQExMvs8wQhv4bDGweh7Ymw_dpCl_57XDwtg7AoWOWPljjy7panAS_xIQDGscTalR0o_xGoyeepSeBY7bQ7YpGlZPkgW7qTP3-EN8VM6Or-OQR4SHO_p_sm5KrnCNboNC83q4dbolbz-gtvFXdwxa9RueoO-75xCrz6FuaffLP1v80FrMx3ysY1OoTji",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFDb8IM_FaUjde2lj7wKVpdTARXeYGBVbpepSa3QjZeSZY3BX6CdzpPWdTT6-7cG2k6Zy-N0CSuqUpjD_WGi7VGmTzMZ8DPBJ3zsIA-m-NvmrbD89c9qL02U1HvpLnIbzkmrDLNmPp04BmFRpMx9rKziYM0bQsjC3mOHxPh3st7JGTKzVVnvstb-zy2ZYT2Kdh18nbEO0TtNN7BURPTopiP5e2zQr_jlsbaXqLUIg==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFK1OOY8t8O6RwczkWzoPvPkFzEASG8AJLLgOxKRExKF3e-B-kiYIDyyJJXBIyVdJCjYZqzRF2wmRXVhMBZc1QKzvO-0SNYUM2uEnVhtHEAgKB7Q0x-ziBh_M38LYtJVo4buvmGLfs6odPVZoBd-PISs8IJsgQQ"
     ]
   }
 }
