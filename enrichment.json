@@ -51,6 +51,50 @@
       "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGHh_yfi8_SYaERI8c6YkduDDS8a32qIWCUEJf1X3zO3LxURvKtEdiO0IcC3B1u5Qc5Z_9zyAzirQfmfEcusCXFcsxCNRu5WO4H6suaLv4eqqF3W9sZczCbXS3mf2f5dvupHtvmxceW1524L4iY4ui7LyZ5QLghlIcch__tmu7nlh-cvFy00qSseYWhk6G3shfMo6w8qcWF6m-DxjY="
     ]
   },
+  "460440466": {
+    "firm_name": "BLACK HILLS SURGICAL HOSPITAL, LLP",
+    "ein": "460440466",
+    "enriched_at": "2026-06-30T20:17:39.357Z",
+    "contacts": [
+      {
+        "name": "Tina Weston",
+        "title": "Chief Financial Officer, Sanford Health Black Hills Market (Authorized Official for Black Hills Surgical Hospital, LLC)",
+        "email": "",
+        "phone": "(605) 721-4700",
+        "contact_type": "general",
+        "contact_notes": "General hospital phone number, no direct contact found for Tina Weston. Her title is CFO for Sanford Health Black Hills Market, which includes Black Hills Surgical Hospital. She is also listed as the Authorized Official for Black Hills Surgical Hospital, LLC.",
+        "source": "The Org, NPI Registry, Black Hills Surgical Hospital website",
+        "confidence": "high"
+      },
+      {
+        "name": "Kyle Wiese",
+        "title": "Regional President and CEO, Western SD/Wyoming market (Sanford Health); CEO and General Counsel, Black Hills Orthopedic & Spine Center of Wyoming, P.C.",
+        "email": "kyle@bhosc.com",
+        "phone": "",
+        "contact_type": "direct",
+        "contact_notes": "Direct email found in a physician ownership disclosure for Black Hills Orthopedic & Spine Center of Wyoming, P.C., which is part of the same Sanford Health acquisition.",
+        "source": "Sanford Health press releases, Black Hills Orthopedic & Spine Center website",
+        "confidence": "high"
+      }
+    ],
+    "existing_contact_assessment": {
+      "name": "TINA WESTON",
+      "title": "Plan Administrator (Form 5500)",
+      "likelyInvestmentDecisionMaker": true,
+      "reasoning": "While 'Plan Administrator' on a Form 5500 typically relates to HR/benefits, Tina Weston is also identified as the Chief Financial Officer (CFO) for Sanford Health Black Hills Market and the Authorized Official for Black Hills Surgical Hospital, LLC. In her CFO role, she oversees crucial financial operations, including budgeting, reporting, and compliance. This indicates a significant involvement in financial decision-making for the hospital's operations and capital, which can be considered investment decisions within the context of a healthcare organization."
+    },
+    "notes": "BLACK HILLS SURGICAL HOSPITAL, LLP is a healthcare facility, not a traditional financial firm managing external investments. It was acquired by Sanford Health in November 2024. Therefore, 'investment decision-makers' are interpreted as key financial and administrative leadership responsible for the hospital's financial operations and strategic direction within the larger Sanford Health system. No dedicated 'investor relations' department was found for the hospital itself. The general hospital phone number is (605) 721-4700.",
+    "grounding_sources": [
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHln64hkv7uN5pv5Um8dYUgaivrGis1BnznnQfd6cGgy-6JKb_I-eY2W9MG49PwHuSGjbI6mvUddMviFdBch7zcRxSFnmuOVkDO835hO9K8--GYR3plz0lscsNLodijyK_5xO4RN_oUuweD6RRV5K_XIuxu7Oa8",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEPugEnpr10MgE8F6nRBXIkRWEQx6HmqCj-ItC1ssB_Esu8IT0kFLl3M-R0tvX7hlbnCSoL7sjkdTjjZy3xblsm1osdqpOl7EpgMjysbvVN1XnHXcQbbPPh6q2RyuOfySM5BAHBpPzZDkvLrF2X0U6-fH0eEQWCCoD7Oe88y4KJbqdgqzNxcqUmHYsf9qXvJUE=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGfL_rIMNUhCk5u1PFrjybcDR4-KJaK_zvKLr6jb3z3on4373CBnLpecRBzNCG0BQUZ6c-ICaLxMXfG0FwvrV2JSt_BGXEASraEIpuig_Q15KFThK_zqtPa6LR8mU1n_xgfq3D0EAxU-y2TgCHlAkvWt8XwkRLvPA==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG58cVJQR-XCai3Ise3aMqtlk9GE2Itbdi8629InunRDFa4ofV7HmECbbrWW_ViB0iBx6Vu0w_2VIM7EE3owwQgA-65ltJSKUXbzC-sznn90pyniO-cZHg=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGItcLMUNBYXEiA78U9UZCL3z67L62GrVrjPR_erHVS9wKOC8EEUYwm5gJSoMob4fCj2ZIyd8jEbcPXeArPAVnuuiaV6iN78x8F5Ms0i6-t13WxZNayS-Ln1rIzngG47rIAP-blNSiSaVMTcquXgYG6ol2bcaIfl_etF8_1-Ei1oXirB8Q=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGkiFRGXNnZ34g7F3leW_tdtMrf8JOoy92hoMYAEGs_DbKeWbKKBf7t7LFfqlYUSo4iU-ty-RjcRITI1lTiJblFYwWX9kBnumV2vVu9sCpO_uV9wqzSUCBLnewMUuWvdQY_PNieLlR7duE=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHulX1aS2YlR1Rz01fEwh6Nw6CW1YRYJxHLkyjNp8JeH1kj4Pm_M8Zqxdf1-yHDz940q8tj0S5wAihpqxgDyd6uKs51l-gnmAJZRPQaUefFwJrV3-LHl_r5IYN_ZmcejrZg1I4Ml8sxV0ute1pqIaPjvzkcWw==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGCLMMnhS7ZQOeAtNgFESKgvRVhaF1HE5Y3Q8GNCE5r1jwmRVI7hcMIKO4kxohyUdW8Z1q42R0AKef60im7mID6GlbDeN8rdl9xIDsNOePM7WGFl6A_feVunWDx5qkP8qHstzlsvgR-mqzQAyA-aQU="
+    ]
+  },
   "472817157": {
     "firm_name": "LYNDRA THERAPEUTICS, INC.",
     "ein": "472817157",
