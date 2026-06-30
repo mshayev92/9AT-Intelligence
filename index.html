@@ -578,6 +578,27 @@ function effectiveReason(a) {
   return (a.enrich_reason || '').replace(/Run Hunter\.io/gi, 'Use AI enrichment or Hunter.io');
 }
 
+// ── Reconcile already-enriched firms into "Ready" ───────────────────────────
+// effectivePriority()/getEnrichPanelFirms() already treat any firm with an
+// AI-found email as Ready wherever priority is read live. But enrichIndex can
+// arrive (or be updated) independently of dbData/rawEnrichPanelList, so this
+// sweep explicitly finds any firm sitting in a non-READY bucket that already
+// has a usable enriched email, and reconciles it: drops it from the popup
+// selection/queue and refreshes every view that shows priority. Call this
+// after dbData and/or enrichIndex change.
+function reconcileEnrichedFirms() {
+  if(!dbData.length) return [];
+  const moved = dbData.filter(a => a.enrich_priority !== 'READY' && aiHasEmail(a.ein));
+  if(moved.length) {
+    // Stop tracking them as "selected for enrichment" since they're done.
+    moved.forEach(a => { if(a.ein) epSelected.delete(a.ein); });
+    refreshEnrichStats();
+    renderDB();
+    renderEnrichPanel();
+  }
+  return moved;
+}
+
 // ── Enrichment password caching ─────────────────────────────────────────────
 // Ask for the password once per browser, then reuse it until it expires.
 const ENRICH_PW_KEY = '9at_enrich_pw_v1';
@@ -1437,7 +1458,10 @@ document.getElementById('drawer-overlay').addEventListener('click',e=>{ if(e.tar
 // ── Data loading ─────────────────────────────────────────────────────────────
 
 // Auto-load if file is in the same folder
-fetch('9at_intelligence.json').then(r=>r.ok?r.json():Promise.reject()).then(loadData).catch(()=>{});
+fetch('9at_intelligence.json').then(r=>r.ok?r.json():Promise.reject()).then(d=>{
+  loadData(d);
+  reconcileEnrichedFirms();
+}).catch(()=>{});
 
 // Load enrichment.json (AI-found contacts) alongside the main data file.
 // Soft-fails if the file doesn't exist yet (e.g. before the first Enrich run).
@@ -1445,12 +1469,9 @@ fetch('enrichment.json').then(r=>r.ok?r.json():Promise.reject()).then(d=>{
   enrichIndex = d || {};
   // enrichment.json can resolve before or after 9at_intelligence.json — once
   // both are in, recompute the Ready/Enrich stats and re-render so AI-found
-  // emails are reflected immediately.
-  if(dbData.length) {
-    refreshEnrichStats();
-    renderDB();
-    renderEnrichPanel();
-  }
+  // emails are reflected immediately. reconcileEnrichedFirms() covers the
+  // recompute/re-render itself (it's a no-op if dbData isn't loaded yet).
+  reconcileEnrichedFirms();
 }).catch(()=>{ enrichIndex = {}; });
 </script>
 
