@@ -176,6 +176,52 @@
       "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFK1OOY8t8O6RwczkWzoPvPkFzEASG8AJLLgOxKRExKF3e-B-kiYIDyyJJXBIyVdJCjYZqzRF2wmRXVhMBZc1QKzvO-0SNYUM2uEnVhtHEAgKB7Q0x-ziBh_M38LYtJVo4buvmGLfs6odPVZoBd-PISs8IJsgQQ"
     ]
   },
+  "516091982": {
+    "firm_name": "UNITED BROTHERHOOD OF CARPENTERS LABOR-MGMT PF TRUSTEE",
+    "ein": "516091982",
+    "enriched_at": "2026-06-30T20:41:02.668Z",
+    "contacts": [
+      {
+        "name": "Plan Administrator",
+        "title": "Plan Administrator",
+        "email": "",
+        "phone": "405-682-2323",
+        "contact_type": "general",
+        "contact_notes": "General phone number for the Carpenters Labor-Management Pension Fund, which is administered by UNITED BROTHERHOOD OF CARPENTERS LABOR-MGMT PF TRUSTEE. No specific individual's direct contact found.",
+        "source": "QDRO Preparation for CARPENTERS LABOR-MANAGEMENT PENSION FUND (QdroDesk.com), UBC TRUST FUND DIRECTORY Table of Contents (Carpenters.org)",
+        "confidence": "high"
+      },
+      {
+        "name": "Douglas J. McCarron",
+        "title": "Plan Sponsor / General President, United Brotherhood of Carpenters and Joiners of America",
+        "email": "",
+        "phone": "405-682-2323",
+        "contact_type": "general",
+        "contact_notes": "Listed as Plan Sponsor for the United Brotherhood of Carpenters Pension Fund United States Segment. Direct contact information not publicly available. General phone number for the Carpenters Labor-Management Pension Fund provided as a general firm contact.",
+        "source": "United Brotherhood of Carpenters Pension Fund United States Segment | Institution Profile | PERE, Leadership & Structure • (Carpenters.org)",
+        "confidence": "medium"
+      },
+      {
+        "name": "Michael V Draper",
+        "title": "Plan Administrator, United Brotherhood of Carpenters Pension Fund United States Segment",
+        "email": "",
+        "phone": "405-682-2323",
+        "contact_type": "general",
+        "contact_notes": "Listed as Plan Administrator for the United Brotherhood of Carpenters Pension Fund United States Segment. Direct contact information not publicly available. General phone number for the Carpenters Labor-Management Pension Fund provided as a general firm contact.",
+        "source": "United Brotherhood of Carpenters Pension Fund United States Segment | Institution Profile | PERE",
+        "confidence": "medium"
+      }
+    ],
+    "existing_contact_assessment": null,
+    "notes": "The firm 'UNITED BROTHERHOOD OF CARPENTERS LABOR-MGMT PF TRUSTEE' acts as the Plan Administrator for the 'CARPENTERS LABOR-MANAGEMENT PENSION FUND'. Specific investment decision-makers with direct contact information were not publicly available. Douglas J. McCarron and Michael V Draper are identified with high-level roles in related Carpenters' pension funds, suggesting involvement in overall pension program oversight. General contact information for the Carpenters Labor-Management Pension Fund in Oklahoma City has been provided for all contacts as direct individual contact details were not found.",
+    "grounding_sources": [
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGmgtxxGFDePM_LMGsSZuDrahmWXkhW5GIhX4Dn96oxhe25dKsl7Ey6ct0sCeiacHf2gAp0elZ14lHF4jjoweKK2_Fsrxw7uXEpuDSOEdH_4vZLb8v96ndkGOkLk3CE5W8ceYqSUjCW0AI=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQElBbzSuFGdHkLOlg08i2tuzRQfkW9apZnkYKUgwZJoUuakUPHtQH5qZPmiKsPi3v20EQjiFgODAbQxAIEifxGT1ydYKM3sLzYQiVjSrVhQZtPYcVariDCeOCERpioED1LNmFblFS3UlIp9MdURVpN9NtRAo2ZJbrGeL7aPWc1vk2Xg5RsSTHSAqcPdcefw-J2iGSL2E_29WjnvwBf5bzmfLgs=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHIhpgnCsK4ojUsryBBoAKWqqHMqbWWy8JKfLkBAGeuER38bKMviVIXqoTXGHeSFazeZffsWTtC876TJtltuuDaLvRj0mH_B7q1F1kAi244fgMUfW_TLzP_t6WLgqcF2xMksc0J1yujRQf3PVCB6qXoiPHVWQynjeCbGNov-avey3ItuX8it7soC3o08hwUXgOyv2loXlmfuoQUpjMOgA==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEGSLl4qaJKB1920O6DRW8z1-STQdjCUu23sWwkHFIzYxo4DeP3-2yrDCpsfjWuFDBWRgxvLt45jq4D5bbcKwHvpWQQhEd0E5Q_VSs2_5uarcC-OtLrHTl9lYxNGq02TuIaVukX5k2z6MWGllUc7rwjWB-x1CaqO9GHIjDnHh6-xR6kxaRZ1io9XyDdv-seprcydaDpB94vwQyk5gvRAwPazHney39oAmwQ64yn8tNJxB0=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGBZsftl31G9Fe2Ik4s5AlNfgtuQwdyZyT9SM1VOkIDlc_PRsTfh0CiPH9c43Zsvs4yPNBvRrcBNvD_B1hRRGIRSlyA7QI-6nr2bYlHOFTZtDHt678FUQVn2CCdAPz9TAOQbJWlsEaK4z8ykw=="
+    ]
+  },
   "541189694": {
     "firm_name": "SECURIGUARD, INC.",
     "ein": "541189694",
