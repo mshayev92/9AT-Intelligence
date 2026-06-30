@@ -132,6 +132,58 @@
       "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFQSNJ4q5HQu3wu2W9cjh4WZ-A6FBD4NeWHFd3VtEVulz_84I2JdJ61DPLU4nZyKUnKsS0mrT8Vj-rYyzZvaRtXYY7JscCn6z9gdWTkoQGPMRLRyvj4fk-TfQlHSsHPKAxDobQPkcNLfMi8FZyZWnte4TV-OvFuJw0JP6rvOmUmcAdLux-eVFczUgOghmcrhAjJhUD4xV9cDLTmj7E="
     ]
   },
+  "351174866": {
+    "firm_name": "VISITING NURSE ASSOCIATION OF PORTER COUNTY, INDIANA, INC.",
+    "ein": "351174866",
+    "enriched_at": "2026-06-30T21:30:19.078Z",
+    "contacts": [
+      {
+        "name": "Lundy Fields",
+        "title": "President & CEO",
+        "email": "",
+        "phone": "(219) 462-5195",
+        "contact_type": "general",
+        "contact_notes": "No direct email found. General firm phone number provided from VNA Hospice NWI website.",
+        "source": "VNA Hospice House Servant Leadership Team page, VNA Hospice NWI website contact page",
+        "confidence": "high"
+      },
+      {
+        "name": "Tim VerSchure",
+        "title": "Treasurer, Board of Directors",
+        "email": "",
+        "phone": "(219) 462-5195",
+        "contact_type": "general",
+        "contact_notes": "No direct email found. General firm phone number provided from VNA Hospice NWI website. His professional profile indicates he is a wealth management and corporate retirement plan financial advisor.",
+        "source": "VNA Hospice NWI 2025 Annual Report, VNA Hospice NWI Board of Directors page, CAPTRUST professional profile",
+        "confidence": "high"
+      },
+      {
+        "name": "Maria Galka",
+        "title": "Director of Development",
+        "email": "mgalka@vnanwi.org",
+        "phone": "(219) 531-8078",
+        "contact_type": "direct",
+        "contact_notes": "Direct email and phone number found on the 'Give' page of the VNA Hospice NWI website for donations and 'The VNA Forever Society'.",
+        "source": "VNA Hospice NWI 'Give' page",
+        "confidence": "medium"
+      }
+    ],
+    "existing_contact_assessment": {
+      "name": "JON CLINTON",
+      "title": "Plan Administrator (Form 5500)",
+      "likelyInvestmentDecisionMaker": false,
+      "reasoning": "The title 'Plan Administrator (Form 5500)' typically indicates a role in employee benefits or human resources administration, not investment decision-making. No search results linked Jon Clinton to any investment-related responsibilities or titles at the Visiting Nurse Association of Porter County, Indiana, Inc."
+    },
+    "notes": "The firm is a non-profit organization focused on hospice and home care services, often referred to as VNA Hospice NWI. As such, traditional 'investor relations' roles are not present. Contacts identified are involved in overall financial oversight (CEO, Treasurer) or fundraising/foundation management (Director of Development), which involves managing significant funds and donations. General contact information for the firm is readily available, but direct emails for the CEO and Treasurer were not explicitly published in an investment context.",
+    "grounding_sources": [
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFuC6skV16cHsjycuoglUUvb0Ka2yEs1lPGteY1dLktBGsqk1l0t23zo3djnFjJVIiTJ71RGwW0uua4B-QF6VJQLoF0PxgURK42gWCBNlB2DqTGRHwO3G256yKtLn6BeqO1s1wKa5JCNxgb37FpRg==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHSB-FkTpshYoyyiFp4Ede5cMzR4kAyn3Hb9lBM4YaqufKu36JsbYCCiYJoG5rcxEBwmNVcRAE4Ofb8QG0scdcrDbTYzoujikIds5EFaK7iU5pc-NuwzKaz2w==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG7s-QZnbvo43aRC_f-TJSFTZF8Lz3nTkLJA2hvJK_IR46fhYr_AXhJ9p0l9pV6fLYnpGD1tf_XAHmU-KqgWXZRrDr8lE3R5DcUP-OdB2OtEoXQH9pjjf3jQwQsIIBpL_77AkjeXe0F9ew=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGojVnOBWAWRh09uPokAPmiw8kD8AddkW4qKU9n9xcLYWXLQ_egEjChLZWRHmvIHhUOUDZPKabU85dMoo9ZrzBaw6hsU9S4R1Oh3Ddor2wnhI-PKRJLDdRoEgRhzxHaXGzxz7xfJNVpvKm2CMFvXw==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFZzp2tDiELiiRKcy8pQyukXLEn_PYf4fb0Kl0vwatyRBtLvpTgEVGl2aeOb7MiPINRdt8k-YqTbfwWbC8XjshTXQS2_-0LOFExmdiHi16hb8vq2NRSRXEBYCsg_FiwZl_3gmqlairMZegJqQSKdJ7S3T0xgtrt6Tf07A==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHzcGMwOrkniVXPpCZTSdbEED-xQhJHzkgBtkjp-vzGkTgzhU1rdrt1MYp1VQnUlgTyLuu7BFBRjDv_Hze2sRXU2uEfsJHtgaLv80UvgvoHluxkKgQ-3_b6a_I="
+    ]
+  },
   "363051915": {
     "firm_name": "AON CORPORATION",
     "ein": "363051915",
