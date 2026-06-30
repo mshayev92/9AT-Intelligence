@@ -23,6 +23,56 @@
       "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGVRXPdW1_BXnlgOVyRqThz5KIzPofOFF64p4SWFkP6fVsdCZMrImEA-YDGf9ZedCS7483Cp3IUcrpKBfupOGMvkOyODGmm7fQSryvBHxIzzQ1ny8M4buI5W5oRb5Ff0eik50AASupY7BfECgkXd_X-92y-y380LyhoGSzySivvoKDP83C9bi0="
     ]
   },
+  "112157326": {
+    "firm_name": "VARIETY CHILD LEARNING CENTER",
+    "ein": "112157326",
+    "enriched_at": "2026-06-30T21:30:03.145Z",
+    "contacts": [
+      {
+        "name": "Theano Kehayes",
+        "title": "Chief Financial Officer",
+        "email": "info@vclc.org",
+        "phone": "516-921-7171",
+        "contact_type": "general",
+        "contact_notes": "General firm email and phone found on the official website. No direct email or phone for this individual was published.",
+        "source": "https://www.vclc.org/staff/, https://www.vclc.org/",
+        "confidence": "high"
+      },
+      {
+        "name": "Thérèse Vobis",
+        "title": "Treasurer (Board of Trustees)",
+        "email": "info@vclc.org",
+        "phone": "516-921-7171",
+        "contact_type": "general",
+        "contact_notes": "General firm email and phone found on the official website. No direct email or phone for this individual was published.",
+        "source": "https://www.vclc.org/board-of-trustees/, https://www.vclc.org/, https://projects.propublica.org/nonprofits/organizations/112157326",
+        "confidence": "high"
+      },
+      {
+        "name": "Jennifer Regan Haight",
+        "title": "Director of Development",
+        "email": "development@vclc.org",
+        "phone": "516-921-7171",
+        "contact_type": "general",
+        "contact_notes": "Development team email and general firm phone found on the official website. No direct email for this individual was published.",
+        "source": "https://www.vclc.org/staff/, https://www.vclc.org/contact-us/",
+        "confidence": "high"
+      }
+    ],
+    "existing_contact_assessment": {
+      "name": "GENNARO CICALESE",
+      "title": "Plan Administrator (Form 5500)",
+      "likelyInvestmentDecisionMaker": true,
+      "reasoning": "While not an internal investment decision-maker for the firm's general assets, 'Gennaro Cicalese' (likely 'Jerry Cicalese') is identified as a Partner and Head of Retirement at Sentinel Group. In this role, he leads Retirement Plan Services, is an Accredited Investment Fiduciary Analyst (AIFA), and works with investment advisors to enhance value for plan sponsors and participants. His expertise and certifications (CPC, QKA, QPA, CPFA, TGPC, QPFC) indicate a direct involvement in investment decisions and allocation strategies for retirement plans, which aligns with the 'Plan Administrator (Form 5500)' title."
+    },
+    "notes": "Variety Child Learning Center is a non-profit educational institution, not a financial firm. Therefore, investment decision-makers are primarily related to financial oversight (CFO, Treasurer) or fundraising/donor relations (Director of Development). Direct individual contact information was not publicly available, so general firm contacts were used.",
+    "grounding_sources": [
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF4M1T2ht2R8djEYYljg9l5Z3xN2pn4bTuYNQls9jgDkEXEax6D_aYQI44mLmvSamtZGZWJK2W9JGcXuyLBrX6gCEskkJ7iVfUxnc2LS0xdrWbv5gtZFCkYUUjOUKRJ0gdwylghbL2cwZ6pPTT1rUfvnps=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEajRR2-hyQtpyEeVrrXkCxs_5FFywLdJvp2STLYLtp0L88MLPGiKU80jXAF0OwaGhgWv-wKOrmlni_P2vV9a5ByEtJ4ZyjOJrguHxT-N82gv3aeQ9Ks0-FJAF3P2RnrQ==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQExkTDl__DzUv-3ymLigASUDY3tFfkk0VCZqflfNnyItdzHqTlOFB9xUmU-upiJxYUpQQiWD6JihuhY4thE5v0qP46AU15MeNq1ABd5Lw4N2JiRWVhjoqIXnX9rRFrav-o6B8Ho56tXIfQsn3lDgoMM4wvM7Lrhfe7R",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGG_Ji6De1wQ4UV3r8OG7NXdlwyo-Cs1j_qXB6oAnRS_W-H873788DV5ayIm17xnHZgcPDGqtUxtSEc-6UE17eYqE7qMkpBiDz_MUxH7ZForOYPzS4MFIXSYXVJ-D4Uh8LYVn-UgQzmis5yQdmiLYI="
+    ]
+  },
   "232259884": {
     "firm_name": "VERIZON COMMUNICATIONS INC.",
     "ein": "232259884",
