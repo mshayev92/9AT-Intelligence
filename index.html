@@ -216,6 +216,7 @@ tbody td { padding: 9px 10px; vertical-align: top; }
 .ebadge { font-family: var(--mono); font-size: 9px; padding: 2px 5px; border-radius: 3px; white-space: nowrap; }
 .ep-READY { background: var(--green-dim);  color: var(--green); }
 .ep-HIGH  { background: var(--yellow-dim); color: var(--yellow); }
+.ep-ENRICHED_NO_EMAIL { background: var(--red-dim); color: var(--red); }
 .ep-LOW   { background: var(--blue-dim);   color: var(--blue); }
 .ep-SKIP  { color: var(--dim); }
 .sig-chip { font-family: var(--mono); font-size: 9px; padding: 2px 6px; border-radius: 3px; border: 1px solid var(--border2); color: var(--text2); white-space: nowrap; display: inline-block; margin-top: 2px; font-weight: 500; }
@@ -492,6 +493,7 @@ tbody td { padding: 9px 10px; vertical-align: top; }
     <select id="db-filter-enrich">
       <option value="all">All</option>
       <option value="READY">Ready (email)</option>
+      <option value="ENRICHED_NO_EMAIL">Enriched · no email</option>
       <option value="HIGH">Needs enrichment</option>
       <option value="LOW">Low priority</option>
       <option value="SKIP">Skip</option>
@@ -552,7 +554,7 @@ const SIG_LABEL = {
   schedule_d_adviser:'Sched D Adv', schedule_d_fund:'Sched D Fund',
   schedule_h:'Sched H', direct_adviser:'Direct', direct_fund_adviser:'Direct Fund',
 };
-const ENRICH_ORDER = {READY:0,HIGH:1,LOW:2,SKIP:3};
+const ENRICH_ORDER = {READY:0,ENRICHED_NO_EMAIL:1,HIGH:2,LOW:3,SKIP:4};
 const PAGE_SIZE = 50;
 let dbPage = 1;
 let lastStats = {};
@@ -566,6 +568,11 @@ function aiHasEmail(ein) {
   if(!enrich) return false;
   return (enrich.contacts||[]).some(c => c && c.email);
 }
+// True if AI enrichment has been run for this firm at all (regardless of
+// whether it turned up a usable email).
+function wasAiEnriched(ein) {
+  return !!enrichIndex[ein];
+}
 // True if the firm has a usable email either on file already, or found by
 // AI enrichment. Used for the "Has Email" stat so AI-found emails count.
 function hasAnyEmail(a) {
@@ -573,12 +580,20 @@ function hasAnyEmail(a) {
 }
 function effectivePriority(a) {
   const base = a.enrich_priority || 'SKIP';
-  if(base !== 'READY' && aiHasEmail(a.ein)) return 'READY';
+  if(base === 'READY') return base;
+  if(aiHasEmail(a.ein)) return 'READY';
+  // Tier 1 firm that's already been through AI enrichment but came back
+  // with no usable email — distinct from HIGH (not yet attempted), so the
+  // UI can say "enriched, no email" instead of implying it still needs a run.
+  if(base === 'HIGH' && wasAiEnriched(a.ein)) return 'ENRICHED_NO_EMAIL';
   return base;
 }
 function effectiveReason(a) {
   if(a.enrich_priority !== 'READY' && aiHasEmail(a.ein)) {
     return 'AI enrichment found a verified email.';
+  }
+  if(a.enrich_priority === 'HIGH' && wasAiEnriched(a.ein)) {
+    return 'AI enrichment ran but found no usable email. Try Hunter.io or manual research.';
   }
   return (a.enrich_reason || '').replace(/Run Hunter\.io/gi, 'Use AI enrichment or Hunter.io');
 }
@@ -682,7 +697,7 @@ function sigChip(sig) {
   return `<span class="sig-chip sig-t${t}">${esc(SIG_LABEL[sig]||sig)}</span>`;
 }
 function ebadge(ep) {
-  const lbl = {READY:'✓ READY (EMAIL)',HIGH:'★ ENRICH',LOW:'· LOW',SKIP:'— SKIP'};
+  const lbl = {READY:'✓ READY (EMAIL)',ENRICHED_NO_EMAIL:'⚠ ENRICHED · NO EMAIL',HIGH:'★ ENRICH',LOW:'· LOW',SKIP:'— SKIP'};
   return ep&&ep!=='SKIP' ? `<span class="ebadge ep-${ep}">${lbl[ep]||ep}</span>` : '';
 }
 
@@ -757,7 +772,7 @@ function renderDBCard(a) {
   const rels     = a.at9_relationships || [];
   const has9at   = rels.length > 0;
   const ep       = effectivePriority(a);
-  const epLbl    = {READY:'✓ READY (EMAIL)',HIGH:'★ ENRICH',LOW:'· LOW',SKIP:'— SKIP'}[ep]||ep;
+  const epLbl    = {READY:'✓ READY (EMAIL)',ENRICHED_NO_EMAIL:'⚠ ENRICHED · NO EMAIL',HIGH:'★ ENRICH',LOW:'· LOW',SKIP:'— SKIP'}[ep]||ep;
   const spCount  = (a.service_providers||[]).length;
   const invCount = (a.investments||[]).length;
   const conCount = a.contact_count_any||0;
@@ -871,6 +886,11 @@ function renderEnrichPanel() {
 }
 
 function epRowStatusHtml(ein) {
+  if(wasAiEnriched(ein) && !aiHasEmail(ein)) {
+    return `<span class="ep-status" data-status-for="${esc(ein)}">
+      <button class="ep-status-btn ep-status-err" onclick="enrichOneFromPanel('${esc(ein)}')" title="AI enrichment ran but found no usable email">⚠ No email found · Retry</button>
+    </span>`;
+  }
   return `<span class="ep-status" data-status-for="${esc(ein)}">
     <button class="ep-status-btn" onclick="enrichOneFromPanel('${esc(ein)}')">⚡ Enrich</button>
   </span>`;
@@ -1504,7 +1524,8 @@ fetch('enrichment.json').then(r=>r.ok?r.json():Promise.reject()).then(d=>{
     </div>
     <div class="gsec"><h3>Enrichment Priority</h3>
       <div class="grow"><span class="gterm">✓ READY (EMAIL)</span><span class="gdef">Tier 1 signal + real email found — either on file already or found by AI enrichment. Outreach now.</span></div>
-      <div class="grow"><span class="gterm">★ ENRICH</span><span class="gdef">Tier 1 signal but no email yet. Use AI enrichment or Hunter.io — high ROI.</span></div>
+      <div class="grow"><span class="gterm">★ ENRICH</span><span class="gdef">Tier 1 signal but no email yet, and AI enrichment hasn't been run. Use AI enrichment or Hunter.io — high ROI.</span></div>
+      <div class="grow"><span class="gterm">⚠ ENRICHED · NO EMAIL</span><span class="gdef">Tier 1 signal — AI enrichment already ran for this firm but didn't find a usable email. Try Hunter.io or manual research, or retry AI enrichment.</span></div>
       <div class="grow"><span class="gterm">· LOW</span><span class="gdef">Tier 2 signal + email. Verify before outreach.</span></div>
       <div class="grow"><span class="gterm">— SKIP</span><span class="gdef">Tier 2 signal, no contact. Low ROI.</span></div>
     </div>
