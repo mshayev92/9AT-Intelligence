@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>9AT Intelligence Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #080b0f;
+  --surface: #0e1218;
+  --card: #141a22;
+  --card2: #1a222c;
+  --border: #1e2835;
+  --border2: #263040;
+  --text: #d4dce8;
+  --muted: #546070;
+  --dim: #2a3545;
+  --green: #22d98a;
+  --green-dim: rgba(34,217,138,0.1);
+  --yellow: #f0c040;
+  --yellow-dim: rgba(240,192,64,0.1);
+  --blue: #5096f0;
+  --blue-dim: rgba(80,150,240,0.1);
+  --cyan: #30c8d0;
+  --cyan-dim: rgba(48,200,208,0.1);
+  --purple: #a070f0;
+  --purple-dim: rgba(160,112,240,0.1);
+  --mono: 'IBM Plex Mono', monospace;
+  --sans: 'IBM Plex Sans', sans-serif;
+}
+
+/* ── LIGHT MODE ── */
+body.light {
+  --bg:         #f4f6f9;
+  --surface:    #ffffff;
+  --card:       #f0f2f5;
+  --card2:      #e8ebef;
+  --border:     #d4d9e0;
+  --border2:    #c0c7d0;
+  --text:       #1a2030;
+  --muted:      #6b7585;
+  --dim:        #9aa5b4;
+  --green:      #0a9e5c;
+  --green-dim:  rgba(10,158,92,0.1);
+  --yellow:     #b07800;
+  --yellow-dim: rgba(176,120,0,0.1);
+  --blue:       #2462c8;
+  --blue-dim:   rgba(36,98,200,0.1);
+  --cyan:       #0a8a90;
+  --cyan-dim:   rgba(10,138,144,0.1);
+  --purple:     #6c3fc4;
+  --purple-dim: rgba(108,63,196,0.1);
+}
+
+/* light mode overrides for specific elements */
+body.light .score-fill        { background: var(--green); }
+body.light .sig-chip.sig-t1   { border-color: rgba(10,158,92,0.4); color: var(--green); }
+body.light thead th           { background: var(--surface); }
+body.light .alloc-card        { box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+body.light .drawer            { box-shadow: -4px 0 24px rgba(0,0,0,0.1); }
+body.light .contact-card      { box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+
+/* toggle button */
+.theme-btn {
+  font-family: var(--mono); font-size: 11px; padding: 5px 10px;
+  border-radius: 5px; cursor: pointer; transition: all 0.15s;
+  border: 1px solid var(--border2); background: var(--card);
+  color: var(--muted); line-height: 1;
+}
+.theme-btn:hover { color: var(--text); border-color: var(--muted); }
+
+body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 13px; line-height: 1.5; min-height: 100vh; transition: background 0.2s, color 0.2s; }
+
+/* ── HEADER ── */
+header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 2rem; border-bottom: 1px solid var(--border);
+  background: var(--surface); gap: 1rem; flex-wrap: wrap; position: sticky; top: 0; z-index: 50;
+}
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo-mark { font-family: var(--mono); font-size: 11px; font-weight: 600; color: var(--green); background: var(--green-dim); border: 1px solid var(--green); border-radius: 4px; padding: 2px 7px; letter-spacing: 0.08em; }
+.logo-title { font-size: 1rem; font-weight: 700; letter-spacing: -0.01em; }
+.header-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.hdr-btn {
+  display: flex; align-items: center; gap: 5px; font-family: var(--mono); font-size: 10px;
+  padding: 5px 11px; border-radius: 5px; cursor: pointer; transition: all 0.15s;
+  border: 1px solid var(--border2); background: var(--card); color: var(--muted);
+}
+.hdr-btn:hover { color: var(--text); border-color: var(--muted); }
+.hdr-btn.primary { background: var(--green); color: #080b0f; border-color: var(--green); font-weight: 700; }
+.hdr-btn.primary:hover { opacity: 0.85; }
+.hdr-status { font-family: var(--mono); font-size: 9px; color: var(--muted); }
+.hdr-status span { color: var(--green); }
+
+/* ── NAV TABS ── */
+.nav-tabs {
+  display: flex; gap: 0; background: var(--surface);
+  border-bottom: 1px solid var(--border); padding: 0 2rem;
+}
+.nav-tab {
+  font-family: var(--mono); font-size: 11px; font-weight: 600;
+  padding: 0.75rem 1.25rem; border: none; background: transparent;
+  cursor: pointer; color: var(--muted); border-bottom: 2px solid transparent;
+  letter-spacing: 0.04em; transition: all 0.15s; white-space: nowrap;
+}
+.nav-tab:hover { color: var(--text); }
+.nav-tab.active { color: var(--text); border-bottom-color: var(--green); }
+.nav-tab .tab-count { font-size: 9px; margin-left: 6px; opacity: 0.6; }
+
+/* ── SECTION WRAPPER ── */
+.section { display: none; }
+.section.active { display: block; }
+
+/* ── SUMMARY BAND ── */
+.summary-band {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(120px,1fr));
+  gap: 1px; background: var(--border); border-bottom: 1px solid var(--border);
+}
+.stat { background: var(--surface); padding: 0.875rem 1.5rem; }
+.stat-label { font-family: var(--mono); font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 4px; }
+.stat-value { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.03em; font-family: var(--mono); }
+.stat-value.green { color: var(--green); }
+.stat-value.yellow { color: var(--yellow); }
+.stat-value.blue { color: var(--blue); }
+.stat-value.cyan { color: var(--cyan); }
+.stat-value.purple { color: var(--purple); }
+
+/* ── ENRICHMENT PANEL ── */
+.enrich-panel { margin: 1rem 2rem; border: 1px solid var(--yellow); border-radius: 8px; background: var(--yellow-dim); overflow: hidden; display: none; }
+.enrich-panel.visible { display: block; }
+.enrich-header { display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 1.25rem; border-bottom: 1px solid rgba(240,192,64,0.2); cursor: pointer; user-select: none; }
+.enrich-title { font-family: var(--mono); font-size: 11px; font-weight: 600; color: var(--yellow); letter-spacing: 0.05em; }
+.enrich-count { font-family: var(--mono); font-size: 10px; color: var(--yellow); opacity: 0.7; }
+.enrich-arrow { font-family: var(--mono); font-size: 10px; color: var(--yellow); opacity: 0.6; }
+.enrich-list { padding: 0.5rem 0; max-height: 220px; overflow-y: auto; display: none; }
+.enrich-list.open { display: block; }
+.enrich-row { display: grid; grid-template-columns: 24px 1fr 1fr auto; gap: 8px; align-items: center; padding: 5px 1.25rem; font-family: var(--mono); font-size: 10px; border-bottom: 1px solid rgba(240,192,64,0.08); }
+.enrich-row:last-child { border-bottom: none; }
+.enrich-num { color: var(--yellow); opacity: 0.5; text-align: right; }
+.enrich-firm { color: var(--text); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.enrich-why { color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 9px; }
+.enrich-loc { color: var(--muted); font-size: 9px; white-space: nowrap; }
+
+/* ── CONTROLS ── */
+.controls { display: flex; gap: 8px; padding: 0.75rem 2rem; border-bottom: 1px solid var(--border); flex-wrap: wrap; align-items: center; background: var(--surface); }
+.search-wrap { position: relative; flex: 1; min-width: 180px; }
+.search-wrap svg { position: absolute; left: 9px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+input[type=search], select { background: var(--card); border: 1px solid var(--border2); border-radius: 5px; color: var(--text); font-family: var(--mono); font-size: 11px; padding: 5px 9px; outline: none; transition: border-color 0.15s; }
+input[type=search] { width: 100%; padding-left: 30px; }
+input[type=search]:focus, select:focus { border-color: var(--green); }
+input[type=search]::placeholder { color: var(--muted); }
+select { cursor: pointer; }
+select option { background: var(--card); }
+.ctrl-label { font-family: var(--mono); font-size: 10px; color: var(--muted); white-space: nowrap; }
+.result-count { font-family: var(--mono); font-size: 10px; color: var(--muted); padding: 0.5rem 2rem 0; }
+
+/* ── TABLE ── */
+.table-wrap { padding: 0.75rem 2rem 3rem; overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+thead th { font-family: var(--mono); font-size: 9px; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--border); white-space: nowrap; user-select: none; }
+tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
+tbody tr:hover { background: var(--card); }
+tbody td { padding: 9px 10px; vertical-align: top; }
+
+/* badges */
+.conf { display: inline-flex; align-items: center; gap: 3px; font-family: var(--mono); font-size: 9px; font-weight: 600; padding: 2px 6px; border-radius: 3px; letter-spacing: 0.05em; white-space: nowrap; margin-top: 3px; }
+.conf-HIGH            { background: var(--green-dim);  color: var(--green);  border: 1px solid var(--green); }
+.conf-MEDIUM          { background: var(--yellow-dim); color: var(--yellow); border: 1px solid var(--yellow); }
+.conf-MEDIUM-NO-CONTACT { background: var(--blue-dim); color: var(--blue);  border: 1px solid var(--blue); }
+.conf-LOW-HAS-EMAIL   { background: var(--blue-dim);   color: var(--blue);  border: 1px solid var(--blue); }
+.conf-LOW             { background: rgba(42,53,69,0.6); color: var(--muted); border: 1px solid var(--dim); }
+.ebadge { font-family: var(--mono); font-size: 9px; padding: 2px 5px; border-radius: 3px; white-space: nowrap; }
+.ep-READY { background: var(--green-dim);  color: var(--green); }
+.ep-HIGH  { background: var(--yellow-dim); color: var(--yellow); }
+.ep-LOW   { background: var(--blue-dim);   color: var(--blue); }
+.ep-SKIP  { color: var(--dim); }
+.sig-chip { font-family: var(--mono); font-size: 9px; padding: 2px 5px; border-radius: 3px; border: 1px solid var(--border2); color: var(--muted); white-space: nowrap; display: inline-block; margin-top: 2px; }
+.sig-t1 { border-color: rgba(34,217,138,0.3); color: rgba(34,217,138,0.7); }
+.sig-t2 { border-color: var(--dim); color: var(--muted); }
+
+/* schedule buttons */
+.sched-btn { display: inline-flex; align-items: center; gap: 3px; font-family: var(--mono); font-size: 9px; font-weight: 600; padding: 2px 7px; border-radius: 3px; border: 1px solid; cursor: pointer; text-decoration: none; white-space: nowrap; transition: opacity 0.15s; background: transparent; }
+.sched-btn:hover { opacity: 0.7; }
+.sched-c { color: var(--green);  border-color: rgba(34,217,138,0.4); }
+.sched-d { color: var(--cyan);   border-color: rgba(48,200,208,0.4); }
+.sched-h { color: var(--purple); border-color: rgba(160,112,240,0.4); }
+.sched-x { color: var(--muted);  border-color: var(--dim); }
+.sched-cell { display: flex; flex-direction: column; gap: 4px; }
+
+/* profile button */
+.profile-btn { font-family: var(--mono); font-size: 9px; padding: 2px 6px; border-radius: 3px; border: 1px solid var(--border2); color: var(--muted); background: transparent; cursor: pointer; transition: all 0.15s; white-space: nowrap; display: inline-block; margin-top: 3px; }
+.profile-btn:hover { color: var(--text); border-color: var(--muted); background: var(--card2); }
+
+/* cell helpers */
+.firm-name { font-weight: 600; font-size: 13px; }
+.plan-name { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-top: 1px; max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.conn-text { font-size: 11px; color: var(--text); max-width: 220px; line-height: 1.4; }
+.matched  { font-family: var(--mono); font-size: 10px; color: var(--cyan); margin-top: 2px; }
+.loc-cell { font-family: var(--mono); font-size: 10px; color: var(--muted); white-space: nowrap; }
+.part-cell { font-family: var(--mono); font-size: 11px; color: var(--muted); text-align: right; }
+.score-wrap { display: flex; align-items: center; gap: 5px; }
+.score-bar { height: 3px; background: var(--border2); border-radius: 2px; width: 40px; overflow: hidden; }
+.score-fill { height: 100%; border-radius: 2px; background: var(--green); }
+.score-num { font-family: var(--mono); font-size: 10px; color: var(--muted); }
+.contact-name { font-weight: 600; font-size: 12px; }
+.contact-title { font-size: 10px; color: var(--muted); font-family: var(--mono); }
+.contact-email { font-family: var(--mono); font-size: 10px; color: var(--blue); }
+.contact-sep { border-top: 1px solid var(--border); margin: 3px 0; }
+
+/* ── ALLOCATOR DATABASE CARDS ── */
+.db-grid { padding: 1rem 2rem 3rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 12px; }
+.alloc-card { background: var(--card); border: 1px solid var(--border2); border-radius: 8px; padding: 14px 16px; cursor: pointer; transition: border-color 0.15s, background 0.15s; }
+.alloc-card:hover { border-color: var(--muted); background: var(--card2); }
+.ac-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+.ac-name { font-weight: 700; font-size: 13px; line-height: 1.3; }
+.ac-plan { font-family: var(--mono); font-size: 9px; color: var(--muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px; }
+.ac-ep { font-family: var(--mono); font-size: 9px; padding: 2px 6px; border-radius: 3px; white-space: nowrap; flex-shrink: 0; }
+.ac-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+.ac-pill { font-family: var(--mono); font-size: 9px; padding: 2px 7px; border-radius: 10px; border: 1px solid var(--border2); color: var(--muted); }
+.ac-pill.green { border-color: rgba(34,217,138,0.3); color: rgba(34,217,138,0.7); }
+.ac-pill.cyan  { border-color: rgba(48,200,208,0.3);  color: rgba(48,200,208,0.7); }
+.ac-pill.yellow { border-color: rgba(240,192,64,0.3); color: rgba(240,192,64,0.7); }
+.ac-sigs { display: flex; gap: 4px; flex-wrap: wrap; }
+.ac-bottom { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+.ac-loc { font-family: var(--mono); font-size: 9px; color: var(--muted); }
+.ac-parts { font-family: var(--mono); font-size: 9px; color: var(--muted); }
+
+/* ── DRAWER ── */
+.drawer-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(8,11,15,0.72); backdrop-filter: blur(3px); }
+.drawer-overlay.open { display: flex; justify-content: flex-end; }
+.drawer { width: 660px; max-width: 96vw; height: 100vh; background: var(--surface); border-left: 1px solid var(--border2); overflow-y: auto; display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.25s cubic-bezier(0.16,1,0.3,1); }
+.drawer-overlay.open .drawer { transform: translateX(0); }
+.drawer-head { display: flex; align-items: flex-start; justify-content: space-between; padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--surface); z-index: 1; }
+.drawer-head-left { flex: 1; min-width: 0; }
+.dr-firm { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.01em; }
+.dr-plan { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-top: 2px; }
+.dr-meta { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+.dr-pill { font-family: var(--mono); font-size: 9px; padding: 2px 7px; border-radius: 10px; border: 1px solid var(--border2); color: var(--muted); }
+.drawer-close { background: none; border: none; color: var(--muted); font-size: 20px; cursor: pointer; line-height: 1; padding: 2px 6px; flex-shrink: 0; }
+.drawer-close:hover { color: var(--text); }
+.drawer-body { padding: 0 0 3rem; flex: 1; }
+.dsec { border-bottom: 1px solid var(--border); padding: 1rem 1.5rem; }
+.dsec:last-child { border-bottom: none; }
+.dsec-title { font-family: var(--mono); font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px; }
+.dsec-badge { font-size: 8px; padding: 1px 5px; border-radius: 2px; background: var(--border2); color: var(--muted); }
+.field-grid { display: grid; grid-template-columns: 130px 1fr; gap: 4px 10px; }
+.field-label { font-family: var(--mono); font-size: 10px; color: var(--muted); padding-top: 1px; }
+.field-val { font-family: var(--mono); font-size: 11px; color: var(--text); word-break: break-word; }
+.field-val a { color: var(--cyan); text-decoration: none; }
+.field-val a:hover { text-decoration: underline; }
+.sig-table { width: 100%; border-collapse: collapse; }
+.sig-table td { padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 11px; vertical-align: top; }
+.sig-table tr:last-child td { border-bottom: none; }
+.sig-label-cell { width: 130px; padding-right: 10px; }
+.sig-val-cell { color: var(--text); }
+.sig-link-cell { text-align: right; white-space: nowrap; }
+.contact-card { background: var(--card); border: 1px solid var(--border2); border-radius: 6px; padding: 9px 12px; margin-bottom: 7px; }
+.contact-card:last-child { margin-bottom: 0; }
+.cc-name { font-weight: 600; font-size: 12px; }
+.cc-title { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-top: 1px; }
+.cc-row { font-family: var(--mono); font-size: 10px; color: var(--blue); margin-top: 3px; }
+.dol-viewer { background: var(--card); border: 1px solid var(--border2); border-radius: 6px; overflow: hidden; }
+.dol-tabs { display: flex; border-bottom: 1px solid var(--border2); overflow-x: auto; }
+.dol-tab { font-family: var(--mono); font-size: 10px; padding: 6px 13px; border: none; background: transparent; cursor: pointer; color: var(--muted); white-space: nowrap; border-right: 1px solid var(--border2); transition: background 0.1s; }
+.dol-tab:hover { background: var(--card2); color: var(--text); }
+.dol-tab.active { color: var(--text); background: var(--card2); }
+.dol-tab.tc { color: var(--green); } .dol-tab.td { color: var(--cyan); } .dol-tab.th { color: var(--purple); } .dol-tab.tm { color: var(--yellow); }
+.dol-panel { padding: 0.75rem 1rem; display: none; }
+.dol-panel.active { display: block; }
+.dol-link-row { display: flex; align-items: center; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid var(--border); font-family: var(--mono); font-size: 10px; }
+.dol-link-row:last-child { border-bottom: none; }
+.dol-link-desc { color: var(--muted); }
+.dol-open { display: inline-flex; align-items: center; gap: 4px; background: var(--card2); border: 1px solid var(--border2); border-radius: 4px; padding: 3px 9px; color: var(--text); font-family: var(--mono); font-size: 9px; cursor: pointer; text-decoration: none; transition: border-color 0.15s; }
+.dol-open:hover { border-color: var(--muted); }
+.dol-open.primary { background: var(--green-dim); border-color: var(--green); color: var(--green); }
+
+/* ── EMPTY / LOADING ── */
+.empty-state { text-align: center; padding: 4rem 2rem; color: var(--muted); }
+.empty-state h2 { font-size: 1rem; color: var(--dim); margin-bottom: 10px; font-family: var(--mono); }
+.empty-state p { font-family: var(--mono); font-size: 11px; line-height: 2.2; }
+.empty-state code { background: var(--card); border: 1px solid var(--border2); border-radius: 3px; padding: 1px 5px; font-size: 10px; color: var(--green); }
+
+/* ── GLOSSARY ── */
+.overlay { display: none; position: fixed; inset: 0; z-index: 300; background: rgba(8,11,15,0.88); backdrop-filter: blur(4px); align-items: center; justify-content: center; }
+.overlay.open { display: flex; }
+.gbox { background: var(--card); border: 1px solid var(--border2); border-radius: 10px; width: 620px; max-width: 95vw; max-height: 85vh; overflow-y: auto; }
+.ghead { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--card); z-index: 1; }
+.ghead h2 { font-size: 13px; font-weight: 700; }
+.gclose { background: none; border: none; color: var(--muted); font-size: 18px; cursor: pointer; }
+.gclose:hover { color: var(--text); }
+.gsec { padding: 0.875rem 1.25rem; border-bottom: 1px solid var(--border); }
+.gsec:last-child { border-bottom: none; }
+.gsec h3 { font-family: var(--mono); font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.6rem; }
+.grow { display: grid; grid-template-columns: 130px 1fr; gap: 7px; margin-bottom: 7px; align-items: start; }
+.grow:last-child { margin-bottom: 0; }
+.gterm { font-family: var(--mono); font-size: 11px; font-weight: 600; color: var(--cyan); }
+.gdef { font-size: 12px; color: var(--text); line-height: 1.5; }
+
+/* ── SCHEDULE TABLES ── */
+.sched-section { margin-bottom: 1rem; }
+.sched-section-title {
+  font-family: var(--mono); font-size: 10px; font-weight: 600;
+  color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em;
+  margin-bottom: 6px; padding: 4px 0; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 8px;
+}
+.sched-section-title .cnt { font-size: 9px; opacity: 0.6; font-weight: 400; }
+.sched-tbl { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 10px; }
+.sched-tbl th { text-align: left; color: var(--muted); font-weight: 600; font-size: 9px;
+  text-transform: uppercase; letter-spacing: 0.06em; padding: 4px 8px;
+  border-bottom: 1px solid var(--border); white-space: nowrap; }
+.sched-tbl td { padding: 5px 8px; border-bottom: 1px solid var(--border); vertical-align: top;
+  color: var(--text); word-break: break-word; }
+.sched-tbl tr:last-child td { border-bottom: none; }
+.sched-tbl tr:hover td { background: var(--card2); }
+.sched-tbl .amt { text-align: right; color: var(--green); white-space: nowrap; }
+.sched-tbl .muted { color: var(--muted); }
+.sched-no-data { font-family: var(--mono); font-size: 10px; color: var(--dim);
+  padding: 8px 0; font-style: italic; }
+.sched-load-btn {
+  font-family: var(--mono); font-size: 10px; padding: 4px 12px;
+  background: var(--card2); border: 1px solid var(--border2);
+  border-radius: 4px; color: var(--muted); cursor: pointer; margin-top: 6px;
+}
+.sched-load-btn:hover { color: var(--text); border-color: var(--muted); }
+
+/* ── PAGINATION ── */
+.pagination { display: flex; align-items: center; gap: 4px; padding: 1rem 2rem; flex-wrap: wrap; }
+.page-btn {
+  font-family: var(--mono); font-size: 11px; min-width: 32px; height: 28px;
+  padding: 0 8px; border-radius: 4px; border: 1px solid var(--border2);
+  background: var(--card); color: var(--muted); cursor: pointer; transition: all 0.12s;
+}
+.page-btn:hover { color: var(--text); border-color: var(--muted); }
+.page-btn.active { background: var(--green-dim); border-color: var(--green); color: var(--green); font-weight: 700; }
+.page-btn.prev-next { color: var(--muted); }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header>
+  <div class="logo">
+    <span class="logo-mark">9AT</span>
+    <span class="logo-title">Intelligence Platform</span>
+  </div>
+  <div class="header-right">
+    <span class="hdr-status" id="hdr-status">No data loaded</span>
+    <button class="theme-btn" id="theme-btn" title="Toggle light/dark mode">☀</button>
+    <button class="hdr-btn" id="glossary-btn">? Glossary</button>
+    <button class="hdr-btn primary" id="load-data-btn">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      Load 9at_intelligence.json
+    </button>
+    <input type="file" id="file-data" accept=".json" style="display:none">
+  </div>
+</header>
+
+<!-- ── NAV TABS ── -->
+<div class="nav-tabs">
+  <button class="nav-tab active" id="tab-db">
+    Allocator Database <span class="tab-count" id="tc-db"></span>
+  </button>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     ALLOCATOR DATABASE
+══════════════════════════════════════════════════════ -->
+<div class="section active" id="section-db">
+
+  <div class="summary-band">
+    <div class="stat"><div class="stat-label">Total Allocators</div><div class="stat-value" id="d-total">—</div></div>
+    <div class="stat"><div class="stat-label">With 9AT Signal</div><div class="stat-value green" id="d-at9">—</div></div>
+    <div class="stat"><div class="stat-label">Ready to Outreach</div><div class="stat-value green" id="d-ready">—</div></div>
+    <div class="stat"><div class="stat-label">Needs Enrichment</div><div class="stat-value yellow" id="d-enrich">—</div></div>
+    <div class="stat"><div class="stat-label">Has Sched C Data</div><div class="stat-value cyan" id="d-schc">—</div></div>
+    <div class="stat"><div class="stat-label">Has Sched D/H</div><div class="stat-value purple" id="d-schdh">—</div></div>
+    <div class="stat"><div class="stat-label">Has Email</div><div class="stat-value blue" id="d-email">—</div></div>
+  </div>
+
+  <div class="enrich-panel" id="enrich-panel">
+    <div class="enrich-header" id="enrich-toggle">
+      <span class="enrich-title">★ ENRICHMENT PRIORITY LIST</span>
+      <span class="enrich-count" id="enrich-count">— firms</span>
+      <span class="enrich-arrow" id="enrich-arrow">▶ expand</span>
+    </div>
+    <div class="enrich-list" id="enrich-list"></div>
+  </div>
+
+  <div class="controls">
+    <div class="search-wrap">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="search" id="db-search" placeholder="Search firm, plan, location, provider, fund…">
+    </div>
+    <span class="ctrl-label">9AT Signal</span>
+    <select id="db-filter-signal">
+      <option value="all">All firms</option>
+      <option value="any9at">Has 9AT signal</option>
+      <option value="tier1">Tier 1 only</option>
+      <option value="schedule_c">Schedule C</option>
+      <option value="schedule_d">Schedule D</option>
+      <option value="schedule_h">Schedule H</option>
+      <option value="direct">Direct match</option>
+      <option value="none9at">No 9AT signal</option>
+    </select>
+    <span class="ctrl-label">Enrich</span>
+    <select id="db-filter-enrich">
+      <option value="all">All</option>
+      <option value="READY">Ready</option>
+      <option value="HIGH">Needs enrichment</option>
+      <option value="LOW">Low priority</option>
+      <option value="SKIP">Skip</option>
+    </select>
+    <span class="ctrl-label">Has</span>
+    <select id="db-filter-data">
+      <option value="all">Any data</option>
+      <option value="schc">Schedule C data</option>
+      <option value="schdh">Schedule D/H data</option>
+      <option value="email">Email contact</option>
+      <option value="contact">Any contact</option>
+    </select>
+    <span class="ctrl-label">Sort</span>
+    <select id="db-sort">
+      <option value="enrich">Priority (default)</option>
+      <option value="firm_az">Firm A→Z</option>
+      <option value="participants_desc">Participants ↓</option>
+      <option value="signals_desc">Most signals ↓</option>
+    </select>
+  </div>
+  <div class="result-count" id="db-count"></div>
+  <div class="pagination" id="db-pagination"></div>
+  <div class="table-wrap" id="db-table-wrap">
+    <div class="empty-state">
+      <h2>// no data loaded</h2>
+      <p>Click <strong style="color:var(--text)">Load 9at_intelligence.json</strong> above.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── SHARED DRAWER ── -->
+<div class="drawer-overlay" id="drawer-overlay">
+  <div class="drawer" id="drawer">
+    <div class="drawer-head">
+      <div class="drawer-head-left">
+        <div class="dr-firm" id="dr-firm">—</div>
+        <div class="dr-plan" id="dr-plan">—</div>
+        <div class="dr-meta" id="dr-meta"></div>
+      </div>
+      <button class="drawer-close" id="drawer-close">✕</button>
+    </div>
+    <div class="drawer-body" id="drawer-body"></div>
+  </div>
+</div>
+
+<script>
+// ── State ────────────────────────────────────────────────────────────────────
+let dbData  = [];
+let dbIndex = {};
+
+const SIG_TIER = {
+  schedule_c:1, schedule_c_fund:1, schedule_d_adviser:1,
+  schedule_d_fund:1, schedule_h:1, direct_adviser:2, direct_fund_adviser:2,
+};
+const SIG_LABEL = {
+  schedule_c:'Sched C', schedule_c_fund:'Sched C Fund',
+  schedule_d_adviser:'Sched D Adv', schedule_d_fund:'Sched D Fund',
+  schedule_h:'Sched H', direct_adviser:'Direct', direct_fund_adviser:'Direct Fund',
+};
+const ENRICH_ORDER = {READY:0,HIGH:1,LOW:2,SKIP:3};
+const PAGE_SIZE = 50;
+let dbPage = 1;
+
+function debounce(fn, ms) {
+  let t; return (...args) => { clearTimeout(t); t = setTimeout(()=>fn(...args), ms); };
+}
+
+// ── Helpers ──────────────────────────────────────────────────────────────────
+const esc = s => !s ? '' : String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const fmtN = v => (v!=null&&v!=='') ? Number(v).toLocaleString() : '—';
+
+function sigChip(sig) {
+  const t = SIG_TIER[sig]||2;
+  return `<span class="sig-chip sig-t${t}">${esc(SIG_LABEL[sig]||sig)}</span>`;
+}
+function ebadge(ep) {
+  const lbl = {READY:'✓ READY',HIGH:'★ ENRICH',LOW:'· LOW',SKIP:'— SKIP'};
+  return ep&&ep!=='SKIP' ? `<span class="ebadge ep-${ep}">${lbl[ep]||ep}</span>` : '';
+}
+function schedCls(sig) {
+  if((sig||'').startsWith('schedule_c')) return 'sched-c';
+  if((sig||'').startsWith('schedule_d')) return 'sched-d';
+  if((sig||'').startsWith('schedule_h')) return 'sched-h';
+  return 'sched-x';
+}
+function dolUrls(ein, sig, filingUrl) {
+  const base   = 'https://www.efast.dol.gov/5500Search/';
+  const direct = filingUrl || '';
+  const main   = direct || base;
+  let schedLbl2 = 'Form 5500';
+  if((sig||'').startsWith('schedule_c')) schedLbl2='Schedule C';
+  if((sig||'').startsWith('schedule_d')) schedLbl2='Schedule D';
+  if((sig||'').startsWith('schedule_h')) schedLbl2='Schedule H';
+  return { browse:main, schedUrl:main, schedLbl2, hasDirect:!!direct, search:base,
+           c:main, d:main, h:main };
+}
+
+// ── Load combined JSON ────────────────────────────────────────────────────────
+function loadData(data) {
+  dbData  = data.allocators || [];
+  dbIndex = {};
+  dbData.forEach(a => { dbIndex[a.ein] = a; });
+
+  const s = data.stats || {};
+  document.getElementById('d-total').textContent  = fmtN(dbData.length);
+  document.getElementById('d-at9').textContent    = fmtN(s.allocators_with_9at  || dbData.filter(a=>(a.at9_relationships||[]).length>0).length);
+  document.getElementById('d-ready').textContent  = fmtN(s.ready_to_outreach    || dbData.filter(a=>a.enrich_priority==='READY').length);
+  document.getElementById('d-enrich').textContent = fmtN(s.firms_to_enrich      || dbData.filter(a=>a.enrich_priority==='HIGH').length);
+  document.getElementById('d-schc').textContent   = fmtN(s.has_schedule_c       || dbData.filter(a=>(a.service_providers||[]).length>0).length);
+  document.getElementById('d-schdh').textContent  = fmtN(s.has_schedule_d_h     || dbData.filter(a=>(a.investments||[]).length>0).length);
+  document.getElementById('d-email').textContent  = fmtN(s.leads_with_emails    || dbData.filter(a=>(a.contact_count||0)>0).length);
+  document.getElementById('tc-db').textContent    = dbData.length.toLocaleString();
+  document.getElementById('hdr-status').innerHTML = `<span>${dbData.length.toLocaleString()} allocators loaded</span>`;
+
+  // Enrichment priority panel
+  const ef = data.enrichment_priority_list || dbData.filter(a=>a.enrich_priority==='HIGH');
+  if(ef.length) {
+    document.getElementById('enrich-panel').classList.add('visible');
+    document.getElementById('enrich-count').textContent = `${ef.length} firms`;
+    document.getElementById('enrich-list').innerHTML = ef.slice(0,50).map((f,i)=>`
+      <div class="enrich-row">
+        <span class="enrich-num">${i+1}</span>
+        <span class="enrich-firm">${esc(f.firm_name||f.allocator_name)}</span>
+        <span class="enrich-why">${esc(f.connection||'')}</span>
+        <span class="enrich-loc">${esc(f.location||'')}</span>
+      </div>`).join('');
+  }
+
+  dbPage = 1;
+  renderDB();
+}
+
+// ── Filter + sort ─────────────────────────────────────────────────────────────
+function getFilteredDB() {
+  const q       = document.getElementById('db-search').value.toLowerCase();
+  const sigF    = document.getElementById('db-filter-signal').value;
+  const enrichF = document.getElementById('db-filter-enrich').value;
+  const dataF   = document.getElementById('db-filter-data').value;
+  const sort    = document.getElementById('db-sort').value;
+
+  let rows = dbData.filter(a => {
+    const rels  = a.at9_relationships || [];
+    const has9at = rels.length > 0;
+    if(sigF==='any9at'     && !has9at) return false;
+    if(sigF==='none9at'    && has9at)  return false;
+    if(sigF==='tier1'      && !rels.some(r=>(SIG_TIER[r.signal]||2)===1)) return false;
+    if(sigF==='schedule_c' && !rels.some(r=>(r.signal||'').startsWith('schedule_c'))) return false;
+    if(sigF==='schedule_d' && !rels.some(r=>(r.signal||'').startsWith('schedule_d'))) return false;
+    if(sigF==='schedule_h' && !rels.some(r=>(r.signal||'').startsWith('schedule_h'))) return false;
+    if(sigF==='direct'     && !rels.some(r=>(r.signal||'').startsWith('direct'))) return false;
+    if(enrichF!=='all'     && a.enrich_priority!==enrichF) return false;
+    if(dataF==='schc'      && !(a.service_providers||[]).length) return false;
+    if(dataF==='schdh'     && !(a.investments||[]).length) return false;
+    if(dataF==='email'     && !(a.contact_count>0)) return false;
+    if(dataF==='contact'   && !(a.contact_count_any>0)) return false;
+    if(!q) return true;
+    const hay = [
+      a.firm_name, a.plan_name, a.location,
+      ...(a.service_providers||[]).map(s=>s.provider_name),
+      ...(a.investments||[]).map(i=>i.name),
+      ...(rels).map(r=>r.matched_name+' '+r.connection),
+      ...(a.contacts||[]).map(c=>c.name+' '+c.title+' '+(c.email||'')),
+    ].join(' ').toLowerCase();
+    return hay.includes(q);
+  });
+
+  if(sort==='firm_az')           rows.sort((a,b)=>(a.firm_name||'').localeCompare(b.firm_name||''));
+  else if(sort==='participants_desc') rows.sort((a,b)=>(Number(b.participants)||0)-(Number(a.participants)||0));
+  else if(sort==='signals_desc') rows.sort((a,b)=>(b.at9_relationships||[]).length-(a.at9_relationships||[]).length);
+  else rows.sort((a,b)=>(ENRICH_ORDER[a.enrich_priority]||9)-(ENRICH_ORDER[b.enrich_priority]||9)||(Number(b.participants)||0)-(Number(a.participants)||0));
+  return rows;
+}
+
+// ── Render DB as card grid ────────────────────────────────────────────────────
+function renderDBCard(a) {
+  const rels     = a.at9_relationships || [];
+  const has9at   = rels.length > 0;
+  const ep       = a.enrich_priority || 'SKIP';
+  const epLbl    = {READY:'✓ READY',HIGH:'★ ENRICH',LOW:'· LOW',SKIP:'— SKIP'}[ep]||ep;
+  const spCount  = (a.service_providers||[]).length;
+  const invCount = (a.investments||[]).length;
+  const conCount = a.contact_count_any||0;
+
+  // 9AT signal chips — shown upfront on the card
+  let sigBlock = '';
+  if(has9at) {
+    const chips   = rels.slice(0,3).map(r=>sigChip(r.signal)).join(' ');
+    const extra   = rels.length>3 ? `<span style="font-family:var(--mono);font-size:9px;color:var(--muted)">+${rels.length-3} more</span>` : '';
+    const conn    = rels[0]?.connection || '';
+    const matched = rels[0]?.matched_name || '';
+    sigBlock = `<div class="ac-sigs" style="margin-bottom:4px">${chips}${extra}</div>
+      <div style="font-size:10px;color:var(--text);line-height:1.3;margin-bottom:2px">${esc(conn)}</div>
+      ${matched?`<div style="font-family:var(--mono);font-size:10px;color:var(--cyan)">${esc(matched)}</div>`:''}`;
+  } else {
+    sigBlock = `<div class="ac-sigs"><span style="font-family:var(--mono);font-size:9px;color:var(--dim)">No 9AT signal</span></div>`;
+  }
+
+  return `<div class="alloc-card" onclick="openDrawer('${esc(a.ein)}')">
+    <div class="ac-head">
+      <div>
+        <div class="ac-name">${esc(a.firm_name||'—')}</div>
+        <div class="ac-plan">${esc(a.plan_name||'')}</div>
+      </div>
+      <span class="ac-ep ebadge ep-${ep}">${epLbl}</span>
+    </div>
+    ${sigBlock}
+    <div class="ac-meta" style="margin-top:6px">
+      ${spCount  ? `<span class="ac-pill green">${spCount} Sched C provider${spCount!==1?'s':''}</span>` : ''}
+      ${invCount ? `<span class="ac-pill cyan">${invCount} investment${invCount!==1?'s':''}</span>` : ''}
+      ${conCount ? `<span class="ac-pill yellow">${conCount} contact${conCount!==1?'s':''}</span>` : ''}
+    </div>
+    <div class="ac-bottom">
+      <span class="ac-loc">${esc(a.location)||'—'}</span>
+      <span class="ac-parts">${a.participants ? fmtN(a.participants)+' participants' : ''}</span>
+    </div>
+  </div>`;
+}
+
+function renderPagination(containerId, currentPage, totalPages, goFn) {
+  const el = document.getElementById(containerId);
+  if(totalPages <= 1) { el.innerHTML = ''; return; }
+  let html = '';
+  if(currentPage > 1) html += `<button class="page-btn prev-next" onclick="${goFn}(${currentPage-1})">‹</button>`;
+  const delta = 2;
+  for(let i=1; i<=totalPages; i++) {
+    if(i===1||i===totalPages||(i>=currentPage-delta&&i<=currentPage+delta)) {
+      html += `<button class="page-btn${i===currentPage?' active':''}" onclick="${goFn}(${i})">${i}</button>`;
+    } else if(i===currentPage-delta-1||i===currentPage+delta+1) {
+      html += `<span style="color:var(--muted);font-family:var(--mono);font-size:11px;padding:0 4px">…</span>`;
+    }
+  }
+  if(currentPage < totalPages) html += `<button class="page-btn prev-next" onclick="${goFn}(${currentPage+1})">›</button>`;
+  el.innerHTML = html;
+}
+
+function renderDB() {
+  const rows = getFilteredDB();
+  const totalPages = Math.max(1, Math.ceil(rows.length / PAGE_SIZE));
+  dbPage = Math.min(dbPage, totalPages);
+  const start   = (dbPage-1) * PAGE_SIZE;
+  const visible = rows.slice(start, start + PAGE_SIZE);
+
+  document.getElementById('db-count').textContent =
+    `Showing ${(start+1).toLocaleString()}–${Math.min(start+PAGE_SIZE,rows.length).toLocaleString()} of ${rows.length.toLocaleString()} allocators`;
+
+  if(!rows.length) {
+    document.getElementById('db-table-wrap').innerHTML = `<div class="empty-state"><h2>// no results</h2><p>Try adjusting filters.</p></div>`;
+    document.getElementById('db-pagination').innerHTML = '';
+    return;
+  }
+
+  const cards = visible.map(renderDBCard).join('');
+  document.getElementById('db-table-wrap').innerHTML = `<div class="db-grid">${cards}</div>`;
+  renderPagination('db-pagination', dbPage, totalPages, 'goDBPage');
+}
+
+function goDBPage(p) { dbPage=p; renderDB(); window.scrollTo(0,0); }
+
+document.getElementById('db-search').addEventListener('input', debounce(()=>{ dbPage=1; renderDB(); }, 250));
+document.getElementById('db-filter-signal').addEventListener('change', ()=>{ dbPage=1; renderDB(); });
+document.getElementById('db-filter-enrich').addEventListener('change', ()=>{ dbPage=1; renderDB(); });
+document.getElementById('db-filter-data').addEventListener('change', ()=>{ dbPage=1; renderDB(); });
+document.getElementById('db-sort').addEventListener('change', ()=>{ dbPage=1; renderDB(); });
+document.getElementById('enrich-toggle').addEventListener('click', ()=>{
+  const l=document.getElementById('enrich-list'), a=document.getElementById('enrich-arrow');
+  const o=l.classList.toggle('open'); a.textContent=o?'▼ collapse':'▶ expand';
+});
+
+// ══════════════════════════════════════════════════════════════════════════════
+// SCHEDULE RENDERING
+// ══════════════════════════════════════════════════════════════════════════════
+function renderSchedC(sc) {
+  if(!sc) return '<div class="sched-no-data">No Schedule C data loaded — run 9at_schedules_extract.py and load 9at_schedules.json</div>';
+  let html = '';
+
+  // Item 1 — Direct/eligible indirect compensation
+  if(sc.item1 && sc.item1.length) {
+    const cols = Object.keys(sc.item1[0]);
+    const namecol = cols.find(c=>c.includes('NAME')) || cols[0];
+    const eincol  = cols.find(c=>c.includes('EIN'));
+    const dircol  = cols.find(c=>c.includes('DIRECT'));
+    const indcol  = cols.find(c=>c.includes('INDIRECT'));
+    const totcol  = cols.find(c=>c.includes('TOTAL'));
+    const relcol  = cols.find(c=>c.includes('RELATION'));
+    html += `<div class="sched-section">
+      <div class="sched-section-title">Part 1 — Item 1: Eligible Indirect Compensation <span class="cnt">${sc.item1.length} providers</span></div>
+      <table class="sched-tbl"><thead><tr>
+        <th>Provider Name</th>${eincol?'<th>EIN</th>':''}
+        ${dircol?'<th>Direct Comp</th>':''}${indcol?'<th>Indirect Comp</th>':''}${totcol?'<th>Total Comp</th>':''}
+        ${relcol?'<th>Relationship</th>':''}
+      </tr></thead><tbody>`;
+    sc.item1.forEach(r => {
+      html += `<tr>
+        <td>${esc(r[namecol]||'')}</td>
+        ${eincol?`<td class="muted">${esc(r[eincol]||'')}</td>`:''}
+        ${dircol?`<td class="amt">${esc(r[dircol]||'')}</td>`:''}
+        ${indcol?`<td class="amt">${esc(r[indcol]||'')}</td>`:''}
+        ${totcol?`<td class="amt">${esc(r[totcol]||'')}</td>`:''}
+        ${relcol?`<td class="muted">${esc(r[relcol]||'')}</td>`:''}
+      </tr>`;
+    });
+    html += '</tbody></table></div>';
+  }
+
+  // Item 2 — Other indirect compensation
+  if(sc.item2 && sc.item2.length) {
+    const cols = Object.keys(sc.item2[0]);
+    const namecol  = cols.find(c=>c.includes('PROVIDER_NAME')) || cols[0];
+    const payercol = cols.find(c=>c.includes('PAYER'));
+    const amtcol   = cols.find(c=>c.includes('AMT'));
+    const srvcol   = cols.find(c=>c.includes('SERVICE'));
+    html += `<div class="sched-section">
+      <div class="sched-section-title">Part 1 — Item 2: Other Indirect Compensation <span class="cnt">${sc.item2.length} rows</span></div>
+      <table class="sched-tbl"><thead><tr>
+        <th>Provider</th>${payercol?'<th>Payer</th>':''}${amtcol?'<th>Amount Paid</th>':''}${srvcol?'<th>Service</th>':''}
+      </tr></thead><tbody>`;
+    sc.item2.forEach(r => {
+      html += `<tr>
+        <td>${esc(r[namecol]||'')}</td>
+        ${payercol?`<td class="muted">${esc(r[payercol]||'')}</td>`:''}
+        ${amtcol?`<td class="amt">${esc(r[amtcol]||'')}</td>`:''}
+        ${srvcol?`<td class="muted">${esc(r[srvcol]||'')}</td>`:''}
+      </tr>`;
+    });
+    html += '</tbody></table></div>';
+  }
+
+  // Item 3 — Failure to disclose
+  if(sc.item3 && sc.item3.length) {
+    const cols = Object.keys(sc.item3[0]);
+    const namecol = cols.find(c=>c.includes('NAME')) || cols[0];
+    const srvcol  = cols.find(c=>c.includes('SERVICE'));
+    const rescol  = cols.find(c=>c.includes('REASON')||c.includes('FAIL'));
+    html += `<div class="sched-section">
+      <div class="sched-section-title">Part 1 — Item 3: Failure to Disclose <span class="cnt">${sc.item3.length} rows</span></div>
+      <table class="sched-tbl"><thead><tr>
+        <th>Provider</th>${srvcol?'<th>Service</th>':''}${rescol?'<th>Reason</th>':''}
+      </tr></thead><tbody>`;
+    sc.item3.forEach(r => {
+      html += `<tr>
+        <td>${esc(r[namecol]||'')}</td>
+        ${srvcol?`<td class="muted">${esc(r[srvcol]||'')}</td>`:''}
+        ${rescol?`<td class="muted">${esc(r[rescol]||'')}</td>`:''}
+      </tr>`;
+    });
+    html += '</tbody></table></div>';
+  }
+
+  if(!html) return '<div class="sched-no-data">No Schedule C rows found for this plan.</div>';
+  return html;
+}
+
+function renderSchedD(sd) {
+  if(!sd) return '<div class="sched-no-data">No Schedule D data loaded.</div>';
+  if(!sd.length) return '<div class="sched-no-data">No Schedule D rows found for this plan.</div>';
+  return `<div class="sched-section">
+    <div class="sched-section-title">Part 2 — DFE / Pooled Fund Participations <span class="cnt">${sd.length} funds</span></div>
+    <table class="sched-tbl"><thead><tr>
+      <th>Fund / Entity Name</th><th>EIN-PN</th><th>Entity Code</th><th class="amt">Value (EOY)</th>
+    </tr></thead><tbody>
+    ${sd.map(r=>`<tr>
+      <td>${esc(r.DFE_NAME||'')}</td>
+      <td class="muted">${esc(r.DFE_EIN_PN||'')}</td>
+      <td class="muted">${esc(r.ENTITY_CODE||'')}</td>
+      <td class="amt">${esc(r.VALUE_EOY||'')}</td>
+    </tr>`).join('')}
+    </tbody></table></div>`;
+}
+
+function renderSchedH(sh) {
+  if(!sh) return '<div class="sched-no-data">No Schedule H data loaded.</div>';
+  const entries = Object.entries(sh);
+  if(!entries.length) return '<div class="sched-no-data">No Schedule H financial data found for this plan.</div>';
+
+  // Split into BOY/EOY pairs and standalone rows
+  const eoy = entries.filter(([k])=>k.includes('EOY') || (!k.includes('BOY') && !k.includes('— BOY')));
+  const boy = entries.filter(([k])=>k.includes('BOY') || k.includes('— BOY'));
+
+  let html = '';
+  if(eoy.length) {
+    html += `<div class="sched-section">
+      <div class="sched-section-title">End of Year / Summary Figures</div>
+      <table class="sched-tbl"><thead><tr><th>Line Item</th><th class="amt">Amount</th></tr></thead><tbody>
+      ${eoy.map(([k,v])=>`<tr><td>${esc(k)}</td><td class="amt">${esc(v)}</td></tr>`).join('')}
+      </tbody></table></div>`;
+  }
+  if(boy.length) {
+    html += `<div class="sched-section">
+      <div class="sched-section-title">Beginning of Year Figures</div>
+      <table class="sched-tbl"><thead><tr><th>Line Item</th><th class="amt">Amount</th></tr></thead><tbody>
+      ${boy.map(([k,v])=>`<tr><td>${esc(k.replace(' — BOY',''))}</td><td class="amt">${esc(v)}</td></tr>`).join('')}
+      </tbody></table></div>`;
+  }
+  return html;
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// SHARED DRAWER — works for both sections
+// ══════════════════════════════════════════════════════════════════════════════
+function openDrawer(ein) {
+  const ref = dbIndex[ein];
+  if(!ref) return;
+
+  document.getElementById('dr-firm').textContent = ref.firm_name||'—';
+  document.getElementById('dr-plan').textContent = ref.plan_name||'—';
+  const metaItems = [
+    ref.location      ? `<span class="dr-pill">📍 ${esc(ref.location)}</span>` : '',
+    ref.participants  ? `<span class="dr-pill">👥 ${fmtN(ref.participants)}</span>` : '',
+    `<span class="dr-pill">EIN ${esc(ein)}</span>`,
+    (ref.at9_relationships||[]).length ? `<span class="dr-pill">${(ref.at9_relationships||[]).length} 9AT signal${(ref.at9_relationships||[]).length!==1?'s':''}</span>` : '',
+  ].filter(Boolean).join('');
+  document.getElementById('dr-meta').innerHTML = metaItems;
+
+  const contacts = [...(ref.contacts||[])];
+  contacts.sort((a,b)=>{
+    const rank=t=>{t=(t||'').toLowerCase(); if(/cio|chief invest|portfolio|invest/.test(t))return 0; if(/cfo|treasurer|finance/.test(t))return 1; return 2;};
+    return rank(a.title)-rank(b.title);
+  });
+
+  const urls   = dolUrls(ein, (ref.at9_relationships||[])[0]?.signal||'', ref.filing_url||'');
+  const sigSet = new Set((ref.at9_relationships||[]).map(r=>r.dol_schedule||''));
+  const sched  = ref.schedule_detail || {};
+
+  let html = '';
+
+  // Identity
+  html += `<div class="dsec">
+    <div class="dsec-title">Organization <span class="dsec-badge">Identity</span></div>
+    <div class="field-grid">
+      <span class="field-label">Legal Name</span><span class="field-val">${esc(ref.firm_name)}</span>
+      <span class="field-label">Plan Name</span><span class="field-val">${esc(ref.plan_name)}</span>
+      <span class="field-label">EIN</span><span class="field-val">${esc(ein)}</span>
+      <span class="field-label">Location</span><span class="field-val">${esc(ref.location)||'—'}</span>
+      <span class="field-label">Participants</span><span class="field-val">${fmtN(ref.participants)}</span>
+      <span class="field-label">Enrich Status</span><span class="field-val">${ebadge(ref.enrich_priority||'SKIP')} <span style="font-family:var(--mono);font-size:10px;color:var(--muted)">${esc(ref.enrich_reason||'')}</span></span>
+    </div>
+  </div>`;
+
+  // 9AT Relationships
+  const rels = ref.at9_relationships||[];
+  if(rels.length) {
+    html += `<div class="dsec">
+      <div class="dsec-title">9AT Relationship Map <span class="dsec-badge">${rels.length} signal${rels.length!==1?'s':''}</span></div>
+      <table class="sig-table">`;
+    rels.forEach(r => {
+      const rUrls = dolUrls(ein, r.signal, ref.filing_url||'');
+      html += `<tr>
+        <td class="sig-label-cell">${sigChip(r.signal)}</td>
+        <td class="sig-val-cell">
+          <div>${esc(r.connection)}</div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--cyan);margin-top:2px">${esc(r.matched_name)}</div>
+          ${r.adviser_details?.['Total AUM $']?`<div style="font-family:var(--mono);font-size:10px;color:var(--muted)">AUM: ${esc(r.adviser_details['Total AUM $'])}</div>`:''}
+          <div style="font-family:var(--mono);font-size:9px;color:var(--dim);margin-top:1px">Match score: ${r.match_score||0}%  ·  Tier ${r.tier}</div>
+        </td>
+        <td class="sig-link-cell">
+          <a class="sched-btn ${schedCls(r.signal)}" href="${esc(rUrls.schedUrl)}" target="_blank">${esc(rUrls.schedLbl2)} ↗</a>
+          ${r.adviser_details?.Url?`<br><a class="sched-btn sched-x" style="margin-top:3px" href="${esc(r.adviser_details.Url)}" target="_blank">9AT ↗</a>`:''}
+        </td>
+      </tr>`;
+    });
+    html += `</table></div>`;
+  }
+
+  // Service Providers (Schedule C)
+  const sps = ref.service_providers||[];
+  if(sps.length) {
+    html += `<div class="dsec">
+      <div class="dsec-title">Service Providers <span class="dsec-badge">Schedule C · ${sps.length} providers</span></div>
+      <table class="sig-table">`;
+    sps.slice(0,20).forEach(sp => {
+      const am = sp.adviser_match||{};
+      const fm = sp.fund_match||{};
+      html += `<tr>
+        <td class="sig-label-cell" style="color:var(--green);font-family:var(--mono);font-size:10px">${esc(sp.provider_name)}</td>
+        <td class="sig-val-cell">
+          ${sp.provider_ein?`<div style="font-size:10px;color:var(--muted)">EIN: ${esc(sp.provider_ein)}</div>`:''}
+          ${am['Total AUM $']?`<div style="font-size:10px;color:var(--muted)">AUM: ${esc(am['Total AUM $'])}</div>`:''}
+          ${am['Country/Region']?`<div style="font-size:10px;color:var(--muted)">Region: ${esc(am['Country/Region'])}</div>`:''}
+          ${fm['fund_name']?`<div style="font-size:10px;color:var(--cyan)">Fund: ${esc(fm['fund_name'])}</div>`:''}
+          <div style="font-family:var(--mono);font-size:9px;color:var(--dim)">Item ${esc(sp.item)}</div>
+        </td>
+        <td class="sig-link-cell">
+          ${am.Url?`<a class="sched-btn sched-c" href="${esc(am.Url)}" target="_blank">9AT ↗</a>`:''}
+        </td>
+      </tr>`;
+    });
+    if(sps.length>20) html += `<tr><td colspan="3" style="font-family:var(--mono);font-size:9px;color:var(--muted);padding-top:6px">… and ${sps.length-20} more providers</td></tr>`;
+    html += `</table></div>`;
+  }
+
+  // Investments (Schedule D / H)
+  const invs = ref.investments||[];
+  if(invs.length) {
+    html += `<div class="dsec">
+      <div class="dsec-title">Fund Holdings & Managers <span class="dsec-badge">Sched D/H · ${invs.length} entries</span></div>
+      <table class="sig-table">`;
+    invs.slice(0,20).forEach(inv => {
+      const am = inv.adviser_match||{};
+      const fm = inv.fund_match||{};
+      const cls = inv.schedule==='D' ? 'sched-d' : 'sched-h';
+      html += `<tr>
+        <td class="sig-label-cell" style="font-family:var(--mono);font-size:10px"><span class="sched-btn ${cls}" style="cursor:default">Sched ${esc(inv.schedule)}</span></td>
+        <td class="sig-val-cell">
+          <div style="font-weight:600">${esc(inv.name)}</div>
+          ${inv.type==='dfe'?'<div style="font-size:10px;color:var(--muted)">DFE pooled fund investment</div>':'<div style="font-size:10px;color:var(--muted)">Investment manager</div>'}
+          ${am['Total AUM $']?`<div style="font-size:10px;color:var(--muted)">AUM: ${esc(am['Total AUM $'])}</div>`:''}
+          ${fm['fund_name']&&fm['fund_name']!==inv.name?`<div style="font-size:10px;color:var(--cyan)">Matched: ${esc(fm['fund_name'])}</div>`:''}
+        </td>
+        <td class="sig-link-cell">
+          ${am.Url||fm.Url?`<a class="sched-btn sched-x" href="${esc(am.Url||fm.Url)}" target="_blank">9AT ↗</a>`:''}
+        </td>
+      </tr>`;
+    });
+    if(invs.length>20) html += `<tr><td colspan="3" style="font-family:var(--mono);font-size:9px;color:var(--muted);padding-top:6px">… and ${invs.length-20} more entries</td></tr>`;
+    html += `</table></div>`;
+  }
+
+  // Contacts
+  html += `<div class="dsec">
+    <div class="dsec-title">Investment Decision-Makers <span class="dsec-badge">${contacts.length} contact${contacts.length!==1?'s':''}</span></div>`;
+  if(contacts.length) {
+    contacts.forEach(c => { html += `<div class="contact-card">
+      <div class="cc-name">${esc(c.name)}</div>
+      ${c.title?`<div class="cc-title">${esc(c.title)}</div>`:''}
+      ${c.email?`<div class="cc-row">✉ ${esc(c.email)}</div>`:''}
+      ${c.phone?`<div class="cc-row" style="color:var(--muted)">☎ ${esc(c.phone)}</div>`:''}
+    </div>`; });
+  } else {
+    html += `<div style="font-family:var(--mono);font-size:11px;color:var(--dim);padding:4px 0">No contacts found. Run Hunter.io on this firm.</div>`;
+  }
+  html += `</div>`;
+
+  const hasSchedData = sched && (
+    (sched.schedule_c?.item1?.length || sched.schedule_c?.item2?.length || sched.schedule_c?.item3?.length) ||
+    sched.schedule_d?.length || Object.keys(sched.schedule_h||{}).length
+  );
+
+  if(hasSchedData) {
+    html += `<div class="dsec">
+      <div class="dsec-title">Raw Schedule Data <span class="dsec-badge">loaded</span></div>`;
+    const hasSC = sched.schedule_c?.item1?.length || sched.schedule_c?.item2?.length || sched.schedule_c?.item3?.length;
+    if(hasSC) {
+      html += `<div style="margin-bottom:1rem">
+        <div style="font-family:var(--mono);font-size:10px;font-weight:600;color:var(--green);margin-bottom:8px">SCHEDULE C — Service Provider Fees</div>
+        ${renderSchedC(sched.schedule_c)}
+      </div>`;
+    }
+    if(sched.schedule_d?.length) {
+      html += `<div style="margin-bottom:1rem">
+        <div style="font-family:var(--mono);font-size:10px;font-weight:600;color:var(--cyan);margin-bottom:8px">SCHEDULE D — DFE / Pooled Fund Investments</div>
+        ${renderSchedD(sched.schedule_d)}
+      </div>`;
+    }
+    if(Object.keys(sched.schedule_h||{}).length) {
+      html += `<div style="margin-bottom:1rem">
+        <div style="font-family:var(--mono);font-size:10px;font-weight:600;color:var(--purple);margin-bottom:8px">SCHEDULE H — Financial Information</div>
+        ${renderSchedH(sched.schedule_h)}
+      </div>`;
+    }
+    html += '</div>';
+  }
+
+  // DOL Filings
+  const tabs = [{id:'main',label:'Form 5500',cls:'tm',desc:'All filings for this EIN',url:urls.browse}];
+  if(sigSet.has('C')||sps.length) tabs.push({id:'c',label:'Schedule C',cls:'tc',desc:'Service provider fees paid (Part 1)',url:urls.c});
+  if(sigSet.has('D')||invs.some(i=>i.schedule==='D')) tabs.push({id:'d',label:'Schedule D',cls:'td',desc:'DFE / pooled fund investments (Part 2)',url:urls.d});
+  if(sigSet.has('H')||invs.some(i=>i.schedule==='H')) tabs.push({id:'h',label:'Schedule H',cls:'th',desc:'Large plan financial info',url:urls.h});
+
+  html += `<div class="dsec">
+    <div class="dsec-title">DOL Form 5500 Filings <span class="dsec-badge">EFAST2</span></div>
+    <div class="dol-viewer">
+      <div class="dol-tabs">`;
+  tabs.forEach((t,i)=>{ html+=`<button class="dol-tab ${t.cls}${i===0?' active':''}" onclick="switchDolTab('${t.id}')">${t.label}</button>`; });
+  html += `</div>`;
+  tabs.forEach((t,i)=>{ html+=`<div class="dol-panel${i===0?' active':''}" id="dol-p-${t.id}">
+    <div class="dol-link-row">
+      <span class="dol-link-desc">${esc(t.desc)}</span>
+      <a class="dol-open primary" href="${esc(t.url)}" target="_blank">Open EFAST2 Search ↗</a>
+    </div>
+    <div class="dol-link-row">
+      <span class="dol-link-desc" style="color:${urls.hasDirect?'var(--green)':'var(--yellow)'};font-size:9px">
+        ${urls.hasDirect
+          ? '✓ Direct link — opens this specific filing on EFAST2'
+          : `Search EIN: ${esc(ref?.ein||ein||'')} — then open the filing and click the schedule tab`}
+      </span>
+    </div>
+  </div>`; });
+  html += `</div></div>`;
+
+  document.getElementById('drawer-body').innerHTML = html;
+  document.getElementById('drawer-overlay').classList.add('open');
+  document.getElementById('drawer').scrollTop = 0;
+}
+
+function switchDolTab(id) {
+  document.querySelectorAll('.dol-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.dol-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelector(`.dol-tab[onclick="switchDolTab('${id}')"]`)?.classList.add('active');
+  document.getElementById('dol-p-'+id)?.classList.add('active');
+}
+
+document.getElementById('drawer-close').addEventListener('click',()=>document.getElementById('drawer-overlay').classList.remove('open'));
+document.getElementById('drawer-overlay').addEventListener('click',e=>{ if(e.target===document.getElementById('drawer-overlay')) document.getElementById('drawer-overlay').classList.remove('open'); });
+
+// ── File loading ─────────────────────────────────────────────────────────────
+function readJson(file, cb) {
+  const r = new FileReader();
+  r.onload = e => {
+    setTimeout(() => {
+      try { cb(JSON.parse(e.target.result)); }
+      catch(err) { alert('Could not parse JSON: '+err.message); }
+    }, 0);
+  };
+  r.readAsText(file);
+}
+document.getElementById('load-data-btn').addEventListener('click', ()=>document.getElementById('file-data').click());
+document.getElementById('file-data').addEventListener('change', e=>{
+  const f = e.target.files[0];
+  if(f) readJson(f, d => loadData(d));
+});
+
+// Auto-load if file is in the same folder
+fetch('9at_intelligence.json').then(r=>r.ok?r.json():Promise.reject()).then(loadData).catch(()=>{});
+</script>
+
+<!-- ── GLOSSARY ── -->
+<div class="overlay" id="glossary-overlay">
+  <div class="gbox">
+    <div class="ghead"><h2>Dashboard Glossary</h2><button class="gclose" id="gclose">✕</button></div>
+    <div class="gsec"><h3>Sections</h3>
+      <div class="grow"><span class="gterm">Allocator Database</span><span class="gdef">All Form 5500 filers in one table. Firms with a 9AT signal show their connection upfront. Filter by signal type, enrichment priority, or schedule data availability.</span></div>
+      <div class="grow"><span class="gterm">9AT Connection</span><span class="gdef">The column shown for every row — firms with no 9AT link show a dash, firms with a match show signal chips and the specific connection.</span></div>
+    </div>
+    <div class="gsec"><h3>Allocator Profile Drawer</h3>
+      <div class="grow"><span class="gterm">Identity</span><span class="gdef">Name, EIN, plan, location, participant count, and enrichment status.</span></div>
+      <div class="grow"><span class="gterm">9AT Relationship Map</span><span class="gdef">Every signal that fired for this firm — what schedule it came from, what was matched, and a direct link to that schedule on DOL EFAST2.</span></div>
+      <div class="grow"><span class="gterm">Service Providers</span><span class="gdef">All firms this plan paid fees to (Schedule C Part 1, all 3 items), with 9AT adviser/fund matches where found.</span></div>
+      <div class="grow"><span class="gterm">Fund Holdings</span><span class="gdef">DFE pooled fund investments from Schedule D Part 2, matched to 9AT funds where possible.</span></div>
+      <div class="grow"><span class="gterm">DOL Filings</span><span class="gdef">Tabbed links to each relevant schedule on EFAST2. Tabs only appear for schedules that have data for this firm.</span></div>
+    </div>
+    <div class="gsec"><h3>Signal Types</h3>
+      <div class="grow"><span class="gterm">Sched C</span><span class="gdef"><strong>Tier 1.</strong> Plan paid fees to this adviser (Schedule C Part 1).</span></div>
+      <div class="grow"><span class="gterm">Sched D</span><span class="gdef"><strong>Tier 1.</strong> Plan invests in a DFE pooled fund linked to a 9AT adviser or fund (Schedule D Part 2).</span></div>
+      <div class="grow"><span class="gterm">Sched H</span><span class="gdef"><strong>Tier 1.</strong> Plan's large-plan Schedule H discloses this as an investment manager.</span></div>
+      <div class="grow"><span class="gterm">Direct</span><span class="gdef"><strong>Tier 2 — speculative.</strong> Firm name closely matches a 9AT adviser name. Verify before outreach.</span></div>
+    </div>
+    <div class="gsec"><h3>Enrichment Priority</h3>
+      <div class="grow"><span class="gterm">✓ READY</span><span class="gdef">Tier 1 signal + real email found. Outreach now.</span></div>
+      <div class="grow"><span class="gterm">★ ENRICH</span><span class="gdef">Tier 1 signal but no email. Run Hunter.io — high ROI.</span></div>
+      <div class="grow"><span class="gterm">· LOW</span><span class="gdef">Tier 2 signal + email. Verify before outreach.</span></div>
+      <div class="grow"><span class="gterm">— SKIP</span><span class="gdef">Tier 2 signal, no contact. Low ROI.</span></div>
+    </div>
+  </div>
+</div>
+<script>
+// ── Theme toggle ──────────────────────────────────────────────────────────────
+(function() {
+  const btn  = document.getElementById('theme-btn');
+  const body = document.body;
+  const saved = localStorage.getItem('9at-theme');
+  if(saved === 'light') { body.classList.add('light'); btn.textContent = '🌙'; }
+  btn.addEventListener('click', () => {
+    const isLight = body.classList.toggle('light');
+    btn.textContent = isLight ? '🌙' : '☀';
+    localStorage.setItem('9at-theme', isLight ? 'light' : 'dark');
+  });
+})();
+
+document.getElementById('glossary-btn').addEventListener('click',()=>document.getElementById('glossary-overlay').classList.add('open'));
+document.getElementById('gclose').addEventListener('click',()=>document.getElementById('glossary-overlay').classList.remove('open'));
+document.getElementById('glossary-overlay').addEventListener('click',e=>{ if(e.target===document.getElementById('glossary-overlay')) document.getElementById('glossary-overlay').classList.remove('open'); });
+</script>
+</body>
+</html>
