@@ -515,6 +515,63 @@
       "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFuVI9Q3JqOkGOtWXbzldO_PxLZ5biDIajRgtDbmmSUqFyHLZOPGfWc5AZM1U3E7Z8kJj0w74D1-x9M8ys_JAWVBvUXo_beeGWI6ykJpNoBYaYbYHuZiiZ4AvO4MCw05SVNPcI="
     ]
   },
+  "630518148": {
+    "firm_name": "MOBILE COMMUNITY ACTION, INC.",
+    "ein": "630518148",
+    "enriched_at": "2026-06-30T21:30:33.720Z",
+    "contacts": [
+      {
+        "name": "Angelo Miller",
+        "title": "Executive Director",
+        "email": "amiller@mcamobile.org",
+        "phone": "251-457-5700",
+        "contact_type": "direct",
+        "contact_notes": "Email and phone found on the Community Action Association Alabama website, where he is listed as Executive Director for Mobile Community Action, Inc.",
+        "source": "Community Action Association Alabama website, Mobile Community Action website (Leadership page)",
+        "confidence": "high"
+      },
+      {
+        "name": "April Allen",
+        "title": "Comptroller",
+        "email": "",
+        "phone": "251-457-5700",
+        "contact_type": "general",
+        "contact_notes": "Direct email or phone not found. Using the general firm phone number listed on the official website.",
+        "source": "Mobile Community Action website (Leadership page)",
+        "confidence": "medium"
+      },
+      {
+        "name": "Bill C. Smith",
+        "title": "Treasurer (Board of Directors)",
+        "email": "",
+        "phone": "251-457-5700",
+        "contact_type": "general",
+        "contact_notes": "Direct email or phone not found. Using the general firm phone number listed on the official website.",
+        "source": "Mobile Community Action website (Leadership page)",
+        "confidence": "medium"
+      }
+    ],
+    "existing_contact_assessment": {
+      "name": "ANGELO MILLER",
+      "title": "Plan Administrator (Form 5500)",
+      "likelyInvestmentDecisionMaker": true,
+      "reasoning": "Angelo Miller is currently listed as the Executive Director of Mobile Community Action, Inc.. As the Executive Director, he holds the highest executive position and is responsible for the overall financial health, strategic direction, and operational oversight of the organization. While 'Plan Administrator' on a Form 5500 typically refers to an employee benefits plan, the Executive Director would ultimately be responsible for the management and oversight of such plans, as well as the organization's broader financial assets and investments. Therefore, he is highly likely to be involved in or oversee significant financial and investment decisions for the non-profit."
+    },
+    "notes": "Mobile Community Action, Inc. is a non-profit community action agency, not a traditional financial firm. Therefore, roles related to 'investment decision-makers' are interpreted as individuals with significant financial oversight or management responsibilities for the organization's assets and funds.",
+    "grounding_sources": [
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEMs8Q43w4jL0Tktj8gRthyv0c8XGkJLPezp_rPLZZPsv5CsGSAZLNDa1R0DE2Bvq2F3HrVa_HoAQQK6fMhxUYan6MR2b1ACrKpOecwAsdGEbgMwWFW-_0eBuck_NUPmikNU7IBG_k=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHgXxjDv54OQfuO_diP7TWaZL4jIohFoZ2ppwcskMOVi5FK8S12pvgtAL5tuMnKOZ9V-s3bR_YyiJcfO6gYNZcnrRU3Tarlz0mHsrcJ-1whKfZfUIcb1cJtQDxcJbSeEe4KizF4_g==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHfjIVCzF5Jn_8dx_Vk5JzQu4YcNv2Y8p_jtpoBulnMMAbkEX_rX46Advj9mVrV1F5rf61YnCEVIz1xPgrN4uBSSbW_1QYpdL27G-pufN7pbmBfNaReav0roaIAAZF1nP5hJXoMhj-DIUKVTCAbZB28ugaMnA==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFeWCry9jG0YBwuY_WjnKGRlO66tSJnHLERZRaScMKIZr3T5t3aEjQT3Z8w37kP09nWI527profYck2hbDuAM4SO8efK3BCPZsP57im0fVNZn20li7SQ6O8054ikdB0dfYP4Zg7YHn2ZYcwA1j15MuDGnly8KeM",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFHFymOsK9s0sMMg9XjjCTqaVAjWnlbkWapM0oV_GKypXVb76x9nAI4yrAFEz45mS5ppHHHvnPkqRJnMCBfK1y2b2PPwDp5NZyzibsWehXx4GG_x1JF-to-dbj7lGAsO0kqAFF9OM_BuuY60fyoWFs=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGHLWs4lL2yrXFSFB50VoinxAOsCAIla0lgYaGyBjnQHKTnfObtvh-KU4gWFkfSaA6i7gJ0U3OisGT5zmBTyBZh4cDTZ1RewY5Y20CEdFuOaqTa6v1iYF7SjkRKJCtoqcTtLzREgJh7d_wvn6KftNXAHg==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFqVQKxpyB30DYOZYp3GX9QLhLSkVJ3k-hWjdPWgL028B5vZr-zv1___o0eKsOAq942khGOdAnMAmEiGkAtLhaXZk6htu2s7DfWFZDvCPzunVUfSm4RP5spFhTfT0SfvvyBzoOJJPkLHWAjb0CTOb2-zhcgC32UNT-E3yit168RzKfj28A4dA3vVyj5hZeq5UMD8w1fhBnGFn8W",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHLsuOxZQ_5R12sb4fPwL88mpakp8SQI4t0OXn-ewVF5uFQaALFPnlJ8qfqJMkrDJ36lXsIv1Wn1iMgkHBTtHafWdZUjU-SALXbabKbWWDH9EHSw_W-PmNGrgJRDSY=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFzRVM-XCkBGCW0TMKvf_3nFTYrmh1zQSA5zd-IY83l5wlgK2Ddm6QT4aFzbtwaNjw2tTbROGrYyhNbwve0elmEnmbdBsyYYJeu_4A8Dy09MFIHwfZQ",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEqs5QDuEISFJZspRJkZ6P-SbcQkVBlXdms-6CkTGDHbaOeomFgREXgHEBv9DERqETxzyC2qLVhXnMtpovCAUqv5HpD8X-tFf2hOD8vSzpFABG3ccTU6X85qjNzVWsBkhcOUm3D-UGDGG9y1AmYlvQfNG6f4tzDqMxA8jx1RoFBBnDH",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGvvMLs38tWGi3I9HYVzmvRlMqMmqaX699CR3ZzG1T3SIPLedME2s5KoVozXAWjYsb477ycbSGax4G8kAqqxaetv8E23losPQMsfGY7yEJaAirtLNfL6sOU8Hz7uA0OOnvmelmaEt0ktBZrWZKyqfss-wSI95xSH98f8Vz2jIIUCdTUUQ=="
+    ]
+  },
   "854344655": {
     "firm_name": "TRIRX SHAWNEE LLC",
     "ein": "854344655",
