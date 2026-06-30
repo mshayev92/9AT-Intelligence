@@ -51,6 +51,50 @@
       "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGHh_yfi8_SYaERI8c6YkduDDS8a32qIWCUEJf1X3zO3LxURvKtEdiO0IcC3B1u5Qc5Z_9zyAzirQfmfEcusCXFcsxCNRu5WO4H6suaLv4eqqF3W9sZczCbXS3mf2f5dvupHtvmxceW1524L4iY4ui7LyZ5QLghlIcch__tmu7nlh-cvFy00qSseYWhk6G3shfMo6w8qcWF6m-DxjY="
     ]
   },
+  "431934346": {
+    "firm_name": "ADVANCED ACCELERATOR APPLICATION",
+    "ein": "431934346",
+    "enriched_at": "2026-06-30T20:18:35.454Z",
+    "contacts": [
+      {
+        "name": "Susanne Schaffert",
+        "title": "Chairperson and President, Advanced Accelerator Applications (a Novartis company)",
+        "email": "investor.relations@novartis.com",
+        "phone": "+41 61 324 7944",
+        "contact_type": "general",
+        "contact_notes": "No direct contact found for Susanne Schaffert at Advanced Accelerator Applications. General Novartis Investor Relations contact provided as Advanced Accelerator Applications is a Novartis company.",
+        "source": "NANETS article, PM360 article",
+        "confidence": "high"
+      },
+      {
+        "name": "Mike Rossi",
+        "title": "General Manager, US for Advanced Accelerator Applications",
+        "email": "investor.relations@novartis.com",
+        "phone": "+41 61 324 7944",
+        "contact_type": "general",
+        "contact_notes": "No direct contact found for Mike Rossi at Advanced Accelerator Applications. General Novartis Investor Relations contact provided as Advanced Accelerator Applications is a Novartis company.",
+        "source": "PR Newswire press release",
+        "confidence": "medium"
+      }
+    ],
+    "existing_contact_assessment": {
+      "name": "NATALIA SANDOVAL",
+      "title": "Plan Administrator (Form 5500)",
+      "likelyInvestmentDecisionMaker": false,
+      "reasoning": "A Plan Administrator typically manages employee benefit plans (e.g., 401k, pension) and their associated administrative and compliance tasks. This role is generally focused on benefits administration rather than making investment decisions for the firm's capital or managing investor relations for external investors."
+    },
+    "notes": "Advanced Accelerator Applications (AAA) was acquired by Novartis in 2018 and is now a Novartis company. Its independent investor relations function has been absorbed by Novartis. The former website, adacap.com, now redirects to a Novartis page. Therefore, direct investment decision-makers or dedicated investor relations contacts solely for AAA as a standalone entity are unlikely to exist. The provided contacts are senior individuals within the Advanced Accelerator Applications division of Novartis, with general Novartis Investor Relations contact information provided as the relevant point of contact for investor inquiries related to the overall Novartis group, which includes AAA.",
+    "grounding_sources": [
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEPMdKboZgB6Tp0HhpED5pRLfsp8SlSzY9FjhAoau0jFoKq1IkBVasy1O715_hoQI4lhfBjieJ2J0xFNSpjz6gtbQCEQ4wX62GidjFquTu6cWez55m3ljZMe2BF70_3IOpRh09RvapG6XPhmnzzdxH2_IR69_MArCExtKHq2iMUHeBY1nsZiXXWySYma1f0Zaekmd47s5Zu7XSyZ1w5EfdOuELUhjPeRsVtvKBDtTUQFEBdSFG73k99T59ofu3YRzUwO27Pulx3dWv2pGd99CQ=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFiqtKAJAstVGxrnT5ZolCUc4lylFLTHO3AuOBX_090tT1hUAoebe1ZONzxhM_B7Hpw5SEzO5UbFYJPPrgs5v96MnSrpCS0wKVHe7SxQOxLYaN5A1kStDVCH9lc_M5WKpnvNovRR3_8Eu85ZY4O57j-6c-OmOZl766UOyQ50wBGBypiIXMxbIzP8LxHRI7pXGBIurlum6GAeFOdNHtjotsLkS6EkQWRCDiWpxiq3N47VSBdJpOfQks=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFZCXxdYoIKWSTxXdzV2L6sKPQl7cMwMDka0SOp5Ve9bQ2cLK4xSZbOZ2ETUs0qkWSb6WTezXnjIcHn5rc6RueTO9SbrxAMo1KhJ5ttxXcodVMtU8LoYWt-pzT7Ykwgv99hhIViJVTG8x_jiLESOP9oKcA3IRipsg7WJ2RNIfrnK788BjE0KTMwQdjXlQ6TivaeoC_m9KQzHi1QyGapcxfHuJVJNJBDEs688ziIitRx49ZzuFq7",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG-Ey3gl2qdKKPfotO-usBTtC1M1Dw9RGzKQyo8YrDaOMKvS2IKxW8oGA7qRhiaxUJiGYODb5eJSJ83YmqC0pfjYtnXQE1sWfeyxnviKOMyfcyw4rKPolWPvTXof74-EJqmOEOlClSWpaB-jHhdO6vpleeuPU_4L5UFIVkufUN6iUwAe3v3ctgXs0rHrKOXILuRnuSCZrqww5PS1TdlwnxG0Uztzt0SQiiO_MXFk0ABUIGYDBtVZlLaAwyeJfYyYaZS4qbkntS8UTPQz1grPYwpS5oe-U6vUVxPreiRx6Nu",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHCr8ul0bUG1ExnTEGQRDixmNpQo63MXamTPsyGFKhntIQdJCF-EvuNuIosIJuPWfxdNua_qHlGrAoFxdv7b2VZMOngCYXa8h1yrSccRP4OZbPBPM8SRpvRszhEd-Xi07SRATvz3k3D7vorTfdbnHIWWbFxt14zFbfzafVHhVF_01pek7ECOEKeydcjkbRBw_y_pK70ETonMnjGkrFoJ_lmnA8rd9Zu-hg9uoiWUpzWOJumvAwh6b2rl6mYYX8EXYCjFL0=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF3f40BQZ7h2YjlWtAdC3v78UvZ4WYKdMeHAmtKgZyvLQr8thV9y5OngLqHtIuGb7sggN_q40PvooBMfjoK7VeLfXpLO5BIeocaTXXacdZ8YQPpUTIneAhJ79F9b-zSLFXKE-XFtGF9X60JHkFI_bSM9T7p3f9wJG44YGeT25vedrjqwAuC-9aYoWcbgLmmhKcbfCADrn3pPmVFJkNfq4ItMHoBvG3tDjx_nTo9uy2VH8iIWizJWWXYsfTe_A9CHnRk3cBdS3Mb4xvSmBXWLqaXwzaH9JsxacH9l3NoLun0FxPOkzPCRw==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE-z299E6exUxVMr9-RR9aDWzBUzSEc4MIDPu6tKwJSKBSgcrkZHyFiw8IvHg5PR4EIU75sUoi4qRN3dCImWLWcI5sNxdrJQFtleoFUvnySfXr7cYnQ138zw-q_MpNXhBGHE9AXHeYP8mWmK27vB_4E0HpGsm9qWKXO7w==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHsSxf5R7bpXQAvjGHqE7hVKkLrab6HnbiJ-7hCPhAHbcRZQNfwGnvSQjDyajoj-lxAaa6rr7RQeF8xu_cFS-jMRYV76TYJ8ALcBCKHzNNNHrQjCS3_khxDXwJ5r37u1a89DZZwjgXjUB6NfsgYVI8U1ITZicCQB8GJXMbhn2swUrpOZw=="
+    ]
+  },
   "460440466": {
     "firm_name": "BLACK HILLS SURGICAL HOSPITAL, LLP",
     "ein": "460440466",
