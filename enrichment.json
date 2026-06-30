@@ -82,6 +82,63 @@
       "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFQSNJ4q5HQu3wu2W9cjh4WZ-A6FBD4NeWHFd3VtEVulz_84I2JdJ61DPLU4nZyKUnKsS0mrT8Vj-rYyzZvaRtXYY7JscCn6z9gdWTkoQGPMRLRyvj4fk-TfQlHSsHPKAxDobQPkcNLfMi8FZyZWnte4TV-OvFuJw0JP6rvOmUmcAdLux-eVFczUgOghmcrhAjJhUD4xV9cDLTmj7E="
     ]
   },
+  "363051915": {
+    "firm_name": "AON CORPORATION",
+    "ein": "363051915",
+    "enriched_at": "2026-06-30T21:21:37.818Z",
+    "contacts": [
+      {
+        "name": "Hallie Miller",
+        "title": "Head of Investor Relations",
+        "email": "investor.relations@aon.com",
+        "phone": "+1 847 442 0622",
+        "contact_type": "general",
+        "contact_notes": "Hallie Miller was appointed Head of Investor Relations in July 2025. A general investor relations email and phone number are provided by Aon.",
+        "source": "Aon press release",
+        "confidence": "high"
+      },
+      {
+        "name": "Russ Ivinjack",
+        "title": "Global Chief Investment Officer, Senior Partner, Aon Investments",
+        "email": "investor.relations@aon.com",
+        "phone": "+1 847 442 0622",
+        "contact_type": "general",
+        "contact_notes": "Russ Ivinjack serves as Global Chief Investment Officer of Aon Investments. No direct contact information was found for him; a general investor relations email and phone number are provided by Aon.",
+        "source": "DoubleLine biography, YouTube interview description",
+        "confidence": "high"
+      },
+      {
+        "name": "Maria Johannessen",
+        "title": "UK Head of Investment, Senior Partner",
+        "email": "investor.relations@aon.com",
+        "phone": "+1 847 442 0622",
+        "contact_type": "general",
+        "contact_notes": "Maria Johannessen was announced as UK head of Investment in July 2023. No direct contact information was found for her; a general investor relations email and phone number are provided by Aon.",
+        "source": "Aon press release",
+        "confidence": "high"
+      }
+    ],
+    "existing_contact_assessment": {
+      "name": "DONNA DAVIS",
+      "title": "Plan Administrator (Form 5500)",
+      "likelyInvestmentDecisionMaker": false,
+      "reasoning": "Based on search results, Donna Davis is listed as 'Director, Global Benefits and Operations' within Aon's Human Resources Team. This role, along with 'Plan Administrator' from the Form 5500, indicates responsibilities in benefits administration and HR, rather than investment decision-making or allocation."
+    },
+    "notes": null,
+    "grounding_sources": [
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF4lNAYMzkwziDTNEZYaXpZRRE8LMK0CaQJWfuiHRXCZH6rokYpww_cIukASPR9MLjIOnpPjbnTCjFVtCugm2pRyvfqRRthilaQ5rnXuGK8ADru6IptH4ejnbh7Fym2U9NKNcXDxj5k5NitT1YG6t4v3gi8sRFEqu_HF55RnM45047PvqgoGfpR12IzwMvEoGtpxc4zODAsCA==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHTN7XNIhVIxnKgGySXcsGwzL_AW1E_ny4osm3JOft8HXOmsGaAO6y7uNJdDzM2OGE6Rl9orxuHsHbxEHQE8hWqkEWCetK5JV99P40AXOx8_VGtL4dxpN-cUw0USaEQys0LXIdT94H-eMMZVk9ADrVfsWK3lygBDWIVtchJ",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQELqwEyuHkHrSaiseD_RBNCXS7m3P6pKsE3pfO_anvnLNmecOjXDIxAnnVNWX4kmcXOhN_CDAzeyyZahSMMtClsDca7qjVfkYgTQBsLaXq5sX6EQZt6UFggjBP7hTqzGsuwrvTbCHTV_R7Bp-rqxVWj",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEyLarmLlEhh2X8QMHKowBNMKe8qXAjaNDhz2zMt0ksPH2fuCHzGR_t1YtcNpgRrzue59dtF-RMDwUcJ3c-WAzIV2Mpjw01e3b4Egp0aODlLrbjtxclI_wAc1iko4wTCdm6QuqNmHQJ_wcvFJVpsA==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFJcYC9wOo4MfhodBy7QiElkjcpCvHuim9j0aPBXr12R4QvCmtmP7-OvWJXzXrmvixtfcLZU1NsLmcoG9XK25ut89fKPo0aRQcD8Z4Mgn2ctNU6jvR7tCevbN2VV8bpQuBKC2IeipE9Ibv_6knqc7g=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQElVp3Tu88ORXJsI-1lH1lVPrXozMryCDxuOH-Yu_5Ej1s185xe_KtOyJzxQ16nmy37i8kuTF_2jiEvY3GJCbhImRWvDnSZ-BfDxo14RE7sDGxZ2T7G3NnQxl71n4vRNvtUuACg-8URXhBW",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE_kMd8CXexogBO-5Z9-Cqr2W9BjbMOePfllmfag8tRRnfAxdgVfjkBuLLYnA1nWaGqhhvgmZR21uhezvTd7NpiZ823AjmKSLGTrBC3NnnrflD9kWnPDncyQUuBvA4q4Ok7RhLegxH9c8g8MgrYGKUNTylRhTdZpKzopbMNTtfb",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEa5oTT7arFm6mvAitfst12nkcz-HJH3u9MDzqhAwjKqDs047G3qG25sMFyfD13bicEqUJmiwwS4deUxkLJbrrpBK2r08JMb70c6Lb246X9JUviEhKvDBtiuGTk2BSRerl5bVPtFYc=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGd7GCiwFrg3tV3UWM8byO4oLovHiNkuoGCPyOxy_l8Bs454Gzqcs2c7CPiGOTvmQMKfR-ZVNqTJQn76hvR5QpYzSAexR2-eAVg4ft7ytKhnmWGxy6bAlxKYHh0CMGZldtHocn2vsaV-gn9sTHzpz7dmP4c8PsIyMVNqQptEd56tjeIe09QWR-Ay3ceT5fiE2r83UwRxaWUKNVwrsAJ6lQ=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHajy6tcCryJobCQIVKhwGFrOdrLHDvQIX2kDAdyrH7K7hUcLAElv45daOqkC-1kHhGlbxuVLUzYM-j6hN3FjYBYk1Bu9Xbrn1sUK9o7DVReTI3db_onu84pvzbcVcdxGI1yDcL1UztqXtGPjjem-ycItigFgpRQXlGW-ZTwgBHS0pSUnQjdipHrrZyYsMNNPCKi2WE",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFHxz53EFbitvxsnn2TMRru3ii7HyIobpYRuzV5xukhdg50AosLSe4jsu07_wMpwVUvKzyNWOUCyg20kvigghGhFjkx9zNMxcv1YYd3adTNSkyxMpT36wbEJ3Lttx_Ol_mRDf8XJPLVAurtGRTFqCoPyMQL"
+    ]
+  },
   "431934346": {
     "firm_name": "ADVANCED ACCELERATOR APPLICATION",
     "ein": "431934346",
