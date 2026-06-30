@@ -491,7 +491,7 @@ tbody td { padding: 9px 10px; vertical-align: top; }
     <span class="ctrl-label">Enrich</span>
     <select id="db-filter-enrich">
       <option value="all">All</option>
-      <option value="READY">Ready</option>
+      <option value="READY">Ready (email)</option>
       <option value="HIGH">Needs enrichment</option>
       <option value="LOW">Low priority</option>
       <option value="SKIP">Skip</option>
@@ -566,6 +566,11 @@ function aiHasEmail(ein) {
   if(!enrich) return false;
   return (enrich.contacts||[]).some(c => c && c.email);
 }
+// True if the firm has a usable email either on file already, or found by
+// AI enrichment. Used for the "Has Email" stat so AI-found emails count.
+function hasAnyEmail(a) {
+  return (a.contact_count||0)>0 || aiHasEmail(a.ein);
+}
 function effectivePriority(a) {
   const base = a.enrich_priority || 'SKIP';
   if(base !== 'READY' && aiHasEmail(a.ein)) return 'READY';
@@ -634,6 +639,7 @@ async function getEnrichPassword() {
 function refreshEnrichStats() {
   document.getElementById('d-ready').textContent  = fmtN(dbData.filter(a=>effectivePriority(a)==='READY').length);
   document.getElementById('d-enrich').textContent = fmtN(dbData.filter(a=>effectivePriority(a)==='HIGH').length);
+  document.getElementById('d-email').textContent  = fmtN(dbData.filter(hasAnyEmail).length);
 }
 
 // ── Enrichment priority popup state ─────────────────────────────────────────
@@ -676,7 +682,7 @@ function sigChip(sig) {
   return `<span class="sig-chip sig-t${t}">${esc(SIG_LABEL[sig]||sig)}</span>`;
 }
 function ebadge(ep) {
-  const lbl = {READY:'✓ READY',HIGH:'★ ENRICH',LOW:'· LOW',SKIP:'— SKIP'};
+  const lbl = {READY:'✓ READY (EMAIL)',HIGH:'★ ENRICH',LOW:'· LOW',SKIP:'— SKIP'};
   return ep&&ep!=='SKIP' ? `<span class="ebadge ep-${ep}">${lbl[ep]||ep}</span>` : '';
 }
 
@@ -694,7 +700,7 @@ function loadData(data) {
   document.getElementById('d-enrich').textContent = fmtN(dbData.filter(a=>effectivePriority(a)==='HIGH').length);
   document.getElementById('d-schc').textContent   = fmtN(s.has_schedule_c       || dbData.filter(a=>(a.service_providers||[]).length>0).length);
   document.getElementById('d-schdh').textContent  = fmtN(s.has_schedule_d_h     || dbData.filter(a=>(a.investments||[]).length>0).length);
-  document.getElementById('d-email').textContent  = fmtN(s.leads_with_emails    || dbData.filter(a=>(a.contact_count||0)>0).length);
+  document.getElementById('d-email').textContent  = fmtN(dbData.filter(hasAnyEmail).length);
   document.getElementById('hdr-status').innerHTML = `<span>${dbData.length.toLocaleString()} allocators loaded</span>`;
 
   // Enrichment priority panel
@@ -726,7 +732,7 @@ function getFilteredDB() {
     if(enrichF!=='all'     && effectivePriority(a)!==enrichF) return false;
     if(dataF==='schc'      && !(a.service_providers||[]).length) return false;
     if(dataF==='schdh'     && !(a.investments||[]).length) return false;
-    if(dataF==='email'     && !(a.contact_count>0)) return false;
+    if(dataF==='email'     && !hasAnyEmail(a)) return false;
     if(dataF==='contact'   && !(a.contact_count_any>0)) return false;
     if(!q) return true;
     const hay = [
@@ -751,7 +757,7 @@ function renderDBCard(a) {
   const rels     = a.at9_relationships || [];
   const has9at   = rels.length > 0;
   const ep       = effectivePriority(a);
-  const epLbl    = {READY:'✓ READY',HIGH:'★ ENRICH',LOW:'· LOW',SKIP:'— SKIP'}[ep]||ep;
+  const epLbl    = {READY:'✓ READY (EMAIL)',HIGH:'★ ENRICH',LOW:'· LOW',SKIP:'— SKIP'}[ep]||ep;
   const spCount  = (a.service_providers||[]).length;
   const invCount = (a.investments||[]).length;
   const conCount = a.contact_count_any||0;
@@ -923,7 +929,7 @@ function setEpRowStatus(ein, state, message) {
   if(state === 'pending') {
     el.innerHTML = `<span class="ep-status-btn ep-status-pending">Enriching…</span>`;
   } else if(state === 'ok') {
-    el.innerHTML = `<span class="ep-status-btn ep-status-ok" disabled>✓ Ready</span>`;
+    el.innerHTML = `<span class="ep-status-btn ep-status-ok" disabled>✓ Ready (email)</span>`;
     const row = el.closest('.ep-row');
     if(row) row.classList.add('ep-done');
   } else if(state === 'no-email') {
@@ -1497,7 +1503,7 @@ fetch('enrichment.json').then(r=>r.ok?r.json():Promise.reject()).then(d=>{
       <div class="grow"><span class="gterm">Direct</span><span class="gdef"><strong>Tier 2 — speculative.</strong> Firm name closely matches a 9AT adviser name. Verify before outreach.</span></div>
     </div>
     <div class="gsec"><h3>Enrichment Priority</h3>
-      <div class="grow"><span class="gterm">✓ READY</span><span class="gdef">Tier 1 signal + real email found — either on file already or found by AI enrichment. Outreach now.</span></div>
+      <div class="grow"><span class="gterm">✓ READY (EMAIL)</span><span class="gdef">Tier 1 signal + real email found — either on file already or found by AI enrichment. Outreach now.</span></div>
       <div class="grow"><span class="gterm">★ ENRICH</span><span class="gdef">Tier 1 signal but no email yet. Use AI enrichment or Hunter.io — high ROI.</span></div>
       <div class="grow"><span class="gterm">· LOW</span><span class="gdef">Tier 2 signal + email. Verify before outreach.</span></div>
       <div class="grow"><span class="gterm">— SKIP</span><span class="gdef">Tier 2 signal, no contact. Low ROI.</span></div>
