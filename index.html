@@ -632,7 +632,7 @@ function wasAiEnriched(ein) {
 // True if the firm has a usable email either on file already, or found by
 // AI enrichment. Used for the "Has Email" stat so AI-found emails count.
 function hasAnyEmail(a) {
-  return (a.contact_count||0)>0 || aiHasEmail(a.ein);
+  return (a.contacts||[]).some(c => c && c.email) || aiHasEmail(a.ein);
 }
 function effectivePriority(a) {
   const base = a.enrich_priority || 'SKIP';
