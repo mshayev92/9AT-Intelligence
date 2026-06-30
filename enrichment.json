@@ -285,6 +285,33 @@
       "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHsSxf5R7bpXQAvjGHqE7hVKkLrab6HnbiJ-7hCPhAHbcRZQNfwGnvSQjDyajoj-lxAaa6rr7RQeF8xu_cFS-jMRYV76TYJ8ALcBCKHzNNNHrQjCS3_khxDXwJ5r37u1a89DZZwjgXjUB6NfsgYVI8U1ITZicCQB8GJXMbhn2swUrpOZw=="
     ]
   },
+  "451273930": {
+    "firm_name": "FOUR WINDS HEALTH, LLC",
+    "ein": "451273930",
+    "enriched_at": "2026-06-30T21:35:07.724Z",
+    "contacts": [
+      {
+        "name": "Dave Crussell",
+        "title": "CEO",
+        "email": "partnerships@fourwindshealth.com",
+        "phone": "404-996-0347",
+        "contact_type": "general",
+        "contact_notes": "Direct email/phone for Dave Crussell not found; using general firm contact for partnerships listed on the official website.",
+        "source": "https://fourwindshealth.com",
+        "confidence": "high"
+      }
+    ],
+    "existing_contact_assessment": {
+      "name": "MICHELLE ANSLEY",
+      "title": "Plan Administrator (Form 5500)",
+      "likelyInvestmentDecisionMaker": false,
+      "reasoning": "The title 'Plan Administrator (Form 5500)' typically indicates a role in benefits administration, human resources, or compliance related to employee benefit plans, not investment decision-making or investor relations. No search results linked a Michelle Ansley to FOUR WINDS HEALTH, LLC in an investment capacity. The firm's website focuses on urgent care operations and financial management for health systems, not investment management for external clients."
+    },
+    "notes": "Only one individual, Dave Crussell (CEO), was identified with a background suggesting investment decision-making, based on his experience as an Operating Executive of a Private Equity Firm. No other individuals with explicit investment decision-maker, allocator, or investor relations titles were found for FOUR WINDS HEALTH, LLC on their official website or through other credible public sources. The general contact information for 'partnerships' is provided as the firm-level contact.",
+    "grounding_sources": [
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFM2MhdTtSP4uHqijRq6pKkjFPLuyHkgLQlicRvo4oOnOXzSz-KwB9G3Zp6NTVwtCD2-5RhJmhlAo2X9LE895y9X0FRO-G5ThaaEEYd-KG8OWTb06yJ_L-2cQZE-eTKbwzlOyOvE5bx5tjpECv0Dg=="
+    ]
+  },
   "460440466": {
     "firm_name": "BLACK HILLS SURGICAL HOSPITAL, LLP",
     "ein": "460440466",
