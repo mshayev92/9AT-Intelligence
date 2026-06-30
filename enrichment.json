@@ -1,4 +1,28 @@
 {
+  "46344921": {
+    "firm_name": "TRUSTEES OF MASSACHUSETTS SERVICE EMPLOYEES' PENSION FUND",
+    "ein": "46344921",
+    "enriched_at": "2026-06-30T21:04:08.784Z",
+    "contacts": [
+      {
+        "name": "Peter Goldberger",
+        "title": "Fund Administrator",
+        "email": "",
+        "phone": "(212) 539-2778",
+        "contact_type": "direct",
+        "contact_notes": "Phone number provided for investment-related inquiries in regulatory filings. No direct email found for this individual.",
+        "source": "Annual Funding Notice for Massachusetts Service Employees' Pension Plan (2024 Plan Year), ANNUAL FUNDING NOTICE FOR MASSACHUSETTS SERVICE EMPLOYEES PENSION PLAN (2023 Plan Year)",
+        "confidence": "high"
+      }
+    ],
+    "existing_contact_assessment": null,
+    "notes": "The firm appears to be a multiemployer pension fund. Peter Goldberger, as Fund Administrator, is explicitly listed as the contact for investment-related information in multiple regulatory filings. No other individuals with specific investment decision-making or allocator titles and associated contact information were found directly for this specific fund in the public search results. The fund is scheduled to merge into the Building Service 32BJ Pension Fund effective July 1, 2025.",
+    "grounding_sources": [
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEVqLM-3hBl4NvMqtS7kHRkzE9eef1SEUAxPx_C-OVgf5X5DruZHeJcF927fBvRRJ4tdKahqLPdxusBtcsAlwAAL3XPSS0MfxTbkHZM5zA4PptshlYiJ0xVnuWolWZaAE3wyiwK2_NAgGiLDAdzztvyymguUziXbS3F0xJgMojEwANBemO-Kaji92K3Zy_nZzftkGhPEcffVQ==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHwPmp-Fk5ynCbwx7aRLLFAg8aPMr9RutJ6A2JLIs1PbvEYf5L9WhOAshDEJ8HmxgYkmgMLi6mIjmkOF_kmDzlduMzqy_NsuDKWfW8QloJpWLwF_EQFB0SUFgTQV5bQzPX6aaHbniXH4f1WqjlOgu-8zO54cD-oxVMDLskOhAkXesyACj1lU0RyGuv7i381uOv2FaW9g2D0d0QTKaV6LDAEE5YzkgnzvDs1",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGVRXPdW1_BXnlgOVyRqThz5KIzPofOFF64p4SWFkP6fVsdCZMrImEA-YDGf9ZedCS7483Cp3IUcrpKBfupOGMvkOyODGmm7fQSryvBHxIzzQ1ny8M4buI5W5oRb5Ff0eik50AASupY7BfECgkXd_X-92y-y380LyhoGSzySivvoKDP83C9bi0="
+    ]
+  },
   "232259884": {
     "firm_name": "VERIZON COMMUNICATIONS INC.",
     "ein": "232259884",
