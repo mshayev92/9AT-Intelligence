@@ -412,5 +412,53 @@
       "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEY5u5yJQ6FA5G2O3sVHhf0enQNaKZBt4r4Wgf9uFtnvN8GKDsvLluskk9FEMYHYMDM_UTNc-xoTLB6C5vz0dVp0CnO6wh3KmO6OL0fEa9lnxewLSzLNBSXabvpbtQkXKHV8VKIDg==",
       "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFuVI9Q3JqOkGOtWXbzldO_PxLZ5biDIajRgtDbmmSUqFyHLZOPGfWc5AZM1U3E7Z8kJj0w74D1-x9M8ys_JAWVBvUXo_beeGWI6ykJpNoBYaYbYHuZiiZ4AvO4MCw05SVNPcI="
     ]
+  },
+  "854344655": {
+    "firm_name": "TRIRX SHAWNEE LLC",
+    "ein": "854344655",
+    "enriched_at": "2026-06-30T21:29:45.449Z",
+    "contacts": [
+      {
+        "name": "Tim Tyson",
+        "title": "Chairman & CEO",
+        "email": "",
+        "phone": "+1 256 489 8867",
+        "contact_type": "general",
+        "contact_notes": "General company phone number from TriRx Pharmaceutical Services website. No direct email found.",
+        "source": "https://trirx.com/our-team/",
+        "confidence": "high"
+      },
+      {
+        "name": "Keith Lyon",
+        "title": "Director & CFO",
+        "email": "",
+        "phone": "+1 256 489 8867",
+        "contact_type": "general",
+        "contact_notes": "General company phone number from TriRx Pharmaceutical Services website. No direct email found.",
+        "source": "https://trirx.com/our-team/",
+        "confidence": "high"
+      },
+      {
+        "name": "Nicholas L. Cirignano",
+        "title": "Executive Vice President, Strategy and Business Development",
+        "email": "",
+        "phone": "+1 256 489 8867",
+        "contact_type": "general",
+        "contact_notes": "General company phone number from TriRx Pharmaceutical Services website. No direct email found.",
+        "source": "https://trirx.com/our-team/",
+        "confidence": "high"
+      }
+    ],
+    "existing_contact_assessment": {
+      "name": "KEITH A. LYON",
+      "title": "Plan Administrator (Form 5500)",
+      "likelyInvestmentDecisionMaker": true,
+      "reasoning": "Keith Lyon is listed as the Director & CFO of TriRx Pharmaceutical Services on their official website. His biography highlights over 35 years of experience in operational and transactional finance, including numerous acquisitions, complex debt financings, and public offerings. While 'Plan Administrator' from Form 5500 refers to employee benefit plan responsibilities, his role as CFO clearly indicates involvement in the firm's overall financial and investment decision-making."
+    },
+    "notes": "TRIRX SHAWNEE LLC appears to be a facility of TriRx Pharmaceutical Services, a Contract Development and Manufacturing Organization (CDMO). The identified contacts are senior leadership involved in the company's strategic and financial direction. Direct email addresses for individuals were not found; therefore, the general company phone number is provided.",
+    "grounding_sources": [
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGw6CWRi70QxJq0gcZvov1jtf4yI8fRQyk3ZqzDVL7j2faO1CyeF1DLNWc5hEYPyAWbgOlTVMMwHru4v0mXtRmJG-LAYmddiFnQkgkxHzo7odqrQx7AJCXt-rc=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHDLvLN0gGVO1pVwDz_KbyYOXYyxEM__SpYtmNkUB-gqo7GmqT4kTDN8C7gS8esKLVJfcOunUxll-Kl_2OPOXwevIOZDeJ58gZxpP2Rq2Lrmsix8Io8VnKpfQFwo9t7v7NY"
+    ]
   }
 }
