@@ -137,6 +137,53 @@ header {
 .enrich-firm { color: var(--text); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .enrich-why { color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 9px; }
 .enrich-loc { color: var(--muted); font-size: 9px; white-space: nowrap; }
+.enrich-header:hover .enrich-arrow { color: var(--yellow); }
+
+/* ── ENRICHMENT PRIORITY POPUP ── */
+.epbox { width: 780px; max-width: 95vw; max-height: 85vh; display: flex; flex-direction: column; padding: 0; }
+.epbox .ghead { flex: none; }
+.ep-sub { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-top: 3px; font-weight: 400; }
+.ep-toolbar {
+  display: flex; align-items: center; gap: 16px; padding: 0.65rem 1.25rem;
+  border-bottom: 1px solid var(--border); flex: none; background: var(--card);
+}
+.ep-selectall { display: flex; align-items: center; gap: 7px; font-family: var(--mono); font-size: 11px; color: var(--text2); cursor: pointer; user-select: none; }
+.ep-selectall input { accent-color: var(--yellow); cursor: pointer; width: 13px; height: 13px; }
+.ep-selected-count { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-right: auto; }
+.ep-enrich-selected {
+  font-family: var(--mono); font-size: 10px; font-weight: 700; letter-spacing: 0.03em;
+  padding: 6px 13px; border-radius: 5px; cursor: pointer; border: 1px solid var(--yellow);
+  background: var(--yellow-dim); color: var(--yellow); white-space: nowrap; transition: all 0.15s;
+}
+.ep-enrich-selected:hover:not(:disabled) { background: var(--yellow); color: var(--surface); }
+.ep-enrich-selected:disabled { opacity: 0.35; cursor: not-allowed; }
+.ep-progress { padding: 7px 1.25rem; font-family: var(--mono); font-size: 10px; color: var(--yellow); border-bottom: 1px solid var(--border); display: none; }
+.ep-progress.visible { display: block; }
+.ep-list { overflow-y: auto; flex: 1; }
+.ep-row {
+  display: grid; grid-template-columns: 20px 24px 1fr 110px; gap: 12px; align-items: center;
+  padding: 9px 1.25rem; border-bottom: 1px solid var(--border); font-family: var(--mono); transition: background 0.12s;
+}
+.ep-row:hover { background: var(--card2); }
+.ep-row:last-child { border-bottom: none; }
+.ep-row.ep-done { opacity: 0.5; }
+.ep-row input[type=checkbox] { accent-color: var(--yellow); cursor: pointer; width: 13px; height: 13px; }
+.ep-num { color: var(--dim); text-align: right; font-size: 10px; }
+.ep-firm-wrap { min-width: 0; }
+.ep-firm { color: var(--text); font-weight: 600; font-size: 11.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ep-why { color: var(--muted); font-size: 9.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
+.ep-loc { color: var(--dim); font-size: 9px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
+.ep-status { display: flex; justify-content: flex-end; }
+.ep-status-btn {
+  font-family: var(--mono); font-size: 9px; font-weight: 600; padding: 4px 9px; border-radius: 4px;
+  border: 1px solid var(--border2); background: transparent; color: var(--text2); cursor: pointer; white-space: nowrap; transition: all 0.15s;
+}
+.ep-status-btn:hover:not(:disabled) { border-color: var(--yellow); color: var(--yellow); }
+.ep-status-btn:disabled { cursor: default; opacity: 0.75; }
+.ep-status-ok { color: var(--green); border-color: var(--green); }
+.ep-status-err { color: var(--red, #e5484d); border-color: var(--red, #e5484d); }
+.ep-status-pending { color: var(--yellow); border-color: var(--yellow); }
+.ep-empty { padding: 2.5rem 1.25rem; text-align: center; font-family: var(--mono); font-size: 11px; color: var(--muted); }
 
 /* ── CONTROLS ── */
 .controls { display: flex; gap: 8px; padding: 0.75rem 2rem; border-bottom: 1px solid var(--border); flex-wrap: wrap; align-items: center; background: var(--surface); }
@@ -395,12 +442,34 @@ tbody td { padding: 9px 10px; vertical-align: top; }
   </div>
 
   <div class="enrich-panel" id="enrich-panel">
-    <div class="enrich-header" id="enrich-toggle">
+    <div class="enrich-header" id="enrich-open-btn">
       <span class="enrich-title">★ ENRICHMENT PRIORITY LIST</span>
       <span class="enrich-count" id="enrich-count">— firms</span>
-      <span class="enrich-arrow" id="enrich-arrow">▶ expand</span>
+      <span class="enrich-arrow">view list →</span>
     </div>
-    <div class="enrich-list" id="enrich-list"></div>
+  </div>
+
+  <!-- ── ENRICHMENT PRIORITY POPUP ── -->
+  <div class="overlay" id="enrich-overlay">
+    <div class="gbox epbox">
+      <div class="ghead">
+        <div>
+          <h2>★ Enrichment Priority List</h2>
+          <div class="ep-sub" id="ep-sub">— firms need enrichment</div>
+        </div>
+        <button class="gclose" id="ep-close">✕</button>
+      </div>
+      <div class="ep-toolbar">
+        <label class="ep-selectall">
+          <input type="checkbox" id="ep-select-all">
+          Select all
+        </label>
+        <span class="ep-selected-count" id="ep-selected-count">0 selected</span>
+        <button class="ep-enrich-selected" id="ep-enrich-selected" disabled>⚡ Enrich Selected</button>
+      </div>
+      <div class="ep-progress" id="ep-progress"></div>
+      <div class="ep-list" id="ep-list"></div>
+    </div>
   </div>
 
   <div class="controls">
@@ -486,6 +555,92 @@ const SIG_LABEL = {
 const ENRICH_ORDER = {READY:0,HIGH:1,LOW:2,SKIP:3};
 const PAGE_SIZE = 50;
 let dbPage = 1;
+let lastStats = {};
+
+// ── AI enrichment counts toward "Ready" too ────────────────────────────────
+// A firm is effectively Ready if it either already had a real email on file
+// (the original enrich_priority==='READY'), OR the AI enrichment run found
+// a usable contact email for it.
+function aiHasEmail(ein) {
+  const enrich = enrichIndex[ein];
+  if(!enrich) return false;
+  return (enrich.contacts||[]).some(c => c && c.email);
+}
+function effectivePriority(a) {
+  const base = a.enrich_priority || 'SKIP';
+  if(base !== 'READY' && aiHasEmail(a.ein)) return 'READY';
+  return base;
+}
+function effectiveReason(a) {
+  if(a.enrich_priority !== 'READY' && aiHasEmail(a.ein)) {
+    return 'AI enrichment found a verified email.';
+  }
+  return (a.enrich_reason || '').replace(/Run Hunter\.io/gi, 'Use AI enrichment or Hunter.io');
+}
+
+// ── Enrichment password caching ─────────────────────────────────────────────
+// Ask for the password once per browser, then reuse it until it expires.
+const ENRICH_PW_KEY = '9at_enrich_pw_v1';
+const ENRICH_PW_TTL_MS = 8 * 60 * 60 * 1000; // 8 hours
+
+function getCachedEnrichPassword() {
+  try {
+    const raw = localStorage.getItem(ENRICH_PW_KEY);
+    if(!raw) return null;
+    const { pw, exp } = JSON.parse(raw);
+    if(!pw || !exp || Date.now() > exp) { localStorage.removeItem(ENRICH_PW_KEY); return null; }
+    return pw;
+  } catch { return null; }
+}
+function setCachedEnrichPassword(pw) {
+  try { localStorage.setItem(ENRICH_PW_KEY, JSON.stringify({ pw, exp: Date.now() + ENRICH_PW_TTL_MS })); } catch {}
+}
+function clearCachedEnrichPassword() {
+  try { localStorage.removeItem(ENRICH_PW_KEY); } catch {}
+}
+// Returns a password (from cache or by asking), or null if the user cancels.
+async function getEnrichPassword() {
+  const cached = getCachedEnrichPassword();
+  if(cached) return cached;
+  const pw = prompt('Enter password to run AI enrichment.\nYou won\'t be asked again on this device for 8 hours.');
+  if(pw === null) return null;
+  if(!pw) { alert('Password required.'); return null; }
+  setCachedEnrichPassword(pw);
+  return pw;
+}
+
+// ── Shared stat refresh (used after single or batch enrichment) ────────────
+function refreshEnrichStats() {
+  document.getElementById('d-ready').textContent  = fmtN(dbData.filter(a=>effectivePriority(a)==='READY').length);
+  document.getElementById('d-enrich').textContent = fmtN(dbData.filter(a=>effectivePriority(a)==='HIGH').length);
+}
+
+// ── Enrichment priority popup state ─────────────────────────────────────────
+let rawEnrichPanelList = [];   // raw list of candidate firms from the data file
+let firmNameToEin = null;      // lazy name → ein lookup, for list items that lack an ein
+let epSelected = new Set();    // eins currently checked in the popup
+let epBusy = false;            // true while a batch enrich is running
+
+function buildFirmNameIndex() {
+  firmNameToEin = {};
+  dbData.forEach(a => {
+    const name = (a.firm_name||'').trim().toLowerCase();
+    if(name && !firmNameToEin[name]) firmNameToEin[name] = a.ein;
+  });
+}
+function einForPanelItem(f) {
+  if(f.ein) return f.ein;
+  if(!firmNameToEin) buildFirmNameIndex();
+  const name = (f.firm_name||f.allocator_name||'').trim().toLowerCase();
+  return firmNameToEin[name] || null;
+}
+// Candidates still needing enrichment — recomputed each time so firms that
+// just got an AI-found email (and are therefore now Ready) drop off the list.
+function getEnrichPanelFirms() {
+  return rawEnrichPanelList
+    .map(f => ({ ...f, _ein: einForPanelItem(f) }))
+    .filter(f => !(f._ein && aiHasEmail(f._ein)));
+}
 
 function debounce(fn, ms) {
   let t; return (...args) => { clearTimeout(t); t = setTimeout(()=>fn(...args), ms); };
@@ -511,28 +666,19 @@ function loadData(data) {
   dbData.forEach(a => { dbIndex[a.ein] = a; });
 
   const s = data.stats || {};
+  lastStats = s;
   document.getElementById('d-total').textContent  = fmtN(dbData.length);
   document.getElementById('d-at9').textContent    = fmtN(s.allocators_with_9at  || dbData.filter(a=>(a.at9_relationships||[]).length>0).length);
-  document.getElementById('d-ready').textContent  = fmtN(s.ready_to_outreach    || dbData.filter(a=>a.enrich_priority==='READY').length);
-  document.getElementById('d-enrich').textContent = fmtN(s.firms_to_enrich      || dbData.filter(a=>a.enrich_priority==='HIGH').length);
+  document.getElementById('d-ready').textContent  = fmtN(dbData.filter(a=>effectivePriority(a)==='READY').length);
+  document.getElementById('d-enrich').textContent = fmtN(dbData.filter(a=>effectivePriority(a)==='HIGH').length);
   document.getElementById('d-schc').textContent   = fmtN(s.has_schedule_c       || dbData.filter(a=>(a.service_providers||[]).length>0).length);
   document.getElementById('d-schdh').textContent  = fmtN(s.has_schedule_d_h     || dbData.filter(a=>(a.investments||[]).length>0).length);
   document.getElementById('d-email').textContent  = fmtN(s.leads_with_emails    || dbData.filter(a=>(a.contact_count||0)>0).length);
   document.getElementById('hdr-status').innerHTML = `<span>${dbData.length.toLocaleString()} allocators loaded</span>`;
 
   // Enrichment priority panel
-  const ef = data.enrichment_priority_list || dbData.filter(a=>a.enrich_priority==='HIGH');
-  if(ef.length) {
-    document.getElementById('enrich-panel').classList.add('visible');
-    document.getElementById('enrich-count').textContent = `${ef.length} firms`;
-    document.getElementById('enrich-list').innerHTML = ef.slice(0,50).map((f,i)=>`
-      <div class="enrich-row">
-        <span class="enrich-num">${i+1}</span>
-        <span class="enrich-firm">${esc(f.firm_name||f.allocator_name)}</span>
-        <span class="enrich-why">${esc(f.connection||'')}</span>
-        <span class="enrich-loc">${esc(f.location||'')}</span>
-      </div>`).join('');
-  }
+  rawEnrichPanelList = data.enrichment_priority_list || dbData.filter(a=>a.enrich_priority==='HIGH');
+  renderEnrichPanel();
 
   dbPage = 1;
   renderDB();
@@ -556,7 +702,7 @@ function getFilteredDB() {
     if(sigF==='schedule_d' && !rels.some(r=>(r.signal||'').startsWith('schedule_d'))) return false;
     if(sigF==='schedule_h' && !rels.some(r=>(r.signal||'').startsWith('schedule_h'))) return false;
     if(sigF==='direct'     && !rels.some(r=>(r.signal||'').startsWith('direct'))) return false;
-    if(enrichF!=='all'     && a.enrich_priority!==enrichF) return false;
+    if(enrichF!=='all'     && effectivePriority(a)!==enrichF) return false;
     if(dataF==='schc'      && !(a.service_providers||[]).length) return false;
     if(dataF==='schdh'     && !(a.investments||[]).length) return false;
     if(dataF==='email'     && !(a.contact_count>0)) return false;
@@ -575,7 +721,7 @@ function getFilteredDB() {
   if(sort==='firm_az')           rows.sort((a,b)=>(a.firm_name||'').localeCompare(b.firm_name||''));
   else if(sort==='participants_desc') rows.sort((a,b)=>(Number(b.participants)||0)-(Number(a.participants)||0));
   else if(sort==='signals_desc') rows.sort((a,b)=>(b.at9_relationships||[]).length-(a.at9_relationships||[]).length);
-  else rows.sort((a,b)=>(ENRICH_ORDER[a.enrich_priority]||9)-(ENRICH_ORDER[b.enrich_priority]||9)||(Number(b.participants)||0)-(Number(a.participants)||0));
+  else rows.sort((a,b)=>(ENRICH_ORDER[effectivePriority(a)]||9)-(ENRICH_ORDER[effectivePriority(b)]||9)||(Number(b.participants)||0)-(Number(a.participants)||0));
   return rows;
 }
 
@@ -583,7 +729,7 @@ function getFilteredDB() {
 function renderDBCard(a) {
   const rels     = a.at9_relationships || [];
   const has9at   = rels.length > 0;
-  const ep       = a.enrich_priority || 'SKIP';
+  const ep       = effectivePriority(a);
   const epLbl    = {READY:'✓ READY',HIGH:'★ ENRICH',LOW:'· LOW',SKIP:'— SKIP'}[ep]||ep;
   const spCount  = (a.service_providers||[]).length;
   const invCount = (a.investments||[]).length;
@@ -672,10 +818,156 @@ document.getElementById('db-filter-signal').addEventListener('change', ()=>{ dbP
 document.getElementById('db-filter-enrich').addEventListener('change', ()=>{ dbPage=1; renderDB(); });
 document.getElementById('db-filter-data').addEventListener('change', ()=>{ dbPage=1; renderDB(); });
 document.getElementById('db-sort').addEventListener('change', ()=>{ dbPage=1; renderDB(); });
-document.getElementById('enrich-toggle').addEventListener('click', ()=>{
-  const l=document.getElementById('enrich-list'), a=document.getElementById('enrich-arrow');
-  const o=l.classList.toggle('open'); a.textContent=o?'▼ collapse':'▶ expand';
+
+// ══════════════════════════════════════════════════════════════════════════════
+// ENRICHMENT PRIORITY POPUP
+// ══════════════════════════════════════════════════════════════════════════════
+
+// Updates the summary bar (always) and, if the popup is open, the list inside it.
+function renderEnrichPanel() {
+  const firms = getEnrichPanelFirms();
+
+  if(firms.length) {
+    document.getElementById('enrich-panel').classList.add('visible');
+    document.getElementById('enrich-count').textContent = `${firms.length} firm${firms.length!==1?'s':''}`;
+  } else {
+    document.getElementById('enrich-panel').classList.remove('visible');
+  }
+
+  // Drop any selected eins that are no longer in the list (e.g. just enriched).
+  const stillValid = new Set(firms.map(f=>f._ein).filter(Boolean));
+  epSelected.forEach(ein => { if(!stillValid.has(ein)) epSelected.delete(ein); });
+
+  if(document.getElementById('enrich-overlay').classList.contains('open')) {
+    renderEnrichList(firms);
+  }
+}
+
+function epRowStatusHtml(ein) {
+  return `<span class="ep-status" data-status-for="${esc(ein)}">
+    <button class="ep-status-btn" onclick="enrichOneFromPanel('${esc(ein)}')">⚡ Enrich</button>
+  </span>`;
+}
+
+function renderEnrichList(firms) {
+  const sub = document.getElementById('ep-sub');
+  sub.textContent = firms.length ? `${firms.length} firm${firms.length!==1?'s':''} need enrichment` : 'All caught up — nothing left to enrich';
+
+  const listEl = document.getElementById('ep-list');
+  if(!firms.length) {
+    listEl.innerHTML = `<div class="ep-empty">Every Tier 1 firm has a verified email. Nice work.</div>`;
+  } else {
+    listEl.innerHTML = firms.map((f,i) => {
+      const ein = f._ein || '';
+      const checked = ein && epSelected.has(ein) ? 'checked' : '';
+      const disabled = ein ? '' : 'disabled';
+      return `<div class="ep-row" data-ein="${esc(ein)}">
+        <input type="checkbox" ${checked} ${disabled} onchange="toggleEpSelect('${esc(ein)}', this.checked)">
+        <span class="ep-num">${i+1}</span>
+        <div class="ep-firm-wrap" ${ein?`onclick="openDrawer('${esc(ein)}')" style="cursor:pointer"`:''}>
+          <div class="ep-firm">${esc(f.firm_name||f.allocator_name||'—')}</div>
+          <div class="ep-why">${esc(f.connection||'')}</div>
+          <div class="ep-loc">${esc(f.location||'')}</div>
+        </div>
+        ${ein ? epRowStatusHtml(ein) : `<span class="ep-status"><span style="color:var(--dim);font-size:9px">no EIN match</span></span>`}
+      </div>`;
+    }).join('');
+  }
+  updateEpToolbar();
+}
+
+function updateEpToolbar() {
+  const rows = document.querySelectorAll('#ep-list .ep-row[data-ein]:not([data-ein=""])');
+  const total = rows.length;
+  const selected = epSelected.size;
+  document.getElementById('ep-selected-count').textContent = `${selected} selected`;
+  document.getElementById('ep-select-all').checked = total>0 && selected===total;
+  document.getElementById('ep-select-all').indeterminate = selected>0 && selected<total;
+  document.getElementById('ep-enrich-selected').disabled = selected===0 || epBusy;
+  document.getElementById('ep-enrich-selected').textContent = epBusy ? 'Enriching…' : `⚡ Enrich Selected (${selected})`;
+}
+
+function toggleEpSelect(ein, checked) {
+  if(!ein) return;
+  if(checked) epSelected.add(ein); else epSelected.delete(ein);
+  updateEpToolbar();
+}
+
+function setEpRowStatus(ein, state, message) {
+  let el = null;
+  document.querySelectorAll('#ep-list span[data-status-for]').forEach(s => {
+    if(s.getAttribute('data-status-for') === ein) el = s;
+  });
+  if(!el) return;
+  if(state === 'pending') {
+    el.innerHTML = `<span class="ep-status-btn ep-status-pending">Enriching…</span>`;
+  } else if(state === 'ok') {
+    el.innerHTML = `<span class="ep-status-btn ep-status-ok" disabled>✓ Ready</span>`;
+    const row = el.closest('.ep-row');
+    if(row) row.classList.add('ep-done');
+  } else if(state === 'err') {
+    el.innerHTML = `<button class="ep-status-btn ep-status-err" onclick="enrichOneFromPanel('${esc(ein)}')" title="${esc(message||'')}">✗ Retry</button>`;
+  }
+}
+
+async function enrichOneFromPanel(ein) {
+  if(!ein) return;
+  setEpRowStatus(ein, 'pending');
+  const result = await enrichFirmCore(ein);
+  if(result.cancelled) { renderEnrichPanel(); return; }
+  if(!result.ok) { setEpRowStatus(ein, 'err', result.error); return; }
+  refreshEnrichStats();
+  renderDB();
+  epSelected.delete(ein);
+  renderEnrichPanel(); // firm drops off the list once it's Ready
+}
+
+async function enrichSelectedFromPanel() {
+  if(epBusy || epSelected.size===0) return;
+  epBusy = true;
+  const eins = Array.from(epSelected);
+  const progress = document.getElementById('ep-progress');
+  progress.classList.add('visible');
+  updateEpToolbar();
+
+  let done = 0, failed = 0;
+  for(const ein of eins) {
+    progress.textContent = `Enriching ${done+1} of ${eins.length}…`;
+    setEpRowStatus(ein, 'pending');
+    const result = await enrichFirmCore(ein);
+    if(result.cancelled) { epBusy = false; progress.classList.remove('visible'); updateEpToolbar(); refreshEnrichStats(); renderDB(); renderEnrichPanel(); return; }
+    if(result.ok) { setEpRowStatus(ein, 'ok'); epSelected.delete(ein); }
+    else { setEpRowStatus(ein, 'err', result.error); failed++; }
+    done++;
+  }
+
+  epBusy = false;
+  progress.textContent = failed ? `Done — ${done-failed} succeeded, ${failed} failed.` : `Done — ${done} firm${done!==1?'s':''} enriched.`;
+  setTimeout(()=>{ progress.classList.remove('visible'); }, 4000);
+  refreshEnrichStats();
+  renderDB();
+  renderEnrichPanel();
+}
+
+document.getElementById('enrich-open-btn').addEventListener('click', ()=>{
+  document.getElementById('enrich-overlay').classList.add('open');
+  renderEnrichList(getEnrichPanelFirms());
 });
+document.getElementById('ep-close').addEventListener('click', ()=>document.getElementById('enrich-overlay').classList.remove('open'));
+document.getElementById('enrich-overlay').addEventListener('click', e=>{
+  if(e.target===document.getElementById('enrich-overlay')) document.getElementById('enrich-overlay').classList.remove('open');
+});
+document.getElementById('ep-select-all').addEventListener('change', function(){
+  const rows = document.querySelectorAll('#ep-list .ep-row[data-ein]:not([data-ein=""])');
+  rows.forEach(row => {
+    const ein = row.getAttribute('data-ein');
+    const cb = row.querySelector('input[type=checkbox]');
+    if(this.checked) epSelected.add(ein); else epSelected.delete(ein);
+    if(cb) cb.checked = this.checked;
+  });
+  updateEpToolbar();
+});
+document.getElementById('ep-enrich-selected').addEventListener('click', enrichSelectedFromPanel);
 
 // ══════════════════════════════════════════════════════════════════════════════
 // SCHEDULE RENDERING
@@ -859,7 +1151,7 @@ function renderContactsSection(ein, ref, contacts) {
       </div>`;
     });
   } else {
-    html += `<div style="font-family:var(--mono);font-size:11px;color:var(--dim);padding:4px 0">No contacts found. Run Hunter.io on this firm.</div>`;
+    html += `<div style="font-family:var(--mono);font-size:11px;color:var(--dim);padding:4px 0">No contacts found. Use AI enrichment or Hunter.io on this firm.</div>`;
   }
 
   // AI-found contacts, rendered distinctly from Form 5500 contacts.
@@ -885,18 +1177,14 @@ function renderContactsSection(ein, ref, contacts) {
   return html;
 }
 
-async function runEnrich(ein) {
+// Core enrichment call, shared by the drawer's single-firm button and the
+// priority-list popup (both single-row and batch). Returns {ok, error, cancelled}.
+async function enrichFirmCore(ein) {
   const ref = dbIndex[ein];
-  if(!ref) return;
+  if(!ref) return { ok:false, error:'Unknown firm' };
 
-  const pw = prompt('Enter password to run AI enrichment for this firm:');
-  if(pw === null) return; // cancelled
-  if(!pw) { alert('Password required.'); return; }
-
-  const btn = document.getElementById('enrich-btn');
-  const statusArea = document.getElementById('enrich-status-area');
-  if(btn) { btn.disabled = true; btn.classList.add('loading'); btn.textContent = 'Enriching'; }
-  if(statusArea) statusArea.innerHTML = `<div class="enrich-status">Searching the web and writing results to GitHub — this can take 10-30 seconds…</div>`;
+  const pw = await getEnrichPassword();
+  if(pw === null) return { ok:false, cancelled:true };
 
   // Pick the best existing contact to evaluate: prefer one that looks investment-flavored,
   // otherwise just send the first contact on file (if any).
@@ -919,10 +1207,11 @@ async function runEnrich(ein) {
     const data = await res.json();
 
     if(!res.ok) {
+      if(res.status === 401 || res.status === 403) clearCachedEnrichPassword();
       throw new Error(data.error || `Request failed (${res.status})`);
     }
 
-    // Merge the fresh result straight into local state so the drawer updates
+    // Merge the fresh result straight into local state so the UI updates
     // immediately, without needing a page reload.
     enrichIndex[ein] = {
       firm_name: ref.firm_name,
@@ -933,17 +1222,50 @@ async function runEnrich(ein) {
       notes: (data.enrichment?.parsed?.notes) || null,
       grounding_sources: data.enrichment?.groundingSources || [],
     };
-
-    if(statusArea) statusArea.innerHTML = `<div class="enrich-status ok">✓ Done — saved to GitHub.</div>`;
-
-    // Re-render just the contacts section in place.
-    const section = document.getElementById('contacts-section');
-    if(section) section.outerHTML = renderContactsSection(ein, ref, [...(ref.contacts||[])]);
-
+    return { ok:true };
   } catch(err) {
-    if(btn) { btn.disabled = false; btn.classList.remove('loading'); btn.textContent = '⚡ Enrich'; }
-    if(statusArea) statusArea.innerHTML = `<div class="enrich-status err">✗ ${esc(err.message)}</div>`;
+    return { ok:false, error: err.message };
   }
+}
+
+async function runEnrich(ein) {
+  const ref = dbIndex[ein];
+  if(!ref) return;
+
+  const btn = document.getElementById('enrich-btn');
+  const statusArea = document.getElementById('enrich-status-area');
+  if(btn) { btn.disabled = true; btn.classList.add('loading'); btn.textContent = 'Enriching'; }
+  if(statusArea) statusArea.innerHTML = `<div class="enrich-status">Searching the web and writing results to GitHub — this can take 10-30 seconds…</div>`;
+
+  const result = await enrichFirmCore(ein);
+
+  if(btn) { btn.disabled = false; btn.classList.remove('loading'); btn.textContent = '⚡ Enrich'; }
+
+  if(result.cancelled) {
+    if(statusArea) statusArea.innerHTML = '';
+    return;
+  }
+  if(!result.ok) {
+    if(statusArea) statusArea.innerHTML = `<div class="enrich-status err">✗ ${esc(result.error)}</div>`;
+    return;
+  }
+
+  if(statusArea) statusArea.innerHTML = `<div class="enrich-status ok">✓ Done — saved to GitHub.</div>`;
+
+  // Re-render just the contacts section in place.
+  const section = document.getElementById('contacts-section');
+  if(section) section.outerHTML = renderContactsSection(ein, ref, [...(ref.contacts||[])]);
+
+  // Refresh the Enrich Status badge/reason in the drawer header, and the
+  // background stats + card grid + priority list, since this firm may now be Ready.
+  document.querySelectorAll('#drawer .field-grid .field-val').forEach(el => {
+    if(el.querySelector('.ebadge') || el.innerHTML.includes('ebadge')) {
+      el.innerHTML = `${ebadge(effectivePriority(ref))} <span style="font-family:var(--mono);font-size:10px;color:var(--muted)">${esc(effectiveReason(ref))}</span>`;
+    }
+  });
+  refreshEnrichStats();
+  renderDB();
+  renderEnrichPanel();
 }
 
 function openDrawer(ein) {
@@ -979,7 +1301,7 @@ function openDrawer(ein) {
       <span class="field-label">EIN</span><span class="field-val">${esc(ein)}</span>
       <span class="field-label">Location</span><span class="field-val">${esc(ref.location)||'—'}</span>
       <span class="field-label">Participants</span><span class="field-val">${fmtN(ref.participants)}</span>
-      <span class="field-label">Enrich Status</span><span class="field-val">${ebadge(ref.enrich_priority||'SKIP')} <span style="font-family:var(--mono);font-size:10px;color:var(--muted)">${esc(ref.enrich_reason||'')}</span></span>
+      <span class="field-label">Enrich Status</span><span class="field-val">${ebadge(effectivePriority(ref))} <span style="font-family:var(--mono);font-size:10px;color:var(--muted)">${esc(effectiveReason(ref))}</span></span>
     </div>
   </div>`;
 
@@ -1099,10 +1421,21 @@ fetch('9at_intelligence.json').then(r=>r.ok?r.json():Promise.reject()).then(load
 
 // Load enrichment.json (AI-found contacts) alongside the main data file.
 // Soft-fails if the file doesn't exist yet (e.g. before the first Enrich run).
-fetch('enrichment.json').then(r=>r.ok?r.json():Promise.reject()).then(d=>{ enrichIndex = d || {}; }).catch(()=>{ enrichIndex = {}; });
+fetch('enrichment.json').then(r=>r.ok?r.json():Promise.reject()).then(d=>{
+  enrichIndex = d || {};
+  // enrichment.json can resolve before or after 9at_intelligence.json — once
+  // both are in, recompute the Ready/Enrich stats and re-render so AI-found
+  // emails are reflected immediately.
+  if(dbData.length) {
+    refreshEnrichStats();
+    renderDB();
+    renderEnrichPanel();
+  }
+}).catch(()=>{ enrichIndex = {}; });
 </script>
 
 <!-- ── GLOSSARY ── -->
+
 <div class="overlay" id="glossary-overlay">
   <div class="gbox">
     <div class="ghead"><h2>Dashboard Glossary</h2><button class="gclose" id="gclose">✕</button></div>
@@ -1123,8 +1456,8 @@ fetch('enrichment.json').then(r=>r.ok?r.json():Promise.reject()).then(d=>{ enric
       <div class="grow"><span class="gterm">Direct</span><span class="gdef"><strong>Tier 2 — speculative.</strong> Firm name closely matches a 9AT adviser name. Verify before outreach.</span></div>
     </div>
     <div class="gsec"><h3>Enrichment Priority</h3>
-      <div class="grow"><span class="gterm">✓ READY</span><span class="gdef">Tier 1 signal + real email found. Outreach now.</span></div>
-      <div class="grow"><span class="gterm">★ ENRICH</span><span class="gdef">Tier 1 signal but no email. Run Hunter.io — high ROI.</span></div>
+      <div class="grow"><span class="gterm">✓ READY</span><span class="gdef">Tier 1 signal + real email found — either on file already or found by AI enrichment. Outreach now.</span></div>
+      <div class="grow"><span class="gterm">★ ENRICH</span><span class="gdef">Tier 1 signal but no email yet. Use AI enrichment or Hunter.io — high ROI.</span></div>
       <div class="grow"><span class="gterm">· LOW</span><span class="gdef">Tier 2 signal + email. Verify before outreach.</span></div>
       <div class="grow"><span class="gterm">— SKIP</span><span class="gdef">Tier 2 signal, no contact. Low ROI.</span></div>
     </div>
