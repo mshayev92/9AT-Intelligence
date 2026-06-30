@@ -905,6 +905,8 @@ function setEpRowStatus(ein, state, message) {
     el.innerHTML = `<span class="ep-status-btn ep-status-ok" disabled>✓ Ready</span>`;
     const row = el.closest('.ep-row');
     if(row) row.classList.add('ep-done');
+  } else if(state === 'no-email') {
+    el.innerHTML = `<button class="ep-status-btn ep-status-err" onclick="enrichOneFromPanel('${esc(ein)}')" title="Search completed but no usable email was found">No email found · Retry</button>`;
   } else if(state === 'err') {
     el.innerHTML = `<button class="ep-status-btn ep-status-err" onclick="enrichOneFromPanel('${esc(ein)}')" title="${esc(message||'')}">✗ Retry</button>`;
   }
@@ -918,8 +920,15 @@ async function enrichOneFromPanel(ein) {
   if(!result.ok) { setEpRowStatus(ein, 'err', result.error); return; }
   refreshEnrichStats();
   renderDB();
-  epSelected.delete(ein);
-  renderEnrichPanel(); // firm drops off the list once it's Ready
+  if(result.foundEmail) {
+    // Firm is now genuinely Ready — drop it off the list.
+    epSelected.delete(ein);
+    renderEnrichPanel();
+  } else {
+    // Search completed but turned up no usable email — keep the firm in the
+    // list and let the person know, instead of silently marking it Ready.
+    setEpRowStatus(ein, 'no-email');
+  }
 }
 
 async function enrichSelectedFromPanel() {
@@ -930,19 +939,25 @@ async function enrichSelectedFromPanel() {
   progress.classList.add('visible');
   updateEpToolbar();
 
-  let done = 0, failed = 0;
+  let done = 0, failed = 0, noEmail = 0;
   for(const ein of eins) {
     progress.textContent = `Enriching ${done+1} of ${eins.length}…`;
     setEpRowStatus(ein, 'pending');
     const result = await enrichFirmCore(ein);
     if(result.cancelled) { epBusy = false; progress.classList.remove('visible'); updateEpToolbar(); refreshEnrichStats(); renderDB(); renderEnrichPanel(); return; }
-    if(result.ok) { setEpRowStatus(ein, 'ok'); epSelected.delete(ein); }
+    if(result.ok && result.foundEmail) { setEpRowStatus(ein, 'ok'); epSelected.delete(ein); }
+    else if(result.ok) { setEpRowStatus(ein, 'no-email'); noEmail++; }
     else { setEpRowStatus(ein, 'err', result.error); failed++; }
     done++;
   }
 
   epBusy = false;
-  progress.textContent = failed ? `Done — ${done-failed} succeeded, ${failed} failed.` : `Done — ${done} firm${done!==1?'s':''} enriched.`;
+  const parts = [];
+  const succeeded = done - failed - noEmail;
+  if(succeeded) parts.push(`${succeeded} ready`);
+  if(noEmail) parts.push(`${noEmail} no email found`);
+  if(failed) parts.push(`${failed} failed`);
+  progress.textContent = `Done — ${parts.join(', ')}.`;
   setTimeout(()=>{ progress.classList.remove('visible'); }, 4000);
   refreshEnrichStats();
   renderDB();
@@ -1213,16 +1228,21 @@ async function enrichFirmCore(ein) {
 
     // Merge the fresh result straight into local state so the UI updates
     // immediately, without needing a page reload.
+    const foundContacts = (data.enrichment?.parsed?.contacts) || [];
     enrichIndex[ein] = {
       firm_name: ref.firm_name,
       ein: ein,
       enriched_at: new Date().toISOString(),
-      contacts: (data.enrichment?.parsed?.contacts) || [],
+      contacts: foundContacts,
       existing_contact_assessment: (data.enrichment?.parsed?.existingContactAssessment) || null,
       notes: (data.enrichment?.parsed?.notes) || null,
       grounding_sources: data.enrichment?.groundingSources || [],
     };
-    return { ok:true };
+    // The call can succeed without actually turning up a usable email — that's
+    // not a failure, but it's also not "Ready", so callers need to be able to
+    // tell the difference.
+    const foundEmail = foundContacts.some(c => c && c.email);
+    return { ok:true, foundEmail };
   } catch(err) {
     return { ok:false, error: err.message };
   }
