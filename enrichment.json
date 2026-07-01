@@ -132,6 +132,51 @@
       "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFQSNJ4q5HQu3wu2W9cjh4WZ-A6FBD4NeWHFd3VtEVulz_84I2JdJ61DPLU4nZyKUnKsS0mrT8Vj-rYyzZvaRtXYY7JscCn6z9gdWTkoQGPMRLRyvj4fk-TfQlHSsHPKAxDobQPkcNLfMi8FZyZWnte4TV-OvFuJw0JP6rvOmUmcAdLux-eVFczUgOghmcrhAjJhUD4xV9cDLTmj7E="
     ]
   },
+  "250542520": {
+    "firm_name": "KRAFT HEINZ FOODS COMPANY",
+    "ein": "250542520",
+    "enriched_at": "2026-07-01T15:44:20.599Z",
+    "contacts": [
+      {
+        "name": "Anne-Marie Megela",
+        "title": "Vice President & Global Head of Investor Relations",
+        "email": "ir@kraftheinz.com",
+        "phone": "1-855-598-5493 (U.S.) / 1-651-450-4064 (Outside the U.S. or Canada)",
+        "contact_type": "general",
+        "contact_notes": "General investor relations email and phone number found on the official Kraft Heinz investor relations page.",
+        "source": "The Kraft Heinz Company Investor Relations page",
+        "confidence": "high"
+      },
+      {
+        "name": "Amanda Allshouse",
+        "title": "Director, Investor Relations",
+        "email": "ir@kraftheinz.com",
+        "phone": "1-855-598-5493 (U.S.) / 1-651-450-4064 (Outside the U.S. or Canada)",
+        "contact_type": "general",
+        "contact_notes": "General investor relations email and phone number found on the official Kraft Heinz investor relations page.",
+        "source": "The Kraft Heinz Company Investor Relations page",
+        "confidence": "high"
+      },
+      {
+        "name": "Andre Maciel",
+        "title": "Executive Vice President and Global Chief Financial Officer",
+        "email": "ir@kraftheinz.com",
+        "phone": "1-855-598-5493 (U.S.) / 1-651-450-4064 (Outside the U.S. or Canada)",
+        "contact_type": "general",
+        "contact_notes": "General investor relations email and phone number. Andre Maciel is responsible for investor relations as part of his CFO role, but no direct contact information for him was found.",
+        "source": "The Kraft Heinz Company Executive Team page and investor relations information",
+        "confidence": "high"
+      }
+    ],
+    "existing_contact_assessment": null,
+    "notes": "The Kraft Heinz Company's official investor relations pages list a general IR email and phone number, along with the names and titles of key investor relations personnel. No direct individual email addresses or phone numbers were found for the listed contacts; therefore, the general investor relations contact information is provided for each.",
+    "grounding_sources": [
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGEPfSXzSX2lauVZ1LcwMiu7EqQi_kIY6A4bNUxNR_fWf1UOilPtBDKHnBVhSRlEzSaJm9tFBETBgpXDR9lIa2kWVygFJoc6IDvV9qlmYpT5X0MSRaDQCYRm4vRrA==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFrfaWtfNqBZ2mdbOl7a9dYzSOfeCH_uT8HfNjFQNzaORecmBSENERCtrQiRzBccO4jUgTp3zYfr1NlF_s2ZUkHk3KKwghEoGXE1q_okX4mGK31HepWFt-ItIHnoluDBQO-Og4qSi_hcNbq50w2zpHN8i0_eC112C2QsskmE6k_lYEC9KeIFFal8BCCKGiBTag8vQ==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFSskHkR7tzSsYpFFKmhvP8HuDqNXsYqDQoDpTN4wu-8YwvDHbppVIuORHloV-kIz1nxx2mnDP2Q_KsUJ4bwvZw3kW-6MCnl1hhKhI4FG5-N66OdRNLHK7HMAq26UEv3BBHbsp8CLqzUvov34DaAExsmABtbn2YoHFp3HF-TkXLUvvaBM0odii5qByU70YL5cDOLveUg-qUPEnv3xBd",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG6fE2aRFGQvtUUnRBO4LBakNajAn1Om2V8gsnGGaD-KmirHLGEo4jTyUj1zoxFvOcCvuS6uo5QMC3UxG_DE9CpgqlKXxz5fDA10Al0cxLlQf9M4T33ZUvphqUx5AiLUluzD6i-KDgWmu7aNCpcvvrSBtYHyqo="
+    ]
+  },
   "351174866": {
     "firm_name": "VISITING NURSE ASSOCIATION OF PORTER COUNTY, INDIANA, INC.",
     "ein": "351174866",
