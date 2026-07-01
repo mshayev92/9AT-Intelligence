@@ -288,6 +288,20 @@ main { display: block; }
 
 /* ── enrichment priority popup ── */
 .epbox { width: 800px; max-width: 95vw; max-height: 85vh; display: flex; flex-direction: column; padding: 0; }
+
+/* ── in-app dialog (replaces native alert()/prompt()/confirm()) ── */
+.dbox { width: 400px; max-width: 92vw; }
+.dbox .ghead { border-bottom: none; padding-bottom: 0.4rem; }
+.dbox .ghead h2 { font-size: var(--fs-sm); text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-3); }
+.dialog-msg { font-size: var(--fs-sm); color: var(--text-2); line-height: 1.55; white-space: pre-line; }
+.dialog-input {
+  width: 100%; margin-top: 12px; background: var(--surface-2); border: 1px solid var(--border-2);
+  border-radius: var(--r-sm); color: var(--text); font-family: var(--mono); font-size: var(--fs-sm);
+  padding: 9px 11px; outline: none; transition: border-color var(--t-fast), background var(--t-fast);
+}
+.dialog-input:focus { border-color: var(--accent); background: var(--surface-3); }
+.dialog-err { font-family: var(--mono); font-size: var(--fs-xs); color: var(--danger); margin-top: 9px; }
+.dialog-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px; }
 .epbox .ghead { flex: none; }
 .ep-sub { font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-3); margin-top: 3px; font-weight: 400; }
 .ep-toolbar { display: flex; align-items: center; gap: 16px; padding: 0.65rem 1.25rem; border-bottom: 1px solid var(--border); flex: none; background: var(--surface-2); }
@@ -857,6 +871,22 @@ table.db-table td { padding: 10px 12px; vertical-align: top; font-size: var(--fs
   </div>
 </div>
 
+<!-- ── IN-APP DIALOG (replaces native alert()/prompt()) ── -->
+<div class="overlay" id="dialog-overlay">
+  <div class="gbox dbox">
+    <div class="ghead"><h2 id="dialog-title">—</h2></div>
+    <div class="gsec">
+      <p class="dialog-msg" id="dialog-msg"></p>
+      <input type="password" class="dialog-input" id="dialog-input" style="display:none">
+      <div class="dialog-err" id="dialog-err" style="display:none"></div>
+      <div class="dialog-actions">
+        <button class="hdr-btn" id="dialog-cancel" style="display:none">Cancel</button>
+        <button class="hdr-btn primary" id="dialog-ok">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ── GLOSSARY ── -->
 <div class="overlay" id="glossary-overlay">
   <div class="gbox">
@@ -1102,9 +1132,8 @@ function clearCachedEnrichPassword() {
 async function getEnrichPassword() {
   const cached = getCachedEnrichPassword();
   if(cached) return cached;
-  const pw = prompt('Enter password to run AI enrichment.\nYou won\'t be asked again on this device for 8 hours.');
+  const pw = await showPrompt('Enter password to run AI enrichment.\nYou won\'t be asked again on this device for 8 hours.', { password: true, title: 'AI Enrichment', required: true, requiredMessage: 'Password required.' });
   if(pw === null) return null;
-  if(!pw) { alert('Password required.'); return null; }
   setCachedEnrichPassword(pw);
   return pw;
 }
@@ -1511,7 +1540,7 @@ function csvCell(v) {
 
 function exportFilteredCSV() {
   const rows = getFilteredDB();
-  if(!rows.length) { alert('No rows to export — adjust your filters.'); return; }
+  if(!rows.length) { showAlert('No rows to export — adjust your filters.', 'Nothing to export'); return; }
   const headers = ['Firm Name','Plan Name','EIN','Location','Participants','Enrich Status','Best Contact Name','Best Email','9AT Signals','Contacted'];
   const lines = [headers.map(csvCell).join(',')];
   rows.forEach(a => {
@@ -1536,14 +1565,14 @@ function exportFilteredCSV() {
 function copyFilteredEmails() {
   const rows = getFilteredDB();
   const emails = [...new Set(rows.map(bestEmail).filter(Boolean))];
-  if(!emails.length) { alert('No emails found in the current filtered view.'); return; }
+  if(!emails.length) { showAlert('No emails found in the current filtered view.', 'Nothing to copy'); return; }
   navigator.clipboard?.writeText(emails.join(', ')).then(() => {
     const btn = document.getElementById('copy-emails-btn');
     if(!btn) return;
     const prev = btn.textContent;
     btn.textContent = `✓ Copied ${emails.length}`;
     setTimeout(() => { btn.textContent = prev; }, 1800);
-  }).catch(() => { alert('Could not copy to clipboard.'); });
+  }).catch(() => { showAlert('Could not copy to clipboard.', 'Copy failed'); });
 }
 
 document.getElementById('export-csv-btn').addEventListener('click', exportFilteredCSV);
@@ -2291,11 +2320,16 @@ document.getElementById('glossary-overlay').addEventListener('click', e => {
 // ── Escape key closes whichever overlay is topmost open ─────────────────────
 document.addEventListener('keydown', e => {
   if (e.key !== 'Escape') return;
+  const dialog   = document.getElementById('dialog-overlay');
   const drawer   = document.getElementById('drawer-overlay');
   const enrich   = document.getElementById('enrich-overlay');
   const prefsOv  = document.getElementById('prefs-overlay');
   const glossary = document.getElementById('glossary-overlay');
-  if (drawer.classList.contains('open'))        drawer.classList.remove('open');
+  if (dialog.classList.contains('open')) {
+    const cancelBtn = document.getElementById('dialog-cancel');
+    (cancelBtn.style.display !== 'none' ? cancelBtn : document.getElementById('dialog-ok')).click();
+  }
+  else if (drawer.classList.contains('open'))   drawer.classList.remove('open');
   else if (enrich.classList.contains('open'))   enrich.classList.remove('open');
   else if (prefsOv.classList.contains('open'))  prefsOv.classList.remove('open');
   else if (glossary.classList.contains('open')) glossary.classList.remove('open');
@@ -2308,6 +2342,82 @@ document.addEventListener('keydown', e => {
   if (tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA') return;
   e.preventDefault();
   document.getElementById('db-search').focus();
+});
+
+// ── In-app dialog (replaces native alert()/prompt()) ────────────────────────
+// showAlert(message) -> Promise<void>, resolves when OK is clicked / Escape.
+// showPrompt(message, {password}) -> Promise<string|null>, resolves with the
+// entered value, or null if cancelled/Escape/backdrop-click — same contract
+// as native prompt(), so call sites don't need to change their null-checks.
+function _dialogEls() {
+  return {
+    overlay: document.getElementById('dialog-overlay'),
+    title: document.getElementById('dialog-title'),
+    msg: document.getElementById('dialog-msg'),
+    input: document.getElementById('dialog-input'),
+    err: document.getElementById('dialog-err'),
+    ok: document.getElementById('dialog-ok'),
+    cancel: document.getElementById('dialog-cancel'),
+  };
+}
+function _closeDialog() {
+  const { overlay, input, err } = _dialogEls();
+  overlay.classList.remove('open');
+  input.style.display = 'none';
+  input.value = '';
+  err.style.display = 'none';
+}
+function showAlert(message, title) {
+  return new Promise(resolve => {
+    const { overlay, title: t, msg, ok, cancel } = _dialogEls();
+    t.textContent = title || 'Notice';
+    msg.textContent = message;
+    cancel.style.display = 'none';
+    overlay.classList.add('open');
+    const onOk = () => { cleanup(); resolve(); };
+    function cleanup() { ok.removeEventListener('click', onOk); _closeDialog(); }
+    ok.addEventListener('click', onOk);
+    setTimeout(() => ok.focus(), 0);
+  });
+}
+function showPrompt(message, opts) {
+  opts = opts || {};
+  return new Promise(resolve => {
+    const { overlay, title: t, msg, input, err, ok, cancel } = _dialogEls();
+    t.textContent = opts.title || 'Input required';
+    msg.textContent = message;
+    input.type = opts.password ? 'password' : 'text';
+    input.style.display = 'block';
+    input.value = '';
+    err.style.display = 'none';
+    cancel.style.display = 'inline-flex';
+    overlay.classList.add('open');
+    const finish = val => { cleanup(); resolve(val); };
+    const onOk = () => {
+      const v = input.value;
+      if (opts.required && !v) { err.textContent = opts.requiredMessage || 'This field is required.'; err.style.display = 'block'; return; }
+      finish(v || null);
+    };
+    const onCancel = () => finish(null);
+    const onKey = e => { if (e.key === 'Enter') onOk(); };
+    function cleanup() {
+      ok.removeEventListener('click', onOk);
+      cancel.removeEventListener('click', onCancel);
+      input.removeEventListener('keydown', onKey);
+      _closeDialog();
+    }
+    ok.addEventListener('click', onOk);
+    cancel.addEventListener('click', onCancel);
+    input.addEventListener('keydown', onKey);
+    setTimeout(() => input.focus(), 0);
+  });
+}
+document.getElementById('dialog-overlay').addEventListener('click', e => {
+  if (e.target !== document.getElementById('dialog-overlay')) return;
+  const cancelBtn = document.getElementById('dialog-cancel');
+  // Backdrop click behaves like Cancel if this is a prompt, or like OK if it's
+  // a plain alert (no cancel button shown) — either way just close+resolve.
+  (cancelBtn.style.display !== 'none' ? cancelBtn : document.getElementById('dialog-ok')).click();
 });
 
 // ── Collapsible drawer sections ─────────────────────────────────────────────
