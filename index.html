@@ -4,429 +4,580 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>9AT Intelligence Platform</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="description" content="9AT Intelligence Platform — Form 5500 allocator database, outreach pipeline and enrichment for pension plan business development.">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0a0d13">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0d13'/%3E%3Cpath d='M9 21.5 16 8l7 13.5' stroke='%232de89a' stroke-width='2.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M12 16.5h8' stroke='%232de89a' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+/* ============================================================
+   9AT INTELLIGENCE PLATFORM — design system
+   Token layers: base palette → semantic roles → accent (user
+   selectable) → density (user selectable) → light mode.
+   ============================================================ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+
 :root {
-  --bg: #06080c;
-  --surface: #0d1117;
-  --card: #131a23;
-  --card2: #1a2330;
-  --border: #212a38;
-  --border2: #2c3848;
-  --text: #e4e9f1;
-  --text2: #aab4c4;
-  --muted: #7a8699;
-  --dim: #4a5568;
-  --green: #2de89a;
-  --green-dim: rgba(45,232,154,0.12);
-  --yellow: #ffc94d;
-  --yellow-dim: rgba(255,201,77,0.12);
-  --blue: #5b9fff;
-  --blue-dim: rgba(91,159,255,0.12);
-  --cyan: #38d6de;
-  --cyan-dim: rgba(56,214,222,0.12);
-  --purple: #b388ff;
-  --purple-dim: rgba(179,136,255,0.13);
-  --red: #ff6b6b;
-  --red-dim: rgba(255,107,107,0.12);
-  --mono: 'IBM Plex Mono', monospace;
-  --sans: 'IBM Plex Sans', sans-serif;
+  /* — surfaces, dark (default) — */
+  --bg:        #0a0d13;
+  --surface:   #10141b;
+  --surface-2: #171d27;   /* card */
+  --surface-3: #1e2530;   /* card hover / card2 */
+  --raised:    #141a23;   /* popovers, drawer */
+  --border:    #232b38;
+  --border-2:  #303a4a;
+
+  /* — text — */
+  --text:    #eef1f7;
+  --text-2:  #b9c2d1;
+  --text-3:  #8b96a8;   /* labels, use 10.5px+ only */
+  --text-4:  #63708a;   /* decorative/tertiary only */
+
+  /* — semantic (fixed meaning; not user-themeable) — */
+  --success: #2de89a; --success-dim: rgba(45,232,154,.14);
+  --warning: #ffc453; --warning-dim: rgba(255,196,83,.14);
+  --info:    #5b9fff; --info-dim:    rgba(91,159,255,.14);
+  --cyan:    #38d6de; --cyan-dim:    rgba(56,214,222,.14);
+  --violet:  #b388ff; --violet-dim:  rgba(179,136,255,.15);
+  --danger:  #ff6b6b; --danger-dim:  rgba(255,107,107,.14);
+
+  /* — accent (user-selectable brand color; see [data-accent]) — */
+  --accent: #2de89a;
+  --accent-dim: rgba(45,232,154,.14);
+  --accent-ink: #06110c;
+
+  /* — type — */
+  --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+  --sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --fs-2xs: 10px; --fs-xs: 10.5px; --fs-sm: 11.5px; --fs-base: 13px;
+  --fs-md: 14.5px; --fs-lg: 17px; --fs-xl: 20px; --fs-2xl: 27px;
+
+  /* — space / radius / shadow (comfortable density default) — */
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 22px; --sp-6: 32px;
+  --r-sm: 6px; --r-md: 10px; --r-lg: 14px; --r-xl: 18px;
+  --card-pad: 16px; --grid-gap: 14px; --ctrl-pad-y: 8px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.3);
+  --shadow-md: 0 8px 24px -8px rgba(0,0,0,.5);
+  --shadow-lg: 0 24px 64px -16px rgba(0,0,0,.6);
+  --ease: cubic-bezier(0.16,1,0.3,1);
+  --t-fast: 0.12s; --t-med: 0.2s;
 }
 
-/* ── LIGHT MODE ── */
+/* — accent palettes — */
+[data-accent="emerald"] { --accent:#2de89a; --accent-dim:rgba(45,232,154,.14); --accent-ink:#06110c; }
+[data-accent="azure"]   { --accent:#4d8dff; --accent-dim:rgba(77,141,255,.16); --accent-ink:#07101f; }
+[data-accent="violet"]  { --accent:#a685ff; --accent-dim:rgba(166,133,255,.17); --accent-ink:#0d0a1c; }
+[data-accent="amber"]   { --accent:#ffb454; --accent-dim:rgba(255,180,84,.17); --accent-ink:#1c1103; }
+[data-accent="rose"]    { --accent:#ff7a94; --accent-dim:rgba(255,122,148,.16); --accent-ink:#1c0810; }
+
+/* — density — */
+[data-density="compact"] {
+  --card-pad: 11px; --grid-gap: 9px; --ctrl-pad-y: 5px;
+  --fs-2xs: 9.5px; --fs-xs: 10px; --fs-sm: 11px; --fs-base: 12.5px; --fs-md: 13.5px;
+}
+
+/* — light mode — */
 body.light {
-  --bg:         #f7f8fa;
-  --surface:    #ffffff;
-  --card:       #f2f4f7;
-  --card2:      #e9ecf1;
-  --border:     #dde1e8;
-  --border2:    #c7cdd8;
-  --text:       #161b26;
-  --text2:      #3d4757;
-  --muted:      #5d6779;
-  --dim:        #8b94a3;
-  --green:      #08875a;
-  --green-dim:  rgba(8,135,90,0.1);
-  --yellow:     #9a6700;
-  --yellow-dim: rgba(154,103,0,0.1);
-  --blue:       #1a5fd6;
-  --blue-dim:   rgba(26,95,214,0.1);
-  --cyan:       #08818a;
-  --cyan-dim:   rgba(8,129,138,0.1);
-  --purple:     #6432c9;
-  --purple-dim: rgba(100,50,201,0.1);
-  --red:        #c43030;
-  --red-dim:    rgba(196,48,48,0.1);
+  --bg:        #f6f7fa;
+  --surface:   #ffffff;
+  --surface-2: #f2f4f8;
+  --surface-3: #e8ebf1;
+  --raised:    #ffffff;
+  --border:    #dee2ea;
+  --border-2:  #c7cdd9;
+  --text:      #12151c;
+  --text-2:    #3d4658;
+  --text-3:    #5b6578;
+  --text-4:    #838da0;
+  --success: #067a54; --success-dim: rgba(6,122,84,.09);
+  --warning: #8a5c00; --warning-dim: rgba(138,92,0,.09);
+  --info:    #1a5fd6; --info-dim:    rgba(26,95,214,.08);
+  --cyan:    #07767e; --cyan-dim:    rgba(7,118,126,.08);
+  --violet:  #6432c9; --violet-dim:  rgba(100,50,201,.08);
+  --danger:  #c22f2f; --danger-dim:  rgba(194,47,47,.08);
+  --shadow-sm: 0 1px 2px rgba(20,25,40,.06);
+  --shadow-md: 0 10px 28px -10px rgba(20,25,40,.14);
+  --shadow-lg: 0 24px 60px -16px rgba(20,25,40,.22);
+}
+body.light[data-accent="emerald"] { --accent:#067a54; --accent-dim:rgba(6,122,84,.1); --accent-ink:#f2fbf7; }
+body.light[data-accent="azure"]   { --accent:#1a5fd6; --accent-dim:rgba(26,95,214,.09); --accent-ink:#f2f6ff; }
+body.light[data-accent="violet"]  { --accent:#6432c9; --accent-dim:rgba(100,50,201,.09); --accent-ink:#f7f3ff; }
+body.light[data-accent="amber"]   { --accent:#966300; --accent-dim:rgba(150,99,0,.1); --accent-ink:#fff9ef; }
+body.light[data-accent="rose"]    { --accent:#c8375a; --accent-dim:rgba(200,55,90,.09); --accent-ink:#fff2f5; }
+
+/* — reduced motion (OS pref OR explicit user pref) — */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+}
+[data-motion="reduced"] *, [data-motion="reduced"] *::before, [data-motion="reduced"] *::after {
+  animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important;
 }
 
-/* light mode overrides for specific elements */
-body.light .score-fill        { background: var(--green); }
-body.light .sig-chip.sig-t1   { border-color: var(--green); color: var(--green); background: var(--green-dim); }
-body.light thead th           { background: var(--surface); }
-body.light .alloc-card        { box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
-body.light .drawer            { box-shadow: 0 20px 60px rgba(0,0,0,0.18); }
-body.light .contact-card      { box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
-
-/* toggle button */
-.theme-btn {
-  font-family: var(--mono); font-size: 11px; padding: 5px 10px;
-  border-radius: 5px; cursor: pointer; transition: all 0.15s;
-  border: 1px solid var(--border2); background: var(--card);
-  color: var(--muted); line-height: 1;
+body {
+  background: var(--bg); color: var(--text); font-family: var(--sans);
+  font-size: var(--fs-base); line-height: 1.5; min-height: 100vh;
+  transition: background var(--t-med), color var(--t-med);
+  font-feature-settings: "cv11", "ss01";
 }
-.theme-btn:hover { color: var(--text); border-color: var(--muted); }
+::selection { background: var(--accent); color: var(--accent-ink); }
+a { color: var(--cyan); }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 8px; border: 2px solid var(--surface); }
+::-webkit-scrollbar-thumb:hover { background: var(--text-4); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+.num { font-variant-numeric: tabular-nums; }
 
-body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 13px; line-height: 1.5; min-height: 100vh; transition: background 0.2s, color 0.2s; }
-
-/* ── HEADER ── */
+/* ============================================================
+   HEADER
+   ============================================================ */
 header {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0.9rem 2rem; border-bottom: 1px solid var(--border);
-  background: var(--surface); gap: 1rem; flex-wrap: wrap; position: sticky; top: 0; z-index: 50;
+  padding: 0.85rem 1.75rem; border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  gap: 1rem; flex-wrap: wrap; position: sticky; top: 0; z-index: 50;
 }
-.logo { display: flex; align-items: center; gap: 11px; }
-.logo-mark { font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--green); background: var(--green-dim); border: 1px solid var(--green); border-radius: 4px; padding: 3px 8px; letter-spacing: 0.1em; }
-.logo-title { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.015em; color: var(--text); }
-.header-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.hdr-btn {
-  display: flex; align-items: center; gap: 5px; font-family: var(--mono); font-size: 10px;
-  padding: 6px 12px; border-radius: 5px; cursor: pointer; transition: all 0.15s;
-  border: 1px solid var(--border2); background: var(--card); color: var(--text2); font-weight: 500;
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo-mark {
+  display: flex; align-items: center; justify-content: center; width: 30px; height: 30px;
+  font-family: var(--mono); font-size: 10px; font-weight: 700; color: var(--accent-ink);
+  background: var(--accent); border-radius: 8px; letter-spacing: 0.02em;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 40%, transparent);
 }
-.hdr-btn:hover { color: var(--text); border-color: var(--muted); background: var(--card2); }
-.hdr-status { font-family: var(--mono); font-size: 10px; color: var(--muted); }
-.hdr-status span { color: var(--green); font-weight: 600; }
+.logo-title { font-size: var(--fs-md); font-weight: 700; letter-spacing: -0.015em; color: var(--text); }
+.logo-sub { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-3); letter-spacing: 0.03em; margin-top: 1px; }
+.header-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.hdr-status { font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-3); display: flex; align-items: center; gap: 6px; }
+.hdr-status .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--success); box-shadow: 0 0 0 3px var(--success-dim); flex-shrink: 0; }
+.hdr-status strong { color: var(--text-2); font-weight: 600; }
 
-/* ── SECTION WRAPPER ── */
+.icon-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  width: 32px; height: 32px; border-radius: var(--r-sm); cursor: pointer;
+  border: 1px solid var(--border-2); background: var(--surface-2); color: var(--text-3);
+  transition: color var(--t-fast), border-color var(--t-fast), background var(--t-fast), transform var(--t-fast);
+}
+.icon-btn:hover { color: var(--text); border-color: var(--text-4); background: var(--surface-3); }
+.icon-btn:active { transform: scale(0.94); }
+.icon-btn svg { width: 15px; height: 15px; }
+.icon-btn .ico-moon { display: none; }
+body.light .icon-btn .ico-sun { display: none; }
+body.light .icon-btn .ico-moon { display: block; }
+
+.hdr-btn {
+  display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: var(--fs-xs);
+  padding: 7px 13px; border-radius: var(--r-sm); cursor: pointer;
+  border: 1px solid var(--border-2); background: var(--surface-2); color: var(--text-2); font-weight: 500;
+  transition: color var(--t-fast), border-color var(--t-fast), background var(--t-fast);
+  white-space: nowrap;
+}
+.hdr-btn:hover { color: var(--text); border-color: var(--text-4); background: var(--surface-3); }
+.hdr-btn:active { transform: translateY(1px); }
+.hdr-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
+.hdr-btn.small { padding: 5px 10px; font-size: var(--fs-2xs); }
+.hdr-btn.primary { border-color: var(--accent); background: var(--accent-dim); color: var(--accent); }
+.hdr-btn.primary:hover { background: var(--accent); color: var(--accent-ink); }
+
+/* ============================================================
+   MAIN / SECTION WRAPPER
+   ============================================================ */
+main { display: block; }
 .section { display: none; }
 .section.active { display: block; }
+.shell { padding: 0 1.75rem; }
 
-/* ── SUMMARY BAND ── */
-.summary-band {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(130px,1fr));
+/* ============================================================
+   INSIGHTS ROW (stat tiles)
+   ============================================================ */
+.insights-row {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(148px,1fr));
   gap: 1px; background: var(--border); border-bottom: 1px solid var(--border);
 }
-.stat { background: var(--surface); padding: 0.9rem 1.5rem 0.85rem; position: relative; }
-.stat::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--stat-accent, var(--border2)); opacity: 0.7; }
-.stat-label { font-family: var(--mono); font-size: 9px; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); margin-bottom: 5px; font-weight: 500; }
-.stat-value { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; font-family: var(--mono); color: var(--text2); }
-.stat-value.green  { color: var(--green); }
-.stat-value.yellow { color: var(--yellow); }
-.stat-value.blue   { color: var(--blue); }
+.stat {
+  background: var(--surface); padding: 0.95rem 1.4rem 0.9rem; position: relative;
+  display: flex; flex-direction: column; gap: 5px; transition: background var(--t-fast);
+}
+.stat:hover { background: var(--surface-2); }
+.stat::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--stat-accent, var(--border-2)); opacity: 0.85; }
+.stat-label { font-family: var(--mono); font-size: var(--fs-2xs); text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3); font-weight: 600; }
+.stat-value { font-size: var(--fs-2xl); font-weight: 600; letter-spacing: -0.02em; font-family: var(--mono); color: var(--text-2); }
+.stat-value.green  { color: var(--success); }
+.stat-value.yellow { color: var(--warning); }
+.stat-value.blue   { color: var(--info); }
 .stat-value.cyan   { color: var(--cyan); }
-.stat-value.purple { color: var(--purple); }
-.stat:has(.stat-value.green)  { --stat-accent: var(--green); }
-.stat:has(.stat-value.yellow) { --stat-accent: var(--yellow); }
-.stat:has(.stat-value.blue)   { --stat-accent: var(--blue); }
+.stat-value.purple { color: var(--violet); }
+.stat:has(.stat-value.green)  { --stat-accent: var(--success); }
+.stat:has(.stat-value.yellow) { --stat-accent: var(--warning); }
+.stat:has(.stat-value.blue)   { --stat-accent: var(--info); }
 .stat:has(.stat-value.cyan)   { --stat-accent: var(--cyan); }
-.stat:has(.stat-value.purple) { --stat-accent: var(--purple); }
+.stat:has(.stat-value.purple) { --stat-accent: var(--violet); }
 
-/* ── ENRICHMENT PANEL ── */
-.enrich-panel { margin: 1rem 2rem; border: 1px solid var(--border2); border-left: 3px solid var(--yellow); border-radius: 8px; background: var(--surface); overflow: hidden; display: none; }
+/* ============================================================
+   PIPELINE — signature element: the outreach funnel.
+   Every allocator falls into exactly one enrichment bucket;
+   this bar renders that partition as a proportional strip so
+   the whole book of business reads as one shape.
+   ============================================================ */
+.pipeline { padding: 1rem 1.75rem 0.9rem; border-bottom: 1px solid var(--border); background: var(--surface); }
+.pipeline-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+.pipeline-title { font-family: var(--mono); font-size: var(--fs-2xs); text-transform: uppercase; letter-spacing: 0.09em; color: var(--text-3); font-weight: 600; }
+.pipeline-note { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-4); }
+.pipeline-bar { display: flex; height: 22px; border-radius: 6px; overflow: hidden; background: var(--surface-3); box-shadow: inset 0 0 0 1px var(--border); }
+.pipeline-seg { height: 100%; min-width: 2px; transition: flex-basis var(--t-med) var(--ease), opacity var(--t-fast); position: relative; cursor: default; }
+.pipeline-seg:hover { opacity: 0.82; }
+.pipeline-seg + .pipeline-seg { box-shadow: inset 1px 0 0 var(--surface); }
+.pipeline-seg.seg-ready { background: var(--success); }
+.pipeline-seg.seg-high  { background: var(--warning); }
+.pipeline-seg.seg-noemail { background: var(--danger); }
+.pipeline-seg.seg-low { background: var(--info); }
+.pipeline-seg.seg-skip { background: var(--border-2); }
+.pipeline-legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 9px; }
+.pl-item { display: flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-3); }
+.pl-swatch { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+.pl-item b { color: var(--text-2); font-weight: 600; }
+.pipeline-progress-wrap { margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border); display: flex; align-items: center; gap: 10px; }
+.pipeline-progress-label { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-3); white-space: nowrap; }
+.pipeline-progress-track { flex: 1; height: 6px; border-radius: 4px; background: var(--surface-3); overflow: hidden; }
+.pipeline-progress-fill { height: 100%; background: var(--accent); border-radius: 4px; transition: width var(--t-med) var(--ease); }
+.pipeline-progress-num { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-2); font-weight: 600; white-space: nowrap; }
+
+/* ============================================================
+   ENRICHMENT PRIORITY BANNER
+   ============================================================ */
+.enrich-panel { margin: 1rem 1.75rem; border: 1px solid var(--border-2); border-left: 3px solid var(--warning); border-radius: var(--r-md); background: var(--surface); overflow: hidden; display: none; box-shadow: var(--shadow-sm); }
 .enrich-panel.visible { display: block; }
-.enrich-header { display: flex; align-items: center; justify-content: space-between; padding: 0.65rem 1.25rem; border-bottom: 1px solid var(--border); cursor: pointer; user-select: none; }
-.enrich-title { font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--yellow); letter-spacing: 0.06em; }
-.enrich-count { font-family: var(--mono); font-size: 10px; color: var(--muted); }
-.enrich-arrow { font-family: var(--mono); font-size: 10px; color: var(--muted); }
-.enrich-list { padding: 0.5rem 0; max-height: 220px; overflow-y: auto; display: none; }
-.enrich-list.open { display: block; }
-.enrich-row { display: grid; grid-template-columns: 24px 1fr 1fr auto; gap: 8px; align-items: center; padding: 5px 1.25rem; font-family: var(--mono); font-size: 10px; border-bottom: 1px solid var(--border); }
-.enrich-row:last-child { border-bottom: none; }
-.enrich-num { color: var(--dim); text-align: right; }
-.enrich-firm { color: var(--text); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.enrich-why { color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 9px; }
-.enrich-loc { color: var(--muted); font-size: 9px; white-space: nowrap; }
-.enrich-header:hover .enrich-arrow { color: var(--yellow); }
+.enrich-header { display: flex; align-items: center; justify-content: space-between; padding: 0.7rem 1.25rem; border-bottom: 1px solid var(--border); cursor: pointer; user-select: none; gap: 10px; transition: background var(--t-fast); }
+.enrich-header:hover { background: var(--surface-2); }
+.enrich-title { font-family: var(--mono); font-size: var(--fs-xs); font-weight: 700; color: var(--warning); letter-spacing: 0.05em; display: flex; align-items: center; gap: 7px; }
+.enrich-count { font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-3); margin-right: auto; }
+.enrich-arrow { font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-3); display: flex; align-items: center; gap: 4px; transition: color var(--t-fast), transform var(--t-fast); }
+.enrich-header:hover .enrich-arrow { color: var(--warning); transform: translateX(2px); }
 
-/* ── ENRICHMENT PRIORITY POPUP ── */
-.epbox { width: 780px; max-width: 95vw; max-height: 85vh; display: flex; flex-direction: column; padding: 0; }
+/* ── enrichment priority popup ── */
+.epbox { width: 800px; max-width: 95vw; max-height: 85vh; display: flex; flex-direction: column; padding: 0; }
 .epbox .ghead { flex: none; }
-.ep-sub { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-top: 3px; font-weight: 400; }
-.ep-toolbar {
-  display: flex; align-items: center; gap: 16px; padding: 0.65rem 1.25rem;
-  border-bottom: 1px solid var(--border); flex: none; background: var(--card);
-}
-.ep-selectall { display: flex; align-items: center; gap: 7px; font-family: var(--mono); font-size: 11px; color: var(--text2); cursor: pointer; user-select: none; }
-.ep-selectall input { accent-color: var(--yellow); cursor: pointer; width: 13px; height: 13px; }
-.ep-selected-count { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-right: auto; }
-.ep-enrich-selected {
-  font-family: var(--mono); font-size: 10px; font-weight: 700; letter-spacing: 0.03em;
-  padding: 6px 13px; border-radius: 5px; cursor: pointer; border: 1px solid var(--yellow);
-  background: var(--yellow-dim); color: var(--yellow); white-space: nowrap; transition: all 0.15s;
-}
-.ep-enrich-selected:hover:not(:disabled) { background: var(--yellow); color: var(--surface); }
+.ep-sub { font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-3); margin-top: 3px; font-weight: 400; }
+.ep-toolbar { display: flex; align-items: center; gap: 16px; padding: 0.65rem 1.25rem; border-bottom: 1px solid var(--border); flex: none; background: var(--surface-2); }
+.ep-selectall { display: flex; align-items: center; gap: 7px; font-family: var(--mono); font-size: var(--fs-sm); color: var(--text-2); cursor: pointer; user-select: none; }
+.ep-selectall input { accent-color: var(--warning); cursor: pointer; width: 14px; height: 14px; }
+.ep-selected-count { font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-3); margin-right: auto; }
+.ep-enrich-selected { font-family: var(--mono); font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.03em; padding: 7px 14px; border-radius: var(--r-sm); cursor: pointer; border: 1px solid var(--warning); background: var(--warning-dim); color: var(--warning); white-space: nowrap; transition: all var(--t-fast); }
+.ep-enrich-selected:hover:not(:disabled) { background: var(--warning); color: #1c1103; }
 .ep-enrich-selected:disabled { opacity: 0.35; cursor: not-allowed; }
-.ep-progress { padding: 7px 1.25rem; font-family: var(--mono); font-size: 10px; color: var(--yellow); border-bottom: 1px solid var(--border); display: none; }
+.ep-progress { padding: 7px 1.25rem; font-family: var(--mono); font-size: var(--fs-xs); color: var(--warning); border-bottom: 1px solid var(--border); display: none; }
 .ep-progress.visible { display: block; }
 .ep-list { overflow-y: auto; flex: 1; }
-.ep-row {
-  display: grid; grid-template-columns: 20px 24px 1fr 150px; gap: 12px; align-items: center;
-  padding: 9px 1.25rem; border-bottom: 1px solid var(--border); font-family: var(--mono); transition: background 0.12s;
-}
-.ep-row:hover { background: var(--card2); }
+.ep-row { display: grid; grid-template-columns: 20px 24px 1fr 150px; gap: 12px; align-items: center; padding: 10px 1.25rem; border-bottom: 1px solid var(--border); font-family: var(--mono); transition: background var(--t-fast); }
+.ep-row:hover { background: var(--surface-2); }
 .ep-row:last-child { border-bottom: none; }
 .ep-row.ep-done { opacity: 0.5; }
-.ep-row input[type=checkbox] { accent-color: var(--yellow); cursor: pointer; width: 13px; height: 13px; }
-.ep-num { color: var(--dim); text-align: right; font-size: 10px; }
+.ep-row input[type=checkbox] { accent-color: var(--warning); cursor: pointer; width: 14px; height: 14px; }
+.ep-num { color: var(--text-4); text-align: right; font-size: var(--fs-xs); }
 .ep-firm-wrap { min-width: 0; }
-.ep-firm { color: var(--text); font-weight: 600; font-size: 11.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.ep-why { color: var(--muted); font-size: 9.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
-.ep-loc { color: var(--dim); font-size: 9px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
+.ep-firm { color: var(--text); font-weight: 600; font-size: var(--fs-sm); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ep-why { color: var(--text-3); font-size: var(--fs-2xs); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
+.ep-loc { color: var(--text-4); font-size: var(--fs-2xs); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
 .ep-status { display: flex; justify-content: flex-end; }
-.ep-status-btn {
-  font-family: var(--mono); font-size: 9px; font-weight: 600; padding: 4px 8px; border-radius: 4px;
-  border: 1px solid var(--border2); background: transparent; color: var(--text2); cursor: pointer; white-space: nowrap; transition: all 0.15s;
-}
-.ep-status-btn:hover:not(:disabled) { border-color: var(--yellow); color: var(--yellow); }
-.ep-status-btn:disabled { cursor: default; opacity: 0.75; }
-.ep-status-ok { color: var(--green); border-color: var(--green); }
-.ep-status-err { color: var(--red, #e5484d); border-color: var(--red, #e5484d); }
-.ep-status-pending { color: var(--yellow); border-color: var(--yellow); }
-.ep-empty { padding: 2.5rem 1.25rem; text-align: center; font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.ep-status-btn { font-family: var(--mono); font-size: var(--fs-2xs); font-weight: 600; padding: 4px 9px; border-radius: var(--r-sm); border: 1px solid var(--border-2); background: transparent; color: var(--text-2); cursor: pointer; white-space: nowrap; transition: all var(--t-fast); }
+.ep-status-btn:hover:not(:disabled) { border-color: var(--warning); color: var(--warning); }
+.ep-status-btn:disabled { cursor: default; opacity: 0.8; }
+.ep-status-ok { color: var(--success); border-color: var(--success); }
+.ep-status-err { color: var(--danger); border-color: var(--danger); }
+.ep-status-pending { color: var(--warning); border-color: var(--warning); }
+.ep-empty { padding: 2.5rem 1.25rem; text-align: center; font-family: var(--mono); font-size: var(--fs-sm); color: var(--text-3); }
 
-/* ── CONTROLS ── */
-.controls { display: flex; gap: 8px; padding: 0.75rem 2rem; border-bottom: 1px solid var(--border); flex-wrap: wrap; align-items: center; background: var(--surface); }
-.search-wrap { position: relative; flex: 1; min-width: 180px; }
-.search-wrap svg { position: absolute; left: 9px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
-input[type=search], select { background: var(--card); border: 1px solid var(--border2); border-radius: 5px; color: var(--text); font-family: var(--mono); font-size: 11px; padding: 5px 9px; outline: none; transition: border-color 0.15s; }
-input[type=search] { width: 100%; padding-left: 30px; }
-input[type=search]:focus, select:focus { border-color: var(--green); }
-input[type=search]::placeholder { color: var(--muted); }
-select { cursor: pointer; }
-select option { background: var(--card); }
-.ctrl-label { font-family: var(--mono); font-size: 10px; color: var(--muted); white-space: nowrap; }
-.result-count { font-family: var(--mono); font-size: 10px; color: var(--muted); padding: 0.5rem 2rem 0; }
-.result-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 0.5rem 2rem 0; flex-wrap: wrap; }
+/* ============================================================
+   CONTROLS TOOLBAR
+   ============================================================ */
+.controls { display: flex; gap: 8px; padding: 0.85rem 1.75rem; border-bottom: 1px solid var(--border); flex-wrap: wrap; align-items: center; background: var(--surface); }
+.search-wrap { position: relative; flex: 1; min-width: 200px; }
+.search-wrap svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-4); pointer-events: none; }
+.search-wrap kbd { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-family: var(--mono); font-size: 9px; color: var(--text-4); border: 1px solid var(--border-2); border-radius: 4px; padding: 1px 5px; pointer-events: none; }
+input[type=search], select {
+  background: var(--surface-2); border: 1px solid var(--border-2); border-radius: var(--r-sm); color: var(--text);
+  font-family: var(--mono); font-size: var(--fs-sm); padding: var(--ctrl-pad-y) 10px; outline: none;
+  transition: border-color var(--t-fast), background var(--t-fast);
+}
+input[type=search] { width: 100%; padding-left: 32px; padding-right: 60px; }
+input[type=search]:focus, select:focus { border-color: var(--accent); background: var(--surface-3); }
+input[type=search]::placeholder { color: var(--text-4); }
+select { cursor: pointer; -webkit-appearance: none; appearance: none; padding-right: 26px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238b96a8' stroke-width='1.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 8px center; }
+select option { background: var(--surface-2); color: var(--text); }
+.ctrl-label { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-3); white-space: nowrap; }
+.ctrl-divider { width: 1px; align-self: stretch; background: var(--border); margin: 0 2px; }
+
+.view-toggle { display: flex; border: 1px solid var(--border-2); border-radius: var(--r-sm); overflow: hidden; flex-shrink: 0; }
+.view-toggle button { display: flex; align-items: center; gap: 5px; font-family: var(--mono); font-size: var(--fs-2xs); font-weight: 600; padding: var(--ctrl-pad-y) 10px; background: var(--surface-2); color: var(--text-3); border: none; cursor: pointer; transition: all var(--t-fast); border-right: 1px solid var(--border-2); }
+.view-toggle button:last-child { border-right: none; }
+.view-toggle button svg { width: 12px; height: 12px; }
+.view-toggle button:hover { color: var(--text); background: var(--surface-3); }
+.view-toggle button.active { background: var(--accent-dim); color: var(--accent); }
+
+.result-count { font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-3); padding: 0.65rem 1.75rem 0; }
+.result-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 0.65rem 1.75rem 0; flex-wrap: wrap; }
 .result-bar .result-count { padding: 0; }
 .result-actions { display: flex; gap: 8px; }
-.hdr-btn.small { padding: 4px 9px; font-size: 9px; }
 
-/* ── TABLE ── */
-.table-wrap { padding: 0.75rem 2rem 3rem; overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; }
-thead th { font-family: var(--mono); font-size: 9px; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--border); white-space: nowrap; user-select: none; }
-tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
-tbody tr:hover { background: var(--card); }
-tbody td { padding: 9px 10px; vertical-align: top; }
+/* ============================================================
+   PAGINATION
+   ============================================================ */
+.pagination { display: flex; align-items: center; justify-content: center; gap: 4px; padding: 1.1rem 1.75rem; flex-wrap: wrap; }
+.page-btn { font-family: var(--mono); font-size: var(--fs-sm); min-width: 32px; height: 30px; padding: 0 9px; border-radius: var(--r-sm); border: 1px solid var(--border-2); background: var(--surface-2); color: var(--text-3); cursor: pointer; transition: all var(--t-fast); }
+.page-btn:hover { color: var(--text); border-color: var(--text-4); background: var(--surface-3); }
+.page-btn.active { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); font-weight: 700; }
+.page-btn.prev-next { color: var(--text-3); }
+.page-ellipsis { color: var(--text-4); font-family: var(--mono); font-size: var(--fs-sm); padding: 0 4px; }
 
-/* badges */
-.conf { display: inline-flex; align-items: center; gap: 3px; font-family: var(--mono); font-size: 9px; font-weight: 600; padding: 2px 6px; border-radius: 3px; letter-spacing: 0.05em; white-space: nowrap; margin-top: 3px; }
-.conf-HIGH            { background: var(--green-dim);  color: var(--green);  border: 1px solid var(--green); }
-.conf-MEDIUM          { background: var(--yellow-dim); color: var(--yellow); border: 1px solid var(--yellow); }
-.conf-MEDIUM-NO-CONTACT { background: var(--blue-dim); color: var(--blue);  border: 1px solid var(--blue); }
-.conf-LOW-HAS-EMAIL   { background: var(--blue-dim);   color: var(--blue);  border: 1px solid var(--blue); }
-.conf-LOW             { background: var(--card2); color: var(--muted); border: 1px solid var(--dim); }
-.ebadge { font-family: var(--mono); font-size: 9px; padding: 2px 5px; border-radius: 3px; white-space: nowrap; }
-.ep-READY { background: var(--green-dim);  color: var(--green); }
-.ep-HIGH  { background: var(--yellow-dim); color: var(--yellow); }
-.ep-ENRICHED_NO_EMAIL { background: var(--red-dim); color: var(--red); }
-.ep-LOW   { background: var(--blue-dim);   color: var(--blue); }
-.ep-SKIP  { color: var(--dim); }
-.sig-chip { font-family: var(--mono); font-size: 9px; padding: 2px 6px; border-radius: 3px; border: 1px solid var(--border2); color: var(--text2); white-space: nowrap; display: inline-block; margin-top: 2px; font-weight: 500; }
-.sig-t1 { border-color: var(--green); color: var(--green); background: var(--green-dim); }
-.sig-t2 { border-color: var(--border2); color: var(--text2); }
+/* ============================================================
+   BADGES / CHIPS  (shared: cards, table, drawer)
+   ============================================================ */
+.ebadge { font-family: var(--mono); font-size: var(--fs-2xs); font-weight: 600; padding: 2px 7px; border-radius: 4px; white-space: nowrap; letter-spacing: 0.02em; display: inline-flex; align-items: center; gap: 4px; }
+.ep-READY { background: var(--success-dim); color: var(--success); }
+.ep-HIGH  { background: var(--warning-dim); color: var(--warning); }
+.ep-ENRICHED_NO_EMAIL { background: var(--danger-dim); color: var(--danger); }
+.ep-LOW   { background: var(--info-dim); color: var(--info); }
+.ep-SKIP  { color: var(--text-4); background: transparent; }
+.sig-chip { font-family: var(--mono); font-size: var(--fs-2xs); padding: 2px 7px; border-radius: 4px; border: 1px solid var(--border-2); color: var(--text-2); white-space: nowrap; display: inline-block; margin-top: 2px; font-weight: 500; }
+.sig-t1 { border-color: var(--success); color: var(--success); background: var(--success-dim); }
+.sig-t2 { border-color: var(--border-2); color: var(--text-2); }
+.sched-btn { display: inline-flex; align-items: center; gap: 3px; font-family: var(--mono); font-size: var(--fs-2xs); font-weight: 600; padding: 2px 8px; border-radius: 4px; border: 1px solid; white-space: nowrap; background: transparent; }
+.sched-d { color: var(--cyan);   border-color: color-mix(in srgb, var(--cyan) 45%, transparent); }
+.sched-h { color: var(--violet); border-color: color-mix(in srgb, var(--violet) 45%, transparent); }
 
-/* schedule buttons */
-.sched-btn { display: inline-flex; align-items: center; gap: 3px; font-family: var(--mono); font-size: 9px; font-weight: 600; padding: 2px 7px; border-radius: 3px; border: 1px solid; cursor: pointer; text-decoration: none; white-space: nowrap; transition: opacity 0.15s; background: transparent; }
-.sched-btn:hover { opacity: 0.7; }
-.sched-c { color: var(--green);  border-color: rgba(34,217,138,0.4); }
-.sched-d { color: var(--cyan);   border-color: rgba(48,200,208,0.4); }
-.sched-h { color: var(--purple); border-color: rgba(160,112,240,0.4); }
-.sched-x { color: var(--muted);  border-color: var(--dim); }
-.sched-cell { display: flex; flex-direction: column; gap: 4px; }
-
-/* profile button */
-.profile-btn { font-family: var(--mono); font-size: 9px; padding: 2px 6px; border-radius: 3px; border: 1px solid var(--border2); color: var(--muted); background: transparent; cursor: pointer; transition: all 0.15s; white-space: nowrap; display: inline-block; margin-top: 3px; }
-.profile-btn:hover { color: var(--text); border-color: var(--muted); background: var(--card2); }
-
-/* cell helpers */
-.firm-name { font-weight: 600; font-size: 13px; }
-.plan-name { font-family: var(--mono); font-size: 10px; color: var(--text2); margin-top: 1px; max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.conn-text { font-size: 11px; color: var(--text); max-width: 220px; line-height: 1.4; }
-.matched  { font-family: var(--mono); font-size: 10px; color: var(--cyan); margin-top: 2px; }
-.loc-cell { font-family: var(--mono); font-size: 10px; color: var(--text2); white-space: nowrap; }
-.part-cell { font-family: var(--mono); font-size: 11px; color: var(--text2); text-align: right; }
-.score-wrap { display: flex; align-items: center; gap: 5px; }
-.score-bar { height: 3px; background: var(--border2); border-radius: 2px; width: 40px; overflow: hidden; }
-.score-fill { height: 100%; border-radius: 2px; background: var(--green); }
-.score-num { font-family: var(--mono); font-size: 10px; color: var(--muted); }
-.contact-name { font-weight: 600; font-size: 12px; }
-.contact-title { font-size: 10px; color: var(--text2); font-family: var(--mono); }
-.contact-email { font-family: var(--mono); font-size: 10px; color: var(--blue); }
-.contact-sep { border-top: 1px solid var(--border); margin: 3px 0; }
-
-/* ── ALLOCATOR DATABASE CARDS ── */
-.db-grid { padding: 1rem 2rem 3rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 12px; }
-.alloc-card { background: var(--card); border: 1px solid var(--border2); border-left: 3px solid var(--card-accent, var(--border2)); border-radius: 8px; padding: 14px 16px; cursor: pointer; transition: border-color 0.15s, background 0.15s, transform 0.1s; }
-.alloc-card:hover { border-color: var(--muted); border-left-color: var(--card-accent, var(--muted)); background: var(--card2); }
-.alloc-card.tier1 { --card-accent: var(--green); }
+/* ============================================================
+   ALLOCATOR CARD GRID
+   ============================================================ */
+.db-grid { padding: var(--sp-4) 1.75rem 3rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: var(--grid-gap); }
+.alloc-card {
+  background: var(--surface-2); border: 1px solid var(--border); border-left: 3px solid var(--card-accent, var(--border-2));
+  border-radius: var(--r-md); padding: var(--card-pad); cursor: pointer;
+  transition: border-color var(--t-fast), background var(--t-fast), transform var(--t-fast), box-shadow var(--t-fast);
+  content-visibility: auto; contain-intrinsic-size: 0 190px;
+}
+.alloc-card:hover { border-color: var(--border-2); border-left-color: var(--card-accent, var(--text-4)); background: var(--surface-3); transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+.alloc-card:active { transform: translateY(0); }
+.alloc-card.tier1 { --card-accent: var(--success); }
 .alloc-card.tier2 { --card-accent: var(--cyan); }
-.alloc-card.contacted { opacity: 0.55; }
+.alloc-card.contacted { opacity: 0.52; }
 .alloc-card.contacted:hover { opacity: 0.85; }
-.ac-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+.ac-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 9px; }
 .ac-head > div:first-child { min-width: 0; flex: 1 1 auto; }
-.ac-name { font-weight: 700; font-size: 13.5px; line-height: 1.3; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.ac-plan { font-family: var(--mono); font-size: 9px; color: var(--text2); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px; }
-.ac-ep { font-family: var(--mono); font-size: 9px; padding: 2px 6px; border-radius: 3px; white-space: nowrap; flex-shrink: 0; font-weight: 600; }
-.ac-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
-.ac-pill { font-family: var(--mono); font-size: 9px; padding: 2px 7px; border-radius: 10px; border: 1px solid var(--border2); color: var(--text2); }
-.ac-pill.green { border-color: var(--green); color: var(--green); background: var(--green-dim); }
+.ac-name { font-weight: 700; font-size: var(--fs-md); line-height: 1.3; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ac-plan { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-3); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px; }
+.ac-ep { flex-shrink: 0; }
+.ac-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 9px; }
+.ac-pill { font-family: var(--mono); font-size: var(--fs-2xs); padding: 2px 8px; border-radius: 10px; border: 1px solid var(--border-2); color: var(--text-2); }
+.ac-pill.green { border-color: var(--success); color: var(--success); background: var(--success-dim); }
 .ac-pill.cyan  { border-color: var(--cyan); color: var(--cyan); background: var(--cyan-dim); }
-.ac-pill.yellow { border-color: var(--yellow); color: var(--yellow); background: var(--yellow-dim); }
+.ac-pill.yellow { border-color: var(--warning); color: var(--warning); background: var(--warning-dim); }
 .ac-sigs { display: flex; gap: 4px; flex-wrap: wrap; }
-.ac-bottom { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
-.ac-loc { font-family: var(--mono); font-size: 9px; color: var(--muted); }
-.ac-parts { font-family: var(--mono); font-size: 9px; color: var(--muted); }
-.ac-contacted { display: flex; align-items: center; gap: 6px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); font-family: var(--mono); font-size: 9.5px; color: var(--muted); cursor: pointer; user-select: none; }
-.ac-contacted input { accent-color: var(--green); cursor: pointer; width: 12px; height: 12px; }
-.alloc-card.contacted .ac-contacted { color: var(--green); }
+.ac-conn { font-size: var(--fs-sm); color: var(--text-2); line-height: 1.35; margin-bottom: 2px; }
+.ac-matched { font-family: var(--mono); font-size: var(--fs-xs); color: var(--cyan); }
+.ac-nosig { font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-4); }
+.ac-bottom { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 9px; padding-top: 9px; border-top: 1px solid var(--border); }
+.ac-loc { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: flex; align-items: center; gap: 4px; }
+.ac-loc svg { width: 10px; height: 10px; flex-shrink: 0; opacity: 0.8; }
+.ac-parts { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-3); white-space: nowrap; }
+.ac-contacted { display: flex; align-items: center; gap: 6px; margin-top: 9px; padding-top: 9px; border-top: 1px solid var(--border); font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-3); cursor: pointer; user-select: none; }
+.ac-contacted input { accent-color: var(--success); cursor: pointer; width: 13px; height: 13px; }
+.alloc-card.contacted .ac-contacted { color: var(--success); }
 
-/* ── DRAWER ── */
-.drawer-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(8,11,15,0.72); backdrop-filter: blur(3px); }
+/* ============================================================
+   ALLOCATOR TABLE (dense alternate view)
+   ============================================================ */
+.db-table-scroll { padding: var(--sp-4) 1.75rem 3rem; overflow-x: auto; }
+table.db-table { width: 100%; border-collapse: collapse; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r-md); overflow: hidden; }
+table.db-table thead th {
+  font-family: var(--mono); font-size: var(--fs-2xs); text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-3);
+  text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border-2); white-space: nowrap; background: var(--surface-3); font-weight: 600;
+}
+table.db-table tbody tr { border-bottom: 1px solid var(--border); cursor: pointer; transition: background var(--t-fast); content-visibility: auto; contain-intrinsic-size: 0 54px; }
+table.db-table tbody tr:last-child { border-bottom: none; }
+table.db-table tbody tr:hover { background: var(--surface-3); }
+table.db-table tbody tr.contacted { opacity: 0.5; }
+table.db-table td { padding: 10px 12px; vertical-align: top; font-size: var(--fs-sm); }
+.dt-firm { font-weight: 600; font-size: var(--fs-sm); color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 240px; }
+.dt-plan { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-3); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 240px; }
+.dt-conn { font-size: var(--fs-xs); color: var(--text-2); max-width: 240px; line-height: 1.35; }
+.dt-loc { font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-3); white-space: nowrap; }
+.dt-num { font-family: var(--mono); font-size: var(--fs-sm); color: var(--text-2); text-align: right; white-space: nowrap; }
+.dt-check { text-align: center; }
+.dt-check input { accent-color: var(--success); cursor: pointer; width: 14px; height: 14px; }
+
+/* ============================================================
+   DRAWER (allocator profile)
+   ============================================================ */
+.drawer-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(6,8,12,0.72); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
 .drawer-overlay.open { display: flex; align-items: center; justify-content: center; padding: 3vh 2vw; }
-.drawer { width: 1100px; max-width: 94vw; height: 94vh; max-height: 94vh; background: var(--surface); border: 1px solid var(--border2); border-radius: 12px; overflow-y: auto; display: flex; flex-direction: column; box-shadow: 0 20px 60px rgba(0,0,0,0.45); transform: scale(0.96); opacity: 0; transition: transform 0.2s cubic-bezier(0.16,1,0.3,1), opacity 0.2s; }
-.drawer-overlay.open .drawer { transform: scale(1); opacity: 1; }
-.drawer-head { display: flex; align-items: flex-start; justify-content: space-between; padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--surface); z-index: 1; border-radius: 12px 12px 0 0; }
+.drawer {
+  width: 1100px; max-width: 94vw; height: 94vh; max-height: 94vh; background: var(--raised);
+  border: 1px solid var(--border-2); border-radius: var(--r-xl); overflow-y: auto; display: flex; flex-direction: column;
+  box-shadow: var(--shadow-lg); transform: scale(0.97) translateY(8px); opacity: 0;
+  transition: transform var(--t-med) var(--ease), opacity var(--t-med);
+}
+.drawer-overlay.open .drawer { transform: scale(1) translateY(0); opacity: 1; }
+.drawer-head {
+  display: flex; align-items: flex-start; justify-content: space-between; padding: 1.4rem 1.6rem;
+  border-bottom: 1px solid var(--border); position: sticky; top: 0; background: color-mix(in srgb, var(--raised) 92%, transparent);
+  backdrop-filter: blur(8px); z-index: 1; border-radius: var(--r-xl) var(--r-xl) 0 0;
+}
 .drawer-head-left { flex: 1; min-width: 0; }
-.dr-firm { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.01em; }
-.dr-plan { font-family: var(--mono); font-size: 10px; color: var(--text2); margin-top: 2px; }
-.dr-meta { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
-.dr-pill { font-family: var(--mono); font-size: 9px; padding: 2px 7px; border-radius: 10px; border: 1px solid var(--border2); color: var(--muted); }
-.drawer-close { background: none; border: none; color: var(--muted); font-size: 20px; cursor: pointer; line-height: 1; padding: 2px 6px; flex-shrink: 0; }
-.drawer-close:hover { color: var(--text); }
+.dr-firm { font-size: var(--fs-xl); font-weight: 700; letter-spacing: -0.015em; color: var(--text); }
+.dr-plan { font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-3); margin-top: 3px; }
+.dr-meta { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+.dr-pill { display: inline-flex; align-items: center; gap: 4px; font-family: var(--mono); font-size: var(--fs-2xs); padding: 3px 8px; border-radius: 10px; border: 1px solid var(--border-2); color: var(--text-3); background: var(--surface-2); }
+.drawer-close { background: none; border: 1px solid var(--border-2); color: var(--text-3); font-size: 15px; cursor: pointer; line-height: 1; width: 30px; height: 30px; border-radius: var(--r-sm); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all var(--t-fast); }
+.drawer-close:hover { color: var(--text); border-color: var(--text-4); background: var(--surface-2); }
 .drawer-body { padding: 0 0 3rem; flex: 1; }
-.dsec { border-bottom: 1px solid var(--border); padding: 1rem 1.5rem; }
+.dsec { border-bottom: 1px solid var(--border); padding: 1.15rem 1.6rem; }
 .dsec:last-child { border-bottom: none; }
-.dsec-title { font-family: var(--mono); font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px; }
-.dsec-badge { font-size: 8px; padding: 1px 5px; border-radius: 2px; background: var(--border2); color: var(--muted); }
-.field-grid { display: grid; grid-template-columns: 130px 1fr; gap: 4px 10px; }
-.field-label { font-family: var(--mono); font-size: 10px; color: var(--text2); padding-top: 1px; }
-.field-val { font-family: var(--mono); font-size: 11px; color: var(--text); word-break: break-word; }
+.dsec-title { font-family: var(--mono); font-size: var(--fs-2xs); text-transform: uppercase; letter-spacing: 0.09em; color: var(--text-3); margin-bottom: 0.85rem; display: flex; align-items: center; gap: 8px; font-weight: 600; }
+.dsec-title svg { width: 12px; height: 12px; opacity: 0.75; }
+.dsec-badge { font-size: var(--fs-2xs); padding: 1px 6px; border-radius: 4px; background: var(--surface-3); color: var(--text-3); font-weight: 500; text-transform: none; letter-spacing: 0; }
+.field-grid { display: grid; grid-template-columns: 140px 1fr; gap: 6px 12px; }
+.field-label { font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-3); padding-top: 2px; }
+.field-val { font-family: var(--mono); font-size: var(--fs-sm); color: var(--text); word-break: break-word; }
 .field-val a { color: var(--cyan); text-decoration: none; }
 .field-val a:hover { text-decoration: underline; }
-.dr-contacted-toggle { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; user-select: none; }
-.dr-contacted-toggle input { accent-color: var(--green); cursor: pointer; width: 13px; height: 13px; }
+.dr-contacted-toggle { display: inline-flex; align-items: center; gap: 7px; cursor: pointer; user-select: none; }
+.dr-contacted-toggle input { accent-color: var(--success); cursor: pointer; width: 14px; height: 14px; }
 .sig-table { width: 100%; border-collapse: collapse; }
-.sig-table td { padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 11px; vertical-align: top; }
+.sig-table td { padding: 8px 0; border-bottom: 1px solid var(--border); font-size: var(--fs-sm); vertical-align: top; }
 .sig-table tr:last-child td { border-bottom: none; }
-.sig-label-cell { width: 130px; padding-right: 10px; }
+.sig-label-cell { width: 140px; padding-right: 10px; }
 .sig-val-cell { color: var(--text); }
-.contact-card { background: var(--card); border: 1px solid var(--border2); border-radius: 6px; padding: 9px 12px; margin-bottom: 7px; }
+.sig-val-cell .muted { font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-3); }
+.sig-val-cell .dim { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-4); }
+.sig-val-cell .accent { font-family: var(--mono); font-size: var(--fs-xs); color: var(--cyan); margin-top: 2px; }
+
+/* ── contacts ── */
+.contact-card { background: var(--surface-2); border: 1px solid var(--border-2); border-radius: var(--r-sm); padding: 10px 13px; margin-bottom: 8px; }
 .contact-card:last-child { margin-bottom: 0; }
-.cc-name { font-weight: 600; font-size: 12px; }
-.cc-title { font-family: var(--mono); font-size: 10px; color: var(--text2); margin-top: 1px; }
-.cc-row { font-family: var(--mono); font-size: 10px; color: var(--blue); margin-top: 3px; }
-.cc-row.copyable { cursor: pointer; display: inline-flex; align-items: center; gap: 5px; transition: color 0.12s; }
-.cc-row.copyable:hover { color: var(--green); }
-.cc-row.copyable .copy-hint { font-size: 8px; color: var(--dim); opacity: 0; transition: opacity 0.12s; }
+.cc-name { font-weight: 600; font-size: var(--fs-md); color: var(--text); }
+.cc-title { font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-3); margin-top: 2px; }
+.cc-row { font-family: var(--mono); font-size: var(--fs-xs); color: var(--info); margin-top: 4px; display: flex; align-items: center; gap: 5px; }
+.cc-row svg { width: 11px; height: 11px; opacity: 0.85; flex-shrink: 0; }
+.cc-row.copyable { cursor: pointer; display: inline-flex; align-items: center; gap: 5px; transition: color var(--t-fast); }
+.cc-row.copyable:hover { color: var(--success); }
+.cc-row.copyable .copy-hint { font-size: 8.5px; color: var(--text-4); opacity: 0; transition: opacity var(--t-fast); }
 .cc-row.copyable:hover .copy-hint { opacity: 1; }
-
-/* Enrich feature */
-.enrich-btn {
-  font-family: var(--mono); font-size: 9px; font-weight: 700; letter-spacing: 0.05em;
-  padding: 3px 9px; border-radius: 3px; border: 1px solid var(--purple);
-  background: var(--purple-dim); color: var(--purple); cursor: pointer;
-  text-transform: uppercase; transition: opacity 0.15s;
-}
-.enrich-btn:hover { opacity: 0.75; }
-.enrich-btn:disabled { opacity: 0.5; cursor: default; }
-.enrich-btn.loading::after {
-  content: ''; display: inline-block; width: 8px; height: 8px; margin-left: 6px;
-  border: 1.5px solid var(--purple); border-top-color: transparent; border-radius: 50%;
-  animation: enrich-spin 0.6s linear infinite; vertical-align: middle;
-}
-@keyframes enrich-spin { to { transform: rotate(360deg); } }
-.enrich-status { font-family: var(--mono); font-size: 9px; color: var(--muted); margin-top: 6px; }
-.enrich-status.err { color: var(--red, #e05a5a); }
-.enrich-status.ok { color: var(--green); }
-.enrich-status.warn { color: var(--yellow); }
-
-.contact-card.ai-found { border-color: var(--purple); background: var(--purple-dim); }
-.contact-card.ai-found .cc-name::after {
-  content: 'AI FOUND'; font-family: var(--mono); font-size: 8px; font-weight: 700;
-  color: var(--purple); border: 1px solid var(--purple); border-radius: 2px;
-  padding: 1px 4px; margin-left: 7px; vertical-align: middle; letter-spacing: 0.05em;
-}
-.cc-source { font-family: var(--mono); font-size: 9px; color: var(--muted); margin-top: 3px; }
-.cc-confidence { font-family: var(--mono); font-size: 8px; padding: 1px 5px; border-radius: 2px; margin-left: 6px; }
-.cc-confidence.high { background: var(--green-dim); color: var(--green); }
-.cc-confidence.medium { background: var(--yellow-dim); color: var(--yellow); }
-.cc-confidence.low { background: var(--border2); color: var(--muted); }
-.cc-ctype { font-family: var(--mono); font-size: 8px; padding: 1px 5px; border-radius: 2px; margin-left: 6px; text-transform: uppercase; letter-spacing: 0.03em; }
-.cc-ctype.direct { background: var(--green-dim); color: var(--green); }
+.contact-card.ai-found { border-color: var(--violet); background: var(--violet-dim); }
+.contact-card.ai-found .cc-name::after { content: 'AI FOUND'; font-family: var(--mono); font-size: 8.5px; font-weight: 700; color: var(--violet); border: 1px solid var(--violet); border-radius: 3px; padding: 1px 5px; margin-left: 8px; vertical-align: middle; letter-spacing: 0.05em; }
+.cc-source { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-3); margin-top: 4px; }
+.cc-confidence { font-family: var(--mono); font-size: 8.5px; padding: 1px 5px; border-radius: 3px; margin-left: 6px; text-transform: uppercase; }
+.cc-confidence.high { background: var(--success-dim); color: var(--success); }
+.cc-confidence.medium { background: var(--warning-dim); color: var(--warning); }
+.cc-confidence.low { background: var(--surface-3); color: var(--text-3); }
+.cc-ctype { font-family: var(--mono); font-size: 8.5px; padding: 1px 5px; border-radius: 3px; margin-left: 6px; text-transform: uppercase; letter-spacing: 0.03em; }
+.cc-ctype.direct { background: var(--success-dim); color: var(--success); }
 .cc-ctype.general { background: var(--cyan-dim); color: var(--cyan); }
-.cc-ctype.none { background: var(--border2); color: var(--dim); }
+.cc-ctype.none { background: var(--surface-3); color: var(--text-4); }
 
-.assessment-flag {
-  display: inline-block; font-family: var(--mono); font-size: 9px; font-weight: 700;
-  padding: 2px 6px; border-radius: 3px; margin-top: 6px; letter-spacing: 0.03em;
-}
-.assessment-flag.not-relevant { background: var(--yellow-dim); color: var(--yellow); border: 1px solid var(--yellow); }
-.assessment-flag.relevant { background: var(--green-dim); color: var(--green); border: 1px solid var(--green); }
-.assessment-reason { font-family: var(--mono); font-size: 9px; color: var(--muted); margin-top: 4px; line-height: 1.4; }
-.enrich-meta { font-family: var(--mono); font-size: 9px; color: var(--muted); margin-top: 8px; }
+.assessment-flag { display: inline-block; font-family: var(--mono); font-size: var(--fs-2xs); font-weight: 700; padding: 2px 7px; border-radius: 4px; margin-top: 7px; letter-spacing: 0.02em; }
+.assessment-flag.not-relevant { background: var(--warning-dim); color: var(--warning); border: 1px solid var(--warning); }
+.assessment-flag.relevant { background: var(--success-dim); color: var(--success); border: 1px solid var(--success); }
+.assessment-reason { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-3); margin-top: 5px; line-height: 1.5; }
+.enrich-meta { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-3); margin-top: 10px; }
 
-/* ── EMPTY / LOADING ── */
-.empty-state { text-align: center; padding: 4rem 2rem; color: var(--muted); }
-.empty-state h2 { font-size: 1rem; color: var(--text2); margin-bottom: 10px; font-family: var(--mono); }
-.empty-state p { font-family: var(--mono); font-size: 11px; line-height: 2.2; }
-.empty-state code { background: var(--card); border: 1px solid var(--border2); border-radius: 3px; padding: 1px 5px; font-size: 10px; color: var(--green); }
+/* ── enrich feature ── */
+.enrich-btn { font-family: var(--mono); font-size: var(--fs-2xs); font-weight: 700; letter-spacing: 0.04em; padding: 4px 10px; border-radius: var(--r-sm); border: 1px solid var(--violet); background: var(--violet-dim); color: var(--violet); cursor: pointer; text-transform: uppercase; transition: opacity var(--t-fast); }
+.enrich-btn:hover { opacity: 0.78; }
+.enrich-btn:disabled { opacity: 0.5; cursor: default; }
+.enrich-btn.loading::after { content: ''; display: inline-block; width: 8px; height: 8px; margin-left: 6px; border: 1.5px solid var(--violet); border-top-color: transparent; border-radius: 50%; animation: enrich-spin 0.6s linear infinite; vertical-align: middle; }
+@keyframes enrich-spin { to { transform: rotate(360deg); } }
+.enrich-status { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-3); margin-top: 8px; }
+.enrich-status.err { color: var(--danger); }
+.enrich-status.ok { color: var(--success); }
+.enrich-status.warn { color: var(--warning); }
 
-/* ── GLOSSARY ── */
-.overlay { display: none; position: fixed; inset: 0; z-index: 300; background: rgba(8,11,15,0.88); backdrop-filter: blur(4px); align-items: center; justify-content: center; }
+/* ============================================================
+   EMPTY STATE
+   ============================================================ */
+.empty-state { text-align: center; padding: 4.5rem 2rem; color: var(--text-3); }
+.empty-state svg { color: var(--text-4); margin-bottom: 4px; }
+.empty-state h2 { font-size: var(--fs-md); color: var(--text-2); margin-bottom: 10px; font-family: var(--mono); font-weight: 600; }
+.empty-state p { font-family: var(--mono); font-size: var(--fs-sm); line-height: 2.1; max-width: 440px; margin: 0 auto; }
+.empty-state code { background: var(--surface-2); border: 1px solid var(--border-2); border-radius: 4px; padding: 1px 6px; font-size: var(--fs-xs); color: var(--success); }
+
+/* ============================================================
+   OVERLAYS (glossary / preferences / enrich popup share this shell)
+   ============================================================ */
+.overlay { display: none; position: fixed; inset: 0; z-index: 300; background: rgba(6,8,12,0.82); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); align-items: center; justify-content: center; padding: 3vh 3vw; }
 .overlay.open { display: flex; }
-.gbox { background: var(--card); border: 1px solid var(--border2); border-radius: 10px; width: 620px; max-width: 95vw; max-height: 85vh; overflow-y: auto; }
-.ghead { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--card); z-index: 1; }
-.ghead h2 { font-size: 13px; font-weight: 700; }
-.gclose { background: none; border: none; color: var(--muted); font-size: 18px; cursor: pointer; }
-.gclose:hover { color: var(--text); }
-.gsec { padding: 0.875rem 1.25rem; border-bottom: 1px solid var(--border); }
+.gbox { background: var(--raised); border: 1px solid var(--border-2); border-radius: var(--r-lg); width: 640px; max-width: 95vw; max-height: 88vh; overflow-y: auto; box-shadow: var(--shadow-lg); animation: pop-in var(--t-med) var(--ease); }
+@keyframes pop-in { from { opacity: 0; transform: scale(0.97) translateY(6px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+.ghead { display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 1.35rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--raised); z-index: 1; }
+.ghead h2 { font-size: var(--fs-md); font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.gclose { background: none; border: 1px solid var(--border-2); color: var(--text-3); font-size: 15px; cursor: pointer; width: 28px; height: 28px; border-radius: var(--r-sm); display: flex; align-items: center; justify-content: center; transition: all var(--t-fast); }
+.gclose:hover { color: var(--text); border-color: var(--text-4); background: var(--surface-2); }
+.gsec { padding: 0.95rem 1.35rem; border-bottom: 1px solid var(--border); }
 .gsec:last-child { border-bottom: none; }
-.gsec h3 { font-family: var(--mono); font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.6rem; }
-.grow { display: grid; grid-template-columns: 130px 1fr; gap: 7px; margin-bottom: 7px; align-items: start; }
+.gsec h3 { font-family: var(--mono); font-size: var(--fs-2xs); text-transform: uppercase; letter-spacing: 0.09em; color: var(--text-3); margin-bottom: 0.7rem; font-weight: 600; }
+.grow { display: grid; grid-template-columns: 140px 1fr; gap: 8px; margin-bottom: 9px; align-items: start; }
 .grow:last-child { margin-bottom: 0; }
-.gterm { font-family: var(--mono); font-size: 11px; font-weight: 600; color: var(--cyan); }
-.gdef { font-size: 12px; color: var(--text); line-height: 1.5; }
+.gterm { font-family: var(--mono); font-size: var(--fs-sm); font-weight: 600; color: var(--cyan); }
+.gdef { font-size: var(--fs-sm); color: var(--text-2); line-height: 1.55; }
 
-/* ── SCHEDULE TABLES ── */
-.sched-section { margin-bottom: 1rem; }
-.sched-section-title {
-  font-family: var(--mono); font-size: 10px; font-weight: 600;
-  color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em;
-  margin-bottom: 6px; padding: 4px 0; border-bottom: 1px solid var(--border);
-  display: flex; align-items: center; gap: 8px;
-}
-.sched-section-title .cnt { font-size: 9px; opacity: 0.6; font-weight: 400; }
-.sched-tbl { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 10px; }
-.sched-tbl th { text-align: left; color: var(--muted); font-weight: 600; font-size: 9px;
-  text-transform: uppercase; letter-spacing: 0.06em; padding: 4px 8px;
-  border-bottom: 1px solid var(--border); white-space: nowrap; }
-.sched-tbl td { padding: 5px 8px; border-bottom: 1px solid var(--border); vertical-align: top;
-  color: var(--text); word-break: break-word; }
+/* ── preferences panel ── */
+.pref-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.pref-row:last-child { margin-bottom: 0; }
+.pref-label { font-size: var(--fs-sm); color: var(--text); font-weight: 500; }
+.pref-hint { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-3); margin-top: 2px; }
+.pref-options { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+.pref-pill { font-family: var(--mono); font-size: var(--fs-xs); padding: 6px 12px; border-radius: 20px; border: 1px solid var(--border-2); background: var(--surface-2); color: var(--text-2); cursor: pointer; transition: all var(--t-fast); white-space: nowrap; }
+.pref-pill:hover { border-color: var(--text-4); color: var(--text); }
+.pref-pill.active { border-color: var(--accent); background: var(--accent-dim); color: var(--accent); font-weight: 600; }
+.swatch-row { display: flex; gap: 8px; }
+.swatch { width: 26px; height: 26px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; position: relative; transition: transform var(--t-fast); }
+.swatch:hover { transform: scale(1.1); }
+.swatch.active { border-color: var(--text); }
+.swatch.active::after { content: '✓'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #05070a; font-weight: 700; }
+.pref-reset { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-3); background: none; border: none; text-decoration: underline; cursor: pointer; padding: 0; }
+.pref-reset:hover { color: var(--text); }
+
+/* ============================================================
+   SCHEDULE TABLES (raw Form 5500 schedule data in drawer)
+   ============================================================ */
+.sched-section { margin-bottom: 1.1rem; }
+.sched-section:last-child { margin-bottom: 0; }
+.sched-section-title { font-family: var(--mono); font-size: var(--fs-xs); font-weight: 600; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 7px; padding: 5px 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+.sched-section-title .cnt { font-size: var(--fs-2xs); opacity: 0.7; font-weight: 400; text-transform: none; letter-spacing: 0; }
+.sched-tbl { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: var(--fs-xs); }
+.sched-tbl th { text-align: left; color: var(--text-3); font-weight: 600; font-size: var(--fs-2xs); text-transform: uppercase; letter-spacing: 0.05em; padding: 6px 9px; border-bottom: 1px solid var(--border-2); white-space: nowrap; background: var(--surface-2); }
+.sched-tbl td { padding: 6px 9px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--text-2); word-break: break-word; }
 .sched-tbl tr:last-child td { border-bottom: none; }
-.sched-tbl tr:hover td { background: var(--card2); }
-.sched-tbl .amt { text-align: right; color: var(--green); white-space: nowrap; }
-.sched-tbl .muted { color: var(--muted); }
-.sched-no-data { font-family: var(--mono); font-size: 10px; color: var(--dim);
-  padding: 8px 0; font-style: italic; }
-.sched-load-btn {
-  font-family: var(--mono); font-size: 10px; padding: 4px 12px;
-  background: var(--card2); border: 1px solid var(--border2);
-  border-radius: 4px; color: var(--muted); cursor: pointer; margin-top: 6px;
-}
-.sched-load-btn:hover { color: var(--text); border-color: var(--muted); }
+.sched-tbl tr:hover td { background: var(--surface-2); }
+.sched-tbl .amt { text-align: right; color: var(--success); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.sched-tbl .muted { color: var(--text-3); }
+.sched-no-data { font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-4); padding: 8px 0; font-style: italic; }
 
-/* ── PAGINATION ── */
-.pagination { display: flex; align-items: center; gap: 4px; padding: 1rem 2rem; flex-wrap: wrap; }
-.page-btn {
-  font-family: var(--mono); font-size: 11px; min-width: 32px; height: 28px;
-  padding: 0 8px; border-radius: 4px; border: 1px solid var(--border2);
-  background: var(--card); color: var(--muted); cursor: pointer; transition: all 0.12s;
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 860px) {
+  header { padding: 0.75rem 1.1rem; }
+  .shell, .controls, .result-bar, .db-grid, .db-table-scroll, .pipeline, .pagination { padding-left: 1.1rem; padding-right: 1.1rem; }
+  .enrich-panel { margin-left: 1.1rem; margin-right: 1.1rem; }
+  .insights-row { grid-template-columns: repeat(2, 1fr); }
+  .db-grid { grid-template-columns: 1fr; }
+  .drawer { height: 100vh; max-height: 100vh; width: 100vw; max-width: 100vw; border-radius: 0; }
+  .drawer-overlay.open { padding: 0; }
+  .field-grid { grid-template-columns: 108px 1fr; }
+  .logo-title { font-size: var(--fs-sm); }
+  .hdr-status { display: none; }
 }
-.page-btn:hover { color: var(--text); border-color: var(--muted); }
-.page-btn.active { background: var(--green-dim); border-color: var(--green); color: var(--green); font-weight: 700; }
-.page-btn.prev-next { color: var(--muted); }
+@media (max-width: 520px) {
+  .insights-row { grid-template-columns: repeat(2, 1fr); }
+  .controls { flex-direction: column; align-items: stretch; }
+  .controls select { width: 100%; }
+  .ctrl-divider { display: none; }
+}
 </style>
 </head>
 <body>
@@ -435,11 +586,20 @@ tbody td { padding: 9px 10px; vertical-align: top; }
 <header>
   <div class="logo">
     <span class="logo-mark">9AT</span>
-    <span class="logo-title">Intelligence Platform</span>
+    <div>
+      <div class="logo-title">Intelligence Platform</div>
+      <div class="logo-sub">Form 5500 · Outreach Pipeline</div>
+    </div>
   </div>
   <div class="header-right">
-    <span class="hdr-status" id="hdr-status">No data loaded</span>
-    <button class="theme-btn" id="theme-btn" title="Toggle light/dark mode">☀</button>
+    <span class="hdr-status" id="hdr-status"><span class="dot"></span>No data loaded</span>
+    <button class="icon-btn" id="theme-btn" title="Toggle light/dark mode">
+      <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <button class="icon-btn" id="prefs-btn" title="Preferences">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </button>
     <button class="hdr-btn" id="glossary-btn">? Glossary</button>
   </div>
 </header>
@@ -449,15 +609,29 @@ tbody td { padding: 9px 10px; vertical-align: top; }
 ══════════════════════════════════════════════════════ -->
 <div class="section active" id="section-db">
 
-  <div class="summary-band">
-    <div class="stat"><div class="stat-label">Total Allocators</div><div class="stat-value" id="d-total">—</div></div>
-    <div class="stat"><div class="stat-label">With 9AT Signal</div><div class="stat-value green" id="d-at9">—</div></div>
-    <div class="stat"><div class="stat-label">Ready to Outreach</div><div class="stat-value green" id="d-ready">—</div></div>
-    <div class="stat"><div class="stat-label">Needs Enrichment</div><div class="stat-value yellow" id="d-enrich">—</div></div>
-    <div class="stat"><div class="stat-label">Has Sched C Data</div><div class="stat-value cyan" id="d-schc">—</div></div>
-    <div class="stat"><div class="stat-label">Has Sched D/H</div><div class="stat-value purple" id="d-schdh">—</div></div>
-    <div class="stat"><div class="stat-label">Has Email</div><div class="stat-value blue" id="d-email">—</div></div>
-    <div class="stat"><div class="stat-label">Contacted</div><div class="stat-value green" id="d-contacted">—</div></div>
+  <div class="insights-row">
+    <div class="stat"><span class="stat-label">Total Allocators</span><span class="stat-value num" id="d-total">—</span></div>
+    <div class="stat"><span class="stat-label">With 9AT Signal</span><span class="stat-value green num" id="d-at9">—</span></div>
+    <div class="stat"><span class="stat-label">Ready to Outreach</span><span class="stat-value green num" id="d-ready">—</span></div>
+    <div class="stat"><span class="stat-label">Needs Enrichment</span><span class="stat-value yellow num" id="d-enrich">—</span></div>
+    <div class="stat"><span class="stat-label">Has Sched C Data</span><span class="stat-value cyan num" id="d-schc">—</span></div>
+    <div class="stat"><span class="stat-label">Has Sched D/H</span><span class="stat-value purple num" id="d-schdh">—</span></div>
+    <div class="stat"><span class="stat-label">Contacted</span><span class="stat-value green num" id="d-contacted">—</span></div>
+  </div>
+
+  <!-- ── OUTREACH PIPELINE ── -->
+  <div class="pipeline">
+    <div class="pipeline-head">
+      <span class="pipeline-title">Outreach Pipeline</span>
+      <span class="pipeline-note">Every allocator, bucketed by enrichment status</span>
+    </div>
+    <div class="pipeline-bar" id="pipeline-bar"></div>
+    <div class="pipeline-legend" id="pipeline-legend"></div>
+    <div class="pipeline-progress-wrap">
+      <span class="pipeline-progress-label">Ready firms contacted</span>
+      <div class="pipeline-progress-track"><div class="pipeline-progress-fill" id="pipeline-progress-fill" style="width:0%"></div></div>
+      <span class="pipeline-progress-num num" id="pipeline-progress-num">0 / 0</span>
+    </div>
   </div>
 
   <div class="enrich-panel" id="enrich-panel">
@@ -495,6 +669,7 @@ tbody td { padding: 9px 10px; vertical-align: top; }
     <div class="search-wrap">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
       <input type="search" id="db-search" placeholder="Search firm, plan, location, provider, fund…">
+      <kbd>/</kbd>
     </div>
     <span class="ctrl-label">9AT Signal</span>
     <select id="db-filter-signal">
@@ -537,6 +712,17 @@ tbody td { padding: 9px 10px; vertical-align: top; }
       <option value="participants_desc">Participants ↓</option>
       <option value="signals_desc">Most signals ↓</option>
     </select>
+    <span class="ctrl-divider"></span>
+    <div class="view-toggle">
+      <button id="view-cards-btn" class="active" onclick="setView('cards')" title="Card view">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Cards
+      </button>
+      <button id="view-table-btn" onclick="setView('table')" title="Table view">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+        Table
+      </button>
+    </div>
   </div>
   <div class="result-bar">
     <div class="result-count" id="db-count"></div>
@@ -546,12 +732,13 @@ tbody td { padding: 9px 10px; vertical-align: top; }
     </div>
   </div>
   <div class="pagination" id="db-pagination"></div>
-  <div class="table-wrap" id="db-table-wrap">
+  <div id="db-table-wrap">
     <div class="empty-state">
       <h2>// no data loaded</h2>
-      <p>Couldn't load <strong style="color:var(--text)">9at_intelligence.json</strong>. Make sure it's in the same folder as this page and reload.</p>
+      <p>Couldn't load <code>9at_intelligence.json</code>. Make sure it's in the same folder as this page and reload.</p>
     </div>
   </div>
+  <div class="pagination" id="db-pagination-bottom"></div>
 </div>
 
 <!-- ── SHARED DRAWER ── -->
@@ -566,6 +753,104 @@ tbody td { padding: 9px 10px; vertical-align: top; }
       <button class="drawer-close" id="drawer-close">✕</button>
     </div>
     <div class="drawer-body" id="drawer-body"></div>
+  </div>
+</div>
+
+<!-- ── PREFERENCES ── -->
+<div class="overlay" id="prefs-overlay">
+  <div class="gbox">
+    <div class="ghead"><h2>⚙ Preferences</h2><button class="gclose" id="prefs-close">✕</button></div>
+    <div class="gsec">
+      <div class="pref-row">
+        <div>
+          <div class="pref-label">Theme</div>
+          <div class="pref-hint">Light or dark interface</div>
+        </div>
+        <div class="pref-options" id="pref-theme-options">
+          <button class="pref-pill" data-val="dark" onclick="setTheme('dark')">Dark</button>
+          <button class="pref-pill" data-val="light" onclick="setTheme('light')">Light</button>
+        </div>
+      </div>
+      <div class="pref-row">
+        <div>
+          <div class="pref-label">Accent color</div>
+          <div class="pref-hint">Brand color only — status colors never change</div>
+        </div>
+        <div class="swatch-row" id="pref-accent-options">
+          <span class="swatch" data-val="emerald" style="background:#2de89a" onclick="setAccent('emerald')" title="Emerald"></span>
+          <span class="swatch" data-val="azure" style="background:#4d8dff" onclick="setAccent('azure')" title="Azure"></span>
+          <span class="swatch" data-val="violet" style="background:#a685ff" onclick="setAccent('violet')" title="Violet"></span>
+          <span class="swatch" data-val="amber" style="background:#ffb454" onclick="setAccent('amber')" title="Amber"></span>
+          <span class="swatch" data-val="rose" style="background:#ff7a94" onclick="setAccent('rose')" title="Rose"></span>
+        </div>
+      </div>
+      <div class="pref-row">
+        <div>
+          <div class="pref-label">Density</div>
+          <div class="pref-hint">Comfortable or compact spacing</div>
+        </div>
+        <div class="pref-options" id="pref-density-options">
+          <button class="pref-pill" data-val="comfortable" onclick="setDensity('comfortable')">Comfortable</button>
+          <button class="pref-pill" data-val="compact" onclick="setDensity('compact')">Compact</button>
+        </div>
+      </div>
+      <div class="pref-row">
+        <div>
+          <div class="pref-label">Motion</div>
+          <div class="pref-hint">Force-reduce animations regardless of OS setting</div>
+        </div>
+        <div class="pref-options" id="pref-motion-options">
+          <button class="pref-pill" data-val="system" onclick="setMotion('system')">System</button>
+          <button class="pref-pill" data-val="reduced" onclick="setMotion('reduced')">Reduced</button>
+        </div>
+      </div>
+      <div class="pref-row">
+        <div>
+          <div class="pref-label">Default view</div>
+          <div class="pref-hint">Cards or dense table</div>
+        </div>
+        <div class="pref-options" id="pref-view-options">
+          <button class="pref-pill" data-val="cards" onclick="setView('cards')">Cards</button>
+          <button class="pref-pill" data-val="table" onclick="setView('table')">Table</button>
+        </div>
+      </div>
+      <div class="pref-row">
+        <span class="pref-hint">Preferences are saved locally in this browser.</span>
+        <button class="pref-reset" onclick="resetPrefs()">Reset to defaults</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── GLOSSARY ── -->
+<div class="overlay" id="glossary-overlay">
+  <div class="gbox">
+    <div class="ghead"><h2>Dashboard Glossary</h2><button class="gclose" id="gclose">✕</button></div>
+    <div class="gsec"><h3>Sections</h3>
+      <div class="grow"><span class="gterm">Allocator Database</span><span class="gdef">All Form 5500 filers in one table. Firms with a 9AT signal show their connection upfront. Filter by signal type, enrichment priority, or schedule data availability.</span></div>
+      <div class="grow"><span class="gterm">9AT Connection</span><span class="gdef">The column shown for every row — firms with no 9AT link show a dash, firms with a match show signal chips and the specific connection.</span></div>
+      <div class="grow"><span class="gterm">Mark Contacted</span><span class="gdef">Check the box on a card or in the drawer to mark a firm as already reached out to. Dims the card and lets you filter by outreach status. Stored locally in this browser.</span></div>
+      <div class="grow"><span class="gterm">Export CSV / Copy Emails</span><span class="gdef">Both act on the current filtered view (not just the visible page) — export every matching firm to a spreadsheet, or copy every email found for that view to paste into a mail client.</span></div>
+    </div>
+    <div class="gsec"><h3>Allocator Profile Drawer</h3>
+      <div class="grow"><span class="gterm">Identity</span><span class="gdef">Name, EIN, plan, location, participant count, and enrichment status.</span></div>
+      <div class="grow"><span class="gterm">9AT Relationship Map</span><span class="gdef">Every signal that fired for this firm — what schedule it came from and what was matched.</span></div>
+      <div class="grow"><span class="gterm">Service Providers</span><span class="gdef">All firms this plan paid fees to (Schedule C Part 1, all 3 items), with 9AT adviser/fund matches where found.</span></div>
+      <div class="grow"><span class="gterm">Fund Holdings</span><span class="gdef">DFE pooled fund investments from Schedule D Part 2, matched to 9AT funds where possible.</span></div>
+    </div>
+    <div class="gsec"><h3>Signal Types</h3>
+      <div class="grow"><span class="gterm">Sched C</span><span class="gdef"><strong>Tier 1.</strong> Plan paid fees to this adviser (Schedule C Part 1).</span></div>
+      <div class="grow"><span class="gterm">Sched D</span><span class="gdef"><strong>Tier 1.</strong> Plan invests in a DFE pooled fund linked to a 9AT adviser or fund (Schedule D Part 2).</span></div>
+      <div class="grow"><span class="gterm">Sched H</span><span class="gdef"><strong>Tier 1.</strong> Plan's large-plan Schedule H discloses this as an investment manager.</span></div>
+      <div class="grow"><span class="gterm">Direct</span><span class="gdef"><strong>Tier 2 — speculative.</strong> Firm name closely matches a 9AT adviser name. Verify before outreach.</span></div>
+    </div>
+    <div class="gsec"><h3>Enrichment Priority</h3>
+      <div class="grow"><span class="gterm">✓ READY (EMAIL)</span><span class="gdef">Tier 1 signal + real email found — either on file already or found by AI enrichment. Outreach now.</span></div>
+      <div class="grow"><span class="gterm">★ ENRICH</span><span class="gdef">Tier 1 signal but no email yet, and AI enrichment hasn't been run. Use AI enrichment or Hunter.io — high ROI.</span></div>
+      <div class="grow"><span class="gterm">⚠ ENRICHED · NO EMAIL</span><span class="gdef">Tier 1 signal — AI enrichment already ran for this firm but didn't find a usable email. Try Hunter.io or manual research, or retry AI enrichment.</span></div>
+      <div class="grow"><span class="gterm">· LOW</span><span class="gdef">Tier 2 signal + email. Verify before outreach.</span></div>
+      <div class="grow"><span class="gterm">— SKIP</span><span class="gdef">Tier 2 signal, no contact. Low ROI.</span></div>
+    </div>
   </div>
 </div>
 
@@ -602,6 +887,63 @@ function setEnrichRecord(ein, rec) {
 // between pages of the same filtered view doesn't need to re-filter+re-sort
 // the whole dataset each time).
 let dbVersion = 0;
+
+// ══════════════════════════════════════════════════════════════════════════════
+// PREFERENCES SYSTEM (new) — theme/accent/density/motion/view, persisted
+// separately from the existing localStorage keys so nothing on the "keep
+// verbatim" list has to change shape.
+// ══════════════════════════════════════════════════════════════════════════════
+const PREFS_KEY = '9at_prefs_v1';
+const PREFS_DEFAULT = { theme:'dark', accent:'emerald', density:'comfortable', motion:'system', view:'cards' };
+function loadPrefs() {
+  try { return Object.assign({}, PREFS_DEFAULT, JSON.parse(localStorage.getItem(PREFS_KEY) || '{}')); }
+  catch { return { ...PREFS_DEFAULT }; }
+}
+function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify(prefs)); } catch {} }
+let prefs = loadPrefs();
+
+function applyPrefs() {
+  document.documentElement.setAttribute('data-accent', prefs.accent);
+  if(prefs.density === 'compact') document.documentElement.setAttribute('data-density', 'compact');
+  else document.documentElement.removeAttribute('data-density');
+  if(prefs.motion === 'reduced') document.documentElement.setAttribute('data-motion', 'reduced');
+  else document.documentElement.removeAttribute('data-motion');
+  updateViewToggleUI();
+  updatePrefsPanelUI();
+}
+
+function setView(view) {
+  prefs.view = view;
+  savePrefs();
+  updateViewToggleUI();
+  updatePrefsPanelUI();
+  renderDB();
+}
+function updateViewToggleUI() {
+  const cardsBtn = document.getElementById('view-cards-btn');
+  const tableBtn = document.getElementById('view-table-btn');
+  if(cardsBtn) cardsBtn.classList.toggle('active', prefs.view !== 'table');
+  if(tableBtn) tableBtn.classList.toggle('active', prefs.view === 'table');
+}
+function updatePrefsPanelUI() {
+  document.querySelectorAll('#pref-theme-options .pref-pill').forEach(el => el.classList.toggle('active', el.getAttribute('data-val') === prefs.theme));
+  document.querySelectorAll('#pref-accent-options .swatch').forEach(el => el.classList.toggle('active', el.getAttribute('data-val') === prefs.accent));
+  document.querySelectorAll('#pref-density-options .pref-pill').forEach(el => el.classList.toggle('active', el.getAttribute('data-val') === prefs.density));
+  document.querySelectorAll('#pref-motion-options .pref-pill').forEach(el => el.classList.toggle('active', el.getAttribute('data-val') === prefs.motion));
+  document.querySelectorAll('#pref-view-options .pref-pill').forEach(el => el.classList.toggle('active', el.getAttribute('data-val') === prefs.view));
+}
+
+// ── Small inline icon fragments, reused across templates ───────────────────
+const ICON_PIN   = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>';
+const ICON_USERS = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>';
+const ICON_MAIL  = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>';
+const ICON_PHONE = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>';
+const ICON_BUILDING = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="1"/><path d="M9 22v-4h6v4M9 7h1M14 7h1M9 11h1M14 11h1M9 15h1M14 15h1"/></svg>';
+const ICON_LINK  = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>';
+const ICON_DOLLAR = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>';
+const ICON_TREND = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>';
+const ICON_TABLE = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>';
+const ICON_EMPTY = '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M8 11h6"/></svg>';
 
 const SIG_TIER = {
   schedule_c:1, schedule_c_fund:1, schedule_d_adviser:1,
@@ -735,12 +1077,60 @@ async function getEnrichPassword() {
 function refreshEnrichStats() {
   document.getElementById('d-ready').textContent  = fmtN(dbData.filter(a=>effectivePriority(a)==='READY').length);
   document.getElementById('d-enrich').textContent = fmtN(dbData.filter(a=>effectivePriority(a)==='HIGH').length);
-  document.getElementById('d-email').textContent  = fmtN(dbData.filter(hasAnyEmail).length);
   refreshContactedStat();
+  updatePipeline();
 }
 function refreshContactedStat() {
   const el = document.getElementById('d-contacted');
   if(el) el.textContent = fmtN(dbData.filter(a=>isContacted(a.ein)).length);
+  updatePipeline();
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// OUTREACH PIPELINE (new) — buckets the full book of business into the five
+// enrich-priority states and renders it as one proportional segmented bar,
+// plus a secondary "contacted of ready" progress bar. Called at the end of
+// loadData(), and from both stat-refresh chokepoints above so it always
+// reflects the latest state without any extra wiring at call sites.
+// ══════════════════════════════════════════════════════════════════════════════
+const PIPELINE_SEGS = [
+  ['seg-ready',   'READY',             'Ready',                '--success'],
+  ['seg-high',    'HIGH',              'Needs enrichment',     '--warning'],
+  ['seg-noemail', 'ENRICHED_NO_EMAIL', 'Enriched · no email',  '--danger'],
+  ['seg-low',     'LOW',               'Low priority',         '--info'],
+  ['seg-skip',    'SKIP',              'Skip',                 '--border-2'],
+];
+function updatePipeline() {
+  const barEl = document.getElementById('pipeline-bar');
+  const legendEl = document.getElementById('pipeline-legend');
+  const fillEl = document.getElementById('pipeline-progress-fill');
+  const numEl  = document.getElementById('pipeline-progress-num');
+  if(!barEl) return;
+  if(!dbData.length) { barEl.innerHTML=''; if(legendEl) legendEl.innerHTML=''; if(fillEl) fillEl.style.width='0%'; if(numEl) numEl.textContent='0 / 0'; return; }
+
+  const buckets = {READY:0, HIGH:0, ENRICHED_NO_EMAIL:0, LOW:0, SKIP:0};
+  dbData.forEach(a => { const p = effectivePriority(a); buckets[p] = (buckets[p]||0)+1; });
+  const total = dbData.length;
+
+  barEl.innerHTML = PIPELINE_SEGS.map(([cls,key]) => {
+    const n = buckets[key]||0;
+    if(!n) return '';
+    const pct = n/total*100;
+    return `<div class="pipeline-seg ${cls}" style="flex-basis:${pct}%" title="${key.replace(/_/g,' ')}: ${fmtN(n)} (${pct.toFixed(1)}%)"></div>`;
+  }).join('');
+
+  if(legendEl) {
+    legendEl.innerHTML = PIPELINE_SEGS.map(([cls,key,label,cvar]) =>
+      `<span class="pl-item"><span class="pl-swatch" style="background:var(${cvar})"></span>${label} <b class="num">${fmtN(buckets[key]||0)}</b></span>`
+    ).join('');
+  }
+
+  const readyCount = buckets.READY||0;
+  const contactedReady = dbData.filter(a => effectivePriority(a)==='READY' && isContacted(a.ein)).length;
+  if(fillEl && numEl) {
+    fillEl.style.width = (readyCount ? contactedReady/readyCount*100 : 0) + '%';
+    numEl.textContent = `${fmtN(contactedReady)} / ${fmtN(readyCount)}`;
+  }
 }
 
 // ── Enrichment priority popup state ─────────────────────────────────────────
@@ -831,7 +1221,6 @@ function loadData(data) {
   document.getElementById('d-enrich').textContent = fmtN(dbData.filter(a=>effectivePriority(a)==='HIGH').length);
   document.getElementById('d-schc').textContent   = fmtN(s.has_schedule_c       || dbData.filter(a=>(a.service_providers||[]).length>0).length);
   document.getElementById('d-schdh').textContent  = fmtN(s.has_schedule_d_h     || dbData.filter(a=>(a.investments||[]).length>0).length);
-  document.getElementById('d-email').textContent  = fmtN(dbData.filter(hasAnyEmail).length);
   refreshContactedStat();
   document.getElementById('hdr-status').innerHTML = `<span>${dbData.length.toLocaleString()} allocators loaded</span>`;
 
@@ -841,6 +1230,7 @@ function loadData(data) {
 
   dbPage = 1;
   renderDB();
+  updatePipeline();
 }
 
 // ── Filter + sort ─────────────────────────────────────────────────────────────
@@ -917,16 +1307,16 @@ function renderDBCard(a) {
   let tierCls = '';
   if(has9at) {
     const chips   = rels.slice(0,3).map(r=>sigChip(r.signal)).join(' ');
-    const extra   = rels.length>3 ? `<span style="font-family:var(--mono);font-size:9px;color:var(--muted)">+${rels.length-3} more</span>` : '';
+    const extra   = rels.length>3 ? `<span class="ac-nosig">+${rels.length-3} more</span>` : '';
     const conn    = rels[0]?.connection || '';
     const matched = rels[0]?.matched_name || '';
-    sigBlock = `<div class="ac-sigs" style="margin-bottom:4px">${chips}${extra}</div>
-      <div style="font-size:10px;color:var(--text);line-height:1.3;margin-bottom:2px">${esc(conn)}</div>
-      ${matched?`<div style="font-family:var(--mono);font-size:10px;color:var(--cyan)">${esc(matched)}</div>`:''}`;
+    sigBlock = `<div class="ac-sigs" style="margin-bottom:5px">${chips}${extra}</div>
+      <div class="ac-conn">${esc(conn)}</div>
+      ${matched?`<div class="ac-matched">${esc(matched)}</div>`:''}`;
     const bestTier = Math.min(...rels.map(r=>SIG_TIER[r.signal]||2));
     tierCls = bestTier===1 ? ' tier1' : ' tier2';
   } else {
-    sigBlock = `<div class="ac-sigs"><span style="font-family:var(--mono);font-size:9px;color:var(--dim)">No 9AT signal</span></div>`;
+    sigBlock = `<div class="ac-sigs"><span class="ac-nosig">No 9AT signal</span></div>`;
   }
 
   return `<div class="alloc-card${tierCls}${contacted?' contacted':''}" onclick="openDrawer('${esc(a.ein)}')">
@@ -944,7 +1334,7 @@ function renderDBCard(a) {
       ${conCount ? `<span class="ac-pill yellow">${conCount} contact${conCount!==1?'s':''}</span>` : ''}
     </div>
     <div class="ac-bottom">
-      <span class="ac-loc">${esc(a.location)||'—'}</span>
+      <span class="ac-loc">${ICON_PIN}${esc(a.location)||'—'}</span>
       <span class="ac-parts">${a.participants ? fmtN(a.participants)+' participants' : ''}</span>
     </div>
     <label class="ac-contacted" onclick="event.stopPropagation()">
@@ -977,6 +1367,7 @@ function toggleContactedFromDrawer(ein, checked) {
 
 function renderPagination(containerId, currentPage, totalPages, goFn) {
   const el = document.getElementById(containerId);
+  if(!el) return;
   if(totalPages <= 1) { el.innerHTML = ''; return; }
   let html = '';
   if(currentPage > 1) html += `<button class="page-btn prev-next" onclick="${goFn}(${currentPage-1})">‹</button>`;
@@ -985,11 +1376,49 @@ function renderPagination(containerId, currentPage, totalPages, goFn) {
     if(i===1||i===totalPages||(i>=currentPage-delta&&i<=currentPage+delta)) {
       html += `<button class="page-btn${i===currentPage?' active':''}" onclick="${goFn}(${i})">${i}</button>`;
     } else if(i===currentPage-delta-1||i===currentPage+delta+1) {
-      html += `<span style="color:var(--muted);font-family:var(--mono);font-size:11px;padding:0 4px">…</span>`;
+      html += `<span class="page-ellipsis">…</span>`;
     }
   }
   if(currentPage < totalPages) html += `<button class="page-btn prev-next" onclick="${goFn}(${currentPage+1})">›</button>`;
   el.innerHTML = html;
+}
+
+// ── Render DB as dense table (new alternate view) ───────────────────────────
+function renderDBTableRow(a) {
+  const rels = a.at9_relationships || [];
+  const has9at = rels.length > 0;
+  const ep = effectivePriority(a);
+  const epLbl = {READY:'✓ READY (EMAIL)',ENRICHED_NO_EMAIL:'⚠ NO EMAIL',HIGH:'★ ENRICH',LOW:'· LOW',SKIP:'— SKIP'}[ep]||ep;
+  const contacted = isContacted(a.ein);
+
+  let connCell;
+  if(has9at) {
+    const chips = rels.slice(0,2).map(r=>sigChip(r.signal)).join(' ');
+    const conn  = rels[0]?.connection || '';
+    connCell = `<div class="ac-sigs" style="margin-bottom:3px">${chips}</div><div class="dt-conn">${esc(conn)}</div>`;
+  } else {
+    connCell = `<span class="ac-nosig">No 9AT signal</span>`;
+  }
+
+  return `<tr class="${contacted?'contacted':''}" onclick="openDrawer('${esc(a.ein)}')">
+    <td>
+      <div class="dt-firm">${esc(a.firm_name||'—')}</div>
+      <div class="dt-plan">${esc(a.plan_name||'')}</div>
+    </td>
+    <td>${connCell}</td>
+    <td><span class="ebadge ep-${ep}">${epLbl}</span></td>
+    <td class="dt-loc">${ICON_PIN}${esc(a.location)||'—'}</td>
+    <td class="dt-num num">${a.participants ? fmtN(a.participants) : '—'}</td>
+    <td class="dt-check" onclick="event.stopPropagation()">
+      <input type="checkbox" ${contacted?'checked':''} onchange="toggleContacted('${esc(a.ein)}', this.checked)" title="Mark contacted">
+    </td>
+  </tr>`;
+}
+function renderDBTable(rows) {
+  return `<div class="db-table-scroll"><table class="db-table">
+    <thead><tr><th>Firm</th><th>9AT Connection</th><th>Status</th><th>Location</th><th>Participants</th><th>✓</th></tr></thead>
+    <tbody>${rows.map(renderDBTableRow).join('')}</tbody>
+  </table></div>`;
 }
 
 function renderDB() {
@@ -1003,14 +1432,20 @@ function renderDB() {
     `Showing ${(start+1).toLocaleString()}–${Math.min(start+PAGE_SIZE,rows.length).toLocaleString()} of ${rows.length.toLocaleString()} allocators`;
 
   if(!rows.length) {
-    document.getElementById('db-table-wrap').innerHTML = `<div class="empty-state"><h2>// no results</h2><p>Try adjusting filters.</p></div>`;
+    document.getElementById('db-table-wrap').innerHTML = `<div class="empty-state">${ICON_EMPTY}<h2>// no results</h2><p>Try adjusting filters.</p></div>`;
     document.getElementById('db-pagination').innerHTML = '';
+    document.getElementById('db-pagination-bottom').innerHTML = '';
     return;
   }
 
-  const cards = visible.map(renderDBCard).join('');
-  document.getElementById('db-table-wrap').innerHTML = `<div class="db-grid">${cards}</div>`;
+  // Filtering/sorting/pagination math above is shared by both views; only the
+  // innerHTML-building tail differs by the current view preference.
+  document.getElementById('db-table-wrap').innerHTML = prefs.view === 'table'
+    ? renderDBTable(visible)
+    : `<div class="db-grid">${visible.map(renderDBCard).join('')}</div>`;
+
   renderPagination('db-pagination', dbPage, totalPages, 'goDBPage');
+  renderPagination('db-pagination-bottom', dbPage, totalPages, 'goDBPage');
 }
 
 function goDBPage(p) { dbPage=p; renderDB(); window.scrollTo(0,0); }
@@ -1140,7 +1575,7 @@ function renderEnrichList(firms) {
           <div class="ep-why">${esc(f.connection||'')}</div>
           <div class="ep-loc">${esc(f.location||'')}</div>
         </div>
-        ${ein ? epRowStatusHtml(ein) : `<span class="ep-status"><span style="color:var(--dim);font-size:9px">no EIN match</span></span>`}
+        ${ein ? epRowStatusHtml(ein) : `<span class="ep-status"><span style="color:var(--text-4);font-size:9px">no EIN match</span></span>`}
       </div>`;
     }).join('');
   }
@@ -1422,7 +1857,7 @@ function renderContactsSection(ein, ref, contacts) {
 
   let html = `<div class="dsec" id="contacts-section">
     <div class="dsec-title">
-      Investment Decision-Makers <span class="dsec-badge">${contacts.length} contact${contacts.length!==1?'s':''}</span>
+      ${ICON_USERS} Investment Decision-Makers <span class="dsec-badge">${contacts.length} contact${contacts.length!==1?'s':''}</span>
       <button class="enrich-btn" id="enrich-btn" onclick="runEnrich('${esc(ein)}')">⚡ Enrich</button>
       ${(enrich && !aiHasEmail(ein)) ? `<span class="ebadge ep-ENRICHED_NO_EMAIL" style="margin-left:6px" title="AI enrichment ran but found no usable email">⚠ NO EMAIL</span>` : ''}
     </div>
@@ -1444,13 +1879,13 @@ function renderContactsSection(ein, ref, contacts) {
       html += `<div class="contact-card">
         <div class="cc-name">${esc(c.name)}</div>
         ${c.title?`<div class="cc-title">${esc(c.title)}</div>`:''}
-        ${c.email?`<div class="cc-row copyable" onclick="copyEmail(this,'${esc(c.email).replace(/'/g,"\\'")}')" title="Click to copy">✉ ${esc(c.email)} <span class="copy-hint">copy</span></div>`:''}
-        ${c.phone?`<div class="cc-row" style="color:var(--muted)">☎ ${esc(c.phone)}</div>`:''}
+        ${c.email?`<div class="cc-row copyable" onclick="copyEmail(this,'${esc(c.email).replace(/'/g,"\\'")}')" title="Click to copy">${ICON_MAIL}${esc(c.email)} <span class="copy-hint">copy</span></div>`:''}
+        ${c.phone?`<div class="cc-row" style="color:var(--text-3)">${ICON_PHONE}${esc(c.phone)}</div>`:''}
         ${flagHtml}
       </div>`;
     });
   } else {
-    html += `<div style="font-family:var(--mono);font-size:11px;color:var(--dim);padding:4px 0">No contacts found. Use AI enrichment or Hunter.io on this firm.</div>`;
+    html += `<div style="font-family:var(--mono);font-size:var(--fs-sm);color:var(--text-4);padding:4px 0">No contacts found. Use AI enrichment or Hunter.io on this firm.</div>`;
   }
 
   // AI-found contacts, rendered distinctly from Form 5500 contacts.
@@ -1459,8 +1894,8 @@ function renderContactsSection(ein, ref, contacts) {
       html += `<div class="contact-card ai-found">
         <div class="cc-name">${esc(c.name)}${confidenceBadge(c.confidence)}${contactTypeBadge(c.contact_type)}</div>
         ${c.title?`<div class="cc-title">${esc(c.title)}</div>`:''}
-        ${c.email?`<div class="cc-row copyable" onclick="copyEmail(this,'${esc(c.email).replace(/'/g,"\\'")}')" title="Click to copy">✉ ${esc(c.email)} <span class="copy-hint">copy</span></div>`:''}
-        ${c.phone?`<div class="cc-row" style="color:var(--muted)">☎ ${esc(c.phone)}</div>`:''}
+        ${c.email?`<div class="cc-row copyable" onclick="copyEmail(this,'${esc(c.email).replace(/'/g,"\\'")}')" title="Click to copy">${ICON_MAIL}${esc(c.email)} <span class="copy-hint">copy</span></div>`:''}
+        ${c.phone?`<div class="cc-row" style="color:var(--text-3)">${ICON_PHONE}${esc(c.phone)}</div>`:''}
         ${(!c.email && !c.phone && c.contact_notes)?`<div class="cc-source">${esc(c.contact_notes)}</div>`:''}
         ${c.source?`<div class="cc-source">Source: ${esc(c.source)}</div>`:''}
       </div>`;
@@ -1570,7 +2005,7 @@ async function runEnrich(ein) {
   // background stats + card grid + priority list, since this firm may now be Ready.
   document.querySelectorAll('#drawer .field-grid .field-val').forEach(el => {
     if(el.querySelector('.ebadge') || el.innerHTML.includes('ebadge')) {
-      el.innerHTML = `${ebadge(effectivePriority(ref))} <span style="font-family:var(--mono);font-size:10px;color:var(--muted)">${esc(effectiveReason(ref))}</span>`;
+      el.innerHTML = `${ebadge(effectivePriority(ref))} <span style="font-family:var(--mono);font-size:var(--fs-xs);color:var(--text-3)">${esc(effectiveReason(ref))}</span>`;
     }
   });
   refreshEnrichStats();
@@ -1585,8 +2020,8 @@ function openDrawer(ein) {
   document.getElementById('dr-firm').textContent = ref.firm_name||'—';
   document.getElementById('dr-plan').textContent = ref.plan_name||'—';
   const metaItems = [
-    ref.location      ? `<span class="dr-pill">📍 ${esc(ref.location)}</span>` : '',
-    ref.participants  ? `<span class="dr-pill">👥 ${fmtN(ref.participants)}</span>` : '',
+    ref.location      ? `<span class="dr-pill">${ICON_PIN}${esc(ref.location)}</span>` : '',
+    ref.participants  ? `<span class="dr-pill">${ICON_USERS}${fmtN(ref.participants)}</span>` : '',
     `<span class="dr-pill">EIN ${esc(ein)}</span>`,
     (ref.at9_relationships||[]).length ? `<span class="dr-pill">${(ref.at9_relationships||[]).length} 9AT signal${(ref.at9_relationships||[]).length!==1?'s':''}</span>` : '',
   ].filter(Boolean).join('');
@@ -1604,14 +2039,14 @@ function openDrawer(ein) {
 
   // Identity
   html += `<div class="dsec">
-    <div class="dsec-title">Organization <span class="dsec-badge">Identity</span></div>
+    <div class="dsec-title">${ICON_BUILDING} Organization <span class="dsec-badge">Identity</span></div>
     <div class="field-grid">
       <span class="field-label">Legal Name</span><span class="field-val">${esc(ref.firm_name)}</span>
       <span class="field-label">Plan Name</span><span class="field-val">${esc(ref.plan_name)}</span>
       <span class="field-label">EIN</span><span class="field-val">${esc(ein)}</span>
       <span class="field-label">Location</span><span class="field-val">${esc(ref.location)||'—'}</span>
-      <span class="field-label">Participants</span><span class="field-val">${fmtN(ref.participants)}</span>
-      <span class="field-label">Enrich Status</span><span class="field-val">${ebadge(effectivePriority(ref))} <span style="font-family:var(--mono);font-size:10px;color:var(--muted)">${esc(effectiveReason(ref))}</span></span>
+      <span class="field-label">Participants</span><span class="field-val num">${fmtN(ref.participants)}</span>
+      <span class="field-label">Enrich Status</span><span class="field-val">${ebadge(effectivePriority(ref))} <span style="font-family:var(--mono);font-size:var(--fs-xs);color:var(--text-3)">${esc(effectiveReason(ref))}</span></span>
       <span class="field-label">Outreach</span><span class="field-val">
         <label class="dr-contacted-toggle">
           <input type="checkbox" id="drawer-contacted-toggle" data-ein="${esc(ein)}" ${isContacted(ein)?'checked':''} onchange="toggleContactedFromDrawer('${esc(ein)}', this.checked)">
@@ -1625,16 +2060,16 @@ function openDrawer(ein) {
   const rels = ref.at9_relationships||[];
   if(rels.length) {
     html += `<div class="dsec">
-      <div class="dsec-title">9AT Relationship Map <span class="dsec-badge">${rels.length} signal${rels.length!==1?'s':''}</span></div>
+      <div class="dsec-title">${ICON_LINK} 9AT Relationship Map <span class="dsec-badge">${rels.length} signal${rels.length!==1?'s':''}</span></div>
       <table class="sig-table">`;
     rels.forEach(r => {
       html += `<tr>
         <td class="sig-label-cell">${sigChip(r.signal)}</td>
         <td class="sig-val-cell">
           <div>${esc(r.connection)}</div>
-          <div style="font-family:var(--mono);font-size:10px;color:var(--cyan);margin-top:2px">${esc(r.matched_name)}</div>
-          ${r.adviser_details?.['Total AUM $']?`<div style="font-family:var(--mono);font-size:10px;color:var(--muted)">AUM: ${esc(r.adviser_details['Total AUM $'])}</div>`:''}
-          <div style="font-family:var(--mono);font-size:9px;color:var(--dim);margin-top:1px">Match score: ${r.match_score||0}%  ·  Tier ${r.tier}</div>
+          <div class="accent">${esc(r.matched_name)}</div>
+          ${r.adviser_details?.['Total AUM $']?`<div class="muted">AUM: ${esc(r.adviser_details['Total AUM $'])}</div>`:''}
+          <div class="dim">Match score: ${r.match_score||0}%  ·  Tier ${r.tier}</div>
         </td>
       </tr>`;
     });
@@ -1645,23 +2080,23 @@ function openDrawer(ein) {
   const sps = ref.service_providers||[];
   if(sps.length) {
     html += `<div class="dsec">
-      <div class="dsec-title">Service Providers <span class="dsec-badge">Schedule C · ${sps.length} providers</span></div>
+      <div class="dsec-title">${ICON_DOLLAR} Service Providers <span class="dsec-badge">Schedule C · ${sps.length} providers</span></div>
       <table class="sig-table">`;
     sps.slice(0,20).forEach(sp => {
       const am = sp.adviser_match||{};
       const fm = sp.fund_match||{};
       html += `<tr>
-        <td class="sig-label-cell" style="color:var(--green);font-family:var(--mono);font-size:10px">${esc(sp.provider_name)}</td>
+        <td class="sig-label-cell" style="color:var(--success);font-family:var(--mono);font-size:var(--fs-xs)">${esc(sp.provider_name)}</td>
         <td class="sig-val-cell">
-          ${sp.provider_ein?`<div style="font-size:10px;color:var(--muted)">EIN: ${esc(sp.provider_ein)}</div>`:''}
-          ${am['Total AUM $']?`<div style="font-size:10px;color:var(--muted)">AUM: ${esc(am['Total AUM $'])}</div>`:''}
-          ${am['Country/Region']?`<div style="font-size:10px;color:var(--muted)">Region: ${esc(am['Country/Region'])}</div>`:''}
-          ${fm['fund_name']?`<div style="font-size:10px;color:var(--cyan)">Fund: ${esc(fm['fund_name'])}</div>`:''}
-          <div style="font-family:var(--mono);font-size:9px;color:var(--dim)">Item ${esc(sp.item)}</div>
+          ${sp.provider_ein?`<div class="muted">EIN: ${esc(sp.provider_ein)}</div>`:''}
+          ${am['Total AUM $']?`<div class="muted">AUM: ${esc(am['Total AUM $'])}</div>`:''}
+          ${am['Country/Region']?`<div class="muted">Region: ${esc(am['Country/Region'])}</div>`:''}
+          ${fm['fund_name']?`<div class="accent">Fund: ${esc(fm['fund_name'])}</div>`:''}
+          <div class="dim">Item ${esc(sp.item)}</div>
         </td>
       </tr>`;
     });
-    if(sps.length>20) html += `<tr><td colspan="3" style="font-family:var(--mono);font-size:9px;color:var(--muted);padding-top:6px">… and ${sps.length-20} more providers</td></tr>`;
+    if(sps.length>20) html += `<tr><td colspan="3" style="font-family:var(--mono);font-size:var(--fs-2xs);color:var(--text-3);padding-top:6px">… and ${sps.length-20} more providers</td></tr>`;
     html += `</table></div>`;
   }
 
@@ -1669,23 +2104,23 @@ function openDrawer(ein) {
   const invs = ref.investments||[];
   if(invs.length) {
     html += `<div class="dsec">
-      <div class="dsec-title">Fund Holdings & Managers <span class="dsec-badge">Sched D/H · ${invs.length} entries</span></div>
+      <div class="dsec-title">${ICON_TREND} Fund Holdings & Managers <span class="dsec-badge">Sched D/H · ${invs.length} entries</span></div>
       <table class="sig-table">`;
     invs.slice(0,20).forEach(inv => {
       const am = inv.adviser_match||{};
       const fm = inv.fund_match||{};
       const cls = inv.schedule==='D' ? 'sched-d' : 'sched-h';
       html += `<tr>
-        <td class="sig-label-cell" style="font-family:var(--mono);font-size:10px"><span class="sched-btn ${cls}" style="cursor:default">Sched ${esc(inv.schedule)}</span></td>
+        <td class="sig-label-cell" style="font-family:var(--mono);font-size:var(--fs-xs)"><span class="sched-btn ${cls}" style="cursor:default">Sched ${esc(inv.schedule)}</span></td>
         <td class="sig-val-cell">
           <div style="font-weight:600">${esc(inv.name)}</div>
-          ${inv.type==='dfe'?'<div style="font-size:10px;color:var(--muted)">DFE pooled fund investment</div>':'<div style="font-size:10px;color:var(--muted)">Investment manager</div>'}
-          ${am['Total AUM $']?`<div style="font-size:10px;color:var(--muted)">AUM: ${esc(am['Total AUM $'])}</div>`:''}
-          ${fm['fund_name']&&fm['fund_name']!==inv.name?`<div style="font-size:10px;color:var(--cyan)">Matched: ${esc(fm['fund_name'])}</div>`:''}
+          ${inv.type==='dfe'?'<div class="muted">DFE pooled fund investment</div>':'<div class="muted">Investment manager</div>'}
+          ${am['Total AUM $']?`<div class="muted">AUM: ${esc(am['Total AUM $'])}</div>`:''}
+          ${fm['fund_name']&&fm['fund_name']!==inv.name?`<div class="accent">Matched: ${esc(fm['fund_name'])}</div>`:''}
         </td>
       </tr>`;
     });
-    if(invs.length>20) html += `<tr><td colspan="3" style="font-family:var(--mono);font-size:9px;color:var(--muted);padding-top:6px">… and ${invs.length-20} more entries</td></tr>`;
+    if(invs.length>20) html += `<tr><td colspan="3" style="font-family:var(--mono);font-size:var(--fs-2xs);color:var(--text-3);padding-top:6px">… and ${invs.length-20} more entries</td></tr>`;
     html += `</table></div>`;
   }
 
@@ -1699,23 +2134,23 @@ function openDrawer(ein) {
 
   if(hasSchedData) {
     html += `<div class="dsec">
-      <div class="dsec-title">Raw Schedule Data <span class="dsec-badge">loaded</span></div>`;
+      <div class="dsec-title">${ICON_TABLE} Raw Schedule Data <span class="dsec-badge">loaded</span></div>`;
     const hasSC = sched.schedule_c?.item1?.length || sched.schedule_c?.item2?.length || sched.schedule_c?.item3?.length;
     if(hasSC) {
       html += `<div style="margin-bottom:1rem">
-        <div style="font-family:var(--mono);font-size:10px;font-weight:600;color:var(--green);margin-bottom:8px">SCHEDULE C — Service Provider Fees</div>
+        <div style="font-family:var(--mono);font-size:var(--fs-xs);font-weight:600;color:var(--success);margin-bottom:8px">SCHEDULE C — Service Provider Fees</div>
         ${renderSchedC(sched.schedule_c)}
       </div>`;
     }
     if(sched.schedule_d?.length) {
       html += `<div style="margin-bottom:1rem">
-        <div style="font-family:var(--mono);font-size:10px;font-weight:600;color:var(--cyan);margin-bottom:8px">SCHEDULE D — DFE / Pooled Fund Investments</div>
+        <div style="font-family:var(--mono);font-size:var(--fs-xs);font-weight:600;color:var(--cyan);margin-bottom:8px">SCHEDULE D — DFE / Pooled Fund Investments</div>
         ${renderSchedD(sched.schedule_d)}
       </div>`;
     }
     if(Object.keys(sched.schedule_h||{}).length) {
       html += `<div style="margin-bottom:1rem">
-        <div style="font-family:var(--mono);font-size:10px;font-weight:600;color:var(--purple);margin-bottom:8px">SCHEDULE H — Financial Information</div>
+        <div style="font-family:var(--mono);font-size:var(--fs-xs);font-weight:600;color:var(--violet);margin-bottom:8px">SCHEDULE H — Financial Information</div>
         ${renderSchedH(sched.schedule_h)}
       </div>`;
     }
@@ -1729,6 +2164,11 @@ function openDrawer(ein) {
 
 document.getElementById('drawer-close').addEventListener('click',()=>document.getElementById('drawer-overlay').classList.remove('open'));
 document.getElementById('drawer-overlay').addEventListener('click',e=>{ if(e.target===document.getElementById('drawer-overlay')) document.getElementById('drawer-overlay').classList.remove('open'); });
+
+// Apply the loaded prefs (accent/density/motion already set pre-paint; this
+// also syncs the view-toggle buttons and any prefs-panel UI) now that the
+// controls it touches exist in the DOM.
+applyPrefs();
 
 // ── Data loading ─────────────────────────────────────────────────────────────
 
@@ -1752,67 +2192,87 @@ fetch('enrichment.json').then(r=>r.ok?r.json():Promise.reject()).then(d=>{
   reconcileEnrichedFirms();
 }).catch(()=>{ enrichIndex = {}; rebuildAiCaches(); });
 </script>
-
-<!-- ── GLOSSARY ── -->
-
-<div class="overlay" id="glossary-overlay">
-  <div class="gbox">
-    <div class="ghead"><h2>Dashboard Glossary</h2><button class="gclose" id="gclose">✕</button></div>
-    <div class="gsec"><h3>Sections</h3>
-      <div class="grow"><span class="gterm">Allocator Database</span><span class="gdef">All Form 5500 filers in one table. Firms with a 9AT signal show their connection upfront. Filter by signal type, enrichment priority, or schedule data availability.</span></div>
-      <div class="grow"><span class="gterm">9AT Connection</span><span class="gdef">The column shown for every row — firms with no 9AT link show a dash, firms with a match show signal chips and the specific connection.</span></div>
-      <div class="grow"><span class="gterm">Mark Contacted</span><span class="gdef">Check the box on a card or in the drawer to mark a firm as already reached out to. Dims the card and lets you filter by outreach status. Stored locally in this browser.</span></div>
-      <div class="grow"><span class="gterm">Export CSV / Copy Emails</span><span class="gdef">Both act on the current filtered view (not just the visible page) — export every matching firm to a spreadsheet, or copy every email found for that view to paste into a mail client.</span></div>
-    </div>
-    <div class="gsec"><h3>Allocator Profile Drawer</h3>
-      <div class="grow"><span class="gterm">Identity</span><span class="gdef">Name, EIN, plan, location, participant count, and enrichment status.</span></div>
-      <div class="grow"><span class="gterm">9AT Relationship Map</span><span class="gdef">Every signal that fired for this firm — what schedule it came from and what was matched.</span></div>
-      <div class="grow"><span class="gterm">Service Providers</span><span class="gdef">All firms this plan paid fees to (Schedule C Part 1, all 3 items), with 9AT adviser/fund matches where found.</span></div>
-      <div class="grow"><span class="gterm">Fund Holdings</span><span class="gdef">DFE pooled fund investments from Schedule D Part 2, matched to 9AT funds where possible.</span></div>
-    </div>
-    <div class="gsec"><h3>Signal Types</h3>
-      <div class="grow"><span class="gterm">Sched C</span><span class="gdef"><strong>Tier 1.</strong> Plan paid fees to this adviser (Schedule C Part 1).</span></div>
-      <div class="grow"><span class="gterm">Sched D</span><span class="gdef"><strong>Tier 1.</strong> Plan invests in a DFE pooled fund linked to a 9AT adviser or fund (Schedule D Part 2).</span></div>
-      <div class="grow"><span class="gterm">Sched H</span><span class="gdef"><strong>Tier 1.</strong> Plan's large-plan Schedule H discloses this as an investment manager.</span></div>
-      <div class="grow"><span class="gterm">Direct</span><span class="gdef"><strong>Tier 2 — speculative.</strong> Firm name closely matches a 9AT adviser name. Verify before outreach.</span></div>
-    </div>
-    <div class="gsec"><h3>Enrichment Priority</h3>
-      <div class="grow"><span class="gterm">✓ READY (EMAIL)</span><span class="gdef">Tier 1 signal + real email found — either on file already or found by AI enrichment. Outreach now.</span></div>
-      <div class="grow"><span class="gterm">★ ENRICH</span><span class="gdef">Tier 1 signal but no email yet, and AI enrichment hasn't been run. Use AI enrichment or Hunter.io — high ROI.</span></div>
-      <div class="grow"><span class="gterm">⚠ ENRICHED · NO EMAIL</span><span class="gdef">Tier 1 signal — AI enrichment already ran for this firm but didn't find a usable email. Try Hunter.io or manual research, or retry AI enrichment.</span></div>
-      <div class="grow"><span class="gterm">· LOW</span><span class="gdef">Tier 2 signal + email. Verify before outreach.</span></div>
-      <div class="grow"><span class="gterm">— SKIP</span><span class="gdef">Tier 2 signal, no contact. Low ROI.</span></div>
-    </div>
-  </div>
-</div>
 <script>
-// ── Theme toggle ──────────────────────────────────────────────────────────────
-(function() {
-  const btn  = document.getElementById('theme-btn');
-  const body = document.body;
-  const saved = localStorage.getItem('9at-theme');
-  if(saved === 'light') { body.classList.add('light'); btn.textContent = '🌙'; }
-  btn.addEventListener('click', () => {
-    const isLight = body.classList.toggle('light');
-    btn.textContent = isLight ? '🌙' : '☀';
-    localStorage.setItem('9at-theme', isLight ? 'light' : 'dark');
-  });
-})();
+// ══════════════════════════════════════════════════════════════════════════════
+// UI GLUE — theme persistence, preferences panel wiring, glossary, overlay
+// close behavior, keyboard shortcuts. Purely additive: nothing here renames or
+// alters any function/id/class/localStorage key from the "keep verbatim" list.
+// The existing '9at-theme' key + body.classList.toggle('light') mechanism
+// stays the single source of truth for light/dark; prefs.theme just mirrors
+// it so the preferences panel can show/set it too.
+// ══════════════════════════════════════════════════════════════════════════════
 
-document.getElementById('glossary-btn').addEventListener('click',()=>document.getElementById('glossary-overlay').classList.add('open'));
-document.getElementById('gclose').addEventListener('click',()=>document.getElementById('glossary-overlay').classList.remove('open'));
-document.getElementById('glossary-overlay').addEventListener('click',e=>{ if(e.target===document.getElementById('glossary-overlay')) document.getElementById('glossary-overlay').classList.remove('open'); });
+function setTheme(v) {
+  const isLight = v === 'light';
+  document.body.classList.toggle('light', isLight);
+  localStorage.setItem('9at-theme', isLight ? 'light' : 'dark');
+  prefs.theme = isLight ? 'light' : 'dark';
+  savePrefs();
+  updatePrefsPanelUI();
+}
+function applyTheme() {
+  const saved = localStorage.getItem('9at-theme');
+  setTheme(saved === 'light' ? 'light' : 'dark');
+}
+function setAccent(v) { prefs.accent = v; savePrefs(); applyPrefs(); }
+function setDensity(v) { prefs.density = v; savePrefs(); applyPrefs(); }
+function setMotion(v) { prefs.motion = v; savePrefs(); applyPrefs(); }
+function resetPrefs() {
+  prefs = { ...PREFS_DEFAULT };
+  savePrefs();
+  setTheme(prefs.theme);
+  applyPrefs();
+  renderDB();
+}
+
+document.getElementById('theme-btn').addEventListener('click', () => {
+  setTheme(document.body.classList.contains('light') ? 'dark' : 'light');
+});
+
+// ── Preferences overlay ──────────────────────────────────────────────────────
+document.getElementById('prefs-btn').addEventListener('click', () => {
+  document.getElementById('prefs-overlay').classList.add('open');
+  updatePrefsPanelUI();
+});
+document.getElementById('prefs-close').addEventListener('click', () => document.getElementById('prefs-overlay').classList.remove('open'));
+document.getElementById('prefs-overlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('prefs-overlay')) document.getElementById('prefs-overlay').classList.remove('open');
+});
+
+// ── Glossary overlay ─────────────────────────────────────────────────────────
+document.getElementById('glossary-btn').addEventListener('click', () => document.getElementById('glossary-overlay').classList.add('open'));
+document.getElementById('gclose').addEventListener('click', () => document.getElementById('glossary-overlay').classList.remove('open'));
+document.getElementById('glossary-overlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('glossary-overlay')) document.getElementById('glossary-overlay').classList.remove('open');
+});
 
 // ── Escape key closes whichever overlay is topmost open ─────────────────────
 document.addEventListener('keydown', e => {
-  if(e.key !== 'Escape') return;
-  const drawer    = document.getElementById('drawer-overlay');
-  const enrich    = document.getElementById('enrich-overlay');
-  const glossary  = document.getElementById('glossary-overlay');
-  if(drawer.classList.contains('open'))        drawer.classList.remove('open');
-  else if(enrich.classList.contains('open'))    enrich.classList.remove('open');
-  else if(glossary.classList.contains('open'))  glossary.classList.remove('open');
+  if (e.key !== 'Escape') return;
+  const drawer   = document.getElementById('drawer-overlay');
+  const enrich   = document.getElementById('enrich-overlay');
+  const prefsOv  = document.getElementById('prefs-overlay');
+  const glossary = document.getElementById('glossary-overlay');
+  if (drawer.classList.contains('open'))        drawer.classList.remove('open');
+  else if (enrich.classList.contains('open'))   enrich.classList.remove('open');
+  else if (prefsOv.classList.contains('open'))  prefsOv.classList.remove('open');
+  else if (glossary.classList.contains('open')) glossary.classList.remove('open');
 });
+
+// ── "/" focuses search when focus isn't already in an input ────────────────
+document.addEventListener('keydown', e => {
+  if (e.key !== '/') return;
+  const tag = (document.activeElement && document.activeElement.tagName) || '';
+  if (tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA') return;
+  e.preventDefault();
+  document.getElementById('db-search').focus();
+});
+
+// Apply saved theme now that the toggle + prefs panel exist, and refresh the
+// prefs panel UI (accent/density/motion/view pills) to match loaded prefs —
+// applyPrefs() already ran once inside script1.js before prefs.theme existed.
+applyTheme();
+applyPrefs();
 </script>
 </body>
 </html>
