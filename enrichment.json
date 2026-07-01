@@ -177,6 +177,33 @@
       "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG6fE2aRFGQvtUUnRBO4LBakNajAn1Om2V8gsnGGaD-KmirHLGEo4jTyUj1zoxFvOcCvuS6uo5QMC3UxG_DE9CpgqlKXxz5fDA10Al0cxLlQf9M4T33ZUvphqUx5AiLUluzD6i-KDgWmu7aNCpcvvrSBtYHyqo="
     ]
   },
+  "273225082": {
+    "firm_name": "EUROFINS NSC US, INC.",
+    "ein": "273225082",
+    "enriched_at": "2026-07-01T15:48:46.367Z",
+    "contacts": [
+      {
+        "name": "Investor Relations Department",
+        "title": "General Investor Relations Contact",
+        "email": "ir@sc.eurofinseu.com",
+        "phone": "",
+        "contact_type": "general",
+        "contact_notes": "General investor relations email for the Eurofins Scientific Group, which includes EUROFINS NSC US, INC. No specific investment decision-makers, allocators, or investor relations contacts with direct contact information were found for EUROFINS NSC US, INC. or Eurofins USA.",
+        "source": "https://www.eurofins.com/contact-us/contact-eurofins-scientific/",
+        "confidence": "high"
+      }
+    ],
+    "existing_contact_assessment": null,
+    "notes": "Searches for 'EUROFINS NSC US, INC. investor relations', 'EUROFINS NSC US, INC. leadership team', and 'EUROFINS NSC US, INC. contact information' primarily led to the broader Eurofins Scientific Group's website. While EUROFINS NSC US, INC. is identified as a US entity, specific investment decision-makers, allocators, or investor relations contacts with direct email or phone numbers at this particular firm or Eurofins USA were not found in the public domain. The provided contact is the general investor relations email for the parent company, Eurofins Scientific, which is consistently listed across various investor-related pages.",
+    "grounding_sources": [
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFjSx1gour_gCAsOeY38BrG8effaYfCjEkGHxxc-4zxFu4dP9NCTveSJolV3YaaiUIETpiG35aJwDSgevMU59bz7023BsmnZaUhtO93UOIkdCkWEkJqCQRfx06jdZjZfw==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFem5TrQxl_IDBe9xhPjWhSW6pOEPy7LiG8vHpGz8cjdDXDh6lyYgJCeqaAl9TIdDhcEEVaV_wsF3dMtxIiBNndHWWKuJtzBw_bivONSRuhoFZz4zW0gQ0zqAXau118meZxU-Jc33K8ax-h7wQiC-SgPJTfelEFfpqg9U3fkSTvVi7ONeY3A3_OF3BrbJ9wwPHxvls=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHMB5z-nhq8OUkOQ4C5E870zbux4F1GuINxqXrTKUxGBGAo3PTsciRJZepfS09MdC7mHXyIv13je6mRbNMow6h7b16cLm3838iL4JdBo9hb7mCj9D15s2td0nTPfkIg7SflEcnNrTKYBpsaD-QjFGmwJvpGb1S39XnOlzY2v1o=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHlOl6M9FF1a_lmnKIDF97A0fKgV5RmtXbptsCsGu9FgYGj0v72o7esrFSh9Yllpg5NRssot6rT-TiiXQwPe9zgDImEP8SqKThHzz78gHIikqToiCsIfxpio0cE_qr9Srt1vM2qkr3rKYIOwWFqXYJ9MrDJF6UGiXxYgPtfPNgmYuxRWulx9nmi5InGag3WK0F1LWg4--oC7l8=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEDcmqyhDEyzlCo01gnYkQ_uEI39uHulnBPvRKX9oVt2XK3Dm_Rsr5lO7UkZRWHxom74Dh51skVHhxAFNqJdd-XUWBlZvA71lIOjjqcbAD00Z2NmPlzCZeQkgUHIH6BuDJsMK8vpKpqNfayxqZ8lrPptx7g7Xjh0h81Q5zUfVJ9",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEWH7G7cyp9tWXu8viakLozqGZAFrmDF8yBhCuVG3YotGBJpVXVgf2B8g9BGvz5B5LPdW-U23o9FP-2cAFAlUMpKzb99Uriv8VumgOFohrLC0fcIQPMVZww9hFk_qSpBQl60Z9MyOlsvzF2LUITci8gxGx8qCE="
+    ]
+  },
   "351174866": {
     "firm_name": "VISITING NURSE ASSOCIATION OF PORTER COUNTY, INDIANA, INC.",
     "ein": "351174866",
