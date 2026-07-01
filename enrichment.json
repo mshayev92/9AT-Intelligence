@@ -778,6 +778,41 @@
       "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGvvMLs38tWGi3I9HYVzmvRlMqMmqaX699CR3ZzG1T3SIPLedME2s5KoVozXAWjYsb477ycbSGax4G8kAqqxaetv8E23losPQMsfGY7yEJaAirtLNfL6sOU8Hz7uA0OOnvmelmaEt0ktBZrWZKyqfss-wSI95xSH98f8Vz2jIIUCdTUUQ=="
     ]
   },
+  "680121468": {
+    "firm_name": "COGNOSANTE, LLC",
+    "ein": "680121468",
+    "enriched_at": "2026-07-01T21:52:49.611Z",
+    "contacts": [
+      {
+        "name": "Desh Ahuja",
+        "title": "Exec. VP",
+        "email": "desh.ahuja@cognosante.com",
+        "phone": "",
+        "contact_type": "direct",
+        "contact_notes": "Direct email found in a headquarters contact listing.",
+        "source": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHvB1JQXTRGf6__jX1s5M7qAxpdfdvB0NT0qyPq-gS6pTxbXmJESuTB4ozkq49lfDSBkUpQAQXR6uGO_dt3lEY6yDZmab2uDwNv5rpTKHDRrVU9qpAQe9vjRaMasG6XyXgbfrDdVv098G8RDg==",
+        "confidence": "high"
+      },
+      {
+        "name": "Tom Hohman",
+        "title": "SVP, Chief Financial Officer",
+        "email": "CIOSP3Cognosante@cognosante.com",
+        "phone": "703-206-6000",
+        "contact_type": "general",
+        "contact_notes": "Title found on Comparably. No direct email or phone found for Tom Hohman; using general firm contact information.",
+        "source": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGq3IGP6kEhCo_iG8xpQvrdOfZaoxdDxAd2LSX4RwKjUDJ0Qp1e3SLAImEEvT9fqzhEE5olfEIrTrV-0ysCvBymav0EnKR1AiTnJIjfC4NtqRGzHw6qypEsrSUvwxhx6t-5yUFm8-XV7VBvBIzexKN4DYdt4_t3izog",
+        "confidence": "medium"
+      }
+    ],
+    "existing_contact_assessment": {
+      "name": "WYNN E POTT",
+      "title": "Plan Administrator (Form 5500)",
+      "likelyInvestmentDecisionMaker": false,
+      "reasoning": "The title 'Plan Administrator (Form 5500)' typically indicates a role in benefits administration, HR, or compliance related to employee retirement plans, rather than an investment decision-maker for the firm's overall capital or external investor relations. No search results linked Wynn E Pott to investment decision-making at Cognosante."
+    },
+    "notes": "COGNOSANTE, LLC was acquired by Accenture Federal Services in April/May 2024. This acquisition significantly impacts the nature of investment decision-making and investor relations for Cognosante as a standalone entity. The contacts listed are based on roles identified prior to or during the transition, with general firm contacts used where direct individual contact information for investment-related roles was not explicitly found post-acquisition. No dedicated 'Investor Relations' department or specific investment allocation roles (e.g., CIO, Portfolio Manager) were identified for Cognosante, LLC in the search results, likely due to its nature as a government contractor and its recent acquisition.",
+    "grounding_sources": []
+  },
   "854344655": {
     "firm_name": "TRIRX SHAWNEE LLC",
     "ein": "854344655",
