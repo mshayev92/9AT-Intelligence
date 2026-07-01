@@ -73,6 +73,52 @@
       "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGG_Ji6De1wQ4UV3r8OG7NXdlwyo-Cs1j_qXB6oAnRS_W-H873788DV5ayIm17xnHZgcPDGqtUxtSEc-6UE17eYqE7qMkpBiDz_MUxH7ZForOYPzS4MFIXSYXVJ-D4Uh8LYVn-UgQzmis5yQdmiLYI="
     ]
   },
+  "223719127": {
+    "firm_name": "1ST COLONIAL COMMUNITY BANK",
+    "ein": "223719127",
+    "enriched_at": "2026-07-01T21:56:16.745Z",
+    "contacts": [
+      {
+        "name": "Mary Kay Shea",
+        "title": "EVP & Chief Financial Officer, Investor Relations Contact",
+        "email": "IR@1stcolonial.com",
+        "phone": "(856) 885-2391",
+        "contact_type": "direct",
+        "contact_notes": "Direct phone number found on 1st Colonial Bancorp, Inc. Investor Relations website. General investor relations email also provided on the same page and SEC filings.",
+        "source": "https://ir.1stcolonial.com/resources/investor-contacts",
+        "confidence": "high"
+      },
+      {
+        "name": "Robert B. White",
+        "title": "President and CEO",
+        "email": "IR@1stcolonial.com",
+        "phone": "(856) 858-1100",
+        "contact_type": "general",
+        "contact_notes": "No direct email or phone found for Robert B. White. Used the general investor relations email and the main firm switchboard number.",
+        "source": "https://ir.1stcolonial.com/governance/board-of-directors/person-details/default.aspx?rid=3949, https://abfjournal.com/articles/1st-colonial-taps-white-as-president-ceo/",
+        "confidence": "high"
+      }
+    ],
+    "existing_contact_assessment": {
+      "name": "SANDRA FINE",
+      "title": "Plan Administrator (Form 5500)",
+      "likelyInvestmentDecisionMaker": false,
+      "reasoning": "The title 'Plan Administrator (Form 5500)' typically indicates responsibility for the administration of employee benefit plans, such as retirement plans, rather than making investment decisions for the firm's assets or for clients. No information was found in the search results to suggest an investment decision-making role for Sandra Fine at 1st Colonial Community Bank."
+    },
+    "notes": "1st Colonial Community Bank (parent company 1st Colonial Bancorp, Inc.) is in the process of merging with Mid Penn Bancorp, Inc. Regulatory approvals have been received, and the closing was expected in the first quarter of 2026. This merger may affect future contact information and roles. The contacts provided are based on currently available information for 1st Colonial.",
+    "grounding_sources": [
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHkVT6F95Y3drHDWRXz2Ny0w9CyI9gHuaMtVrQ5M9g1FUGnbw6wj2Haf6qKBZbLzEUsdyZg_Gy7NHt7INT5grXrtcNidXt74C-TSNeJgjHIUV4yGyfUzbd5ex2b9h3hJ7tJuoRcLryR5J32XaBPrBXnJcO23OXChvGsJxABum84K7lWRw==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHyvZfszeRW4H0ZLlU6QjJWrDfc-HkC9Cj5astPW079QQjAssJRgIytlcrVvtnDNY7wQcGWDGhf1y4OXIq5y4sOJsIZ5-8NrjPAn4rB_GPBy2kjOCJ33rpTZupcDaUxNXMrME1PlQPPYCUY2ay6uv3fpTSrN_6RHyscJskunLVGEVGIgkuvbcSUDVzVwRNX",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEX0rwMYCPsGs9FA6YX38hhJVL532Fx9GAXhBNCzTXr7ypuBTTjl0AsMffX14Cet53n4-vZXOwos7P5WKzTcuxbQK2pEXYJMdwOBt7JLrm1Xa3WmeSAbcus6o1zffQxBASASwYf0ZE=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFpZUtn-wEaZJ3vibdewE_q9GbX4OgJ3Z2TtXURqgBUaO23AfD3ld-BK8b_Z0gCHs6agfKFqbE2FBdOTmCx9AAqX4EdvSr3vLw9-PFGOEKGcKRdNMixhGXgLUHamOJ1bvwTGr4NO86RTOKRf8d1OiefY2_2TCx9JdCh9wkZsViViV54JuFxbrTnkgE1m68KnFTwwxbmqN-oxccyF68f7j3gcfhAbv-1Y06QdlNH3wFPJn-ScP5J1HTm0VE_nHn5YjYa1lZqg_mA89rmqwJYOxaU",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFXqnM07Vd34NnPV19Rwwo_yr545mJT8aKUJSRybd80gKXIkZ5p1HVTt-7b0jtygJddLcx4Jqzlt08CIIXLCZlW_IQTEMQSOr1ntFYc49-wjl8ETYj18S2sQLfBq_qYRBuCDEtm-04geD03M6ajNxTxfBGbebEqwSE=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQERn2TDP3XxzEVvjB7odI-yHJXTfXKGwcedxY3TV1NogB0sUrueA2pzM-FAN2Op1KQ2Xt2P7XkISniu9daYhHMsmzeLCGL0zS2VS3ydBnlCmDgK0YJT4MoUd_Y7fzGzW4vrQl_Pden2r6aDLaY4dXnMwQl3NJZPC1zQ3cZrPY7b85PIY_4BrEX7frgWt72RxPYiZBxzLk9cjwHoCXZcuqdfUMDiP4WIAbVpwePClrB5H_Ep4ATifkaiJFTs_jwDv2rtEg1DecA9nVZSygEPz-c=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG7VHDuwintwtUIIKV_ozWIpptChH6FuE8E9Y4guBLM_HiZ6mPmYj065qkoL-nbE2g9XpCtYQ00mbG--q9yd1gqTtp78Vx41FC0ksGiRwnOwpdSJD6l_F6NNDP86e0Zp3hPUrYc3nh3QUTXb1Ux9hOxIy3JuIWk57uznn4_Dld8",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH061_Qvg6bi7wP_sqMCb2VxOKOPNHEuTqNsi1Nc1eKElrkxIWdvmFrXgM-Z_byEev_A8vU09Cqo32WSzLWBVg-Zt0mipKu5EtTMLMJtXEUw1ypTzR8JtQwyhHo2-1rJc-g6MjN3Jx8Ox0FoJbGv9yAnjtv48O7wVJ-6m_807L-KCF04fuqXJyaIgCO7cxZpQFxjZR8ZluHonxVxCGO90-InhOtQuXdNQ==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGZvdPXtW3mCu2TyQELQRaTsL4B_9oS5FqKPEoKEp5mI5CtXP5x9u5JbGon0mfLJnQf3G3djEh62cDw1cyiXoE62e_j8YEuIt5-kY3WQrvlvTImuBAZajHs-JIuEiK0DDx9g9tHHlORsNJKn4dzrrg3ZAOZ7G8SqNVsow6n3gEzU-ubBw==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHy9-vKLj7uR1PTRQ1-17eiMmPFfX5oNGiCz8wlHc0cZ3Nh25_8EPmM612nornbWq8NpZaLIZz24y_HP9Ibxfziiy-S-1vTo3tznPRm83aJZWCXkRTNGIzg02SDnDYz9ixsBm68gprtSRv-ZoYOuBx6SBev6Dm30DwNtV0vdQD62DtyMfe4ZUCX6saXflCMFR4--DDG6CQami1Ug6HGPDHIu_tBNgpf_LVuUqV27X0LAxUXQgpB"
+    ]
+  },
   "232259884": {
     "firm_name": "VERIZON COMMUNICATIONS INC.",
     "ein": "232259884",
