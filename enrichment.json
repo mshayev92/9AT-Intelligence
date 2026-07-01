@@ -256,6 +256,58 @@
       "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHzcGMwOrkniVXPpCZTSdbEED-xQhJHzkgBtkjp-vzGkTgzhU1rdrt1MYp1VQnUlgTyLuu7BFBRjDv_Hze2sRXU2uEfsJHtgaLv80UvgvoHluxkKgQ-3_b6a_I="
     ]
   },
+  "360710830": {
+    "firm_name": "ALPA",
+    "ein": "360710830",
+    "enriched_at": "2026-07-01T21:36:39.167Z",
+    "contacts": [
+      {
+        "name": "Marc I. Cobane",
+        "title": "Co-Founder, Partner",
+        "email": "mcobane@alphaky.com",
+        "phone": "859-785-2661",
+        "contact_type": "direct",
+        "contact_notes": "Email and phone found on the firm's official 'Our Team' page.",
+        "source": "https://www.alphaky.com/our-team",
+        "confidence": "high"
+      },
+      {
+        "name": "Greg M. Turcotte",
+        "title": "Co-Founder, CCO, NFLPA Registered Financial Advisor",
+        "email": "gturcotte@alphaky.com",
+        "phone": "859-785-2662",
+        "contact_type": "direct",
+        "contact_notes": "Email and phone found on the firm's official 'Our Team' page.",
+        "source": "https://www.alphaky.com/our-team",
+        "confidence": "high"
+      },
+      {
+        "name": "Aaron P. Ammerman",
+        "title": "Co-Founder, Partner",
+        "email": "aammerman@alphaky.com",
+        "phone": "859-785-2663",
+        "contact_type": "direct",
+        "contact_notes": "Email and phone found on the firm's official 'Our Team' page.",
+        "source": "https://www.alphaky.com/our-team",
+        "confidence": "high"
+      }
+    ],
+    "existing_contact_assessment": {
+      "name": "NAVEA HARRIS",
+      "title": "Plan Administrator (Form 5500)",
+      "likelyInvestmentDecisionMaker": false,
+      "reasoning": "The title 'Plan Administrator' typically refers to someone responsible for the administrative aspects of an employee benefit plan, such as a 401(k) or pension plan, rather than making external investment decisions for a financial firm. Search results for 'NAVEA HARRIS' did not link this individual to an investment decision-making role at a financial firm. Other 'Harris' individuals found with investment roles (e.g., Adam Harris, Erick Harris, Dr. Duane G. Harris) are distinct from 'Navea Harris'."
+    },
+    "notes": "The initial search for 'ALPA' yielded many results for various entities (e.g., Air Line Pilots Association, plastic packaging company, auto insurance). The most relevant financial firm matching the user's intent for 'investment / investor relations contacts' was 'Alpha Financial Partners LLC' (alphaky.com), a fiduciary-based financial planning and investment advisory firm. Another relevant firm, 'Alpha Services and Holdings SA', had a Chief Investment Officer who transitioned to Chief Risk Officer as of January 2026, and an Investor Relations contact for whom only a general IR phone number was found, not a direct email. The three co-founders of Alpha Financial Partners LLC were selected as they are clearly investment decision-makers with direct contact information. No specific information was found for 'NAVEA HARRIS' in an investment decision-making capacity for a financial firm.",
+    "grounding_sources": [
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGafiSoHRkUIh8gOa7nxmPQqHtoAyftAm5JvZFCjWhvk4IQjEjqIlxoggyNWhnnP3SbKfLc_NJ-nXhGYi9gvyoWm6bc9x3Tok3wS8iem8w38-V2Bg==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGraQu0OA4EIGxsGe6eZtFNgAcIta19sC75S_u6-9hlQveYoMhH_eTteiNMDaOWNI6Cr9hH0aSf5SijOX0Fg-Co4nfGQghrldDluldL8E5-BOy3eboXLadSRklEKyA=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEN6K62w9bKcY1VSp44De_KUDUEQ3eyBiT6jiGWBj9DsueHTdoDa6tjmQaT1tj_sB7_ZElmN5be_myndBFjx5qOD-IbvzSO6-m5lzZMo4FpzFoqY04gplkric5RxcnWRayoYwIsg5aqO9lnCt7tTc0ZLO2WCyF9_TaG4t-zAG4FhYf21aXr_gSzpAlgkgHYFqKLf4XhwYNbVQXIZ5K6d-nDHvs=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGLtRe3SSAj5HJOICJ658LfiD-GOLYt7yJ4LOlo7CQa1GJ9bGn4DMD4mBl6P3bA4AgLJ-r7kqIfMfOIABmqqSq2waNsq7woYu8VokeYln0E1xa_OIrkC9WQ5olBWxtcKugfDhZM8SFypwVVd401-_J1",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEczMMuUzSAq7RuUTwTn36Umt30YmYHyU1yTqmcLpyH7tfyQrj8OtfmJvCROScluDL9hO5KI11-XrUHdq-H3CcHc9okfWzrrmArD8PpI0zgyXf4xj0F-v8_9yyiFjomeqPB9dwpoa-eF7B_IbJiUDI7CcuTRSTxKUsMacpHBVBMQfIB5AW739ZSo3kAUQTlqg==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGxGyShY9I3wiQkY6dg8DLHk257m6X4z1SZakegMKgrOdl0hwUw9JDcNupfaKjZblYQuGlTyUi_bJnrKltTCSu7Bz-K6ITeT0Z5WQF2UYWUQHKrQ6_x97FUc5sW32mDNOltR94e8RNJ_1k="
+    ]
+  },
   "363051915": {
     "firm_name": "AON CORPORATION",
     "ein": "363051915",
