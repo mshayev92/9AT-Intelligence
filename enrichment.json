@@ -906,5 +906,58 @@
       "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGw6CWRi70QxJq0gcZvov1jtf4yI8fRQyk3ZqzDVL7j2faO1CyeF1DLNWc5hEYPyAWbgOlTVMMwHru4v0mXtRmJG-LAYmddiFnQkgkxHzo7odqrQx7AJCXt-rc=",
       "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHDLvLN0gGVO1pVwDz_KbyYOXYyxEM__SpYtmNkUB-gqo7GmqT4kTDN8C7gS8esKLVJfcOunUxll-Kl_2OPOXwevIOZDeJ58gZxpP2Rq2Lrmsix8Io8VnKpfQFwo9t7v7NY"
     ]
+  },
+  "980381967": {
+    "firm_name": "HOMESERVE USA CORPORATION",
+    "ein": "980381967",
+    "enriched_at": "2026-07-01T22:01:05.685Z",
+    "contacts": [
+      {
+        "name": "Mike Murney",
+        "title": "Chief Financial Officer",
+        "email": "info@homeserveusa.com",
+        "phone": "1-855-336-2465",
+        "contact_type": "general",
+        "contact_notes": "No direct email or phone found; using general firm contact information. Mike Murney's responsibilities include overseeing Capital Markets and Treasury, indicating involvement in investment decisions.",
+        "source": "HomeServe USA Leadership Team page",
+        "confidence": "high"
+      },
+      {
+        "name": "Tom Rusin",
+        "title": "President & Chief Executive Officer",
+        "email": "info@homeserveusa.com",
+        "phone": "1-855-336-2465",
+        "contact_type": "general",
+        "contact_notes": "No direct email or phone found; using general firm contact information. As CEO, Tom Rusin is ultimately responsible for the company's strategic direction and growth, including investment decisions.",
+        "source": "HomeServe USA Leadership Team page",
+        "confidence": "high"
+      },
+      {
+        "name": "Myles Meehan",
+        "title": "SVP of Public Relations and Marketing / Media Contact",
+        "email": "Myles.Meehan@homeserveusa.com",
+        "phone": "203-356-4546",
+        "contact_type": "direct",
+        "contact_notes": "Direct email and phone found in press releases. While primarily a media contact, this is a direct external communication point for the company.",
+        "source": "HomeServe USA press releases",
+        "confidence": "high"
+      }
+    ],
+    "existing_contact_assessment": {
+      "name": "STEPHEN HADDEN",
+      "title": "Plan Administrator (Form 5500)",
+      "likelyInvestmentDecisionMaker": false,
+      "reasoning": "The title 'Plan Administrator (Form 5500)' typically indicates responsibility for employee benefit plans, not corporate investment strategy. A search for 'Stephen C. Hadden' reveals a background as a system engineer and project manager at Plexus Research Inc., specializing in electronic instrumentation and utility technology, further suggesting his role is not in financial investment decision-making for the firm's overall strategy."
+    },
+    "notes": "General firm contact email: info@homeserveusa.com. General firm phone number: 1-855-336-2465. Press email: press@homeserveusa.com.",
+    "grounding_sources": [
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHOeRlc3iPzfjuSM0q4HoiQCUF2mBj_3F13FrK0SK2T0oi-EhOFQfwj3-7XNOzoY5q6VEnI0OGTQa7VV5y4o40dvI-xVSGfvy-WX6YElqS0Pu3mqyguRJFY0gyFsau3N2obfY1L9NVPxxYyQA==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFgX64_H3dla2-qPV1VBgSPpggts6lRaKwU6LMMbwfPPVFoMaJSdd8VhLJHiVQXxGvJyrn-QBVdv5hNUMBWklOUpuI8l5kB2rW6zh-UXJLOrrL9c9ELi6PiD1HHivJrT56GONVh4DKzpKmMHb2k3K_TPePJpkvmynFjNRCuXPbknfIDSAEwPdhlGHAiS4Xh7NkjsHGWEI3ViAvCctvnG0L9bP0ro2kTIQr5i2b24ATom527I5E2mjhi2daL4B1_SP67MQq9BpC3PS-pv_oKUelkLjVqQMyYoRV_hdnEVqh_EYF3UZaveGI=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEGEys333Io51GY0o6CZeB8shR-JqT--ljQrPerJWeMYjxBQRPVf_P2VPZKPIW3GE4Qvm7RJeK7CdwAfyGJx5OEwmRvuuUzV7L84Vpceyne_7CsMj9QRSVeLxFGR_v8-b0W2gc4CvVw-WMnpkwHuOMmbmvLNBs2ww2JgC4Hjrcm5SRnZff0u3gNQZMTXVj4ro6OKeC-Avs12X5acKTCrGo92Dt80JkuMgk6RHKXdkca",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQETznyqmnoMLXd6fcT-A57BSJViYXLF3gQn9lRjqGH_yKm1GallQ4g1a30kb7Y1tI9FzSrWd3zzmPiVONA58FRnZF2KBjVZhhBq0iJEpWq6iUw-_Mz27i8AiOZkakHsDE34qRZk_6jprWDz4GCYlC0=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGzlsSdIlp1TKy0xojUlXBGnC1RwBOargycHK4DWCOR92CldxcnYZFxzcPtFQ-MATARAdV12lVdlBn8tmentN0V2sTnpOwi7KE8zrwf6Hv0q-sLPkgu_JsvwpWv2XI3XJzW52LhFRo=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH22q8fv3dQqBlcd2tm07M1Vn9TD1lmwJ63AkHR8gejUGTObXOUP4g5rLR-JjlpLj94vpqmwqv8dbYI0Os019KKH9t8ppIYq1sXHIFEBxZGJqjEQrJlMYr6c_fOV2IdsHR7JOseuh1tA6x6hI3HEaXhsOlX_uCUJ5hE8yZr-VfchcpTe79W18I1AJ6w7X7FFdLd-ZLILEbzeAJI35pV6FgZqubdfNc=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGa2dpd3lnH4VEJjh2UyYdeaNQKxQJPr-SZXQ9PXN6OQ3DAUHB8KGjwZo9OAlNd11pvEyHJOJ6DpOyYItiTcMldgBzFs6_wqKBVIQAq3vScGUHWUM3iBMTuJEK9sch-SEzuRumf9GtNkuynH_2AZlg="
+    ]
   }
 }
