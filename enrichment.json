@@ -73,6 +73,59 @@
       "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGG_Ji6De1wQ4UV3r8OG7NXdlwyo-Cs1j_qXB6oAnRS_W-H873788DV5ayIm17xnHZgcPDGqtUxtSEc-6UE17eYqE7qMkpBiDz_MUxH7ZForOYPzS4MFIXSYXVJ-D4Uh8LYVn-UgQzmis5yQdmiLYI="
     ]
   },
+  "131939857": {
+    "firm_name": "ROSCO, INC.",
+    "ein": "131939857",
+    "enriched_at": "2026-07-02T18:46:47.260Z",
+    "contacts": [
+      {
+        "name": "Ben Englander",
+        "title": "CEO",
+        "email": "",
+        "phone": "(718) 408-7388",
+        "contact_type": "general",
+        "contact_notes": "General firm phone number found for Rosco Collision Avoidance, Inc., which is part of Rosco Vision. No direct email or phone found for this individual.",
+        "source": "https://www.roscovision.com/company/team, https://graycliffpartners.com/news/graycliff-partners-invests-in-rosco-vision/, https://theorg.com/org/rosco-vision/org-chart/leadership-team",
+        "confidence": "high"
+      },
+      {
+        "name": "Jordan Arma",
+        "title": "Chief Financial Officer",
+        "email": "",
+        "phone": "(718) 408-7388",
+        "contact_type": "general",
+        "contact_notes": "General firm phone number found for Rosco Collision Avoidance, Inc., which is part of Rosco Vision. No direct email or phone found for this individual.",
+        "source": "https://www.roscovision.com/company/news-events",
+        "confidence": "high"
+      },
+      {
+        "name": "Avery Englander",
+        "title": "Executive Vice President of Global Sourcing and Product Strategy - IoT",
+        "email": "",
+        "phone": "(718) 408-7388",
+        "contact_type": "general",
+        "contact_notes": "General firm phone number found for Rosco Collision Avoidance, Inc., which is part of Rosco Vision. No direct email or phone found for this individual.",
+        "source": "https://www.roscovision.com/company/team",
+        "confidence": "high"
+      }
+    ],
+    "existing_contact_assessment": {
+      "name": "DANIEL ENGLANDER",
+      "title": "Plan Administrator (Form 5500)",
+      "likelyInvestmentDecisionMaker": true,
+      "reasoning": "Daniel Englander (also referred to as Danny Englander) was previously the Vice President of Finance and Chief Financial Officer for Rosco, Inc. (automotive safety). These roles involve significant financial oversight and decision-making, including corporate investments and potentially the company's benefit plan investments. The title 'Plan Administrator' for a Form 5500 filing further indicates involvement in the administration and oversight of an employee benefit plan, which typically includes investment-related responsibilities."
+    },
+    "notes": "The firm 'ROSCO, INC.' primarily appears to be Rosco Vision, an automotive vision safety solutions manufacturer based in Queens, NY, rather than a financial firm that manages external investments. The contacts identified are key executives involved in the company's overall financial and strategic operations. Contact information is limited to a general firm phone number for Rosco Collision Avoidance, Inc., which is associated with Rosco Vision.",
+    "grounding_sources": [
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG3dqSKycDTN6q-xsAdz6O7FB9gaTNyhOyAb989KKyBcvF_HyVfkLTp_HH4Oddyfr18FjT2oKh14ae8n-kFiRCTnlEfMZ4pkIsWs1C5WZ5Vl5vFQ-VL0mYtrT7c",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF_T6YQRpvmmrXpelo0z2NpNwi1KNuI86BSmgyS7s9zV4EsNpdfExBMlRQCwW-JvZv671yD87-2XSWEUHA-JPXOsfgoKl4-1Faao4_R2NR49yvvmB0PiGz7vpjgqygyYQAwv6vpAOGakd0p-xJnTNCIbKgOU2OI7eEANgpd0A3o",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH_DPT1vAnRr877VNrBSlhJPjmLKq2kkvE2aki_oIgkK_zmC4RT8q7T-NzyCr1ql11UyvBDxxJ5B8Ja1AI5JLn-7MUFKFxx1n5DalL2ZUvH93aYvavKFKPdVkqoU0NbRY5Nz693WCfrqqYOEVNMZRcd3-90Yw==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH96_a_LlMA_zyGSnV41mH6qcXW6uX60PxJRUeQ5-1eDqIwtS_REDGdlWGavtnLz3w_ss-AobnERBBuuJ6tLrRQ8BYBNGnhyHWMYM1oawwDMPYuDsvEv6jWRZXPUzKJ10A=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEOVU32zxWtlscv1NnrofSfhU-8H5ojtnIjWydvpeB72u3oXPMvxyNsXLQiCKHe8ma1XQfaKN_u1pUXGBM-dXYLrWijDIYYv2AWtfLZ0EQd_Xyv7CNZf7dDPbiUBWfk-No5U7AVOKmPZFEJdoAIqIjnnlOfTF6PRx66uI1KhGOM4pfzhCel4Kw=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG5xG1xdE_UUkjzo4-pGsPAFahpqBWUVAUQR6hk7xfe2dUPyEh4qB68FkyGDixU0iFsa9VXEB86ON0FY_mHS9SIJYKhAZTVlNhn31FPmQOQuJjltGaI-X36a9CN-9Omy2NvC5i5hntq3P8_ekJuLeYDO75FnmnqLd5N",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFrNDWck5Ngx2DS-HXYNxGzBK-KZOVDDR7piBAZvoFaQqBlz1S1WeEW1Ypwao9PiYLV9YdC0gjnPY6oLM3RD-sWYrBD6WDYhTvaHTMy8HaMaz-6wW80S9rGaRzKgA=="
+    ]
+  },
   "223719127": {
     "firm_name": "1ST COLONIAL COMMUNITY BANK",
     "ein": "223719127",
