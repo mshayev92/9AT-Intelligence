@@ -37,8 +37,8 @@ html { -webkit-text-size-adjust: 100%; }
   --text-4:  #63708a;   /* decorative/tertiary only */
 
   /* — semantic (fixed meaning; not user-themeable) — */
-  --success: #2de89a; --success-dim: rgba(45,232,154,.14);
-  --warning: #ffc453; --warning-dim: rgba(255,196,83,.14);
+  --success: #2de89a; --success-dim: rgba(45,232,154,.14); --success-ink: #06110c;
+  --warning: #ffc453; --warning-dim: rgba(255,196,83,.14); --warning-ink: #1c1103;
   --info:    #5b9fff; --info-dim:    rgba(91,159,255,.14);
   --cyan:    #38d6de; --cyan-dim:    rgba(56,214,222,.14);
   --violet:  #b388ff; --violet-dim:  rgba(179,136,255,.15);
@@ -92,8 +92,8 @@ body.light {
   --text-2:    #333b4c;
   --text-3:    #515a6e;
   --text-4:    #6b7488;
-  --success: #056b4a; --success-dim: rgba(5,107,74,.12);
-  --warning: #7a4d00; --warning-dim: rgba(122,77,0,.12);
+  --success: #056b4a; --success-dim: rgba(5,107,74,.12); --success-ink: #ffffff;
+  --warning: #7a4d00; --warning-dim: rgba(122,77,0,.12); --warning-ink: #ffffff;
   --info:    #1553c2; --info-dim:    rgba(21,83,194,.11);
   --cyan:    #056068; --cyan-dim:    rgba(5,96,104,.11);
   --violet:  #582cb8; --violet-dim:  rgba(88,44,184,.11);
@@ -209,6 +209,46 @@ body.light .icon-btn .ico-moon { display: block; }
 .hdr-btn.primary:hover { background: var(--accent); color: var(--accent-ink); }
 
 /* ============================================================
+   APP LAYOUT (sidebar + main)
+   ============================================================ */
+.app-layout { display: flex; align-items: flex-start; }
+
+.sidebar {
+  width: 280px; flex-shrink: 0; border-right: 1px solid var(--border);
+  background: var(--surface); position: sticky; top: 53px;
+  height: calc(100vh - 53px); overflow-y: auto;
+  transition: width var(--t-med) var(--ease), min-width var(--t-med) var(--ease);
+}
+.sidebar-inner { width: 280px; padding: 1rem 1.1rem 2rem; display: flex; flex-direction: column; gap: 1.15rem; }
+body.sidebar-collapsed .sidebar { width: 0; overflow: hidden; }
+
+.sidebar-toggle {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; border-radius: var(--r-sm); cursor: pointer;
+  border: 1px solid var(--border-2); background: var(--surface-2); color: var(--text-3);
+  transition: color var(--t-fast), border-color var(--t-fast), background var(--t-fast);
+  flex-shrink: 0;
+}
+.sidebar-toggle:hover { color: var(--text); border-color: var(--text-4); background: var(--surface-3); }
+.sidebar-toggle svg { width: 15px; height: 15px; transition: transform var(--t-med) var(--ease); }
+body.sidebar-collapsed .sidebar-toggle svg { transform: rotate(180deg); }
+
+.sidebar-section-title {
+  font-family: var(--mono); font-size: var(--fs-2xs); font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--text-3); margin-bottom: 0.6rem;
+}
+
+.main-content { flex: 1; min-width: 0; }
+
+@media (max-width: 860px) {
+  .sidebar { position: fixed; top: 0; left: 0; height: 100vh; z-index: 90; box-shadow: var(--shadow-lg); }
+  body:not(.sidebar-collapsed) .sidebar { width: 280px; }
+  body.sidebar-collapsed .sidebar { width: 0; }
+  .sidebar-scrim { display: none; position: fixed; inset: 0; z-index: 89; background: rgba(6,8,12,0.6); }
+  body:not(.sidebar-collapsed) .sidebar-scrim { display: block; }
+}
+
+/* ============================================================
    MAIN / SECTION WRAPPER
    ============================================================ */
 main { display: block; }
@@ -220,11 +260,11 @@ main { display: block; }
    INSIGHTS ROW (stat tiles)
    ============================================================ */
 .insights-row {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(148px,1fr));
-  gap: 1px; background: var(--border); border-bottom: 1px solid var(--border);
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r-md); overflow: hidden;
 }
 .stat {
-  background: var(--surface); padding: 0.95rem 1.4rem 0.9rem; position: relative;
+  background: var(--surface); padding: 0.7rem 0.85rem; position: relative;
   display: flex; flex-direction: column; gap: 5px; transition: background var(--t-fast), transform var(--t-fast);
   border: none; font: inherit; text-align: left; cursor: pointer; width: 100%; color: inherit;
   -webkit-appearance: none; appearance: none;
@@ -252,7 +292,7 @@ main { display: block; }
    this bar renders that partition as a proportional strip so
    the whole book of business reads as one shape.
    ============================================================ */
-.pipeline { padding: 1rem 1.75rem 0.9rem; border-bottom: 1px solid var(--border); background: var(--surface); }
+.pipeline { padding: 0; background: var(--surface); }
 .pipeline-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
 .pipeline-title { font-family: var(--mono); font-size: var(--fs-2xs); text-transform: uppercase; letter-spacing: 0.09em; color: var(--text-3); font-weight: 600; }
 .pipeline-note { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-4); }
@@ -278,8 +318,8 @@ main { display: block; }
 /* ============================================================
    ENRICHMENT PRIORITY BANNER
    ============================================================ */
-#enrich-open-btn { background: var(--warning); border-color: var(--warning); color: #1c1103; font-weight: 700; }
-#enrich-open-btn:hover { background: var(--warning); filter: brightness(1.08); color: #1c1103; }
+#enrich-open-btn { background: var(--warning); border-color: var(--warning); color: var(--warning-ink); font-weight: 700; }
+#enrich-open-btn:hover { background: var(--warning); filter: brightness(1.08); color: var(--warning-ink); }
 .hdr-btn-badge { font-weight: 600; opacity: 0.8; margin-left: 2px; }
 
 /* ── enrichment priority popup ── */
@@ -302,10 +342,10 @@ main { display: block; }
 .ep-sub { font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-3); margin-top: 3px; font-weight: 400; }
 .ep-toolbar { display: flex; align-items: center; gap: 16px; padding: 0.65rem 1.25rem; border-bottom: 1px solid var(--border); flex: none; background: var(--surface-2); }
 .ep-selectall { display: flex; align-items: center; gap: 7px; font-family: var(--mono); font-size: var(--fs-sm); color: var(--text-2); cursor: pointer; user-select: none; }
-.ep-selectall input { --cb-color: var(--warning); --cb-ink: #1c1103; }
+.ep-selectall input { --cb-color: var(--warning); --cb-ink: var(--warning-ink); }
 .ep-selected-count { font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-3); margin-right: auto; }
 .ep-enrich-selected { font-family: var(--mono); font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.03em; padding: 7px 14px; border-radius: var(--r-sm); cursor: pointer; border: 1px solid var(--warning); background: var(--warning-dim); color: var(--warning); white-space: nowrap; transition: all var(--t-fast); }
-.ep-enrich-selected:hover:not(:disabled) { background: var(--warning); color: #1c1103; }
+.ep-enrich-selected:hover:not(:disabled) { background: var(--warning); color: var(--warning-ink); }
 .ep-enrich-selected:disabled { opacity: 0.35; cursor: not-allowed; }
 .ep-progress { padding: 7px 1.25rem; font-family: var(--mono); font-size: var(--fs-xs); color: var(--warning); border-bottom: 1px solid var(--border); display: none; }
 .ep-progress.visible { display: block; }
@@ -314,7 +354,7 @@ main { display: block; }
 .ep-row:hover { background: var(--surface-2); }
 .ep-row:last-child { border-bottom: none; }
 .ep-row.ep-done { opacity: 0.5; }
-.ep-row input[type=checkbox] { --cb-color: var(--warning); --cb-ink: #1c1103; }
+.ep-row input[type=checkbox] { --cb-color: var(--warning); --cb-ink: var(--warning-ink); }
 .ep-num { color: var(--text-4); text-align: right; font-size: var(--fs-xs); }
 .ep-firm-wrap { min-width: 0; }
 .ep-firm { color: var(--text); font-weight: 600; font-size: var(--fs-sm); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -328,6 +368,12 @@ main { display: block; }
 .ep-status-err { color: var(--danger); border-color: var(--danger); }
 .ep-status-pending { color: var(--warning); border-color: var(--warning); }
 .ep-empty { padding: 2.5rem 1.25rem; text-align: center; font-family: var(--mono); font-size: var(--fs-sm); color: var(--text-3); }
+.ep-section-head { display: flex; align-items: center; gap: 8px; padding: 9px 1.25rem; background: var(--surface-2); border-bottom: 1px solid var(--border); border-top: 1px solid var(--border); position: sticky; top: 0; z-index: 1; }
+.ep-section-head:first-child { border-top: none; }
+.ep-section-title { font-family: var(--mono); font-size: var(--fs-2xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-3); }
+.ep-section-count { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-4); }
+.ep-section-head.ep-section-noemail .ep-section-title { color: var(--danger); }
+.ep-section-empty { padding: 1rem 1.25rem; font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-4); font-style: italic; }
 
 /* ============================================================
    CONTROLS TOOLBAR
@@ -357,6 +403,46 @@ select option { background: var(--surface-2); color: var(--text); }
 .view-toggle button svg { width: 12px; height: 12px; }
 .view-toggle button:hover { color: var(--text); background: var(--surface-3); }
 .view-toggle button.active { background: var(--accent-dim); color: var(--accent); }
+.view-toggle.vertical { flex-direction: column; width: 100%; }
+.view-toggle.vertical button { justify-content: center; border-right: none; border-bottom: 1px solid var(--border-2); padding: 8px 10px; }
+.view-toggle.vertical button:last-child { border-bottom: none; }
+.sidebar-select { width: 100%; font-family: var(--mono); font-size: var(--fs-xs); padding: 7px 9px; border-radius: var(--r-sm); border: 1px solid var(--border-2); background: var(--surface-2); color: var(--text-2); cursor: pointer; }
+
+/* ============================================================
+   CUSTOM DROPDOWN (replaces native <select> popup so the open
+   menu matches the site theme instead of OS/browser chrome)
+   ============================================================ */
+.xdd { position: relative; }
+.xdd-btn {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%;
+  background: var(--surface-2); border: 1px solid var(--border-2); border-radius: var(--r-sm); color: var(--text);
+  font-family: var(--mono); font-size: var(--fs-sm); padding: var(--ctrl-pad-y) 10px; outline: none; cursor: pointer;
+  transition: border-color var(--t-fast), background var(--t-fast); white-space: nowrap;
+}
+.xdd-btn:hover { border-color: var(--text-4); }
+.xdd-btn:focus-visible { border-color: var(--accent); }
+.xdd.open .xdd-btn { border-color: var(--accent); background: var(--surface-3); }
+.xdd-btn-label { overflow: hidden; text-overflow: ellipsis; }
+.xdd-chevron { width: 10px; height: 6px; flex-shrink: 0; color: var(--text-3); transition: transform var(--t-fast) var(--ease); }
+.xdd.open .xdd-chevron { transform: rotate(180deg); }
+.xdd-menu {
+  display: none; position: absolute; top: calc(100% + 4px); left: 0; min-width: 100%; z-index: 60;
+  background: var(--raised); border: 1px solid var(--border-2); border-radius: var(--r-sm);
+  box-shadow: var(--shadow-md); padding: 4px; max-height: 280px; overflow-y: auto;
+}
+.xdd.open .xdd-menu { display: block; }
+.xdd.drop-up .xdd-menu { top: auto; bottom: calc(100% + 4px); }
+.xdd-opt {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  padding: 7px 9px; border-radius: calc(var(--r-sm) - 2px); font-family: var(--mono); font-size: var(--fs-sm);
+  color: var(--text-2); cursor: pointer; white-space: nowrap; transition: background var(--t-fast), color var(--t-fast);
+}
+.xdd-opt:hover, .xdd-opt.focused { background: var(--surface-3); color: var(--text); }
+.xdd-opt.selected { color: var(--accent); background: var(--accent-dim); }
+.xdd-opt-check { width: 12px; height: 12px; flex-shrink: 0; opacity: 0; color: var(--accent); }
+.xdd-opt.selected .xdd-opt-check { opacity: 1; }
+.xdd-select { position: absolute; inset: 0; opacity: 0; pointer-events: none; }
+.sidebar-select.xdd-btn { justify-content: space-between; }
 
 .result-count { font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-3); padding: 0.65rem 1.75rem 0; }
 .result-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 0.65rem 1.75rem 0; flex-wrap: wrap; }
@@ -413,7 +499,6 @@ body[data-view="table"] #cards-per-row-toggle { display: none; }
 .ac-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 9px; }
 .ac-head > div:first-child { min-width: 0; flex: 1 1 auto; }
 .ac-name { font-weight: 700; font-size: var(--fs-md); line-height: 1.3; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: flex; align-items: center; gap: 6px; }
-.ac-tier-dot { flex-shrink: 0; width: 7px; height: 7px; border-radius: 50%; background: var(--card-accent, var(--text-4)); box-shadow: 0 0 0 3px color-mix(in srgb, var(--card-accent, var(--text-4)) 20%, transparent); }
 .ac-plan { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-3); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px; }
 .ac-ep { flex-shrink: 0; }
 .ac-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 9px; }
@@ -430,7 +515,7 @@ body[data-view="table"] #cards-per-row-toggle { display: none; }
 .ac-loc svg { width: 10px; height: 10px; flex-shrink: 0; opacity: 0.8; }
 .ac-parts { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-3); white-space: nowrap; }
 .ac-contacted { display: flex; align-items: center; gap: 6px; margin-top: 9px; padding-top: 9px; border-top: 1px solid var(--border); font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-3); cursor: pointer; user-select: none; }
-.ac-contacted input { --cb-color: var(--success); --cb-ink: #06110c; width: 13px; height: 13px; }
+.ac-contacted input { --cb-color: var(--success); --cb-ink: var(--success-ink); width: 13px; height: 13px; }
 .alloc-card.contacted .ac-contacted { color: var(--success); }
 
 /* ============================================================
@@ -453,7 +538,7 @@ table.db-table td { padding: 10px 12px; vertical-align: top; font-size: var(--fs
 .dt-loc { font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-3); white-space: nowrap; }
 .dt-num { font-family: var(--mono); font-size: var(--fs-sm); color: var(--text-2); text-align: right; white-space: nowrap; }
 .dt-check { text-align: center; }
-.dt-check input { --cb-color: var(--success); --cb-ink: #06110c; }
+.dt-check input { --cb-color: var(--success); --cb-ink: var(--success-ink); }
 
 /* ============================================================
    DRAWER (allocator profile)
@@ -497,7 +582,7 @@ table.db-table td { padding: 10px 12px; vertical-align: top; font-size: var(--fs
 .field-val a { color: var(--cyan); text-decoration: none; }
 .field-val a:hover { text-decoration: underline; }
 .dr-contacted-toggle { display: inline-flex; align-items: center; gap: 7px; cursor: pointer; user-select: none; }
-.dr-contacted-toggle input { --cb-color: var(--success); --cb-ink: #06110c; }
+.dr-contacted-toggle input { --cb-color: var(--success); --cb-ink: var(--success-ink); }
 .sig-table { width: 100%; border-collapse: collapse; }
 .sig-table td { padding: 8px 0; border-bottom: 1px solid var(--border); font-size: var(--fs-sm); vertical-align: top; }
 .sig-table tr:last-child td { border-bottom: none; }
@@ -635,6 +720,9 @@ table.db-table td { padding: 10px 12px; vertical-align: top; font-size: var(--fs
 <!-- ── HEADER ── -->
 <header>
   <div class="logo">
+    <button class="sidebar-toggle" id="sidebar-toggle-btn" title="Toggle sidebar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+    </button>
     <img class="logo-mark" src="https://www.9at.com/assets/images/logo.svg" alt="9AT">
     <div>
       <div class="logo-title">Intelligence Platform</div>
@@ -658,32 +746,70 @@ table.db-table td { padding: 10px 12px; vertical-align: top; font-size: var(--fs
 <!-- ══════════════════════════════════════════════════════
      ALLOCATOR DATABASE
 ══════════════════════════════════════════════════════ -->
-<div class="section active" id="section-db">
+<div class="app-layout">
+  <div class="sidebar-scrim" id="sidebar-scrim"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-inner">
 
-  <div class="insights-row">
-    <button type="button" class="stat" onclick="statClick('total')"><span class="stat-label">Total Allocators</span><span class="stat-value num" id="d-total">—</span></button>
-    <button type="button" class="stat" onclick="statClick('at9')"><span class="stat-label">With 9AT Signal</span><span class="stat-value green num" id="d-at9">—</span></button>
-    <button type="button" class="stat" onclick="statClick('ready')"><span class="stat-label">Ready to Outreach</span><span class="stat-value green num" id="d-ready">—</span></button>
-    <button type="button" class="stat" onclick="statClick('enrich')"><span class="stat-label">Needs Enrichment</span><span class="stat-value yellow num" id="d-enrich">—</span></button>
-    <button type="button" class="stat" onclick="statClick('schc')"><span class="stat-label">Has Sched C Data</span><span class="stat-value cyan num" id="d-schc">—</span></button>
-    <button type="button" class="stat" onclick="statClick('schdh')"><span class="stat-label">Has Sched D/H</span><span class="stat-value purple num" id="d-schdh">—</span></button>
-    <button type="button" class="stat" onclick="statClick('contacted')"><span class="stat-label">Contacted</span><span class="stat-value green num" id="d-contacted">—</span></button>
-  </div>
+      <div>
+        <div class="sidebar-section-title">Overview</div>
+        <div class="insights-row">
+          <button type="button" class="stat" onclick="statClick('total')"><span class="stat-label">Total Allocators</span><span class="stat-value num" id="d-total">—</span></button>
+          <button type="button" class="stat" onclick="statClick('at9')"><span class="stat-label">With 9AT Signal</span><span class="stat-value green num" id="d-at9">—</span></button>
+          <button type="button" class="stat" onclick="statClick('ready')"><span class="stat-label">Ready to Outreach</span><span class="stat-value green num" id="d-ready">—</span></button>
+          <button type="button" class="stat" onclick="statClick('enrich')"><span class="stat-label">Needs Enrichment</span><span class="stat-value yellow num" id="d-enrich">—</span></button>
+          <button type="button" class="stat" onclick="statClick('schc')"><span class="stat-label">Has Sched C Data</span><span class="stat-value cyan num" id="d-schc">—</span></button>
+          <button type="button" class="stat" onclick="statClick('schdh')"><span class="stat-label">Has Sched D/H</span><span class="stat-value purple num" id="d-schdh">—</span></button>
+          <button type="button" class="stat" onclick="statClick('contacted')"><span class="stat-label">Contacted</span><span class="stat-value green num" id="d-contacted">—</span></button>
+        </div>
+      </div>
 
-  <!-- ── OUTREACH PIPELINE ── -->
-  <div class="pipeline">
-    <div class="pipeline-head">
-      <span class="pipeline-title">Outreach Pipeline</span>
-      <span class="pipeline-note">Every allocator, bucketed by enrichment status</span>
+      <!-- ── OUTREACH PIPELINE ── -->
+      <div>
+        <div class="sidebar-section-title">Outreach Pipeline</div>
+        <div class="pipeline">
+          <div class="pipeline-head">
+            <span class="pipeline-note">Every allocator, bucketed by enrichment status</span>
+          </div>
+          <div class="pipeline-bar" id="pipeline-bar"></div>
+          <div class="pipeline-legend" id="pipeline-legend"></div>
+          <div class="pipeline-progress-wrap">
+            <span class="pipeline-progress-label">Ready firms contacted</span>
+            <div class="pipeline-progress-track"><div class="pipeline-progress-fill" id="pipeline-progress-fill" style="width:0%"></div></div>
+            <span class="pipeline-progress-num num" id="pipeline-progress-num">0 / 0</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="sidebar-section-title">Sort</div>
+        <select id="db-sort" class="sidebar-select">
+          <option value="enrich">Priority (default)</option>
+          <option value="firm_az">Firm A→Z</option>
+          <option value="participants_desc">Participants ↓</option>
+          <option value="signals_desc">Most signals ↓</option>
+        </select>
+      </div>
+
+      <div>
+        <div class="sidebar-section-title">View</div>
+        <div class="view-toggle vertical">
+          <button id="view-cards-btn" class="active" onclick="setView('cards')" title="Card view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            Cards
+          </button>
+          <button id="view-table-btn" onclick="setView('table')" title="Table view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+            Table
+          </button>
+        </div>
+      </div>
+
     </div>
-    <div class="pipeline-bar" id="pipeline-bar"></div>
-    <div class="pipeline-legend" id="pipeline-legend"></div>
-    <div class="pipeline-progress-wrap">
-      <span class="pipeline-progress-label">Ready firms contacted</span>
-      <div class="pipeline-progress-track"><div class="pipeline-progress-fill" id="pipeline-progress-fill" style="width:0%"></div></div>
-      <span class="pipeline-progress-num num" id="pipeline-progress-num">0 / 0</span>
-    </div>
-  </div>
+  </aside>
+
+  <div class="main-content">
+  <div class="section active" id="section-db">
 
   <!-- ── ENRICHMENT PRIORITY POPUP ── -->
   <div class="overlay" id="enrich-overlay">
@@ -748,30 +874,6 @@ table.db-table td { padding: 10px 12px; vertical-align: top; font-size: var(--fs
       <option value="not_contacted">Not contacted yet</option>
       <option value="contacted">Already contacted</option>
     </select>
-    <span class="ctrl-label">Sort</span>
-    <select id="db-sort">
-      <option value="enrich">Priority (default)</option>
-      <option value="firm_az">Firm A→Z</option>
-      <option value="participants_desc">Participants ↓</option>
-      <option value="signals_desc">Most signals ↓</option>
-    </select>
-    <span class="ctrl-divider"></span>
-    <div class="view-toggle">
-      <button id="view-cards-btn" class="active" onclick="setView('cards')" title="Card view">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-        Cards
-      </button>
-      <button id="view-table-btn" onclick="setView('table')" title="Table view">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
-        Table
-      </button>
-    </div>
-    <div class="view-toggle" id="cards-per-row-toggle">
-      <button data-cols="2" onclick="setCardsPerRow(2)" title="2 per row">2</button>
-      <button data-cols="3" onclick="setCardsPerRow(3)" title="3 per row">3</button>
-      <button data-cols="4" onclick="setCardsPerRow(4)" title="4 per row">4</button>
-      <button data-cols="auto" class="active" onclick="setCardsPerRow('auto')" title="Auto-fit">Auto</button>
-    </div>
   </div>
   <div class="result-bar">
     <div class="result-count" id="db-count"></div>
@@ -788,6 +890,9 @@ table.db-table td { padding: 10px 12px; vertical-align: top; font-size: var(--fs
     </div>
   </div>
   <div class="pagination" id="db-pagination-bottom"></div>
+</div>
+  </div>
+  </div>
 </div>
 
 <!-- ── SHARED DRAWER ── -->
@@ -959,13 +1064,149 @@ let dbVersion = 0;
 // verbatim" list has to change shape.
 // ══════════════════════════════════════════════════════════════════════════════
 const PREFS_KEY = '9at_prefs_v1';
-const PREFS_DEFAULT = { theme:'dark', accent:'emerald', density:'comfortable', motion:'system', view:'cards', cardsPerRow:'auto' };
+const PREFS_DEFAULT = { theme:'dark', accent:'emerald', density:'comfortable', motion:'system', view:'cards', cardsPerRow:'auto', sidebarCollapsed:false };
 function loadPrefs() {
   try { return Object.assign({}, PREFS_DEFAULT, JSON.parse(localStorage.getItem(PREFS_KEY) || '{}')); }
   catch { return { ...PREFS_DEFAULT }; }
 }
 function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify(prefs)); } catch {} }
 let prefs = loadPrefs();
+
+// ── Collapsible sidebar ──────────────────────────────────────────────────
+function updateSidebarUI() {
+  document.body.classList.toggle('sidebar-collapsed', !!prefs.sidebarCollapsed);
+}
+function toggleSidebar() {
+  prefs.sidebarCollapsed = !prefs.sidebarCollapsed;
+  savePrefs();
+  updateSidebarUI();
+}
+function closeSidebar() {
+  if (window.innerWidth > 860) return; // desktop: leave as-is
+  prefs.sidebarCollapsed = true;
+  savePrefs();
+  updateSidebarUI();
+}
+document.getElementById('sidebar-toggle-btn')?.addEventListener('click', toggleSidebar);
+document.getElementById('sidebar-scrim')?.addEventListener('click', closeSidebar);
+// On small screens, start collapsed regardless of saved desktop preference
+if (window.innerWidth <= 860) { document.body.classList.add('sidebar-collapsed'); }
+else { updateSidebarUI(); }
+
+// ══════════════════════════════════════════════════════════════════════════════
+// THEMED DROPDOWNS — progressively enhance every <select> into a custom,
+// theme-matched menu. The original <select> stays in the DOM (visually
+// hidden) so all existing getElementById(...).value reads and 'change'
+// listeners keep working untouched; this only replaces the popup UI.
+// ══════════════════════════════════════════════════════════════════════════════
+const CHEVRON_SVG = '<svg class="xdd-chevron" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const CHECK_SVG = '<svg class="xdd-opt-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+
+function enhanceSelect(selectEl) {
+  if (!selectEl || selectEl.dataset.xddEnhanced) return;
+  selectEl.dataset.xddEnhanced = '1';
+
+  const wrap = document.createElement('div');
+  wrap.className = 'xdd';
+
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'xdd-btn' + (selectEl.classList.contains('sidebar-select') ? ' sidebar-select' : '');
+  const labelSpan = document.createElement('span');
+  labelSpan.className = 'xdd-btn-label';
+  btn.appendChild(labelSpan);
+  btn.insertAdjacentHTML('beforeend', CHEVRON_SVG);
+
+  const menu = document.createElement('div');
+  menu.className = 'xdd-menu';
+  menu.setAttribute('role', 'listbox');
+
+  function optionEls() { return Array.from(selectEl.options); }
+
+  function renderMenu() {
+    menu.innerHTML = '';
+    optionEls().forEach((opt, i) => {
+      const row = document.createElement('div');
+      row.className = 'xdd-opt' + (opt.selected ? ' selected' : '');
+      row.setAttribute('role', 'option');
+      row.dataset.index = i;
+      const txt = document.createElement('span');
+      txt.textContent = opt.textContent;
+      row.appendChild(txt);
+      row.insertAdjacentHTML('beforeend', CHECK_SVG);
+      row.addEventListener('click', () => {
+        selectEl.selectedIndex = i;
+        selectEl.dispatchEvent(new Event('change', { bubbles: true }));
+        syncLabel();
+        closeMenu();
+      });
+      menu.appendChild(row);
+    });
+  }
+
+  function syncLabel() {
+    labelSpan.textContent = selectEl.options[selectEl.selectedIndex]?.textContent || '';
+    menu.querySelectorAll('.xdd-opt').forEach((row, i) => {
+      row.classList.toggle('selected', i === selectEl.selectedIndex);
+    });
+  }
+
+  function positionMenu() {
+    wrap.classList.remove('drop-up');
+    const rect = wrap.getBoundingClientRect();
+    const menuH = Math.min(280, menu.scrollHeight || 280);
+    if (rect.bottom + menuH > window.innerHeight && rect.top > menuH) {
+      wrap.classList.add('drop-up');
+    }
+  }
+
+  function openMenu() {
+    document.querySelectorAll('.xdd.open').forEach(el => { if (el !== wrap) el.classList.remove('open'); });
+    wrap.classList.add('open');
+    positionMenu();
+  }
+  function closeMenu() { wrap.classList.remove('open'); }
+  function toggleMenu() { wrap.classList.contains('open') ? closeMenu() : openMenu(); }
+
+  btn.addEventListener('click', toggleMenu);
+  btn.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown') { e.preventDefault(); openMenu(); }
+    else if (e.key === 'Escape') { closeMenu(); }
+  });
+  document.addEventListener('click', (e) => {
+    if (!wrap.contains(e.target)) closeMenu();
+  });
+
+  // Keep the native select in the DOM (for existing value/change-listener
+  // code) but make it visually inert; wrap everything together.
+  selectEl.parentNode.insertBefore(wrap, selectEl);
+  selectEl.classList.add('xdd-select');
+  selectEl.tabIndex = -1;
+  wrap.appendChild(btn);
+  wrap.appendChild(selectEl);
+  wrap.appendChild(menu);
+
+  renderMenu();
+  syncLabel();
+
+  // If code elsewhere sets selectEl.value directly and fires 'change',
+  // keep the custom UI in sync.
+  selectEl.addEventListener('change', syncLabel);
+  selectEl.addEventListener('xdd-sync', syncLabel);
+}
+
+function enhanceAllSelects() {
+  document.querySelectorAll('#db-filter-signal, #db-filter-enrich, #db-filter-data, #db-filter-outreach, #db-sort')
+    .forEach(enhanceSelect);
+}
+enhanceAllSelects();
+// Lets other code (e.g. statClick, which sets .value directly without
+// dispatching 'change') keep the custom dropdown label in sync.
+function syncXddLabel(selectEl) {
+  if (!selectEl) return;
+  selectEl.dispatchEvent(new Event('xdd-sync'));
+}
+
 
 function applyPrefs() {
   document.documentElement.setAttribute('data-accent', prefs.accent);
@@ -994,9 +1235,10 @@ function statClick(which) {
     case 'schdh':     dataF.value = 'schdh'; break;
     case 'contacted': outreachF.value = 'contacted'; break;
   }
+  [sigF, enrichF, dataF, outreachF].forEach(syncXddLabel);
   dbPage = 1;
   renderDB();
-  document.getElementById('db-search')?.closest('.controls')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (window.innerWidth <= 860) closeSidebar();
 }
 
 function setView(view) {
@@ -1422,7 +1664,7 @@ function renderDBCard(a) {
   return `<div class="alloc-card${tierCls}${contacted?' contacted':''}" onclick="openDrawer('${esc(a.ein)}')">
     <div class="ac-head">
       <div>
-        <div class="ac-name">${tierCls?'<span class="ac-tier-dot"></span>':''}${esc(a.firm_name||'—')}</div>
+        <div class="ac-name">${esc(a.firm_name||'—')}</div>
         <div class="ac-plan">${esc(a.plan_name||'')}</div>
       </div>
       <span class="ac-ep ebadge ep-${ep}">${epLbl}</span>
@@ -1663,23 +1905,48 @@ function renderEnrichList(firms) {
   const listEl = document.getElementById('ep-list');
   if(!firms.length) {
     listEl.innerHTML = `<div class="ep-empty">Every Tier 1 firm has a verified email. Nice work.</div>`;
-  } else {
-    listEl.innerHTML = firms.map((f,i) => {
-      const ein = f._ein || '';
-      const checked = ein && epSelected.has(ein) ? 'checked' : '';
-      const disabled = ein ? '' : 'disabled';
-      return `<div class="ep-row" data-ein="${esc(ein)}">
-        <input type="checkbox" ${checked} ${disabled} onchange="toggleEpSelect('${esc(ein)}', this.checked)">
-        <span class="ep-num">${i+1}</span>
-        <div class="ep-firm-wrap" ${ein?`onclick="openDrawer('${esc(ein)}')" style="cursor:pointer"`:''}>
-          <div class="ep-firm">${esc(f.firm_name||f.allocator_name||'—')}</div>
-          <div class="ep-why">${esc(f.connection||'')}</div>
-          <div class="ep-loc">${esc(f.location||'')}</div>
-        </div>
-        ${ein ? epRowStatusHtml(ein) : `<span class="ep-status"><span style="color:var(--text-4);font-size:9px">no EIN match</span></span>`}
-      </div>`;
-    }).join('');
+    updateEpToolbar();
+    return;
   }
+
+  // Split into two groups: firms not yet attempted (needs enrichment) vs
+  // firms already run through AI enrichment but no usable email was found.
+  const needsEnrich = [];
+  const noEmail = [];
+  firms.forEach(f => {
+    const ein = f._ein || '';
+    if(ein && wasAiEnriched(ein) && !aiHasEmail(ein)) noEmail.push(f);
+    else needsEnrich.push(f);
+  });
+
+  const renderRow = (f, i) => {
+    const ein = f._ein || '';
+    const checked = ein && epSelected.has(ein) ? 'checked' : '';
+    const disabled = ein ? '' : 'disabled';
+    return `<div class="ep-row" data-ein="${esc(ein)}">
+      <input type="checkbox" ${checked} ${disabled} onchange="toggleEpSelect('${esc(ein)}', this.checked)">
+      <span class="ep-num">${i+1}</span>
+      <div class="ep-firm-wrap" ${ein?`onclick="openDrawer('${esc(ein)}')" style="cursor:pointer"`:''}>
+        <div class="ep-firm">${esc(f.firm_name||f.allocator_name||'—')}</div>
+        <div class="ep-why">${esc(f.connection||'')}</div>
+        <div class="ep-loc">${esc(f.location||'')}</div>
+      </div>
+      ${ein ? epRowStatusHtml(ein) : `<span class="ep-status"><span style="color:var(--text-4);font-size:9px">no EIN match</span></span>`}
+    </div>`;
+  };
+
+  const section = (title, cls, list, emptyMsg) => `
+    <div class="ep-section-head ${cls}">
+      <span class="ep-section-title">${esc(title)}</span>
+      <span class="ep-section-count">${list.length} firm${list.length!==1?'s':''}</span>
+    </div>
+    ${list.length ? list.map(renderRow).join('') : `<div class="ep-section-empty">${esc(emptyMsg)}</div>`}
+  `;
+
+  listEl.innerHTML =
+    section('Needs Enrichment', 'ep-section-needs', needsEnrich, 'Nothing waiting on a first enrichment pass.') +
+    section('Enriched · No Email Found', 'ep-section-noemail', noEmail, 'No firms have come back empty-handed.');
+
   updateEpToolbar();
 }
 
