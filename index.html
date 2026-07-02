@@ -477,37 +477,64 @@ select option { background: var(--surface-2); color: var(--text); }
 .db-grid[data-cols="4"] { grid-template-columns: repeat(4, 1fr); }
 body[data-view="table"] #cards-per-row-toggle { display: none; }
 .alloc-card {
+  --card-accent: var(--border-2);
   background: var(--surface-2); border: 1px solid var(--border); position: relative;
+  border-left: 3px solid var(--card-accent);
   border-radius: var(--r-md); padding: var(--card-pad); cursor: pointer;
+  display: flex; flex-direction: column;
   transition: border-color var(--t-fast), background var(--t-fast), transform var(--t-fast), box-shadow var(--t-fast);
   content-visibility: auto; contain-intrinsic-size: 0 190px;
 }
-.alloc-card:hover { border-color: var(--border-2); background: var(--surface-3); transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+.alloc-card:hover { border-color: var(--border-2); border-left-color: var(--card-accent); background: var(--surface-3); transform: translateY(-1px); box-shadow: var(--shadow-md); }
 .alloc-card:active { transform: translateY(0); }
 .alloc-card.tier1 { --card-accent: var(--success); }
 .alloc-card.tier2 { --card-accent: var(--cyan); }
 
 .alloc-card.contacted { opacity: 0.52; }
 .alloc-card.contacted:hover { opacity: 0.85; }
-.ac-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 9px; }
-.ac-head > div:first-child { min-width: 0; flex: 1 1 auto; }
-.ac-name { font-weight: 700; font-size: var(--fs-md); line-height: 1.3; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: flex; align-items: center; gap: 6px; }
+
+/* — header: avatar + name/plan + priority badge — */
+.ac-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 11px; }
+.ac-head-left { display: flex; align-items: flex-start; gap: 10px; min-width: 0; flex: 1 1 auto; }
+.ac-avatar {
+  flex-shrink: 0; width: 32px; height: 32px; border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-weight: 700; font-size: var(--fs-sm);
+  background: color-mix(in srgb, var(--card-accent) 16%, var(--surface-2)); color: var(--card-accent);
+  border: 1px solid color-mix(in srgb, var(--card-accent) 40%, transparent);
+}
+.ac-name-wrap { min-width: 0; }
+.ac-name { font-weight: 700; font-size: var(--fs-md); line-height: 1.3; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ac-plan { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-3); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px; }
 .ac-ep { flex-shrink: 0; }
-.ac-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 9px; }
-.ac-pill { font-family: var(--mono); font-size: var(--fs-2xs); padding: 2px 8px; border-radius: 10px; border: 1px solid var(--border-2); color: var(--text-2); }
-.ac-pill.green { border-color: var(--success); color: var(--success); background: var(--success-dim); }
-.ac-pill.cyan  { border-color: var(--cyan); color: var(--cyan); background: var(--cyan-dim); }
-.ac-pill.yellow { border-color: var(--warning); color: var(--warning); background: var(--warning-dim); }
+
+/* — signal panel: chips + connection, visually grouped as one block — */
+.ac-signal-panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-sm); padding: 8px 10px; margin-bottom: 10px; }
+.ac-signal-panel.empty { background: transparent; border-style: dashed; padding: 6px 10px; }
 .ac-sigs { display: flex; gap: 4px; flex-wrap: wrap; }
-.ac-conn { font-size: var(--fs-sm); color: var(--text-2); line-height: 1.35; margin-bottom: 2px; }
-.ac-matched { font-family: var(--mono); font-size: var(--fs-xs); color: var(--cyan); }
+.ac-conn { font-size: var(--fs-sm); color: var(--text-2); line-height: 1.35; margin-top: 6px; }
+.ac-matched { font-family: var(--mono); font-size: var(--fs-xs); color: var(--cyan); margin-top: 3px; }
 .ac-nosig { font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-4); }
-.ac-bottom { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 9px; padding-top: 9px; border-top: 1px solid var(--border); }
-.ac-loc { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: flex; align-items: center; gap: 4px; }
+
+/* — stat bar: Sched C / investments / contacts as a segmented row — */
+.ac-stats { display: flex; align-items: stretch; gap: 0; margin-bottom: auto; border-radius: var(--r-sm); overflow: hidden; }
+.ac-stat { flex: 1 1 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 7px 4px; background: var(--surface-3); border-right: 1px solid var(--border); min-width: 0; }
+.ac-stat:last-child { border-right: none; }
+.ac-stat-num { font-family: var(--mono); font-weight: 700; font-size: var(--fs-sm); line-height: 1; }
+.ac-stat-label { font-family: var(--mono); font-size: 9px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.04em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.ac-stat.on .ac-stat-num.green  { color: var(--success); }
+.ac-stat.on .ac-stat-num.cyan   { color: var(--cyan); }
+.ac-stat.on .ac-stat-num.yellow { color: var(--warning); }
+.ac-stat.off { opacity: 0.35; }
+.ac-stat.off .ac-stat-num { color: var(--text-4); }
+
+/* — footer: location / participants, then contacted toggle — */
+.ac-bottom { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+.ac-loc { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: flex; align-items: center; gap: 4px; min-width: 0; }
 .ac-loc svg { width: 10px; height: 10px; flex-shrink: 0; opacity: 0.8; }
-.ac-parts { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-3); white-space: nowrap; }
-.ac-contacted { display: flex; align-items: center; gap: 6px; margin-top: 9px; padding-top: 9px; border-top: 1px solid var(--border); font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-3); cursor: pointer; user-select: none; }
+.ac-parts { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-3); white-space: nowrap; flex-shrink: 0; }
+.ac-contacted { display: flex; align-items: center; gap: 6px; margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border); font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-3); cursor: pointer; user-select: none; border-radius: var(--r-sm); transition: color var(--t-fast); }
+.ac-contacted:hover { color: var(--text-2); }
 .ac-contacted input { --cb-color: var(--success); --cb-ink: var(--success-ink); width: 13px; height: 13px; }
 .alloc-card.contacted .ac-contacted { color: var(--success); }
 
@@ -716,10 +743,6 @@ table.db-table td { padding: 10px 12px; vertical-align: top; font-size: var(--fs
   </button>
   <div class="header-right">
     <span class="hdr-status" id="hdr-status"><span class="dot"></span>No data loaded</span>
-    <button class="icon-btn" id="theme-btn" title="Toggle light/dark mode">
-      <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-      <svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-    </button>
     <button class="icon-btn" id="prefs-btn" title="Preferences">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
     </button>
@@ -900,16 +923,6 @@ table.db-table td { padding: 10px 12px; vertical-align: top; font-size: var(--fs
   <div class="gbox">
     <div class="ghead"><h2>⚙ Preferences</h2><button class="gclose" id="prefs-close">✕</button></div>
     <div class="gsec">
-      <div class="pref-row">
-        <div>
-          <div class="pref-label">Theme</div>
-          <div class="pref-hint">Light or dark interface</div>
-        </div>
-        <div class="pref-options" id="pref-theme-options">
-          <button class="pref-pill" data-val="dark" onclick="setTheme('dark')">Dark</button>
-          <button class="pref-pill" data-val="light" onclick="setTheme('light')">Light</button>
-        </div>
-      </div>
       <div class="pref-row">
         <div>
           <div class="pref-label">Accent color</div>
@@ -1259,7 +1272,6 @@ function updateCardsPerRowUI() {
   });
 }
 function updatePrefsPanelUI() {
-  document.querySelectorAll('#pref-theme-options .pref-pill').forEach(el => el.classList.toggle('active', el.getAttribute('data-val') === prefs.theme));
   document.querySelectorAll('#pref-accent-options .swatch').forEach(el => el.classList.toggle('active', el.getAttribute('data-val') === prefs.accent));
   document.querySelectorAll('#pref-density-options .pref-pill').forEach(el => el.classList.toggle('active', el.getAttribute('data-val') === prefs.density));
   document.querySelectorAll('#pref-motion-options .pref-pill').forEach(el => el.classList.toggle('active', el.getAttribute('data-val') === prefs.motion));
@@ -1652,19 +1664,33 @@ function renderDBCard(a) {
     sigBlock = `<div class="ac-sigs"><span class="ac-nosig">No 9AT signal</span></div>`;
   }
 
+  const initials = (a.firm_name||'?').trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase().slice(0,2);
+
   return `<div class="alloc-card${tierCls}${contacted?' contacted':''}" onclick="openDrawer('${esc(a.ein)}')">
     <div class="ac-head">
-      <div>
-        <div class="ac-name">${esc(a.firm_name||'—')}</div>
-        <div class="ac-plan">${esc(a.plan_name||'')}</div>
+      <div class="ac-head-left">
+        <div class="ac-avatar">${esc(initials)}</div>
+        <div class="ac-name-wrap">
+          <div class="ac-name">${esc(a.firm_name||'—')}</div>
+          <div class="ac-plan">${esc(a.plan_name||'')}</div>
+        </div>
       </div>
       <span class="ac-ep ebadge ep-${ep}">${epLbl}</span>
     </div>
-    ${sigBlock}
-    <div class="ac-meta" style="margin-top:6px">
-      ${spCount  ? `<span class="ac-pill green">${spCount} Sched C provider${spCount!==1?'s':''}</span>` : ''}
-      ${invCount ? `<span class="ac-pill cyan">${invCount} investment${invCount!==1?'s':''}</span>` : ''}
-      ${conCount ? `<span class="ac-pill yellow">${conCount} contact${conCount!==1?'s':''}</span>` : ''}
+    <div class="ac-signal-panel${has9at?'':' empty'}">${sigBlock}</div>
+    <div class="ac-stats">
+      <div class="ac-stat${spCount?' on':' off'}">
+        <span class="ac-stat-num green num">${spCount}</span>
+        <span class="ac-stat-label">Sched C</span>
+      </div>
+      <div class="ac-stat${invCount?' on':' off'}">
+        <span class="ac-stat-num cyan num">${invCount}</span>
+        <span class="ac-stat-label">Investments</span>
+      </div>
+      <div class="ac-stat${conCount?' on':' off'}">
+        <span class="ac-stat-num yellow num">${conCount}</span>
+        <span class="ac-stat-label">Contacts</span>
+      </div>
     </div>
     <div class="ac-bottom">
       <span class="ac-loc">${ICON_PIN}${esc(a.location)||'—'}</span>
@@ -2589,10 +2615,6 @@ function resetPrefs() {
   applyPrefs();
   renderDB();
 }
-
-document.getElementById('theme-btn').addEventListener('click', () => {
-  setTheme(document.body.classList.contains('light') ? 'dark' : 'light');
-});
 
 // ── Preferences overlay ──────────────────────────────────────────────────────
 document.getElementById('prefs-btn').addEventListener('click', () => {
