@@ -657,6 +657,57 @@
       "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGBZsftl31G9Fe2Ik4s5AlNfgtuQwdyZyT9SM1VOkIDlc_PRsTfh0CiPH9c43Zsvs4yPNBvRrcBNvD_B1hRRGIRSlyA7QI-6nr2bYlHOFTZtDHt678FUQVn2CCdAPz9TAOQbJWlsEaK4z8ykw=="
     ]
   },
+  "520591656": {
+    "firm_name": "JOHNS HOPKINS HOSPITAL",
+    "ein": "520591656",
+    "enriched_at": "2026-07-02T18:47:33.937Z",
+    "contacts": [
+      {
+        "name": "Michael K. Barry",
+        "title": "Vice President and Chief Investment Officer",
+        "email": "mkbarry@jhu.edu",
+        "phone": "(410) 516-8068",
+        "contact_type": "direct",
+        "contact_notes": "Direct email found on Johns Hopkins University Office of the President profile page. General phone number for the Office of the President, which oversees the Office of Investments.",
+        "source": "https://president.jhu.edu/profiles/michael-barry/",
+        "confidence": "high"
+      },
+      {
+        "name": "Christopher Lenox",
+        "title": "Managing Director, Investments",
+        "email": "",
+        "phone": "(410) 516-8068",
+        "contact_type": "general",
+        "contact_notes": "Title found on Altss profile for Johns Hopkins University Office of Investment Management. No direct email or phone found. General phone number for the Office of the President, which oversees the Office of Investments, is provided as a general firm-level contact.",
+        "source": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFHo-vuOkreQirgqmIvl0D2sg790FWO7Bje_csVo3Vm2CDgOGsR02WUsxIe_rGCdQLgge3lowOQG-Zz5weKCF8ckAWjlnFVmjPA2nwwtSFtPMHUBtAZMQyXYJpd6hDWCDhfj7UvUfhelWaS7I1MYPR_6PNLacVGaMeZ4eQ241_wPMpa0d7kzROip-hKgQ==",
+        "confidence": "medium"
+      },
+      {
+        "name": "Mark Rooney",
+        "title": "Director of Investments",
+        "email": "",
+        "phone": "(410) 516-8068",
+        "contact_type": "general",
+        "contact_notes": "Title found on Altss profile for Johns Hopkins University Office of Investment Management. No direct email or phone found. General phone number for the Office of the President, which oversees the Office of Investments, is provided as a general firm-level contact.",
+        "source": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFHo-vuOkreQirgqmIvl0D2sg790FWO7Bje_csVo3Vm2CDgOGsR02WUsxIe_rGCdQLgge3lowOQG-Zz5weKCF8ckAWjlnFVmjPA2nwwtSFtPMHUBtAZMQyXYJpd6hDWCDhfj7UvUfhelWaS7I1MYPR_6PNLacVGaMeZ4eQ241_wPMpa0d7kzROip-hKgQ==",
+        "confidence": "medium"
+      }
+    ],
+    "existing_contact_assessment": {
+      "name": "INEZ STEWART",
+      "title": "Plan Administrator (Form 5500)",
+      "likelyInvestmentDecisionMaker": false,
+      "reasoning": "Inez Stewart is consistently identified as the Senior Vice President of Human Resources for Johns Hopkins Medicine. Her role focuses on human capital strategy, employee recruitment, development, and retention, and human resources management. The title 'Plan Administrator (Form 5500)' aligns with her HR responsibilities, as Form 5500 pertains to employee benefit plans, not investment decision-making for the endowment."
+    },
+    "notes": "The investment management for Johns Hopkins Hospital is handled by the Johns Hopkins University Office of Investment Management. Direct contact information for investment professionals other than the CIO was not publicly available. The general phone number for the Office of the President, which oversees the Office of Investments, is provided as a general firm-level contact for other investment team members.",
+    "grounding_sources": [
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG5BUKPiH-ajvZ4zRIYgiZHG2Ex4CMvmv6KlWs1Cx0orctaj0o84GHjUNpQNXFlVCs82WrPVUqaKmQNuYumWsPcrU4Baj7Nf9ic4efxnT2bl0WVEGqYYS9s69Cqc_1tBrptWm37lVNHngGGgRY=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEX_74bRwiuuh_S6Ko9WSFq9ceFb7OSdscO_AF2-Sjbd7ChFBWuWRlsCq9anqs930t8sbdpliKOY4fbka6uV5OFo5K8Kp0LSSaWC_pG_p_xdhOSDsU4Mo8CDAq1ysr2TzFmxRtq1QOkuJCwYGD07ZobtmB6-uRzJLnr42BPoJo6CYROXr6B1UdxqFAnJ7A=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEiRWJTqnJH5ne6oOfZaoJJb3lSrUBa2w_tmmN6pnFa5c4M6-eIKn8wHh0UgPzZCTT6z3KhNmQV7brUZku_nCNqhg2kAeG5xsSToWd22t1IfuN8anU8fmslAQgkxhdBby8krDOg8FpIQw==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHY6jbqO5AHjd6dk_hmhl6D84SSUrey48LSIQCrKpNCXrd_OARhFxQdkUxdfzcZ5XFOMVkioj_eFlnq04V-Y5s59uLFmW4kNrXGFEqO08yXTUTkQdzlf7ZuQYUMr4TUSwO3xJ0=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF6VzZKeOL3DylIaxRHFfZqzoxiTxp9uw6M0Qvd58BrjP199cjHtZs78nh934nGx-sdoDxnIE3M9bPdug1QXpVND_Hpjk4bXIW01e_4xxRoJxAMTTrch_uHa1HXMOLs2jJh6CJjoLGZdfAW-veXG6KaCNPNDegnQp2e-6ShWTFQeK8="
+    ]
+  },
   "521341890": {
     "firm_name": "THE JOHNS HOPKINS BAYVIEW MEDICAL CENTER, INC.",
     "ein": "521341890",
