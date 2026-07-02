@@ -170,12 +170,15 @@ header {
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   gap: 1rem; flex-wrap: wrap; position: sticky; top: 0; z-index: 50;
 }
-.logo { display: flex; align-items: center; gap: 10px; }
+.logo {
+  display: flex; align-items: center; gap: 10px; border: none; background: transparent; padding: 6px; margin: -6px;
+  border-radius: var(--r-sm); cursor: pointer; transition: background var(--t-fast), transform var(--t-fast);
+}
+.logo:hover { background: var(--surface-2); }
+.logo:active { transform: scale(0.96); }
 .logo-mark {
   display: block; width: 30px; height: 30px; object-fit: contain; flex-shrink: 0;
 }
-.logo-title { font-size: var(--fs-md); font-weight: 700; letter-spacing: -0.015em; color: var(--text); }
-.logo-sub { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-3); letter-spacing: 0.03em; margin-top: 1px; }
 .header-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .hdr-status { font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-3); display: flex; align-items: center; gap: 6px; }
 .hdr-status .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--success); box-shadow: 0 0 0 3px var(--success-dim); flex-shrink: 0; }
@@ -221,17 +224,6 @@ body.light .icon-btn .ico-moon { display: block; }
 }
 .sidebar-inner { width: 280px; padding: 1rem 1.1rem 2rem; display: flex; flex-direction: column; gap: 1.15rem; }
 body.sidebar-collapsed .sidebar { width: 0; overflow: hidden; }
-
-.sidebar-toggle {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 32px; height: 32px; border-radius: var(--r-sm); cursor: pointer;
-  border: 1px solid var(--border-2); background: var(--surface-2); color: var(--text-3);
-  transition: color var(--t-fast), border-color var(--t-fast), background var(--t-fast);
-  flex-shrink: 0;
-}
-.sidebar-toggle:hover { color: var(--text); border-color: var(--text-4); background: var(--surface-3); }
-.sidebar-toggle svg { width: 15px; height: 15px; transition: transform var(--t-med) var(--ease); }
-body.sidebar-collapsed .sidebar-toggle svg { transform: rotate(180deg); }
 
 .sidebar-section-title {
   font-family: var(--mono); font-size: var(--fs-2xs); font-weight: 600; text-transform: uppercase;
@@ -432,6 +424,7 @@ select option { background: var(--surface-2); color: var(--text); }
 }
 .xdd.open .xdd-menu { display: block; }
 .xdd.drop-up .xdd-menu { top: auto; bottom: calc(100% + 4px); }
+.xdd.drop-left .xdd-menu { left: auto; right: 0; }
 .xdd-opt {
   display: flex; align-items: center; justify-content: space-between; gap: 8px;
   padding: 7px 9px; border-radius: calc(var(--r-sm) - 2px); font-family: var(--mono); font-size: var(--fs-sm);
@@ -487,7 +480,7 @@ body[data-view="table"] #cards-per-row-toggle { display: none; }
   background: var(--surface-2); border: 1px solid var(--border); position: relative;
   border-radius: var(--r-md); padding: var(--card-pad); cursor: pointer;
   transition: border-color var(--t-fast), background var(--t-fast), transform var(--t-fast), box-shadow var(--t-fast);
-  content-visibility: auto; contain-intrinsic-size: 0 190px;
+  content-visibility: auto; contain-intrinsic-size: 0 165px;
 }
 .alloc-card:hover { border-color: var(--border-2); background: var(--surface-3); transform: translateY(-1px); box-shadow: var(--shadow-sm); }
 .alloc-card:active { transform: translateY(0); }
@@ -496,25 +489,24 @@ body[data-view="table"] #cards-per-row-toggle { display: none; }
 
 .alloc-card.contacted { opacity: 0.52; }
 .alloc-card.contacted:hover { opacity: 0.85; }
-.ac-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 9px; }
+.ac-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 7px; }
 .ac-head > div:first-child { min-width: 0; flex: 1 1 auto; }
 .ac-name { font-weight: 700; font-size: var(--fs-md); line-height: 1.3; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: flex; align-items: center; gap: 6px; }
 .ac-plan { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-3); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px; }
 .ac-ep { flex-shrink: 0; }
-.ac-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 9px; }
+.ac-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 7px; }
 .ac-pill { font-family: var(--mono); font-size: var(--fs-2xs); padding: 2px 8px; border-radius: 10px; border: 1px solid var(--border-2); color: var(--text-2); }
 .ac-pill.green { border-color: var(--success); color: var(--success); background: var(--success-dim); }
 .ac-pill.cyan  { border-color: var(--cyan); color: var(--cyan); background: var(--cyan-dim); }
 .ac-pill.yellow { border-color: var(--warning); color: var(--warning); background: var(--warning-dim); }
-.ac-sigs { display: flex; gap: 4px; flex-wrap: wrap; }
-.ac-conn { font-size: var(--fs-sm); color: var(--text-2); line-height: 1.35; margin-bottom: 2px; }
-.ac-matched { font-family: var(--mono); font-size: var(--fs-xs); color: var(--cyan); }
+.ac-sigs { display: flex; gap: 4px; flex-wrap: wrap; align-items: center; }
+.ac-conn { font-size: var(--fs-sm); color: var(--text-2); line-height: 1.35; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ac-matched { font-family: var(--mono); font-size: var(--fs-xs); color: var(--cyan); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ac-nosig { font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-4); }
-.ac-bottom { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 9px; padding-top: 9px; border-top: 1px solid var(--border); }
-.ac-loc { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: flex; align-items: center; gap: 4px; }
+.ac-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+.ac-loc { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: flex; align-items: center; gap: 4px; min-width: 0; }
 .ac-loc svg { width: 10px; height: 10px; flex-shrink: 0; opacity: 0.8; }
-.ac-parts { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-3); white-space: nowrap; }
-.ac-contacted { display: flex; align-items: center; gap: 6px; margin-top: 9px; padding-top: 9px; border-top: 1px solid var(--border); font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-3); cursor: pointer; user-select: none; }
+.ac-contacted { display: flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-3); cursor: pointer; user-select: none; flex-shrink: 0; }
 .ac-contacted input { --cb-color: var(--success); --cb-ink: var(--success-ink); width: 13px; height: 13px; }
 .alloc-card.contacted .ac-contacted { color: var(--success); }
 
@@ -704,7 +696,6 @@ table.db-table td { padding: 10px 12px; vertical-align: top; font-size: var(--fs
   .drawer { height: 100vh; max-height: 100vh; width: 100vw; max-width: 100vw; border-radius: 0; }
   .drawer-overlay.open { padding: 0; }
   .field-grid { grid-template-columns: 108px 1fr; }
-  .logo-title { font-size: var(--fs-sm); }
   .hdr-status { display: none; }
 }
 @media (max-width: 520px) {
@@ -719,16 +710,9 @@ table.db-table td { padding: 10px 12px; vertical-align: top; font-size: var(--fs
 
 <!-- ── HEADER ── -->
 <header>
-  <div class="logo">
-    <button class="sidebar-toggle" id="sidebar-toggle-btn" title="Toggle sidebar">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
-    </button>
+  <button class="logo" id="sidebar-toggle-btn" title="Toggle sidebar">
     <img class="logo-mark" src="https://www.9at.com/assets/images/logo.svg" alt="9AT">
-    <div>
-      <div class="logo-title">Intelligence Platform</div>
-      <div class="logo-sub">Form 5500 · Outreach Pipeline</div>
-    </div>
-  </div>
+  </button>
   <div class="header-right">
     <span class="hdr-status" id="hdr-status"><span class="dot"></span>No data loaded</span>
     <button class="icon-btn" id="theme-btn" title="Toggle light/dark mode">
@@ -1152,17 +1136,23 @@ function enhanceSelect(selectEl) {
   }
 
   function positionMenu() {
-    wrap.classList.remove('drop-up');
+    wrap.classList.remove('drop-up', 'drop-left');
     const rect = wrap.getBoundingClientRect();
-    const menuH = Math.min(280, menu.scrollHeight || 280);
+    const menuRect = menu.getBoundingClientRect();
+    const menuH = Math.min(280, menu.scrollHeight || menuRect.height || 280);
+    const menuW = menuRect.width || wrap.offsetWidth;
     if (rect.bottom + menuH > window.innerHeight && rect.top > menuH) {
       wrap.classList.add('drop-up');
+    }
+    if (rect.left + menuW > window.innerWidth) {
+      wrap.classList.add('drop-left');
     }
   }
 
   function openMenu() {
     document.querySelectorAll('.xdd.open').forEach(el => { if (el !== wrap) el.classList.remove('open'); });
     wrap.classList.add('open');
+    // Menu is display:none until .open is applied, so measure after.
     positionMenu();
   }
   function closeMenu() { wrap.classList.remove('open'); }
@@ -1638,28 +1628,37 @@ function renderDBCard(a) {
   const rels     = a.at9_relationships || [];
   const has9at   = rels.length > 0;
   const ep       = effectivePriority(a);
-  const epLbl    = {READY:'✓ READY (EMAIL)',ENRICHED_NO_EMAIL:'⚠ NO EMAIL',HIGH:'★ ENRICH',LOW:'· LOW',SKIP:'— SKIP'}[ep]||ep;
+  const epLbl    = {READY:'✓ READY',ENRICHED_NO_EMAIL:'⚠ NO EMAIL',HIGH:'★ ENRICH',LOW:'· LOW',SKIP:'— SKIP'}[ep]||ep;
   const spCount  = (a.service_providers||[]).length;
   const invCount = (a.investments||[]).length;
   const conCount = a.contact_count_any||0;
   const contacted = isContacted(a.ein);
 
-  // 9AT signal chips — shown upfront on the card
+  // 9AT signal chips — shown upfront on the card. Keep this block tight:
+  // one row of chips, then a single line combining the connection reason
+  // and matched name so the card doesn't stack three separate text rows.
   let sigBlock = '';
   let tierCls = '';
   if(has9at) {
-    const chips   = rels.slice(0,3).map(r=>sigChip(r.signal)).join(' ');
-    const extra   = rels.length>3 ? `<span class="ac-nosig">+${rels.length-3} more</span>` : '';
+    const chips   = rels.slice(0,2).map(r=>sigChip(r.signal)).join(' ');
+    const extra   = rels.length>2 ? `<span class="ac-nosig">+${rels.length-2}</span>` : '';
     const conn    = rels[0]?.connection || '';
     const matched = rels[0]?.matched_name || '';
-    sigBlock = `<div class="ac-sigs" style="margin-bottom:5px">${chips}${extra}</div>
-      <div class="ac-conn">${esc(conn)}</div>
-      ${matched?`<div class="ac-matched">${esc(matched)}</div>`:''}`;
+    sigBlock = `<div class="ac-sigs">${chips}${extra}</div>
+      ${conn ? `<div class="ac-conn">${esc(conn)}${matched?` <span class="ac-matched">· ${esc(matched)}</span>`:''}</div>` : ''}`;
     const bestTier = Math.min(...rels.map(r=>SIG_TIER[r.signal]||2));
     tierCls = bestTier===1 ? ' tier1' : ' tier2';
   } else {
     sigBlock = `<div class="ac-sigs"><span class="ac-nosig">No 9AT signal</span></div>`;
   }
+
+  // Data-availability pills only take up space when there's something to
+  // show; an all-empty row would otherwise leave a blank gap.
+  const metaPills = [
+    spCount  ? `<span class="ac-pill green">${spCount} Sched C</span>` : '',
+    invCount ? `<span class="ac-pill cyan">${invCount} inv.</span>` : '',
+    conCount ? `<span class="ac-pill yellow">${conCount} contact${conCount!==1?'s':''}</span>` : '',
+  ].filter(Boolean).join('');
 
   return `<div class="alloc-card${tierCls}${contacted?' contacted':''}" onclick="openDrawer('${esc(a.ein)}')">
     <div class="ac-head">
@@ -1670,19 +1669,14 @@ function renderDBCard(a) {
       <span class="ac-ep ebadge ep-${ep}">${epLbl}</span>
     </div>
     ${sigBlock}
-    <div class="ac-meta" style="margin-top:6px">
-      ${spCount  ? `<span class="ac-pill green">${spCount} Sched C provider${spCount!==1?'s':''}</span>` : ''}
-      ${invCount ? `<span class="ac-pill cyan">${invCount} investment${invCount!==1?'s':''}</span>` : ''}
-      ${conCount ? `<span class="ac-pill yellow">${conCount} contact${conCount!==1?'s':''}</span>` : ''}
+    ${metaPills ? `<div class="ac-meta">${metaPills}</div>` : ''}
+    <div class="ac-foot">
+      <span class="ac-loc">${ICON_PIN}${esc(a.location)||'—'}${a.participants ? ` · ${fmtN(a.participants)}` : ''}</span>
+      <label class="ac-contacted" onclick="event.stopPropagation()">
+        <input type="checkbox" ${contacted?'checked':''} onchange="toggleContacted('${esc(a.ein)}', this.checked)">
+        <span>${contacted?'Contacted':'Mark contacted'}</span>
+      </label>
     </div>
-    <div class="ac-bottom">
-      <span class="ac-loc">${ICON_PIN}${esc(a.location)||'—'}</span>
-      <span class="ac-parts">${a.participants ? fmtN(a.participants)+' participants' : ''}</span>
-    </div>
-    <label class="ac-contacted" onclick="event.stopPropagation()">
-      <input type="checkbox" ${contacted?'checked':''} onchange="toggleContacted('${esc(a.ein)}', this.checked)">
-      <span>${contacted?'Contacted':'Mark contacted'}</span>
-    </label>
   </div>`;
 }
 
@@ -1758,7 +1752,7 @@ function renderDBTableRow(a) {
 }
 function renderDBTable(rows) {
   return `<div class="db-table-scroll"><table class="db-table">
-    <thead><tr><th>Firm</th><th>9AT Connection</th><th>Status</th><th>Location</th><th>Participants</th><th>✓</th></tr></thead>
+    <thead><tr><th>Firm</th><th>9AT Connection</th><th>Status</th><th>Location</th><th style="text-align:right">Participants</th><th style="text-align:center">✓</th></tr></thead>
     <tbody>${rows.map(renderDBTableRow).join('')}</tbody>
   </table></div>`;
 }
