@@ -1114,6 +1114,48 @@
       "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHDLvLN0gGVO1pVwDz_KbyYOXYyxEM__SpYtmNkUB-gqo7GmqT4kTDN8C7gS8esKLVJfcOunUxll-Kl_2OPOXwevIOZDeJ58gZxpP2Rq2Lrmsix8Io8VnKpfQFwo9t7v7NY"
     ]
   },
+  "942404110": {
+    "firm_name": "APPLE INC.",
+    "ein": "942404110",
+    "enriched_at": "2026-07-02T18:52:05.115Z",
+    "contacts": [
+      {
+        "name": "Suhasini Chandramouli",
+        "title": "Investor Relations Contact",
+        "email": "suhasini@apple.com",
+        "phone": "(408) 974-3123",
+        "contact_type": "direct",
+        "contact_notes": "Direct email and phone found on Apple's Investor Relations press releases.",
+        "source": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFBjZ6r1QYH6r2ptjvrsGZB4trDYssVQWeTKiM65aQRDPjy6yT11qMYhvenet2M3o1AZKncQ9VOywfefHJ58qkM8zCybMtVBjAN2lH6bbIwexxlbxc9CsFhUF3JGda_WcvTzBeAattfFAPbkj6OniHNNEGrguAqzznEauCUN3TX-QJmN3aYQ",
+        "confidence": "high"
+      },
+      {
+        "name": "Kevan Parekh",
+        "title": "Senior Vice President and Chief Financial Officer",
+        "email": "",
+        "phone": "(408) 974-3123",
+        "contact_type": "general",
+        "contact_notes": "Oversees investor relations. No direct email found; general investor relations phone number provided.",
+        "source": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFavG_-OPLsMss0zgmCprXEbFxQ9VPQuGAtTgsbASc9mwptEYR_FY2L1hEmqQQ_8hFgyHsVKiogbIKE_PWVNevdatsc5OfAQr5Y21fZNf_ZW061Harg2qAfqopK15wUGQ_VvJ_2tHo194uXDIZ1DeAWGw5U_iG7ko3jUv--sMY0IoOCoqMavpfcwyW4EV3sa2_1bEiCv5oAjgM0bp3Y26Wgnjx-SdabPwmPrGmAms-_kEpw1lUVGdM, https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGbfMv3eWaIxocPcNlJ6bPfw-gm0f0MPLtq-7HOJIQUr92e1-Y2oanWaqMfL-g7VQnhyPuDn_PQD8VKB28WfhgEEyzCq-8b-zOElWqen-7X3g5CaGkSWtUgGgqduU73029TRnifzOI=",
+        "confidence": "high"
+      }
+    ],
+    "existing_contact_assessment": {
+      "name": "ALLEN CHIU",
+      "title": "Plan Administrator (Form 5500)",
+      "likelyInvestmentDecisionMaker": false,
+      "reasoning": "Searches for 'ALLEN CHIU Apple Inc. Plan Administrator' did not yield results linking this specific individual to Apple Inc. or an investment decision-making role. The title 'Plan Administrator (Form 5500)' typically indicates responsibility for an employee benefit plan, which is generally an HR or benefits administration function, not a corporate investment decision-making role. Other individuals named Allen Chiu found in searches were associated with different companies or roles unrelated to Apple's investments."
+    },
+    "notes": "Apple Inc. is a large public company. Its primary investor relations contacts are for shareholders. Specific 'Chief Investment Officer' or 'Director of Investments' roles for the company's corporate treasury were not publicly identified through the searches. The CFO oversees financial planning, analysis, treasury, and investor relations.",
+    "grounding_sources": [
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFBjZ6r1QYH6r2ptjvrsGZB4trDYssVQWeTKiM65aQRDPjy6yT11qMYhvenet2M3o1AZKncQ9VOywfefHJ58qkM8zCybMtVBjAN2lH6bbIwexxlbxc9CsFhUF3JGda_WcvTzBeAattfFAPkbij6OniHNNEGrguAqzznEauCUN3TX-QJmN3aYQ==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFavG_-OPLsMss0zgmCprXEbFxQ9VPQuGAtTgsbASc9mwptEYR_FY2L1hEmqQQ_8hFgyHsVKiogbIKE_PWVNevdatsc5OfAQr5Y21fZNf_ZW061Harg2qAfqopK15wUGQ_VvJ_2tHo194uXDIZ1DeAWGw5U_iG7ko3jUv--sMY0IoOCoqMavpfcwyW4EV3sa2_1bEiCv5oAjgM0bp3Y26Wgnjx-SdabPwmPrGmAms-_kEpw1lUVGdM=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGbfMv3eWaIxocPcNlJ6bPfw-gm0f0MPLtq-7HOJIQUr92e1-Y2oanWaqMfL-g7VQnhyPuDn_PQD8VKB28WfhgEEyzCq-8b-zOElWqen-7X3g5CaGkSWtUgGgqduU73029TRnifzOI=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGDnPFHwCX0mi-xSLr8Vdfyg7weqwfZ3ZEANeBwuAlevjncpGta8G5PKx0sVQddOWRYjyv2jMf3ZAjT-q_uW8ZpwHmhnkoGnv1U9cOS2rt5eXdP7W-q2MZpT-NzpKzx1KXHdDZIHDzo6kESC_Aa",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFu3Ua-ehhEplfV1H3_rUakvGtd9p3OIan2RvW-StZm6ibbh3dppsFmL0wEKdnrQiuLeKXuFFE83XnHLQS-uagWsalIjkXQCHCvAoiziIKLRYnGYOOVIfRQkqHEnrKyf2Dtj_-v8FJmuBs_XNhcHd45r845nhQMMKvf37b8WaHwFkM=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGPTSxdpTw65NAgA_uRkSS031gT-6uzDIwjX3MXR9YIjKj87vGp9MN2UbWcaPVpIiHrcq57jLah8lE4w5mRwsgTB8d8LgkFo2pdEliek3ptY_RYRy7uFA9d9JGOnL3h-2C9_D-__F47BRHHsJPVss-j-raspa3Zt53hs7FivQfAs44ETKFZimb-g33loO6zJQCgHKNDGFCUygDkix21TkL9K44C3ZqFWYt4bdRTKjQLoOP5HYHl41TQBFO_uY272LH226CKVeW1"
+    ]
+  },
   "980381967": {
     "firm_name": "HOMESERVE USA CORPORATION",
     "ein": "980381967",
