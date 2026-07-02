@@ -657,6 +657,60 @@
       "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGBZsftl31G9Fe2Ik4s5AlNfgtuQwdyZyT9SM1VOkIDlc_PRsTfh0CiPH9c43Zsvs4yPNBvRrcBNvD_B1hRRGIRSlyA7QI-6nr2bYlHOFTZtDHt678FUQVn2CCdAPz9TAOQbJWlsEaK4z8ykw=="
     ]
   },
+  "521341890": {
+    "firm_name": "THE JOHNS HOPKINS BAYVIEW MEDICAL CENTER, INC.",
+    "ein": "521341890",
+    "enriched_at": "2026-07-02T18:47:17.734Z",
+    "contacts": [
+      {
+        "name": "Michael K. Barry",
+        "title": "Vice President and Chief Investment Officer",
+        "email": "gotojhu@jhu.edu",
+        "phone": "(410) 516-8125",
+        "contact_type": "general",
+        "contact_notes": "General Johns Hopkins University email and phone for the Office of the Executive Vice President for Finance and Administration, as direct contact for this person was not found. Michael K. Barry leads the Johns Hopkins University Office of Investment Management, which handles endowment assets for the university and its medical institutions, including Johns Hopkins Bayview Medical Center.",
+        "source": "Altss profile for Johns Hopkins University Office of Investment Management, Johns Hopkins University Office of the President Leadership page, Johns Hopkins University Finance & Administration Contact Us page",
+        "confidence": "high"
+      },
+      {
+        "name": "Christopher Lenox",
+        "title": "Managing Director, Investments",
+        "email": "gotojhu@jhu.edu",
+        "phone": "(410) 516-8125",
+        "contact_type": "general",
+        "contact_notes": "General Johns Hopkins University email and phone for the Office of the Executive Vice President for Finance and Administration, as direct contact for this person was not found. Christopher Lenox is part of the investment team at the Johns Hopkins University Office of Investment Management.",
+        "source": "Altss profile for Johns Hopkins University Office of Investment Management, Johns Hopkins University Finance & Administration Contact Us page",
+        "confidence": "high"
+      },
+      {
+        "name": "Mark Rooney",
+        "title": "Director of Investments",
+        "email": "gotojhu@jhu.edu",
+        "phone": "(410) 516-8125",
+        "contact_type": "general",
+        "contact_notes": "General Johns Hopkins University email and phone for the Office of the Executive Vice President for Finance and Administration, as direct contact for this person was not found. Mark Rooney is part of the investment team at the Johns Hopkins University Office of Investment Management.",
+        "source": "Altss profile for Johns Hopkins University Office of Investment Management, Johns Hopkins University Finance & Administration Contact Us page",
+        "confidence": "high"
+      }
+    ],
+    "existing_contact_assessment": {
+      "name": "INEZ STEWART",
+      "title": "Plan Administrator (Form 5500)",
+      "likelyInvestmentDecisionMaker": false,
+      "reasoning": "Inez Stewart is the Senior Vice President of Human Resources for Johns Hopkins Medicine. Her role involves human capital strategy, employee development, and diversity and inclusion, not investment decision-making. She is also listed on the Johns Hopkins Bayview Medical Center Board of Trustees."
+    },
+    "notes": "The Johns Hopkins Bayview Medical Center, Inc. is part of the larger Johns Hopkins Health System and Johns Hopkins Medicine. Its investment management is handled by the Johns Hopkins University Office of Investment Management, which manages the endowment assets for the university and its medical institutions. Direct contact information for the investment professionals was not found; therefore, general Johns Hopkins University contact details are provided.",
+    "grounding_sources": [
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG8LPrdA9X8gQIEEerk0UIDx8f9t-pMt-5tDd2_FpUvjaA7HHrm2TRfJOZ3gzqZXryrZqL1zOM61qHrFd98RHFdZxBG6PsOaGcLKrSxyrGT2md_15qmYktodAiB2b0YfLVI1pFcKexWih6XfZP3rhxTc0DoxQlwTh3r1KYdJ6dijfe5e9Slpu4EdoVUHuI=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHF8WUdmAGvV5JaUTyKAVqU8vTGxvSr0gzIOvdrx5mP8tWVI33Lb_z8SMbfaI9QPjDY9ypOf-d9LJk1v1L9TgshPL7EgaNx9eKsfqGmVLwncePkJ23-2n_-7NfX_wr0rDE03tk=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQExeuxCkH5iKIKPkqZIYIAD1GgRySpsVyczUORys4Q8tuqHBzBAHIWDfh1NvZYBcp9IaoyVcs8i_ItXhKAvPVRMgiGf2ek_T09ckjhRtsoFoWRtJAWD9E0J-NFPnJKW1MlvvubkXfPkQXGmsnQ=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFk6dkRYVToavBE6J8YgG2kLPFYYCF1yWkKXKHA36NXw5UlHfsbYI7pBmua84qRpWRXEYLwRamKBcYcCa-y1Eo4SN58f2CZcSydW6oJF9ncmD65_6bZ-pVmgwC12RHxE7Ghc2SKRbvTmwSYDQ==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHug817igwuiXP__gye0w1ZxD5wu1FuNxjKXEM4KzaOFrX9wQieRyJDNyr0jbwOZK8HJXsS17SiY0cLyZxM1Gk7R6m54ziI3OruQ8xY2N2FaGP3xJqwQ-yrTtVhgLNgC4MD9Zyh",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG6iHI1Gfq-mDAtFLC-QaP9KWsH_U9a9EHJiQ3_wzS-LlMoreLog3tz3sXhhK8LpdS2fVC3VyXF8pC_G-fQ9HXPxPU-Rllw22o2npXeAFhz6mudBeHuwbeYn1WFwizdBHNiVzGVnbITzS8KS2Z-NEM=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHjSN0pBbNkGznufq4atuwiiMW--Tm3ipFckvxu6CFpRzI1UKzqW1DqL9j0bTwtuwaMJ7rMRDHBbxI7CHNgwEb-TxakJ6DCVXLgFwMxMZzBdM7nRzbocPgEWWQ2RpDMvfAQrW0mNYnPx-82G37RlKnrjDeZoVKAPHqIyt6ZokUzIzQ=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFKDWtqoQPD9gCKMkPiZOXq7WhgctixqFoF9XLdYsQsA_3cPC7jeceOj5O-4Kq6uNOL5ihz6O5VcH8JvFga_GvaQAIlEB2Zt3Ggr1uFI8_NM5dMsEuU5P15YxMjdAAm-roqcg=="
+    ]
+  },
   "521811971": {
     "firm_name": "JOHNS HOPKINS HOME CARE GROUP",
     "ein": "521811971",
