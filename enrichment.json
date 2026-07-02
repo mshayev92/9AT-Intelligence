@@ -657,6 +657,53 @@
       "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGBZsftl31G9Fe2Ik4s5AlNfgtuQwdyZyT9SM1VOkIDlc_PRsTfh0CiPH9c43Zsvs4yPNBvRrcBNvD_B1hRRGIRSlyA7QI-6nr2bYlHOFTZtDHt678FUQVn2CCdAPz9TAOQbJWlsEaK4z8ykw=="
     ]
   },
+  "521811971": {
+    "firm_name": "JOHNS HOPKINS HOME CARE GROUP",
+    "ein": "521811971",
+    "enriched_at": "2026-07-02T18:47:02.136Z",
+    "contacts": [
+      {
+        "name": "James Van Daniker",
+        "title": "Vice President, Chief Financial Officer, Treasurer",
+        "email": "",
+        "phone": "410-288-8000",
+        "contact_type": "general",
+        "contact_notes": "General phone number for Johns Hopkins Care at Home (main office) where James Van Daniker holds a leadership position. No direct email or phone found.",
+        "source": "Johns Hopkins Care at Home Leadership page, NPI Lookup for JOHNS HOPKINS HOME CARE GROUP, INC., Johns Hopkins Home Care Group Inc - Nonprofit Explorer - ProPublica",
+        "confidence": "high"
+      },
+      {
+        "name": "Michael L Larson",
+        "title": "Senior Vp Finance & Cfo",
+        "email": "medmedia@jhmi.edu",
+        "phone": "410-955-6681",
+        "contact_type": "general",
+        "contact_notes": "General media relations email and phone for Johns Hopkins Medicine, the parent organization where Michael L Larson serves as CFO. No direct email or phone found.",
+        "source": "The Johns Hopkins Health System Corporation - Nonprofit Explorer - ProPublica, Risk Management Advisors | Sightline at Johns Hopkins, Contact Media Relations | Johns Hopkins Medicine",
+        "confidence": "high"
+      }
+    ],
+    "existing_contact_assessment": {
+      "name": "INEZ STEWART",
+      "title": "Plan Administrator (Form 5500)",
+      "likelyInvestmentDecisionMaker": false,
+      "reasoning": "Inez Stewart is consistently identified as the Senior Vice President and Chief Human Resources Officer for Johns Hopkins Medicine. Her roles and responsibilities are focused on human resources management, talent strategy, and employee development, not investment decision-making or financial allocation."
+    },
+    "notes": "Johns Hopkins Home Care Group is a healthcare provider and a subordinate organization of Johns Hopkins Medicine. Investment-related roles are primarily found at the broader Johns Hopkins Medicine/Health System level. Direct contact information for individuals in finance roles was not publicly available; therefore, general firm-level contacts for the respective entities were provided.",
+    "grounding_sources": [
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHJ7kdVo5-ow579gXQMmBjiqL7m7YFSHfYb-KPAn5LviWM1keHUVIx0O9wx8k3vcfeGdAAc1j8fAD_O-Jo1qKAnl1e8m19xGSU6KptuRLY3o5LoAGsXPnCF9cZhSlMFtdjavaLFivElBmJt-IdyyiRhvYY96uP2uV_W70I=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGZKO1E1F6ESspEFLCeXyr13PaGQ0sHwmFHc4uMY-a-REDu2Yk76lXjjn0wRhvl8hkAENRqyJn1kM7dm0i2lHRz_R5U7Ye3F37gWJw5fCsfnmPHXwzAqHkT4HD5J8UOtHaheASrdXp7J5U_gHY245TsPRtsO0UVyMCprx_ngDbzB9yH1eGNGNzkoV3u43E1",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGfbkrzQ6-iNmoQLXgCKYaHlI6mldI5Fq87B09QCm33a9bHjp187F0WQUpwh7lnblkdZGH1t6tHlygLO3eDi3mDo5Ne6gSaeXdKxVlf6r9u2ecuGR2w1jqD-h9pQhU1Y3w_29Yh38r8U2hr6-69eyo4Awo-lm2DDgAE-MsY4g==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG2ObxlkxbGmjqL1ps2w3uNkqdnfPbxjp5rkjzvORCe99_ILh471SQp4dbsMyU3G68mnOEFswRahTViFGU82iFsxpOvVMn4i1P-AyUz0eIeLc_ci3iJQUh9PtF7pmn2YCEUAmt0j84B9969cf4a_ivvqfzfU8Xto66z6FV7p1RD3TM3tYnttVg68RA=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHYzIdtKdLe2SCSzv_7pn4w8Igc6DIVKB167vX92CwL30Xy_xG7zCEqJLtIykBGnjw9yLb6BKhuudOSTfI0iuyfvEHx59ENdj-b8iOgCgZZ0DiWJXTdp7hp_hiQiJyvuihpCrYMgitgaFDNT2eRUw==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE-aouVJ5c4Yun-MAwEgk7UAv6uv8fRHv13R9XXM8bdXlg6AClzVh1SXvhXadXJLSv2hRNJcaidZna5XHPrL6tW7xdRm62uEbNc-sOrsEzyezAIkX1E4mVNE-kLn9iBUh0JZ84o20bS8ikKqHQcQ3KCZxhUPZvkIYheAJAknpjoYw==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE5QbylnaN6sUoVqW9c8pbiaUPrACFn6c0B-SnU4uy8cSlhrceKQox82MGiEKETPjt0TZ8JHGx9wB9pAdbehcZ9DiXmnyyhJwERQELrHb8eMcDM2XkV8R_KVJk_XMD9K5qoaJ9QONGE_-r3M8THvQkclz0RdReG2Wg=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHjKysexWWloz3RBM2gcoGfSw91bFMhe2IB42a2bWfm9WhVZbIQkyQaMpt2S0X5ezlj53WApg52zNNrS4nN5i80wjhWviIihiZhQGjiaaMLKTR1A1eDwbqu1RHXKiihGZ11ojapJnLsKwN8AnZNe0_2NKiuu8eae2HkWVNRjKaMJ8c_9eM=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEy8Zbu5DibY66_9LHSyVvGCSX1EKMe5er4au_R8OAABfFjUlvlcOTHsBJboUFXfy4uWc8gD0tpMP3hMstk0YZL2uuZYMLrSNJRmTDcidscFLlKYDnjWSEndUVjkzgJhIxLEf87c4tRpFliJXDRnp7SggIUd9qFC4nS8aRSWsNL6f8v3VJzH74=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHN_QZegmGY3Mbl5FLKB2qvzT62YeufC4l1vElLgZlsHQ5jrceebp7mLHQcNr-N1_WrB5qkNcQ1T6G2saNSheyTTl_2jGnEPptZqCp6gPiP6oQ12MkPKkog7I_jqKXdDs5bXfbY5hM3oxq8eQ3HiA==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEs7adsRQswHthjNbRCtJpYGYvG4zPis3eTJkspmfPXUGg8j60tjvKuEb1HVbFjBmyUnPbgvTF1SMMbfIHcdmz3OVc-qatoCCDFz1cm1BiA3f7-H6gKc6OnsG43Zp9yPg6eFweot0VzPeaWl8ObkpgSezH5m-CeCMPOU45c7F3A"
+    ]
+  },
   "522239640": {
     "firm_name": "VISION TECHNOLOGIES LLC.",
     "ein": "522239640",
