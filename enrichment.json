@@ -355,6 +355,40 @@
       "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHzcGMwOrkniVXPpCZTSdbEED-xQhJHzkgBtkjp-vzGkTgzhU1rdrt1MYp1VQnUlgTyLuu7BFBRjDv_Hze2sRXU2uEfsJHtgaLv80UvgvoHluxkKgQ-3_b6a_I="
     ]
   },
+  "351821968": {
+    "firm_name": "FRANKLIN LOGISTICS LLC",
+    "ein": "351821968",
+    "enriched_at": "2026-07-02T21:41:26.770Z",
+    "contacts": [
+      {
+        "name": "Colby Nitterhouse",
+        "title": "President",
+        "email": "colby@franklinlogistics.com",
+        "phone": "717.262.2919",
+        "contact_type": "direct",
+        "contact_notes": "Direct email and phone found on a partner location page. While President, his role is within a logistics company, not a financial firm's investment or investor relations capacity.",
+        "source": "Franklin Logistics 3PL Warehouse in Chambersburg, PA (Partner Location Page)",
+        "confidence": "high"
+      },
+      {
+        "name": "",
+        "title": "General Inquiry / Investor Relations",
+        "email": "hello@franklinlogistics.com",
+        "phone": "(717) 264-3700",
+        "contact_type": "general",
+        "contact_notes": "General contact email and phone number for the firm, as no specific investor relations or investment decision-maker contacts were found.",
+        "source": "Contact | Franklin Logistics (Official Website)",
+        "confidence": "high"
+      }
+    ],
+    "existing_contact_assessment": null,
+    "notes": "Google searches indicate that FRANKLIN LOGISTICS LLC is primarily a logistics, warehousing, and transportation company, not a financial firm involved in investment management or allocation. Therefore, traditional 'investment decision-makers, allocators, or investor relations contacts' as would be found at a financial firm are not applicable to this entity. The firm was acquired by BrandPoint on April 10, 2026. The contacts provided are the most senior individual found and the general firm contact information.",
+    "grounding_sources": [
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGbt5HxCDuYeKArKElGoAH7QsROnsjcoGFTC-kj5G7nRw_wLHmay0oCAJr3EDTw8ioJ4aNmpUtubgwbv1qhOTjrTcy641OefHGyChj_NQ4t6g-p3OlmqDnX0TLKuq92GimApj5qg3z6LHLHg-UquFj0lu6mKAGSyNdX1asO6nBqykDTCw==",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE1yejksS0YIe8ag_3HSZKcQPRkYQ-PNTqCMsGhefS7u_ooNLbkst45iG-kJmIsthUdMCXPhKiBP0XARz_SAxsuyGIPgOnVFJmZ_i_2sBoyWogWC2ufckRYAiyph8bdmJc=",
+      "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHacNlf_ezAqSPAc4UaynyZESw89H1-f5SpG48fh-l52peqGObAJHWxG_m2Y_PuXie3QdUKXStZsinCJ4RA4twAcXoAzh55tej4mV3yqeS-2Z4LXtAHw9ODPKBzwA6G2wpouRoYGaFNv6T1"
+    ]
+  },
   "360710830": {
     "firm_name": "ALPA",
     "ein": "360710830",
