@@ -7,7 +7,7 @@
 <meta name="description" content="9AT Intelligence Platform — Form 5500 allocator database, outreach pipeline and enrichment for pension plan business development.">
 <meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#0a0d13">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0d13'/%3E%3Cpath d='M9 21.5 16 8l7 13.5' stroke='%232de89a' stroke-width='2.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M12 16.5h8' stroke='%232de89a' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="icon" href="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://9at.com&size=128">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -81,32 +81,32 @@ html { -webkit-text-size-adjust: 100%; }
 
 /* — light mode — */
 body.light {
-  --bg:        #f6f7fa;
+  --bg:        #eef0f4;
   --surface:   #ffffff;
   --surface-2: #f2f4f8;
-  --surface-3: #e8ebf1;
+  --surface-3: #e3e7ee;
   --raised:    #ffffff;
-  --border:    #dee2ea;
-  --border-2:  #c7cdd9;
-  --text:      #12151c;
-  --text-2:    #3d4658;
-  --text-3:    #5b6578;
-  --text-4:    #838da0;
-  --success: #067a54; --success-dim: rgba(6,122,84,.09);
-  --warning: #8a5c00; --warning-dim: rgba(138,92,0,.09);
-  --info:    #1a5fd6; --info-dim:    rgba(26,95,214,.08);
-  --cyan:    #07767e; --cyan-dim:    rgba(7,118,126,.08);
-  --violet:  #6432c9; --violet-dim:  rgba(100,50,201,.08);
-  --danger:  #c22f2f; --danger-dim:  rgba(194,47,47,.08);
-  --shadow-sm: 0 1px 2px rgba(20,25,40,.06);
-  --shadow-md: 0 10px 28px -10px rgba(20,25,40,.14);
-  --shadow-lg: 0 24px 60px -16px rgba(20,25,40,.22);
+  --border:    #c9cfdb;
+  --border-2:  #aab2c4;
+  --text:      #0c0e14;
+  --text-2:    #333b4c;
+  --text-3:    #515a6e;
+  --text-4:    #6b7488;
+  --success: #056b4a; --success-dim: rgba(5,107,74,.12);
+  --warning: #7a4d00; --warning-dim: rgba(122,77,0,.12);
+  --info:    #1553c2; --info-dim:    rgba(21,83,194,.11);
+  --cyan:    #056068; --cyan-dim:    rgba(5,96,104,.11);
+  --violet:  #582cb8; --violet-dim:  rgba(88,44,184,.11);
+  --danger:  #ab2323; --danger-dim:  rgba(171,35,35,.11);
+  --shadow-sm: 0 1px 2px rgba(20,25,40,.09);
+  --shadow-md: 0 10px 28px -10px rgba(20,25,40,.18);
+  --shadow-lg: 0 24px 60px -16px rgba(20,25,40,.28);
 }
-body.light[data-accent="emerald"] { --accent:#067a54; --accent-dim:rgba(6,122,84,.1); --accent-ink:#f2fbf7; }
-body.light[data-accent="azure"]   { --accent:#1a5fd6; --accent-dim:rgba(26,95,214,.09); --accent-ink:#f2f6ff; }
-body.light[data-accent="violet"]  { --accent:#6432c9; --accent-dim:rgba(100,50,201,.09); --accent-ink:#f7f3ff; }
-body.light[data-accent="amber"]   { --accent:#966300; --accent-dim:rgba(150,99,0,.1); --accent-ink:#fff9ef; }
-body.light[data-accent="rose"]    { --accent:#c8375a; --accent-dim:rgba(200,55,90,.09); --accent-ink:#fff2f5; }
+body.light[data-accent="emerald"] { --accent:#056b4a; --accent-dim:rgba(5,107,74,.12); --accent-ink:#ffffff; }
+body.light[data-accent="azure"]   { --accent:#1553c2; --accent-dim:rgba(21,83,194,.11); --accent-ink:#ffffff; }
+body.light[data-accent="violet"]  { --accent:#582cb8; --accent-dim:rgba(88,44,184,.11); --accent-ink:#ffffff; }
+body.light[data-accent="amber"]   { --accent:#835900; --accent-dim:rgba(131,89,0,.12); --accent-ink:#ffffff; }
+body.light[data-accent="rose"]    { --accent:#b32d51; --accent-dim:rgba(179,45,81,.11); --accent-ink:#ffffff; }
 
 /* — reduced motion (OS pref OR explicit user pref) — */
 @media (prefers-reduced-motion: reduce) {
@@ -172,10 +172,7 @@ header {
 }
 .logo { display: flex; align-items: center; gap: 10px; }
 .logo-mark {
-  display: flex; align-items: center; justify-content: center; width: 30px; height: 30px;
-  font-family: var(--mono); font-size: 10px; font-weight: 700; color: var(--accent-ink);
-  background: var(--accent); border-radius: 8px; letter-spacing: 0.02em;
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 40%, transparent);
+  display: block; width: 30px; height: 30px; object-fit: contain; flex-shrink: 0;
 }
 .logo-title { font-size: var(--fs-md); font-weight: 700; letter-spacing: -0.015em; color: var(--text); }
 .logo-sub { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-3); letter-spacing: 0.03em; margin-top: 1px; }
@@ -228,9 +225,13 @@ main { display: block; }
 }
 .stat {
   background: var(--surface); padding: 0.95rem 1.4rem 0.9rem; position: relative;
-  display: flex; flex-direction: column; gap: 5px; transition: background var(--t-fast);
+  display: flex; flex-direction: column; gap: 5px; transition: background var(--t-fast), transform var(--t-fast);
+  border: none; font: inherit; text-align: left; cursor: pointer; width: 100%; color: inherit;
+  -webkit-appearance: none; appearance: none;
 }
 .stat:hover { background: var(--surface-2); }
+.stat:active { transform: scale(0.98); }
+.stat:focus-visible { outline-offset: -2px; }
 .stat::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--stat-accent, var(--border-2)); opacity: 0.85; }
 .stat-label { font-family: var(--mono); font-size: var(--fs-2xs); text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3); font-weight: 600; }
 .stat-value { font-size: var(--fs-2xl); font-weight: 600; letter-spacing: -0.02em; font-family: var(--mono); color: var(--text-2); }
@@ -277,14 +278,9 @@ main { display: block; }
 /* ============================================================
    ENRICHMENT PRIORITY BANNER
    ============================================================ */
-.enrich-panel { margin: 1rem 1.75rem; border: 1px solid var(--border-2); border-left: 3px solid var(--warning); border-radius: var(--r-md); background: var(--surface); overflow: hidden; display: none; box-shadow: var(--shadow-sm); }
-.enrich-panel.visible { display: block; }
-.enrich-header { display: flex; align-items: center; justify-content: space-between; padding: 0.7rem 1.25rem; border-bottom: 1px solid var(--border); cursor: pointer; user-select: none; gap: 10px; transition: background var(--t-fast); }
-.enrich-header:hover { background: var(--surface-2); }
-.enrich-title { font-family: var(--mono); font-size: var(--fs-xs); font-weight: 700; color: var(--warning); letter-spacing: 0.05em; display: flex; align-items: center; gap: 7px; }
-.enrich-count { font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-3); margin-right: auto; }
-.enrich-arrow { font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-3); display: flex; align-items: center; gap: 4px; transition: color var(--t-fast), transform var(--t-fast); }
-.enrich-header:hover .enrich-arrow { color: var(--warning); transform: translateX(2px); }
+#enrich-open-btn { background: var(--warning); border-color: var(--warning); color: #1c1103; font-weight: 700; }
+#enrich-open-btn:hover { background: var(--warning); filter: brightness(1.08); color: #1c1103; }
+.hdr-btn-badge { font-weight: 600; opacity: 0.8; margin-left: 2px; }
 
 /* ── enrichment priority popup ── */
 .epbox { width: 800px; max-width: 95vw; max-height: 85vh; display: flex; flex-direction: column; padding: 0; }
@@ -397,21 +393,27 @@ select option { background: var(--surface-2); color: var(--text); }
    ALLOCATOR CARD GRID
    ============================================================ */
 .db-grid { padding: var(--sp-4) 1.75rem 3rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: var(--grid-gap); }
+.db-grid[data-cols="2"] { grid-template-columns: repeat(2, 1fr); }
+.db-grid[data-cols="3"] { grid-template-columns: repeat(3, 1fr); }
+.db-grid[data-cols="4"] { grid-template-columns: repeat(4, 1fr); }
+body[data-view="table"] #cards-per-row-toggle { display: none; }
 .alloc-card {
-  background: var(--surface-2); border: 1px solid var(--border); border-left: 3px solid var(--card-accent, var(--border-2));
+  background: var(--surface-2); border: 1px solid var(--border); position: relative;
   border-radius: var(--r-md); padding: var(--card-pad); cursor: pointer;
   transition: border-color var(--t-fast), background var(--t-fast), transform var(--t-fast), box-shadow var(--t-fast);
   content-visibility: auto; contain-intrinsic-size: 0 190px;
 }
-.alloc-card:hover { border-color: var(--border-2); border-left-color: var(--card-accent, var(--text-4)); background: var(--surface-3); transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+.alloc-card:hover { border-color: var(--border-2); background: var(--surface-3); transform: translateY(-1px); box-shadow: var(--shadow-sm); }
 .alloc-card:active { transform: translateY(0); }
 .alloc-card.tier1 { --card-accent: var(--success); }
 .alloc-card.tier2 { --card-accent: var(--cyan); }
+
 .alloc-card.contacted { opacity: 0.52; }
 .alloc-card.contacted:hover { opacity: 0.85; }
 .ac-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 9px; }
 .ac-head > div:first-child { min-width: 0; flex: 1 1 auto; }
-.ac-name { font-weight: 700; font-size: var(--fs-md); line-height: 1.3; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ac-name { font-weight: 700; font-size: var(--fs-md); line-height: 1.3; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: flex; align-items: center; gap: 6px; }
+.ac-tier-dot { flex-shrink: 0; width: 7px; height: 7px; border-radius: 50%; background: var(--card-accent, var(--text-4)); box-shadow: 0 0 0 3px color-mix(in srgb, var(--card-accent, var(--text-4)) 20%, transparent); }
 .ac-plan { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-3); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px; }
 .ac-ep { flex-shrink: 0; }
 .ac-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 9px; }
@@ -612,7 +614,6 @@ table.db-table td { padding: 10px 12px; vertical-align: top; font-size: var(--fs
 @media (max-width: 860px) {
   header { padding: 0.75rem 1.1rem; }
   .shell, .controls, .result-bar, .db-grid, .db-table-scroll, .pipeline, .pagination { padding-left: 1.1rem; padding-right: 1.1rem; }
-  .enrich-panel { margin-left: 1.1rem; margin-right: 1.1rem; }
   .insights-row { grid-template-columns: repeat(2, 1fr); }
   .db-grid { grid-template-columns: 1fr; }
   .drawer { height: 100vh; max-height: 100vh; width: 100vw; max-width: 100vw; border-radius: 0; }
@@ -634,7 +635,7 @@ table.db-table td { padding: 10px 12px; vertical-align: top; font-size: var(--fs
 <!-- ── HEADER ── -->
 <header>
   <div class="logo">
-    <span class="logo-mark">9AT</span>
+    <img class="logo-mark" src="https://www.9at.com/assets/images/logo.svg" alt="9AT">
     <div>
       <div class="logo-title">Intelligence Platform</div>
       <div class="logo-sub">Form 5500 · Outreach Pipeline</div>
@@ -650,6 +651,7 @@ table.db-table td { padding: 10px 12px; vertical-align: top; font-size: var(--fs
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
     </button>
     <button class="hdr-btn" id="glossary-btn">? Glossary</button>
+    <button class="hdr-btn primary" id="enrich-open-btn" style="display:none">★ Enrichment Priority <span id="enrich-count" class="hdr-btn-badge">— firms</span></button>
   </div>
 </header>
 
@@ -659,13 +661,13 @@ table.db-table td { padding: 10px 12px; vertical-align: top; font-size: var(--fs
 <div class="section active" id="section-db">
 
   <div class="insights-row">
-    <div class="stat"><span class="stat-label">Total Allocators</span><span class="stat-value num" id="d-total">—</span></div>
-    <div class="stat"><span class="stat-label">With 9AT Signal</span><span class="stat-value green num" id="d-at9">—</span></div>
-    <div class="stat"><span class="stat-label">Ready to Outreach</span><span class="stat-value green num" id="d-ready">—</span></div>
-    <div class="stat"><span class="stat-label">Needs Enrichment</span><span class="stat-value yellow num" id="d-enrich">—</span></div>
-    <div class="stat"><span class="stat-label">Has Sched C Data</span><span class="stat-value cyan num" id="d-schc">—</span></div>
-    <div class="stat"><span class="stat-label">Has Sched D/H</span><span class="stat-value purple num" id="d-schdh">—</span></div>
-    <div class="stat"><span class="stat-label">Contacted</span><span class="stat-value green num" id="d-contacted">—</span></div>
+    <button type="button" class="stat" onclick="statClick('total')"><span class="stat-label">Total Allocators</span><span class="stat-value num" id="d-total">—</span></button>
+    <button type="button" class="stat" onclick="statClick('at9')"><span class="stat-label">With 9AT Signal</span><span class="stat-value green num" id="d-at9">—</span></button>
+    <button type="button" class="stat" onclick="statClick('ready')"><span class="stat-label">Ready to Outreach</span><span class="stat-value green num" id="d-ready">—</span></button>
+    <button type="button" class="stat" onclick="statClick('enrich')"><span class="stat-label">Needs Enrichment</span><span class="stat-value yellow num" id="d-enrich">—</span></button>
+    <button type="button" class="stat" onclick="statClick('schc')"><span class="stat-label">Has Sched C Data</span><span class="stat-value cyan num" id="d-schc">—</span></button>
+    <button type="button" class="stat" onclick="statClick('schdh')"><span class="stat-label">Has Sched D/H</span><span class="stat-value purple num" id="d-schdh">—</span></button>
+    <button type="button" class="stat" onclick="statClick('contacted')"><span class="stat-label">Contacted</span><span class="stat-value green num" id="d-contacted">—</span></button>
   </div>
 
   <!-- ── OUTREACH PIPELINE ── -->
@@ -680,14 +682,6 @@ table.db-table td { padding: 10px 12px; vertical-align: top; font-size: var(--fs
       <span class="pipeline-progress-label">Ready firms contacted</span>
       <div class="pipeline-progress-track"><div class="pipeline-progress-fill" id="pipeline-progress-fill" style="width:0%"></div></div>
       <span class="pipeline-progress-num num" id="pipeline-progress-num">0 / 0</span>
-    </div>
-  </div>
-
-  <div class="enrich-panel" id="enrich-panel">
-    <div class="enrich-header" id="enrich-open-btn">
-      <span class="enrich-title">★ ENRICHMENT PRIORITY LIST</span>
-      <span class="enrich-count" id="enrich-count">— firms</span>
-      <span class="enrich-arrow">view list →</span>
     </div>
   </div>
 
@@ -771,6 +765,12 @@ table.db-table td { padding: 10px 12px; vertical-align: top; font-size: var(--fs
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
         Table
       </button>
+    </div>
+    <div class="view-toggle" id="cards-per-row-toggle">
+      <button data-cols="2" onclick="setCardsPerRow(2)" title="2 per row">2</button>
+      <button data-cols="3" onclick="setCardsPerRow(3)" title="3 per row">3</button>
+      <button data-cols="4" onclick="setCardsPerRow(4)" title="4 per row">4</button>
+      <button data-cols="auto" class="active" onclick="setCardsPerRow('auto')" title="Auto-fit">Auto</button>
     </div>
   </div>
   <div class="result-bar">
@@ -959,7 +959,7 @@ let dbVersion = 0;
 // verbatim" list has to change shape.
 // ══════════════════════════════════════════════════════════════════════════════
 const PREFS_KEY = '9at_prefs_v1';
-const PREFS_DEFAULT = { theme:'dark', accent:'emerald', density:'comfortable', motion:'system', view:'cards' };
+const PREFS_DEFAULT = { theme:'dark', accent:'emerald', density:'comfortable', motion:'system', view:'cards', cardsPerRow:'auto' };
 function loadPrefs() {
   try { return Object.assign({}, PREFS_DEFAULT, JSON.parse(localStorage.getItem(PREFS_KEY) || '{}')); }
   catch { return { ...PREFS_DEFAULT }; }
@@ -974,13 +974,36 @@ function applyPrefs() {
   if(prefs.motion === 'reduced') document.documentElement.setAttribute('data-motion', 'reduced');
   else document.documentElement.removeAttribute('data-motion');
   updateViewToggleUI();
+  updateCardsPerRowUI();
   updatePrefsPanelUI();
+}
+
+// ── Stat tile clicks — jump to the filtered slice of the database ──────────
+function statClick(which) {
+  const sigF      = document.getElementById('db-filter-signal');
+  const enrichF   = document.getElementById('db-filter-enrich');
+  const dataF     = document.getElementById('db-filter-data');
+  const outreachF = document.getElementById('db-filter-outreach');
+  sigF.value = 'all'; enrichF.value = 'all'; dataF.value = 'all'; outreachF.value = 'all';
+  switch(which) {
+    case 'total':     break;
+    case 'at9':       sigF.value = 'any9at'; break;
+    case 'ready':     enrichF.value = 'READY'; break;
+    case 'enrich':    enrichF.value = 'HIGH'; break;
+    case 'schc':      dataF.value = 'schc'; break;
+    case 'schdh':     dataF.value = 'schdh'; break;
+    case 'contacted': outreachF.value = 'contacted'; break;
+  }
+  dbPage = 1;
+  renderDB();
+  document.getElementById('db-search')?.closest('.controls')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function setView(view) {
   prefs.view = view;
   savePrefs();
   updateViewToggleUI();
+  updateCardsPerRowUI();
   updatePrefsPanelUI();
   renderDB();
 }
@@ -989,6 +1012,18 @@ function updateViewToggleUI() {
   const tableBtn = document.getElementById('view-table-btn');
   if(cardsBtn) cardsBtn.classList.toggle('active', prefs.view !== 'table');
   if(tableBtn) tableBtn.classList.toggle('active', prefs.view === 'table');
+  document.body.setAttribute('data-view', prefs.view === 'table' ? 'table' : 'cards');
+}
+function setCardsPerRow(cols) {
+  prefs.cardsPerRow = cols;
+  savePrefs();
+  updateCardsPerRowUI();
+  renderDB();
+}
+function updateCardsPerRowUI() {
+  document.querySelectorAll('#cards-per-row-toggle button').forEach(el => {
+    el.classList.toggle('active', el.getAttribute('data-cols') === String(prefs.cardsPerRow));
+  });
 }
 function updatePrefsPanelUI() {
   document.querySelectorAll('#pref-theme-options .pref-pill').forEach(el => el.classList.toggle('active', el.getAttribute('data-val') === prefs.theme));
@@ -1387,7 +1422,7 @@ function renderDBCard(a) {
   return `<div class="alloc-card${tierCls}${contacted?' contacted':''}" onclick="openDrawer('${esc(a.ein)}')">
     <div class="ac-head">
       <div>
-        <div class="ac-name">${esc(a.firm_name||'—')}</div>
+        <div class="ac-name">${tierCls?'<span class="ac-tier-dot"></span>':''}${esc(a.firm_name||'—')}</div>
         <div class="ac-plan">${esc(a.plan_name||'')}</div>
       </div>
       <span class="ac-ep ebadge ep-${ep}">${epLbl}</span>
@@ -1507,7 +1542,7 @@ function renderDB() {
   // innerHTML-building tail differs by the current view preference.
   document.getElementById('db-table-wrap').innerHTML = prefs.view === 'table'
     ? renderDBTable(visible)
-    : `<div class="db-grid">${visible.map(renderDBCard).join('')}</div>`;
+    : `<div class="db-grid" data-cols="${prefs.cardsPerRow||'auto'}">${visible.map(renderDBCard).join('')}</div>`;
 
   renderPagination('db-pagination', dbPage, totalPages, 'goDBPage');
   renderPagination('db-pagination-bottom', dbPage, totalPages, 'goDBPage');
@@ -1593,11 +1628,12 @@ document.getElementById('db-sort').addEventListener('change', ()=>{ dbPage=1; re
 function renderEnrichPanel() {
   const firms = getEnrichPanelFirms();
 
+  const openBtn = document.getElementById('enrich-open-btn');
   if(firms.length) {
-    document.getElementById('enrich-panel').classList.add('visible');
+    openBtn.style.display = 'inline-flex';
     document.getElementById('enrich-count').textContent = `${firms.length} firm${firms.length!==1?'s':''}`;
   } else {
-    document.getElementById('enrich-panel').classList.remove('visible');
+    openBtn.style.display = 'none';
   }
 
   // Drop any selected eins that are no longer in the list (e.g. just enriched).
