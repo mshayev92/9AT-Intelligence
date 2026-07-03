@@ -179,6 +179,10 @@ header {
 .logo-mark {
   display: block; width: 30px; height: 30px; object-fit: contain; flex-shrink: 0;
 }
+.logo-word {
+  font-family: var(--sans); font-size: var(--fs-md); font-weight: 600; letter-spacing: -0.01em;
+  color: var(--text); white-space: nowrap;
+}
 .header-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .hdr-status { font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-3); display: flex; align-items: center; gap: 6px; }
 .hdr-status .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--success); box-shadow: 0 0 0 3px var(--success-dim); flex-shrink: 0; }
@@ -210,6 +214,8 @@ body.light .icon-btn .ico-moon { display: block; }
 .hdr-btn.small { padding: 5px 10px; font-size: var(--fs-2xs); }
 .hdr-btn.primary { border-color: var(--accent); background: var(--accent-dim); color: var(--accent); }
 .hdr-btn.primary:hover { background: var(--accent); color: var(--accent-ink); }
+.hdr-btn.danger { border-color: var(--danger); background: var(--danger); color: #fff; }
+.hdr-btn.danger:hover { filter: brightness(1.08); border-color: var(--danger); }
 
 /* ============================================================
    APP LAYOUT (sidebar + main)
@@ -799,6 +805,7 @@ body.gate-open { overflow: hidden; }
   .drawer-overlay.open { padding: 0; }
   .field-grid { grid-template-columns: 108px 1fr; }
   .hdr-status { display: none; }
+  .logo-word { display: none; }
 }
 @media (max-width: 520px) {
   .insights-row { grid-template-columns: repeat(2, 1fr); }
@@ -839,6 +846,7 @@ body.gate-open { overflow: hidden; }
 <header>
   <button class="logo" id="sidebar-toggle-btn" title="Toggle sidebar">
     <img class="logo-mark" src="https://www.9at.com/assets/images/logo.svg" alt="9AT">
+    <span class="logo-word">Intelligence Platform</span>
   </button>
   <div class="header-right">
     <span class="hdr-status" id="hdr-status"><span class="dot"></span>No data loaded</span>
@@ -847,7 +855,7 @@ body.gate-open { overflow: hidden; }
     </button>
     <button class="hdr-btn" id="glossary-btn">? Glossary</button>
     <button class="hdr-btn primary" id="enrich-open-btn" style="display:none">★ Enrichment Priority <span id="enrich-count" class="hdr-btn-badge">— firms</span></button>
-    <button class="hdr-btn" id="logout-btn" title="Log out of this device">⏻ Log Out</button>
+    <button class="hdr-btn danger" id="logout-btn" title="Log out of this device">⏻ Log Out</button>
   </div>
 </header>
 
