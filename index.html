@@ -842,27 +842,30 @@ body.gate-open { overflow: hidden; }
 .network-empty-panel h2 { font-size: var(--fs-md); color: var(--text-2); }
 .network-empty-panel p { font-size: var(--fs-sm); color: var(--text-3); max-width: 440px; }
 
-/* Each shared connection is its own small self-contained card: a hub circle
-   with its firms arranged radially around it, so reading the network is a
-   left-to-right scan of independent clusters rather than untangling one
-   dense force-directed graph. */
-.network-clusters { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: var(--grid-gap); }
-.cluster-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: var(--sp-3); display: flex; flex-direction: column; align-items: center; text-align: center; transition: border-color var(--t-fast); }
-.cluster-card:hover { border-color: var(--border-2); }
-.cluster-svg { display: block; margin: 0 auto; }
-.net-spoke { stroke: var(--border-2); stroke-width: 1; }
-.net-firm-dot { fill: var(--surface-3); stroke: var(--text-4); stroke-width: 1.4; cursor: pointer; transition: r var(--t-fast), fill var(--t-fast), stroke var(--t-fast); }
-.net-firm-dot:hover { fill: var(--accent-dim); stroke: var(--accent); r: 6.5; }
-.net-hub-dot { stroke-width: 2; }
-.cluster-label { font-size: var(--fs-sm); font-weight: 600; color: var(--text); margin-top: 8px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.cluster-sub { font-size: var(--fs-2xs); color: var(--text-3); margin-top: 2px; font-family: var(--mono); }
-.cluster-expand { margin-top: 8px; background: none; border: none; color: var(--accent); font-family: var(--mono); font-size: var(--fs-2xs); cursor: pointer; padding: 2px 4px; }
-.cluster-expand:hover { text-decoration: underline; }
-.cluster-firm-list { width: 100%; margin-top: 6px; display: none; }
-.cluster-firm-list.open { display: block; }
-.net-firm-row { display: block; width: 100%; text-align: left; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r-sm); padding: 7px 9px; margin-bottom: 6px; cursor: pointer; color: var(--text); font-family: var(--sans); font-size: var(--fs-sm); }
+/* Table of shared connections; clicking a row expands an inline sub-table of
+   the firms that share that connection, right below it. */
+.network-table-wrap { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r-md); overflow: hidden; }
+table.network-table { width: 100%; border-collapse: collapse; }
+table.network-table thead th {
+  text-align: left; font-size: var(--fs-2xs); text-transform: uppercase; letter-spacing: .04em;
+  color: var(--text-3); font-family: var(--mono); font-weight: 600; padding: 10px 12px;
+  border-bottom: 1px solid var(--border); background: var(--surface-2);
+}
+table.network-table tbody tr.net-row { border-bottom: 1px solid var(--border); cursor: pointer; transition: background var(--t-fast); }
+table.network-table tbody tr.net-row:hover { background: var(--surface-3); }
+table.network-table tbody tr.net-row.open { background: var(--surface-3); }
+table.network-table td { padding: 10px 12px; vertical-align: middle; font-size: var(--fs-sm); }
+.net-row-label { font-weight: 600; color: var(--text); }
+.net-row-caret { display: inline-block; margin-right: 8px; color: var(--text-3); transition: transform var(--t-fast); font-size: 10px; }
+tr.net-row.open .net-row-caret { transform: rotate(90deg); }
+.net-tier-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; vertical-align: middle; }
+.net-count-cell { font-family: var(--mono); color: var(--text-2); }
+tr.net-detail-row td { padding: 0; border-bottom: 1px solid var(--border); }
+tr.net-detail-row.hidden { display: none; }
+.net-detail-inner { padding: 4px 12px 14px 34px; display: flex; flex-direction: column; gap: 6px; }
+.net-firm-row { display: flex; justify-content: space-between; align-items: center; width: 100%; text-align: left; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-sm); padding: 7px 10px; cursor: pointer; color: var(--text); font-family: var(--sans); font-size: var(--fs-sm); }
 .net-firm-row:hover { border-color: var(--accent); }
-.net-firm-row .sub { display: block; font-size: var(--fs-2xs); color: var(--text-3); margin-top: 2px; }
+.net-firm-row .sub { font-size: var(--fs-2xs); color: var(--text-3); }
 .net-side-sub { font-size: var(--fs-xs); color: var(--text-3); margin-bottom: 10px; }
 
 /* ── territory / geography view ── */
@@ -2181,42 +2184,29 @@ function renderNetworkView(rows) {
         <span><i style="background:var(--cyan)"></i>Tier 2 connection</span>
       </span>
     </div>
-    <div class="network-clusters" id="network-clusters">
-      ${clusters.map((c,i) => renderClusterCard(c,i)).join('')}
+    <div class="network-table-wrap">
+      <table class="network-table">
+        <thead><tr><th>Connection</th><th>Tier</th><th style="text-align:right">Firms</th></tr></thead>
+        <tbody id="network-clusters">
+          ${clusters.map((c,i) => renderClusterRow(c,i)).join('')}
+        </tbody>
+      </table>
     </div>
   </div>`;
 }
 
-function renderClusterCard(cluster, idx) {
+function renderClusterRow(cluster, idx) {
   const n = cluster.firms.length;
-  const size = Math.min(260, Math.max(160, 90 + n*14));
-  const cx = size/2, cy = size/2;
-  const ringR = Math.min(size*0.36, 40 + n*3);
-  const hubR = 15;
   const color = cluster.tier === 1 ? 'var(--success)' : 'var(--cyan)';
-  const colorDim = cluster.tier === 1 ? 'var(--success-dim)' : 'var(--cyan-dim)';
-
-  const spokes = cluster.firms.map((f, i) => {
-    const angle = (i / n) * Math.PI * 2 - Math.PI/2;
-    const fx = cx + Math.cos(angle) * ringR;
-    const fy = cy + Math.sin(angle) * ringR;
-    return { f, fx, fy };
-  });
-
-  const lines = spokes.map(s => `<line class="net-spoke" x1="${cx}" y1="${cy}" x2="${s.fx.toFixed(1)}" y2="${s.fy.toFixed(1)}"/>`).join('');
-  const firmDots = spokes.map(s => `<circle class="net-firm-dot" cx="${s.fx.toFixed(1)}" cy="${s.fy.toFixed(1)}" r="5" data-ein="${esc(s.f.ein)}"><title>${esc(s.f.firm_name||'—')}</title></circle>`).join('');
-
-  return `<div class="cluster-card" data-idx="${idx}">
-    <svg class="cluster-svg" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}">
-      ${lines}
-      ${firmDots}
-      <circle class="net-hub-dot" cx="${cx}" cy="${cy}" r="${hubR}" fill="${colorDim}" stroke="${color}"/>
-    </svg>
-    <div class="cluster-label" title="${esc(cluster.label)}">${esc(cluster.label)}</div>
-    <div class="cluster-sub">${n} allocator${n!==1?'s':''} share this connection</div>
-    <button type="button" class="cluster-expand" onclick="toggleClusterExpand(${idx})">View firms ↓</button>
-    <div class="cluster-firm-list" id="cluster-firms-${idx}"></div>
-  </div>`;
+  const tierLbl = cluster.tier === 1 ? 'Tier 1' : 'Tier 2';
+  return `<tr class="net-row" data-idx="${idx}" onclick="toggleClusterExpand(${idx})">
+      <td class="net-row-label"><span class="net-row-caret">▶</span>${esc(cluster.label)}</td>
+      <td><span class="net-tier-dot" style="background:${color}"></span>${tierLbl}</td>
+      <td class="net-count-cell" style="text-align:right">${n}</td>
+    </tr>
+    <tr class="net-detail-row hidden" id="cluster-detail-${idx}">
+      <td colspan="3"><div class="net-detail-inner" id="cluster-firms-${idx}"></div></td>
+    </tr>`;
 }
 
 let _networkClustersCache = null;
@@ -2224,29 +2214,27 @@ let _networkClustersCache = null;
 function initNetworkView(rows) {
   const built = buildNetworkClusters(rows);
   _networkClustersCache = built.clusters;
-  // Hovering a firm dot highlights it; clicking opens the firm drawer directly
-  // — no separate side panel needed since each cluster is already a small,
-  // legible unit.
-  document.querySelectorAll('.net-firm-dot').forEach(dot => {
-    dot.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const ein = dot.getAttribute('data-ein');
-      if(ein) openDrawer(ein);
-    });
-  });
 }
 
 function toggleClusterExpand(idx) {
+  const row = document.querySelector(`.net-row[data-idx="${idx}"]`);
+  const detail = document.getElementById('cluster-detail-'+idx);
   const list = document.getElementById('cluster-firms-'+idx);
-  if(!list) return;
+  if(!row || !detail || !list) return;
   const cluster = _networkClustersCache && _networkClustersCache[idx];
   if(!cluster) return;
-  const isOpen = list.classList.contains('open');
-  if(isOpen) { list.classList.remove('open'); list.innerHTML = ''; return; }
+  const isOpen = row.classList.contains('open');
+  if(isOpen) {
+    row.classList.remove('open');
+    detail.classList.add('hidden');
+    list.innerHTML = '';
+    return;
+  }
   list.innerHTML = cluster.firms.map(f =>
-    `<button type="button" class="net-firm-row" onclick="openDrawer('${esc(f.ein)}')">${esc(f.firm_name||'—')}<span class="sub">${esc(f.location||'')}</span></button>`
+    `<button type="button" class="net-firm-row" onclick="event.stopPropagation();openDrawer('${esc(f.ein)}')"><span>${esc(f.firm_name||'—')}</span><span class="sub">${esc(f.location||'')}</span></button>`
   ).join('');
-  list.classList.add('open');
+  row.classList.add('open');
+  detail.classList.remove('hidden');
 }
 
 // ── Territory / geography view ──────────────────────────────────────────────
@@ -2259,12 +2247,32 @@ const US_STATE_PATHS = {"AL":{"d":"M625.6,470.1L629.2,469.3L629.2,468.8L630.1,46
 const STATE_NAMES = {AL:'Alabama',AK:'Alaska',AZ:'Arizona',AR:'Arkansas',CA:'California',CO:'Colorado',CT:'Connecticut',DE:'Delaware',DC:'D.C.',FL:'Florida',GA:'Georgia',HI:'Hawaii',ID:'Idaho',IL:'Illinois',IN:'Indiana',IA:'Iowa',KS:'Kansas',KY:'Kentucky',LA:'Louisiana',ME:'Maine',MD:'Maryland',MA:'Massachusetts',MI:'Michigan',MN:'Minnesota',MS:'Mississippi',MO:'Missouri',MT:'Montana',NE:'Nebraska',NV:'Nevada',NH:'New Hampshire',NJ:'New Jersey',NM:'New Mexico',NY:'New York',NC:'North Carolina',ND:'North Dakota',OH:'Ohio',OK:'Oklahoma',OR:'Oregon',PA:'Pennsylvania',RI:'Rhode Island',SC:'South Carolina',SD:'South Dakota',TN:'Tennessee',TX:'Texas',UT:'Utah',VT:'Vermont',VA:'Virginia',WA:'Washington',WV:'West Virginia',WI:'Wisconsin',WY:'Wyoming'};
 const MAP_VB_W = 960, MAP_VB_H = 600;
 
+const STATE_NAME_TO_CODE = Object.fromEntries(
+  Object.entries(STATE_NAMES).map(([code, name]) => [name.toLowerCase(), code])
+);
+
 function parseStateFromLocation(loc) {
   if(!loc) return null;
-  const m = String(loc).trim().match(/,\s*([A-Za-z]{2})\s*$/);
-  if(!m) return null;
-  const code = m[1].toUpperCase();
-  return STATE_NAMES[code] ? code : null;
+  const str = String(loc).trim();
+  // "City, ST", "City, ST 12345", or "City, ST, 12345" — 2-letter code,
+  // optionally followed by a comma and/or a zip code, at the end of the string.
+  const m = str.match(/,\s*([A-Za-z]{2})\s*,?\s*(?:\d{5}(?:-\d{4})?)?\s*$/);
+  if(m) {
+    const code = m[1].toUpperCase();
+    if(STATE_NAMES[code]) return code;
+  }
+  // "City, State Name" or "City, State Name, 12345" — full state name spelled out.
+  const m2 = str.match(/,\s*([A-Za-z][A-Za-z .]+?)\s*,?\s*(?:\d{5}(?:-\d{4})?)?\s*$/);
+  if(m2) {
+    const code = STATE_NAME_TO_CODE[m2[1].trim().toLowerCase()];
+    if(code) return code;
+  }
+  // Bare 2-letter code or full state name with no comma at all.
+  const trimmed = str.trim();
+  if(/^[A-Za-z]{2}$/.test(trimmed) && STATE_NAMES[trimmed.toUpperCase()]) return trimmed.toUpperCase();
+  const bareCode = STATE_NAME_TO_CODE[trimmed.toLowerCase()];
+  if(bareCode) return bareCode;
+  return null;
 }
 
 let _mapSelectedState = null;
@@ -2327,6 +2335,7 @@ function renderMapView(rows) {
             <span>More allocators</span>
           </div>
           ${unmatched>0 ? `<div style="margin-top:8px;font-size:var(--fs-2xs);color:var(--text-3);font-family:var(--mono)">${unmatched} firm${unmatched!==1?'s':''} in current filter had no parseable state in location and aren't shown on the map.</div>` : ''}
+          ${Object.keys(agg).length===0 ? `<div style="margin-top:8px;font-size:var(--fs-2xs);color:var(--warning);font-family:var(--mono)">No firms in the current filter had a location we could match to a state. Check that the location field includes a state, e.g. "City, ST".</div>` : ''}
         </div>
       </div>
       <div class="map-side">
