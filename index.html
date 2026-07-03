@@ -921,7 +921,184 @@ table.network-table td { padding: 10px 12px; vertical-align: middle; font-size: 
   white-space: pre-line;
 }
 #app-tooltip.visible { opacity: 1; transform: translateY(0); }
+
+/* === PATCHED PREMIUM CARD SYSTEM === */
+
+.alloc-card{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+
+    padding:20px;
+    border-radius:18px;
+
+    background:
+        linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)),
+        var(--surface);
+
+    border:1px solid rgba(255,255,255,.05);
+
+    box-shadow:
+        0 10px 24px rgba(0,0,0,.22),
+        inset 0 1px rgba(255,255,255,.04);
+
+    transition:
+        transform .18s ease,
+        box-shadow .18s ease,
+        border-color .18s ease,
+        background .18s ease;
+
+    overflow:hidden;
+}
+
+.alloc-card:hover{
+    transform:translateY(-4px);
+    border-color:rgba(255,255,255,.10);
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.30),
+        inset 0 1px rgba(255,255,255,.06);
+}
+
+.alloc-card::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    width:3px;
+    height:100%;
+    background:var(--accent);
+    opacity:.18;
+    transition:opacity .18s ease;
+}
+
+.alloc-card:hover::before{
+    opacity:1;
+}
+
+.ac-name{
+    font-size:18px;
+    font-weight:700;
+    letter-spacing:-0.02em;
+    line-height:1.2;
+}
+
+.ac-plan{
+    margin-top:2px;
+    font-size:12px;
+    color:var(--text-3);
+}
+
+.ac-stat-num{
+    font-size:22px;
+    font-weight:700;
+    line-height:1;
+    letter-spacing:-0.01em;
+}
+
+.ac-stat-label{
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    color:var(--text-3);
+}
+
+/* spacing tokens suggestion */
+
 </style>
+
+<style>
+.intelligence-hero{
+  padding:16px;
+  margin-bottom:12px;
+  border-radius:18px;
+  background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+  border:1px solid rgba(255,255,255,.06);
+  box-shadow:0 12px 30px rgba(0,0,0,.25);
+}
+
+.hero-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:10px;
+}
+
+.hero-title{
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:.02em;
+}
+
+.hero-live{
+  font-size:10px;
+  padding:3px 8px;
+  border-radius:999px;
+  background:rgba(0,255,140,.12);
+  color:#7CFFB2;
+  font-weight:600;
+}
+
+.hero-metric{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  margin-bottom:10px;
+}
+
+.hero-number{
+  font-size:34px;
+  font-weight:800;
+  letter-spacing:-0.03em;
+}
+
+.hero-label{
+  font-size:11px;
+  color:var(--text-3);
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+
+.hero-bar-wrap{
+  height:10px;
+  background:rgba(255,255,255,.05);
+  border-radius:999px;
+  overflow:hidden;
+  margin:10px 0;
+}
+
+.hero-bar{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,var(--accent),#7CFFB2);
+  transition:width .4s ease;
+}
+
+.hero-substats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-top:10px;
+}
+
+.hero-substats div{
+  text-align:center;
+}
+
+.hero-substats span{
+  display:block;
+  font-size:16px;
+  font-weight:700;
+}
+
+.hero-substats label{
+  font-size:10px;
+  color:var(--text-3);
+  text-transform:uppercase;
+  letter-spacing:.1em;
+}
+</style>
+
 </head>
 <body>
 
@@ -971,7 +1148,31 @@ table.network-table td { padding: 10px 12px; vertical-align: middle; font-size: 
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-inner">
 
-      <div>
+      
+<div class="intelligence-hero">
+  <div class="hero-top">
+    <div class="hero-title">Intelligence Overview</div>
+    <div class="hero-live">LIVE</div>
+  </div>
+
+  <div class="hero-metric">
+    <div class="hero-number" id="hero-total">—</div>
+    <div class="hero-label">Total Allocators</div>
+  </div>
+
+  <div class="hero-bar-wrap">
+    <div class="hero-bar" id="hero-bar"></div>
+  </div>
+
+  <div class="hero-substats">
+    <div><span id="hero-ready">—</span><label>Ready</label></div>
+    <div><span id="hero-high">—</span><label>High</label></div>
+    <div><span id="hero-email">—</span><label>No Email</label></div>
+    <div><span id="hero-contacted">—</span><label>Contacted</label></div>
+  </div>
+</div>
+
+<div>
         <div class="sidebar-section-title">Overview</div>
         <div class="insights-row">
           <button type="button" class="stat" data-stat="total" onclick="statClick('total')"><span class="stat-label">Total Allocators</span><span class="stat-value num" id="d-total">—</span></button>
