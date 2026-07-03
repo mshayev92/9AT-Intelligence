@@ -989,14 +989,14 @@ table.network-table td { padding: 10px 12px; vertical-align: middle; font-size: 
     color:var(--text-3);
 }
 
-.ac-stat-num{
+.ac-stat-num{flex:1; text-align:center;
     font-size:22px;
     font-weight:700;
     line-height:1;
     letter-spacing:-0.01em;
 }
 
-.ac-stat-label{
+.ac-stat-label{display:block;
     font-size:10px;
     text-transform:uppercase;
     letter-spacing:.12em;
@@ -1165,20 +1165,20 @@ table.network-table td { padding: 10px 12px; vertical-align: middle; font-size: 
 }
 
 /* stats grid clarity */
-.ac-stats{
+.ac-stats{display:flex; flex-direction:row; gap:10px; justify-content:space-between;
     display:grid;
     grid-template-columns:repeat(2,1fr);
     gap:10px;
     margin-top:6px;
 }
 
-.ac-stat-num{
+.ac-stat-num{flex:1; text-align:center;
     font-size:20px;
     font-weight:700;
     line-height:1;
 }
 
-.ac-stat-label{
+.ac-stat-label{display:block;
     font-size:10px;
     text-transform:uppercase;
     letter-spacing:.12em;
@@ -1202,6 +1202,12 @@ table.network-table td { padding: 10px 12px; vertical-align: middle; font-size: 
     background:rgba(255,255,255,.05);
     color:var(--text-2);
 }
+</style>
+
+
+<style>
+.sidebar-section { margin-bottom: 14px; }
+.sidebar-section-title { margin-top: 10px; margin-bottom: 8px; }
 </style>
 
 </head>
@@ -1257,7 +1263,7 @@ table.network-table td { padding: 10px 12px; vertical-align: middle; font-size: 
 <div class="intelligence-hero">
   <div class="hero-top">
     <div class="hero-title">Intelligence Overview</div>
-    <div class="hero-live">LIVE</div>
+    
   </div>
 
   <div class="hero-metric">
@@ -1278,7 +1284,7 @@ table.network-table td { padding: 10px 12px; vertical-align: middle; font-size: 
 </div>
 
 <div>
-        <div class="sidebar-section-title">Overview</div>
+        <div class="sidebar-section-title"></div>
         
 <!-- insights-row removed; replaced by hero -->
 <!-- ── OUTREACH PIPELINE ── -->
