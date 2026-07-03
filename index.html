@@ -817,6 +817,89 @@ body.gate-open { overflow: hidden; }
   .result-actions { display: flex; gap: 8px; }
   .result-actions .hdr-btn { flex: 1; justify-content: center; }
 }
+
+/* ── outreach heat thermometer (card header) ── */
+.heat-therm { display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
+.heat-tube { position: relative; width: 6px; height: 26px; border-radius: 3px; background: var(--surface); border: 1px solid var(--border-2); overflow: hidden; }
+.heat-fill { position: absolute; bottom: 0; left: 0; width: 100%; border-radius: 2px; transition: height var(--t-fast); }
+.heat-bulb { display: none; }
+.heat-num { font-size: var(--fs-2xs); color: var(--text-3); min-width: 16px; text-align: right; }
+.heat-therm[data-band="hot"]  .heat-fill { background: var(--danger); }
+.heat-therm[data-band="warm"] .heat-fill { background: var(--warning); }
+.heat-therm[data-band="cool"] .heat-fill { background: var(--info); }
+.heat-therm[data-band="cold"] .heat-fill { background: var(--text-4); }
+.heat-therm[data-band="hot"]  .heat-num { color: var(--danger); }
+.heat-therm[data-band="warm"] .heat-num { color: var(--warning); }
+
+/* ── relationship network view ── */
+.network-wrap { padding: var(--sp-4) 1.75rem 3rem; }
+.network-toolbar { display: flex; align-items: center; gap: var(--sp-3); margin-bottom: var(--sp-3); flex-wrap: wrap; }
+.network-toolbar .hint { font-size: var(--fs-xs); color: var(--text-3); font-family: var(--mono); }
+.network-legend { display: flex; align-items: center; gap: 14px; font-size: var(--fs-xs); color: var(--text-3); font-family: var(--mono); }
+.network-legend span { display: inline-flex; align-items: center; gap: 5px; }
+.network-legend i { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+.network-stage { position: relative; width: 100%; height: 640px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
+.network-stage svg { width: 100%; height: 100%; cursor: grab; }
+.network-stage svg:active { cursor: grabbing; }
+.net-node { cursor: pointer; }
+.net-node circle { transition: r var(--t-fast), opacity var(--t-fast); stroke-width: 2px; }
+.net-node text { pointer-events: none; font-family: var(--sans); fill: var(--text-2); }
+.net-link { stroke: var(--border-2); stroke-width: 1.2; fill: none; transition: stroke var(--t-fast), stroke-width var(--t-fast), opacity var(--t-fast); }
+.net-dim { opacity: .12; }
+.net-side { position: absolute; top: 12px; right: 12px; width: 300px; max-height: calc(100% - 24px); overflow-y: auto; background: var(--raised); border: 1px solid var(--border-2); border-radius: var(--r-md); padding: var(--sp-3); box-shadow: var(--shadow-lg, 0 10px 30px rgba(0,0,0,.4)); display: none; }
+.net-side.visible { display: block; }
+.net-side h4 { font-size: var(--fs-sm); margin-bottom: 6px; }
+.net-side .net-side-sub { font-size: var(--fs-xs); color: var(--text-3); margin-bottom: 10px; }
+.net-side-close { position: absolute; top: 8px; right: 10px; background: none; border: none; color: var(--text-3); cursor: pointer; font-size: 14px; }
+.net-firm-row { display: block; width: 100%; text-align: left; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r-sm); padding: 7px 9px; margin-bottom: 6px; cursor: pointer; color: var(--text); font-family: var(--sans); font-size: var(--fs-sm); }
+.net-firm-row:hover { border-color: var(--accent); }
+.net-firm-row .sub { display: block; font-size: var(--fs-2xs); color: var(--text-3); margin-top: 2px; }
+.net-empty { display: flex; align-items: center; justify-content: center; height: 100%; color: var(--text-3); font-size: var(--fs-sm); text-align: center; padding: 40px; }
+
+/* ── territory / geography view ── */
+.map-wrap { padding: var(--sp-4) 1.75rem 3rem; }
+.map-layout { display: grid; grid-template-columns: minmax(0,1fr) 320px; gap: var(--sp-4); align-items: start; }
+.map-stage { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: var(--sp-4); }
+.map-stage svg { width: 100%; height: auto; }
+.map-state { stroke: var(--border-2); stroke-width: .6; cursor: pointer; transition: stroke var(--t-fast), stroke-width var(--t-fast); }
+.map-state:hover { stroke: var(--accent); stroke-width: 1.4; }
+.map-state.selected { stroke: var(--accent); stroke-width: 1.8; }
+.map-legend { display: flex; align-items: center; gap: 8px; margin-top: var(--sp-3); font-size: var(--fs-xs); color: var(--text-3); font-family: var(--mono); }
+.map-legend-scale { display: flex; height: 10px; border-radius: 3px; overflow: hidden; flex: 1; max-width: 220px; }
+.map-legend-scale span { flex: 1; }
+.map-side { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: var(--sp-4); max-height: 700px; overflow-y: auto; }
+.map-side h3 { font-size: var(--fs-md); margin-bottom: 10px; }
+.map-state-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 4px; border-bottom: 1px solid var(--border); cursor: pointer; }
+.map-state-row:last-child { border-bottom: none; }
+.map-state-row:hover { background: var(--surface-2); }
+.map-state-row.selected { background: var(--accent-dim); }
+.map-state-name { font-size: var(--fs-sm); }
+.map-state-counts { font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-3); display: flex; gap: 8px; }
+.map-state-counts .n9at { color: var(--success); }
+.map-firm-list { margin-top: var(--sp-3); }
+.map-firm-list .net-firm-row { margin-bottom: 6px; }
+
+/* ── "what changed" diff toast ── */
+.diff-toast { position: fixed; bottom: 22px; right: 22px; width: 340px; max-height: 60vh; overflow-y: auto; background: var(--raised); border: 1px solid var(--border-2); border-radius: var(--r-lg); box-shadow: 0 12px 34px rgba(0,0,0,.45); padding: var(--sp-4); z-index: 500; animation: diffIn .25s ease-out; }
+@keyframes diffIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+.diff-toast-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.diff-toast-head h4 { font-size: var(--fs-sm); display: flex; align-items: center; gap: 6px; }
+.diff-toast-close { background: none; border: none; color: var(--text-3); cursor: pointer; font-size: 14px; }
+.diff-toast-close:hover { color: var(--text); }
+.diff-row { display: flex; gap: 8px; align-items: flex-start; font-size: var(--fs-xs); padding: 6px 0; border-top: 1px solid var(--border); }
+.diff-row:first-of-type { border-top: none; }
+.diff-dot { width: 7px; height: 7px; border-radius: 50%; margin-top: 4px; flex-shrink: 0; }
+.diff-dot.add { background: var(--success); }
+.diff-dot.up { background: var(--info); }
+.diff-dot.down { background: var(--warning); }
+.diff-row-text { color: var(--text-2); line-height: 1.4; }
+.diff-row-text b { color: var(--text); }
+.diff-toast-empty { font-size: var(--fs-xs); color: var(--text-3); }
+
+@media (max-width: 900px) {
+  .map-layout { grid-template-columns: 1fr; }
+  .net-side { position: static; width: auto; margin-top: var(--sp-3); }
+}
 </style>
 </head>
 <body>
@@ -917,6 +1000,14 @@ body.gate-open { overflow: hidden; }
           <button id="view-table-btn" onclick="setView('table')" title="Table view">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
             Table
+          </button>
+          <button id="view-network-btn" onclick="setView('network')" title="Relationship network view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="5" cy="6" r="2.2"/><circle cx="19" cy="6" r="2.2"/><circle cx="12" cy="12" r="2.2"/><circle cx="5" cy="18" r="2.2"/><circle cx="19" cy="18" r="2.2"/><line x1="6.8" y1="7.2" x2="10.3" y2="10.7"/><line x1="17.2" y1="7.2" x2="13.7" y2="10.7"/><line x1="10.3" y1="13.3" x2="6.8" y2="16.8"/><line x1="13.7" y1="13.3" x2="17.2" y2="16.8"/></svg>
+            Network
+          </button>
+          <button id="view-map-btn" onclick="setView('map')" title="Geography / territory view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 20l-6-3V4l6 3 6-3 6 3v13l-6-3-6 3z"/><line x1="9" y1="7" x2="9" y2="20"/><line x1="15" y1="4" x2="15" y2="17"/></svg>
+            Territory
           </button>
         </div>
       </div>
@@ -1401,11 +1492,15 @@ function setView(view) {
   renderDB();
 }
 function updateViewToggleUI() {
-  const cardsBtn = document.getElementById('view-cards-btn');
-  const tableBtn = document.getElementById('view-table-btn');
-  if(cardsBtn) cardsBtn.classList.toggle('active', prefs.view !== 'table');
-  if(tableBtn) tableBtn.classList.toggle('active', prefs.view === 'table');
-  document.body.setAttribute('data-view', prefs.view === 'table' ? 'table' : 'cards');
+  const cardsBtn   = document.getElementById('view-cards-btn');
+  const tableBtn   = document.getElementById('view-table-btn');
+  const networkBtn = document.getElementById('view-network-btn');
+  const mapBtn     = document.getElementById('view-map-btn');
+  if(cardsBtn)   cardsBtn.classList.toggle('active',   prefs.view !== 'table' && prefs.view !== 'network' && prefs.view !== 'map');
+  if(tableBtn)   tableBtn.classList.toggle('active',   prefs.view === 'table');
+  if(networkBtn) networkBtn.classList.toggle('active', prefs.view === 'network');
+  if(mapBtn)     mapBtn.classList.toggle('active',     prefs.view === 'map');
+  document.body.setAttribute('data-view', prefs.view || 'cards');
 }
 function setCardsPerRow(cols) {
   prefs.cardsPerRow = cols;
@@ -1810,6 +1905,95 @@ function loadData(data) {
   dbPage = 1;
   renderDB();
   updatePipeline();
+  runSnapshotDiff();
+}
+
+// ── "What changed" snapshot diffing ─────────────────────────────────────────
+// The data file is a point-in-time JSON snapshot with no history of its own.
+// To surface what's new between loads, we keep a lightweight fingerprint of
+// the previous snapshot in localStorage (ein → {signalCount, bestTier,
+// priority}) and diff the freshly loaded data against it. This is
+// intentionally cheap: a few small fields per firm, not the full record.
+const SNAPSHOT_KEY = '9at_last_snapshot_v1';
+
+function buildSnapshotFingerprint() {
+  const fp = {};
+  dbData.forEach(a => {
+    const rels = a.at9_relationships || [];
+    fp[a.ein] = {
+      name: a.firm_name || '',
+      sig: rels.length,
+      tier: rels.length ? Math.min(...rels.map(r => SIG_TIER[r.signal] || 2)) : 0,
+      prio: effectivePriority(a),
+    };
+  });
+  return fp;
+}
+
+function runSnapshotDiff() {
+  let prev = null;
+  try { prev = JSON.parse(localStorage.getItem(SNAPSHOT_KEY) || 'null'); } catch(e) { prev = null; }
+  const current = buildSnapshotFingerprint();
+
+  if(prev) {
+    const changes = { newFirms: [], newSignals: [], priorityUp: [], priorityDown: [] };
+    const rank = { SKIP:0, LOW:1, HIGH:2, ENRICHED_NO_EMAIL:3, READY:4 };
+
+    Object.keys(current).forEach(ein => {
+      const cur = current[ein];
+      const old = prev[ein];
+      if(!old) {
+        changes.newFirms.push(cur);
+        return;
+      }
+      if(cur.sig > old.sig || (cur.tier && (!old.tier || cur.tier < old.tier))) {
+        changes.newSignals.push(cur);
+      }
+      const curR = rank[cur.prio] ?? -1, oldR = rank[old.prio] ?? -1;
+      if(curR > oldR) changes.priorityUp.push(cur);
+      else if(curR < oldR) changes.priorityDown.push(cur);
+    });
+
+    const totalChanges = changes.newFirms.length + changes.newSignals.length + changes.priorityUp.length + changes.priorityDown.length;
+    if(totalChanges > 0) showDiffToast(changes);
+  }
+
+  try { localStorage.setItem(SNAPSHOT_KEY, JSON.stringify(current)); } catch(e) { /* storage full/unavailable — skip silently */ }
+}
+
+function showDiffToast(changes) {
+  const existing = document.getElementById('diff-toast');
+  if(existing) existing.remove();
+
+  const rows = [];
+  if(changes.newFirms.length) {
+    rows.push(`<div class="diff-row"><span class="diff-dot add"></span><span class="diff-row-text"><b>${changes.newFirms.length}</b> new allocator${changes.newFirms.length!==1?'s':''} appeared${changes.newFirms.length<=3 ? ': '+changes.newFirms.map(f=>esc(f.name)).join(', ') : ''}</span></div>`);
+  }
+  if(changes.newSignals.length) {
+    rows.push(`<div class="diff-row"><span class="diff-dot up"></span><span class="diff-row-text"><b>${changes.newSignals.length}</b> firm${changes.newSignals.length!==1?'s':''} gained or strengthened a 9AT signal since last time</span></div>`);
+  }
+  if(changes.priorityUp.length) {
+    rows.push(`<div class="diff-row"><span class="diff-dot up"></span><span class="diff-row-text"><b>${changes.priorityUp.length}</b> firm${changes.priorityUp.length!==1?'s':''} moved up in enrichment priority</span></div>`);
+  }
+  if(changes.priorityDown.length) {
+    const names = changes.priorityDown.slice(0,3).map(f=>esc(f.name)).join(', ');
+    rows.push(`<div class="diff-row"><span class="diff-dot down"></span><span class="diff-row-text"><b>${changes.priorityDown.length}</b> firm${changes.priorityDown.length!==1?'s':''} dropped in priority${changes.priorityDown.length<=3 ? ': '+names : ''}</span></div>`);
+  }
+
+  const toast = document.createElement('div');
+  toast.className = 'diff-toast';
+  toast.id = 'diff-toast';
+  toast.innerHTML = `
+    <div class="diff-toast-head">
+      <h4>↻ What changed since last load</h4>
+      <button class="diff-toast-close" onclick="document.getElementById('diff-toast').remove()">✕</button>
+    </div>
+    ${rows.join('') || '<div class="diff-toast-empty">No notable changes.</div>'}
+  `;
+  document.body.appendChild(toast);
+  // Auto-dismiss after a while so it doesn't linger forever, but give
+  // enough time to actually read it.
+  setTimeout(() => { const t = document.getElementById('diff-toast'); if(t) t.remove(); }, 20000);
 }
 
 // ── Filter + sort ─────────────────────────────────────────────────────────────
@@ -1870,6 +2054,367 @@ function getFilteredDB() {
   return rows;
 }
 
+// ── Outreach "heat" score ────────────────────────────────────────────────────
+// A single blended 0–100 glanceable score combining: best signal tier (do we
+// have a strong 9AT connection at all), data completeness (schedule C /
+// investments / contacts on file — i.e. how much is actually known about this
+// firm), and current enrichment/contact readiness (email in hand, already
+// enriched, already contacted). This does not replace the Ready/Enrich/Skip
+// pipeline — it's a faster "should I care about this one today" read when
+// scanning many cards at once.
+function heatScore(a) {
+  const rels = a.at9_relationships || [];
+  let score = 0;
+
+  // Signal strength (0–40): having any 9AT signal matters most, tier 1 more so.
+  if(rels.length) {
+    const bestTier = Math.min(...rels.map(r => SIG_TIER[r.signal] || 2));
+    score += bestTier === 1 ? 40 : 26;
+    score += Math.min(rels.length - 1, 3) * 3; // multiple corroborating signals nudge it up
+  }
+
+  // Data completeness (0–30): how much is actually on file for this firm.
+  const spCount  = (a.service_providers || []).length;
+  const invCount = (a.investments || []).length;
+  const conCount = a.contact_count_any || 0;
+  score += Math.min(spCount, 3) * 4;   // up to 12
+  score += Math.min(invCount, 3) * 3;  // up to 9
+  score += Math.min(conCount, 3) * 3;  // up to 9
+
+  // Readiness (0–30): email in hand beats "needs enrichment" beats nothing.
+  const ep = effectivePriority(a);
+  if(ep === 'READY') score += 30;
+  else if(ep === 'ENRICHED_NO_EMAIL') score += 14;
+  else if(ep === 'HIGH') score += 10;
+  else if(ep === 'LOW') score += 6;
+
+  // Already contacted firms cool down — you've already acted on the signal.
+  if(isContacted(a.ein)) score = Math.round(score * 0.55);
+
+  return Math.max(0, Math.min(100, Math.round(score)));
+}
+function heatBand(score) {
+  if(score >= 70) return { cls: 'hot',  label: 'Hot'  };
+  if(score >= 40) return { cls: 'warm', label: 'Warm' };
+  if(score >= 15) return { cls: 'cool', label: 'Cool' };
+  return { cls: 'cold', label: 'Cold' };
+}
+function heatThermometer(a) {
+  const score = heatScore(a);
+  const band  = heatBand(score);
+  return `<div class="heat-therm" data-band="${band.cls}" title="Outreach heat: ${score}/100 (${band.label}) — blends signal tier, data completeness, and readiness">
+    <div class="heat-bulb"></div>
+    <div class="heat-tube"><div class="heat-fill" style="height:${score}%"></div></div>
+    <span class="heat-num num">${score}</span>
+  </div>`;
+}
+
+// ── Relationship network view ───────────────────────────────────────────────
+// Builds a bipartite-ish graph: allocator firms as nodes, connected to
+// "connection" hub nodes derived from at9_relationships (matched_name +
+// connection text). Firms sharing a hub cluster together, surfacing patterns
+// like several allocators tracing back to the same placement agent/adviser
+// that are invisible in a flat card/list view.
+let _netSim = null;
+
+function buildNetworkGraph(rows) {
+  const firmsWithSignal = rows.filter(a => (a.at9_relationships||[]).length > 0);
+  const hubMap = new Map(); // hub key -> {id, label, tier, firms:[]}
+
+  firmsWithSignal.forEach(a => {
+    (a.at9_relationships||[]).forEach(r => {
+      const key = (r.matched_name || r.connection || 'Unknown connection').trim().toLowerCase();
+      if(!key) return;
+      if(!hubMap.has(key)) {
+        hubMap.set(key, { id: 'hub:'+key, label: r.matched_name || r.connection, tier: SIG_TIER[r.signal]||2, firms: new Set() });
+      }
+      const hub = hubMap.get(key);
+      hub.firms.add(a.ein);
+      hub.tier = Math.min(hub.tier, SIG_TIER[r.signal]||2);
+    });
+  });
+
+  // Only keep hubs that actually connect >=2 firms — those are the
+  // interesting "shared connection" clusters. Singletons still get folded
+  // into the graph so a firm's own signal is visible, but capped so the
+  // stage doesn't get flooded with 1:1 noise on large datasets.
+  const hubs = Array.from(hubMap.values());
+  const sharedHubs = hubs.filter(h => h.firms.size >= 2).sort((a,b)=>b.firms.size-a.firms.size);
+  const soloHubs   = hubs.filter(h => h.firms.size === 1).slice(0, 40);
+  const keptHubs = [...sharedHubs, ...soloHubs];
+  const keptEins = new Set();
+  keptHubs.forEach(h => h.firms.forEach(e => keptEins.add(e)));
+
+  const nodes = [];
+  const nodeIndex = {};
+  keptHubs.forEach(h => { nodeIndex[h.id] = nodes.length; nodes.push({ id: h.id, type: 'hub', label: h.label, tier: h.tier, count: h.firms.size }); });
+  firmsWithSignal.filter(a => keptEins.has(a.ein)).forEach(a => {
+    nodeIndex['firm:'+a.ein] = nodes.length;
+    nodes.push({ id: 'firm:'+a.ein, type: 'firm', label: a.firm_name||'—', ein: a.ein, ref: a });
+  });
+
+  const links = [];
+  keptHubs.forEach(h => {
+    h.firms.forEach(ein => {
+      if(nodeIndex['firm:'+ein] === undefined) return;
+      links.push({ source: nodeIndex[h.id], target: nodeIndex['firm:'+ein] });
+    });
+  });
+
+  return { nodes, links, sharedHubCount: sharedHubs.length, totalWithSignal: firmsWithSignal.length };
+}
+
+function renderNetworkView(rows) {
+  const graph = buildNetworkGraph(rows);
+  if(!graph.nodes.length) {
+    return `<div class="network-wrap"><div class="network-stage"><div class="net-empty">No firms with a 9AT signal in the current filter — nothing to map. Try clearing filters or switching to "Has 9AT signal".</div></div></div>`;
+  }
+  return `<div class="network-wrap">
+    <div class="network-toolbar">
+      <span class="hint">${graph.totalWithSignal} firms with a signal · ${graph.sharedHubCount} shared connection${graph.sharedHubCount!==1?'s':''} linking multiple firms · drag to explore, click a node</span>
+      <span class="network-legend">
+        <span><i style="background:var(--success)"></i>Tier 1 connection</span>
+        <span><i style="background:var(--cyan)"></i>Tier 2 connection</span>
+        <span><i style="background:var(--text-4)"></i>Allocator firm</span>
+      </span>
+    </div>
+    <div class="network-stage" id="network-stage">
+      <div class="net-side" id="net-side"><button class="net-side-close" onclick="document.getElementById('net-side').classList.remove('visible')">✕</button><div id="net-side-body"></div></div>
+    </div>
+  </div>`;
+}
+
+// Minimal force-directed layout (no external library): repulsion between all
+// nodes, spring attraction along links, mild centering. Runs client-side on
+// a plain SVG — enough nodes for this use case that a full physics library
+// would be overkill.
+function initNetworkView(rows) {
+  const stage = document.getElementById('network-stage');
+  if(!stage) return;
+  const graph = buildNetworkGraph(rows);
+  if(!graph.nodes.length) return;
+
+  const W = stage.clientWidth || 900, H = stage.clientHeight || 640;
+  const nodes = graph.nodes.map((n,i) => ({
+    ...n,
+    x: W/2 + (Math.random()-0.5)*W*0.6,
+    y: H/2 + (Math.random()-0.5)*H*0.6,
+    vx: 0, vy: 0,
+  }));
+  const links = graph.links;
+
+  function tick() {
+    // repulsion
+    for(let i=0;i<nodes.length;i++){
+      for(let j=i+1;j<nodes.length;j++){
+        const a = nodes[i], b = nodes[j];
+        let dx = a.x-b.x, dy = a.y-b.y;
+        let d2 = dx*dx+dy*dy || 0.01;
+        if(d2 < 22500) { // within 150px influence
+          const d = Math.sqrt(d2);
+          const f = (150-d)/d * 0.6;
+          const fx = dx*f, fy = dy*f;
+          a.vx += fx; a.vy += fy; b.vx -= fx; b.vy -= fy;
+        }
+      }
+    }
+    // spring attraction along links
+    links.forEach(l => {
+      const a = nodes[l.source], b = nodes[l.target];
+      const dx = b.x-a.x, dy = b.y-a.y;
+      const d = Math.sqrt(dx*dx+dy*dy) || 0.01;
+      const targetLen = 90;
+      const f = (d-targetLen) * 0.02;
+      const fx = dx/d*f, fy = dy/d*f;
+      a.vx += fx; a.vy += fy; b.vx -= fx; b.vy -= fy;
+    });
+    // centering + damping + integrate
+    nodes.forEach(n => {
+      n.vx += (W/2 - n.x) * 0.002;
+      n.vy += (H/2 - n.y) * 0.002;
+      n.vx *= 0.82; n.vy *= 0.82;
+      n.x += n.vx; n.y += n.vy;
+      n.x = Math.max(30, Math.min(W-30, n.x));
+      n.y = Math.max(30, Math.min(H-30, n.y));
+    });
+  }
+  for(let i=0;i<220;i++) tick(); // settle before first paint
+
+  function draw() {
+    const svgLinks = links.map(l => {
+      const a = nodes[l.source], b = nodes[l.target];
+      return `<line class="net-link" data-s="${l.source}" data-t="${l.target}" x1="${a.x.toFixed(1)}" y1="${a.y.toFixed(1)}" x2="${b.x.toFixed(1)}" y2="${b.y.toFixed(1)}"/>`;
+    }).join('');
+    const svgNodes = nodes.map((n,i) => {
+      if(n.type === 'hub') {
+        const r = 7 + Math.min(n.count, 8)*1.6;
+        const color = n.tier===1 ? 'var(--success)' : 'var(--cyan)';
+        return `<g class="net-node" data-idx="${i}" data-type="hub" transform="translate(${n.x.toFixed(1)},${n.y.toFixed(1)})">
+          <circle r="${r}" fill="${color==='var(--success)'?'var(--success-dim)':'var(--cyan-dim)'}" stroke="${color}"/>
+          <text x="0" y="${-r-6}" font-size="10" text-anchor="middle">${esc(n.label.length>26?n.label.slice(0,24)+'…':n.label)}</text>
+        </g>`;
+      }
+      return `<g class="net-node" data-idx="${i}" data-type="firm" transform="translate(${n.x.toFixed(1)},${n.y.toFixed(1)})">
+        <circle r="5" fill="var(--surface-3)" stroke="var(--text-4)"/>
+        <text x="0" y="14" font-size="9" text-anchor="middle">${esc(n.label.length>20?n.label.slice(0,18)+'…':n.label)}</text>
+      </g>`;
+    }).join('');
+    stage.innerHTML = `<div class="net-side" id="net-side"><button class="net-side-close" onclick="document.getElementById('net-side').classList.remove('visible')">✕</button><div id="net-side-body"></div></div>
+      <svg viewBox="0 0 ${W} ${H}">${svgLinks}${svgNodes}</svg>`;
+
+    stage.querySelectorAll('.net-node').forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const idx = Number(el.getAttribute('data-idx'));
+        selectNetworkNode(nodes, links, idx);
+      });
+    });
+  }
+  draw();
+}
+
+function selectNetworkNode(nodes, links, idx) {
+  const node = nodes[idx];
+  const side = document.getElementById('net-side');
+  const body = document.getElementById('net-side-body');
+  if(!side || !body) return;
+
+  // highlight connected links/nodes
+  document.querySelectorAll('.net-link').forEach(l => {
+    const s = Number(l.getAttribute('data-s')), t = Number(l.getAttribute('data-t'));
+    const connected = s===idx || t===idx;
+    l.classList.toggle('net-dim', !connected);
+  });
+
+  if(node.type === 'hub') {
+    const connectedFirmIdx = links.filter(l => l.source===idx || l.target===idx).map(l => l.source===idx ? l.target : l.source);
+    const firms = connectedFirmIdx.map(i => nodes[i]).filter(n => n.type==='firm');
+    body.innerHTML = `<h4>${esc(node.label)}</h4>
+      <div class="net-side-sub">Shared connection · ${firms.length} allocator${firms.length!==1?'s':''} trace back to this</div>
+      ${firms.map(f => `<button type="button" class="net-firm-row" onclick="openDrawer('${esc(f.ein)}')">${esc(f.label)}<span class="sub">${esc(f.ref?.location||'')}</span></button>`).join('') || '<div class="net-side-sub">No linked firms.</div>'}`;
+  } else {
+    const connectedHubIdx = links.filter(l => l.source===idx || l.target===idx).map(l => l.source===idx ? l.target : l.source);
+    const hubs = connectedHubIdx.map(i => nodes[i]).filter(n => n.type==='hub');
+    body.innerHTML = `<h4>${esc(node.label)}</h4>
+      <div class="net-side-sub">${hubs.length} 9AT connection${hubs.length!==1?'s':''} for this firm</div>
+      ${hubs.map(h => `<div class="net-firm-row" style="cursor:default">${esc(h.label)}<span class="sub">${h.count} firm${h.count!==1?'s':''} share this connection</span></div>`).join('')}
+      <button type="button" class="net-firm-row" style="margin-top:8px;border-color:var(--accent);color:var(--accent)" onclick="openDrawer('${esc(node.ein)}')">Open full firm record →</button>`;
+  }
+  side.classList.add('visible');
+}
+
+// ── Territory / geography view ──────────────────────────────────────────────
+// No external mapping dependency: a hand-rolled simplified US state grid
+// (cartogram-style, not geographically precise coastlines) colored by
+// allocator density and, on a toggle, 9AT-signal concentration. location is
+// a free-text string like "City, ST" — we parse the trailing 2-letter code.
+const US_STATE_GRID = {
+  // approximate cartogram layout: col,row per state (0-indexed), 11 cols
+  AK:[0,0], ME:[10,0],
+  WA:[1,1], VT:[9,1], NH:[10,1],
+  ID:[1,2], MT:[2,2], ND:[4,2], MN:[5,2], WI:[6,2], MI:[7,2], NY:[9,2], MA:[10,2],
+  OR:[1,3], WY:[2,3], SD:[3,3], IA:[5,3], IL:[6,3], IN:[7,3], OH:[8,3], PA:[9,3], NJ:[10,3], CT:[10,4], RI:[11,2],
+  NV:[1,4], UT:[2,4], CO:[3,4], NE:[4,4], MO:[5,4], KY:[7,4], WV:[8,4], VA:[9,4], MD:[10,3],
+  CA:[0,4], AZ:[1,5], NM:[2,5], KS:[4,3], AR:[5,5], TN:[6,5], NC:[9,5], DC:[10,3.6],
+  HI:[0,6], OK:[3,5], LA:[5,6], MS:[6,6], AL:[7,5], GA:[8,5], SC:[9,4.8],
+  TX:[3,6], FL:[9,6.4],
+};
+const STATE_NAMES = {AL:'Alabama',AK:'Alaska',AZ:'Arizona',AR:'Arkansas',CA:'California',CO:'Colorado',CT:'Connecticut',DE:'Delaware',DC:'D.C.',FL:'Florida',GA:'Georgia',HI:'Hawaii',ID:'Idaho',IL:'Illinois',IN:'Indiana',IA:'Iowa',KS:'Kansas',KY:'Kentucky',LA:'Louisiana',ME:'Maine',MD:'Maryland',MA:'Massachusetts',MI:'Michigan',MN:'Minnesota',MS:'Mississippi',MO:'Missouri',MT:'Montana',NE:'Nebraska',NV:'Nevada',NH:'New Hampshire',NJ:'New Jersey',NM:'New Mexico',NY:'New York',NC:'North Carolina',ND:'North Dakota',OH:'Ohio',OK:'Oklahoma',OR:'Oregon',PA:'Pennsylvania',RI:'Rhode Island',SC:'South Carolina',SD:'South Dakota',TN:'Tennessee',TX:'Texas',UT:'Utah',VT:'Vermont',VA:'Virginia',WA:'Washington',WV:'West Virginia',WI:'Wisconsin',WY:'Wyoming'};
+
+function parseStateFromLocation(loc) {
+  if(!loc) return null;
+  const m = String(loc).trim().match(/,\s*([A-Za-z]{2})\s*$/);
+  if(!m) return null;
+  const code = m[1].toUpperCase();
+  return STATE_NAMES[code] ? code : null;
+}
+
+let _mapSelectedState = null;
+
+function buildStateAgg(rows) {
+  const agg = {};
+  rows.forEach(a => {
+    const st = parseStateFromLocation(a.location);
+    if(!st) return;
+    if(!agg[st]) agg[st] = { total: 0, withSignal: 0, firms: [] };
+    agg[st].total++;
+    if((a.at9_relationships||[]).length > 0) agg[st].withSignal++;
+    agg[st].firms.push(a);
+  });
+  return agg;
+}
+
+function renderMapView(rows) {
+  const agg = buildStateAgg(rows);
+  const unmatched = rows.length - Object.values(agg).reduce((s,v)=>s+v.total,0);
+  const maxTotal = Math.max(1, ...Object.values(agg).map(v=>v.total));
+
+  const cell = 46, gap = 4;
+  const cols = 12, gridRows = 7;
+  const W = cols*(cell+gap), H = gridRows*(cell+gap);
+
+  const rects = Object.entries(US_STATE_GRID).map(([code,[c,r]]) => {
+    const data = agg[code];
+    const total = data ? data.total : 0;
+    const intensity = total / maxTotal;
+    const fill = total === 0 ? 'var(--surface-2)' : `color-mix(in srgb, var(--accent) ${Math.round(10+intensity*80)}%, var(--surface-2))`;
+    const x = c*(cell+gap), y = r*(cell+gap);
+    const sel = _mapSelectedState === code ? ' selected' : '';
+    return `<g class="map-state${sel}" data-state="${code}" onclick="selectMapState('${code}')">
+      <rect x="${x}" y="${y}" width="${cell}" height="${cell}" rx="6" fill="${fill}"/>
+      <text x="${x+cell/2}" y="${y+cell/2-2}" text-anchor="middle" font-size="12" font-weight="600" fill="var(--text)" font-family="var(--mono)">${code}</text>
+      <text x="${x+cell/2}" y="${y+cell/2+13}" text-anchor="middle" font-size="9" fill="var(--text-3)" font-family="var(--mono)">${total||''}</text>
+    </g>`;
+  }).join('');
+
+  const sortedStates = Object.entries(agg).sort((a,b)=>b[1].total-a[1].total);
+
+  return `<div class="map-wrap">
+    <div class="map-layout">
+      <div>
+        <div class="map-stage">
+          <svg viewBox="0 0 ${W} ${H}">${rects}</svg>
+          <div class="map-legend">
+            <span>Fewer allocators</span>
+            <div class="map-legend-scale">
+              <span style="background:var(--surface-2)"></span>
+              <span style="background:color-mix(in srgb, var(--accent) 30%, var(--surface-2))"></span>
+              <span style="background:color-mix(in srgb, var(--accent) 55%, var(--surface-2))"></span>
+              <span style="background:color-mix(in srgb, var(--accent) 90%, var(--surface-2))"></span>
+            </div>
+            <span>More allocators</span>
+          </div>
+          ${unmatched>0 ? `<div style="margin-top:8px;font-size:var(--fs-2xs);color:var(--text-3);font-family:var(--mono)">${unmatched} firm${unmatched!==1?'s':''} in current filter had no parseable state in location and aren't shown on the grid.</div>` : ''}
+        </div>
+      </div>
+      <div class="map-side">
+        <h3>By state</h3>
+        ${sortedStates.map(([code,d]) => `<div class="map-state-row${_mapSelectedState===code?' selected':''}" onclick="selectMapState('${code}')">
+          <span class="map-state-name">${STATE_NAMES[code]||code}</span>
+          <span class="map-state-counts"><span class="n9at">${d.withSignal} sig</span><span>${d.total} total</span></span>
+        </div>`).join('') || '<div class="net-side-sub">No states parsed from current filter.</div>'}
+        <div id="map-firm-list" class="map-firm-list"></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function selectMapState(code) {
+  _mapSelectedState = _mapSelectedState === code ? null : code;
+  renderDB(); // re-render whole map view; simplest way to keep grid + sidebar in sync
+  if(_mapSelectedState) {
+    setTimeout(() => {
+      const list = document.getElementById('map-firm-list');
+      if(!list) return;
+      const rows = getFilteredDB();
+      const agg = buildStateAgg(rows);
+      const firms = (agg[_mapSelectedState]?.firms || []).slice(0, 30);
+      list.innerHTML = `<h3 style="margin-top:14px">${esc(STATE_NAMES[_mapSelectedState]||_mapSelectedState)} — ${firms.length} shown</h3>
+        ${firms.map(f => `<button type="button" class="net-firm-row" onclick="openDrawer('${esc(f.ein)}')">${esc(f.firm_name||'—')}<span class="sub">${(f.at9_relationships||[]).length ? (f.at9_relationships.length+' signal'+(f.at9_relationships.length!==1?'s':'')) : 'No 9AT signal'}</span></button>`).join('')}`;
+    }, 0);
+  }
+}
+
 // ── Render DB as card grid ────────────────────────────────────────────────────
 function renderDBCard(a) {
   const rels     = a.at9_relationships || [];
@@ -1910,6 +2455,7 @@ function renderDBCard(a) {
         </div>
       </div>
       <span class="ac-ep ebadge ep-${ep}">${epLbl}</span>
+      ${heatThermometer(a)}
     </div>
     <div class="ac-signal-panel${has9at?'':' empty'}">${sigBlock}</div>
     <div class="ac-stats">
@@ -2016,6 +2562,25 @@ function renderDBTable(rows) {
 
 function renderDB() {
   const rows = getFilteredDB();
+
+  // Network and Territory views render the whole filtered set as a single
+  // visualization rather than a paginated list — no per-page slicing.
+  if(prefs.view === 'network' || prefs.view === 'map') {
+    document.getElementById('db-count').textContent =
+      `${rows.length.toLocaleString()} allocators in current filter`;
+    document.getElementById('db-pagination').innerHTML = '';
+    document.getElementById('db-pagination-bottom').innerHTML = '';
+    if(!rows.length) {
+      document.getElementById('db-table-wrap').innerHTML = `<div class="empty-state">${ICON_EMPTY}<h2>No matching allocators</h2><p>Try adjusting your search or filters.</p><button type="button" class="hdr-btn small" style="margin-top:14px" onclick="resetFilters()">↺ Reset Filters</button></div>`;
+      return;
+    }
+    document.getElementById('db-table-wrap').innerHTML = prefs.view === 'network'
+      ? renderNetworkView(rows)
+      : renderMapView(rows);
+    if(prefs.view === 'network') initNetworkView(rows);
+    return;
+  }
+
   const totalPages = Math.max(1, Math.ceil(rows.length / PAGE_SIZE));
   dbPage = Math.min(dbPage, totalPages);
   const start   = (dbPage-1) * PAGE_SIZE;
