@@ -369,6 +369,7 @@ main { display: block; }
 .ep-status-err { color: var(--danger); border-color: var(--danger); }
 .ep-status-pending { color: var(--warning); border-color: var(--warning); }
 .ep-empty { padding: 2.5rem 1.25rem; text-align: center; font-family: var(--mono); font-size: var(--fs-sm); color: var(--text-3); }
+.ep-load-more { display: flex; justify-content: center; padding: 14px 1.25rem 18px; }
 .ep-section-head { display: flex; align-items: center; gap: 8px; padding: 9px 1.25rem; background: var(--surface-2); border-bottom: 1px solid var(--border); border-top: 1px solid var(--border); position: sticky; top: 0; z-index: 1; }
 .ep-section-head:first-child { border-top: none; }
 .ep-section-title { font-family: var(--mono); font-size: var(--fs-2xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-3); }
@@ -811,19 +812,6 @@ body.gate-open { overflow: hidden; }
   .result-actions .hdr-btn { flex: 1; justify-content: center; }
 }
 
-/* ── outreach heat thermometer (card header) ── */
-.heat-therm { display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
-.heat-tube { position: relative; width: 6px; height: 26px; border-radius: 3px; background: var(--surface); border: 1px solid var(--border-2); overflow: hidden; }
-.heat-fill { position: absolute; bottom: 0; left: 0; width: 100%; border-radius: 2px; transition: height var(--t-fast); }
-.heat-bulb { display: none; }
-.heat-num { font-size: var(--fs-2xs); color: var(--text-3); min-width: 16px; text-align: right; }
-.heat-therm[data-band="hot"]  .heat-fill { background: var(--danger); }
-.heat-therm[data-band="warm"] .heat-fill { background: var(--warning); }
-.heat-therm[data-band="cool"] .heat-fill { background: var(--info); }
-.heat-therm[data-band="cold"] .heat-fill { background: var(--text-4); }
-.heat-therm[data-band="hot"]  .heat-num { color: var(--danger); }
-.heat-therm[data-band="warm"] .heat-num { color: var(--warning); }
-
 /* ── relationship network view ── */
 .network-wrap { padding: var(--sp-4) 1.75rem 3rem; }
 .network-toolbar { display: flex; align-items: center; gap: var(--sp-3); margin-bottom: var(--sp-3); flex-wrap: wrap; }
@@ -838,22 +826,26 @@ body.gate-open { overflow: hidden; }
 /* Two-column layout: table of shared connections on the left, a sticky
    detail panel of firms for the selected connection on the right — mirrors
    the territory view's map + state-list pattern. */
-.network-layout { display: grid; grid-template-columns: minmax(280px, 420px) minmax(0,1fr); gap: var(--sp-4); align-items: start; }
-.network-table-wrap { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r-md); overflow: hidden; }
-table.network-table { width: 100%; border-collapse: collapse; }
+.network-layout { display: grid; grid-template-columns: minmax(300px, 480px) minmax(0,1fr); gap: var(--sp-4); align-items: start; }
+.network-table-wrap { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r-md); overflow: hidden; overflow-x: auto; }
+table.network-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+table.network-table col.col-connection { width: auto; }
+table.network-table col.col-tier { width: 92px; }
+table.network-table col.col-firms { width: 64px; }
 table.network-table thead th {
   text-align: left; font-size: var(--fs-2xs); text-transform: uppercase; letter-spacing: .04em;
   color: var(--text-3); font-family: var(--mono); font-weight: 600; padding: 10px 12px;
-  border-bottom: 1px solid var(--border); background: var(--surface-2);
+  border-bottom: 1px solid var(--border); background: var(--surface-2); white-space: nowrap;
 }
 table.network-table tbody tr.net-row { border-bottom: 1px solid var(--border); cursor: pointer; transition: background var(--t-fast); }
 table.network-table tbody tr.net-row:last-child { border-bottom: none; }
 table.network-table tbody tr.net-row:hover { background: var(--surface-3); }
 table.network-table tbody tr.net-row.selected { background: var(--accent-dim); }
 table.network-table td { padding: 10px 12px; vertical-align: middle; font-size: var(--fs-sm); }
-.net-row-label { font-weight: 600; color: var(--text); }
-.net-tier-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; vertical-align: middle; }
-.net-count-cell { font-family: var(--mono); color: var(--text-2); }
+.net-row-label { font-weight: 600; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.net-tier-cell { white-space: nowrap; }
+.net-tier-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; vertical-align: middle; flex-shrink: 0; }
+.net-count-cell { font-family: var(--mono); color: var(--text-2); white-space: nowrap; }
 .network-side { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: var(--sp-4); max-height: 700px; overflow-y: auto; }
 .network-side h3 { font-size: var(--fs-md); margin-bottom: 10px; }
 #network-firm-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
@@ -864,6 +856,14 @@ table.network-table td { padding: 10px 12px; vertical-align: middle; font-size: 
 .net-side-sub { font-size: var(--fs-xs); color: var(--text-3); margin-bottom: 10px; }
 @media (max-width: 900px) {
   .network-layout { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  .network-wrap { padding: var(--sp-4) 1.1rem 3rem; }
+  table.network-table col.col-tier { width: 76px; }
+  table.network-table col.col-firms { width: 50px; }
+  table.network-table thead th, table.network-table td { padding: 8px 8px; font-size: var(--fs-xs); }
+  .net-tier-dot { width: 7px; height: 7px; margin-right: 4px; }
+  #network-firm-list { grid-template-columns: 1fr; }
 }
 
 /* ── territory / geography view ── */
@@ -1832,6 +1832,13 @@ let rawEnrichPanelList = [];   // raw list of candidate firms from the data file
 let firmNameToEin = null;      // lazy name → ein lookup, for list items that lack an ein
 let epSelected = new Set();    // eins currently checked in the popup
 let epBusy = false;            // true while a batch enrich is running
+let epPageSize = 60;           // rows rendered per chunk — the full list can run into the
+                                // thousands, so we render incrementally instead of building
+                                // one giant DOM tree, which is what made the popup laggy.
+let epRenderedCount = 0;       // how many rows of the current (filtered) list are in the DOM
+let epCurrentNeeds = [];       // cached "needs enrichment" list for the open popup
+let epCurrentNoEmail = [];     // cached "no email" list for the open popup
+let epAllValidEins = [];       // every selectable ein in the current list (for select-all)
 
 function buildFirmNameIndex() {
   firmNameToEin = {};
@@ -2076,61 +2083,6 @@ function getFilteredDB() {
   return rows;
 }
 
-// ── Outreach "heat" score ────────────────────────────────────────────────────
-// A single blended 0–100 glanceable score combining: best signal tier (do we
-// have a strong 9AT connection at all), data completeness (schedule C /
-// investments / contacts on file — i.e. how much is actually known about this
-// firm), and current enrichment/contact readiness (email in hand, already
-// enriched, already contacted). This does not replace the Ready/Enrich/Skip
-// pipeline — it's a faster "should I care about this one today" read when
-// scanning many cards at once.
-function heatScore(a) {
-  const rels = a.at9_relationships || [];
-  let score = 0;
-
-  // Signal strength (0–40): having any 9AT signal matters most, tier 1 more so.
-  if(rels.length) {
-    const bestTier = Math.min(...rels.map(r => SIG_TIER[r.signal] || 2));
-    score += bestTier === 1 ? 40 : 26;
-    score += Math.min(rels.length - 1, 3) * 3; // multiple corroborating signals nudge it up
-  }
-
-  // Data completeness (0–30): how much is actually on file for this firm.
-  const spCount  = (a.service_providers || []).length;
-  const invCount = (a.investments || []).length;
-  const conCount = a.contact_count_any || 0;
-  score += Math.min(spCount, 3) * 4;   // up to 12
-  score += Math.min(invCount, 3) * 3;  // up to 9
-  score += Math.min(conCount, 3) * 3;  // up to 9
-
-  // Readiness (0–30): email in hand beats "needs enrichment" beats nothing.
-  const ep = effectivePriority(a);
-  if(ep === 'READY') score += 30;
-  else if(ep === 'ENRICHED_NO_EMAIL') score += 14;
-  else if(ep === 'HIGH') score += 10;
-  else if(ep === 'LOW') score += 6;
-
-  // Already contacted firms cool down — you've already acted on the signal.
-  if(isContacted(a.ein)) score = Math.round(score * 0.55);
-
-  return Math.max(0, Math.min(100, Math.round(score)));
-}
-function heatBand(score) {
-  if(score >= 70) return { cls: 'hot',  label: 'Hot'  };
-  if(score >= 40) return { cls: 'warm', label: 'Warm' };
-  if(score >= 15) return { cls: 'cool', label: 'Cool' };
-  return { cls: 'cold', label: 'Cold' };
-}
-function heatThermometer(a) {
-  const score = heatScore(a);
-  const band  = heatBand(score);
-  return `<div class="heat-therm" data-band="${band.cls}" data-tip="Outreach heat: ${score}/100 (${band.label}) — blends signal tier, data completeness, and readiness">
-    <div class="heat-bulb"></div>
-    <div class="heat-tube"><div class="heat-fill" style="height:${score}%"></div></div>
-    <span class="heat-num num">${score}</span>
-  </div>`;
-}
-
 // ── Relationship network view ───────────────────────────────────────────────
 // Redesigned around clarity over completeness: instead of a single dense
 // force-directed hairball of every firm and every connection, this shows
@@ -2201,6 +2153,7 @@ function renderNetworkView(rows) {
     <div class="network-layout">
       <div class="network-table-wrap">
         <table class="network-table">
+          <colgroup><col class="col-connection"><col class="col-tier"><col class="col-firms"></colgroup>
           <thead><tr><th>Connection</th><th>Tier</th><th style="text-align:right">Firms</th></tr></thead>
           <tbody id="network-clusters">
             ${clusters.map((c,i) => renderClusterRow(c,i)).join('')}
@@ -2221,8 +2174,8 @@ function renderClusterRow(cluster, idx) {
   const tierLbl = cluster.tier === 1 ? 'Tier 1' : 'Tier 2';
   const sel = _networkSelectedIdx === idx ? ' selected' : '';
   return `<tr class="net-row${sel}" data-idx="${idx}" onclick="selectNetworkCluster(${idx})">
-      <td class="net-row-label">${esc(cluster.label)}</td>
-      <td><span class="net-tier-dot" style="background:${color}"></span>${tierLbl}</td>
+      <td class="net-row-label" data-tip="${esc(cluster.label)}">${esc(cluster.label)}</td>
+      <td class="net-tier-cell"><span class="net-tier-dot" style="background:${color}"></span>${tierLbl}</td>
       <td class="net-count-cell" style="text-align:right">${n}</td>
     </tr>`;
 }
@@ -2415,7 +2368,6 @@ function renderDBCard(a) {
         </div>
       </div>
       <span class="ac-ep ebadge ep-${ep}">${epLbl}</span>
-      ${heatThermometer(a)}
     </div>
     <div class="ac-signal-panel${has9at?'':' empty'}">${sigBlock}</div>
     <div class="ac-stats">
@@ -2681,6 +2633,7 @@ function renderEnrichList(firms) {
   const listEl = document.getElementById('ep-list');
   if(!firms.length) {
     listEl.innerHTML = `<div class="ep-empty">Every Tier 1 firm has a verified email. Nice work.</div>`;
+    epCurrentNeeds = []; epCurrentNoEmail = []; epAllValidEins = []; epRenderedCount = 0;
     updateEpToolbar();
     return;
   }
@@ -2694,41 +2647,84 @@ function renderEnrichList(firms) {
     if(ein && wasAiEnriched(ein) && !aiHasEmail(ein)) noEmail.push(f);
     else needsEnrich.push(f);
   });
+  epCurrentNeeds = needsEnrich;
+  epCurrentNoEmail = noEmail;
+  epAllValidEins = firms.map(f => f._ein).filter(Boolean);
 
-  const renderRow = (f, i) => {
-    const ein = f._ein || '';
-    const checked = ein && epSelected.has(ein) ? 'checked' : '';
-    const disabled = ein ? '' : 'disabled';
-    return `<div class="ep-row" data-ein="${esc(ein)}">
-      <input type="checkbox" ${checked} ${disabled} onchange="toggleEpSelect('${esc(ein)}', this.checked)">
-      <span class="ep-num">${i+1}</span>
-      <div class="ep-firm-wrap" ${ein?`onclick="openDrawer('${esc(ein)}')" style="cursor:pointer"`:''}>
-        <div class="ep-firm">${esc(f.firm_name||f.allocator_name||'—')}</div>
-        <div class="ep-why">${esc(f.connection||'')}</div>
-        <div class="ep-loc">${esc(f.location||'')}</div>
-      </div>
-      ${ein ? epRowStatusHtml(ein) : `<span class="ep-status"><span style="color:var(--text-4);font-size:9px">no EIN match</span></span>`}
-    </div>`;
-  };
-
-  const section = (title, cls, list, emptyMsg) => `
-    <div class="ep-section-head ${cls}">
-      <span class="ep-section-title">${esc(title)}</span>
-      <span class="ep-section-count">${list.length} firm${list.length!==1?'s':''}</span>
-    </div>
-    ${list.length ? list.map(renderRow).join('') : `<div class="ep-section-empty">${esc(emptyMsg)}</div>`}
-  `;
-
+  // Render only the first chunk of rows up front — with lists that run into
+  // the hundreds/thousands, building the full DOM tree in one go is what was
+  // making the popup slow to open and slow to interact with (every hover/
+  // scroll had thousands of nodes to lay out). More rows are appended lazily
+  // as the person scrolls, via the ep-list scroll listener below.
   listEl.innerHTML =
-    section('Needs Enrichment', 'ep-section-needs', needsEnrich, 'Nothing waiting on a first enrichment pass.') +
-    section('Enriched · No Email Found', 'ep-section-noemail', noEmail, 'No firms have come back empty-handed.');
+    `<div class="ep-section-head ep-section-needs">
+      <span class="ep-section-title">Needs Enrichment</span>
+      <span class="ep-section-count">${needsEnrich.length} firm${needsEnrich.length!==1?'s':''}</span>
+    </div>
+    <div id="ep-needs-rows">${needsEnrich.length ? '' : `<div class="ep-section-empty">Nothing waiting on a first enrichment pass.</div>`}</div>
+    <div class="ep-section-head ep-section-noemail">
+      <span class="ep-section-title">Enriched · No Email Found</span>
+      <span class="ep-section-count">${noEmail.length} firm${noEmail.length!==1?'s':''}</span>
+    </div>
+    <div id="ep-noemail-rows">${noEmail.length ? '' : `<div class="ep-section-empty">No firms have come back empty-handed.</div>`}</div>
+    <div id="ep-load-more" class="ep-load-more" style="display:none">
+      <button type="button" class="hdr-btn small" onclick="epRenderMore()">Show more firms</button>
+    </div>`;
 
+  epRenderedCount = 0;
+  epRenderMore();
   updateEpToolbar();
 }
 
+function epRenderRowHtml(f, i) {
+  const ein = f._ein || '';
+  const checked = ein && epSelected.has(ein) ? 'checked' : '';
+  const disabled = ein ? '' : 'disabled';
+  return `<div class="ep-row" data-ein="${esc(ein)}">
+    <input type="checkbox" ${checked} ${disabled} onchange="toggleEpSelect('${esc(ein)}', this.checked)">
+    <span class="ep-num">${i+1}</span>
+    <div class="ep-firm-wrap" ${ein?`onclick="openDrawer('${esc(ein)}')" style="cursor:pointer"`:''}>
+      <div class="ep-firm">${esc(f.firm_name||f.allocator_name||'—')}</div>
+      <div class="ep-why">${esc(f.connection||'')}</div>
+      <div class="ep-loc">${esc(f.location||'')}</div>
+    </div>
+    ${ein ? epRowStatusHtml(ein) : `<span class="ep-status"><span style="color:var(--text-4);font-size:9px">no EIN match</span></span>`}
+  </div>`;
+}
+
+// Appends the next chunk of rows (needs-enrichment firms first, then
+// no-email firms) to the DOM. Called on initial render and again as the
+// person scrolls near the bottom of the list.
+function epRenderMore() {
+  const total = epCurrentNeeds.length + epCurrentNoEmail.length;
+  if(epRenderedCount >= total) {
+    const more = document.getElementById('ep-load-more');
+    if(more) more.style.display = 'none';
+    return;
+  }
+  const end = Math.min(epRenderedCount + epPageSize, total);
+  const needsFrag = [];
+  const noEmailFrag = [];
+  for(let i = epRenderedCount; i < end; i++) {
+    if(i < epCurrentNeeds.length) needsFrag.push(epRenderRowHtml(epCurrentNeeds[i], i));
+    else noEmailFrag.push(epRenderRowHtml(epCurrentNoEmail[i - epCurrentNeeds.length], i - epCurrentNeeds.length));
+  }
+  if(needsFrag.length) document.getElementById('ep-needs-rows').insertAdjacentHTML('beforeend', needsFrag.join(''));
+  if(noEmailFrag.length) document.getElementById('ep-noemail-rows').insertAdjacentHTML('beforeend', noEmailFrag.join(''));
+  epRenderedCount = end;
+
+  const more = document.getElementById('ep-load-more');
+  if(more) more.style.display = epRenderedCount < total ? 'flex' : 'none';
+}
+
+// Auto-load more rows as the person scrolls near the bottom, so it feels
+// continuous rather than requiring repeated clicks.
+document.getElementById('ep-list').addEventListener('scroll', function(){
+  if(this.scrollTop + this.clientHeight > this.scrollHeight - 400) epRenderMore();
+});
+
 function updateEpToolbar() {
-  const rows = document.querySelectorAll('#ep-list .ep-row[data-ein]:not([data-ein=""])');
-  const total = rows.length;
+  const total = epAllValidEins.length;
   const selected = epSelected.size;
   document.getElementById('ep-selected-count').textContent = `${selected} selected`;
   document.getElementById('ep-select-all').checked = total>0 && selected===total;
@@ -2744,10 +2740,7 @@ function toggleEpSelect(ein, checked) {
 }
 
 function setEpRowStatus(ein, state, message) {
-  let el = null;
-  document.querySelectorAll('#ep-list span[data-status-for]').forEach(s => {
-    if(s.getAttribute('data-status-for') === ein) el = s;
-  });
+  const el = document.querySelector(`#ep-list span[data-status-for="${CSS.escape(ein)}"]`);
   if(!el) return;
   if(state === 'pending') {
     el.innerHTML = `<span class="ep-status-btn ep-status-pending">Enriching…</span>`;
@@ -2823,12 +2816,12 @@ document.getElementById('enrich-overlay').addEventListener('click', e=>{
   if(e.target===document.getElementById('enrich-overlay')) document.getElementById('enrich-overlay').classList.remove('open');
 });
 document.getElementById('ep-select-all').addEventListener('change', function(){
-  const rows = document.querySelectorAll('#ep-list .ep-row[data-ein]:not([data-ein=""])');
-  rows.forEach(row => {
-    const ein = row.getAttribute('data-ein');
-    const cb = row.querySelector('input[type=checkbox]');
-    if(this.checked) epSelected.add(ein); else epSelected.delete(ein);
-    if(cb) cb.checked = this.checked;
+  if(this.checked) epAllValidEins.forEach(ein => epSelected.add(ein));
+  else epSelected.clear();
+  // Only rendered rows have checkboxes in the DOM — sync those directly
+  // rather than re-querying the whole list.
+  document.querySelectorAll('#ep-list .ep-row[data-ein]:not([data-ein=""]) input[type=checkbox]').forEach(cb => {
+    cb.checked = this.checked;
   });
   updateEpToolbar();
 });
