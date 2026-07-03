@@ -510,8 +510,8 @@ body[data-view="table"] #cards-per-row-toggle { display: none; }
 .ac-ep { flex-shrink: 0; }
 
 /* — signal panel: chips + connection, visually grouped as one block — */
-.ac-signal-panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-sm); padding: 8px 10px; margin-bottom: 10px; }
-.ac-signal-panel.empty { background: transparent; border-style: dashed; padding: 6px 10px; }
+.ac-signal-panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-sm); padding: 8px 10px; margin-bottom: 10px; min-height: 74px; box-sizing: border-box; }
+.ac-signal-panel.empty { background: transparent; border-style: dashed; padding: 6px 10px; min-height: 74px; box-sizing: border-box; }
 .ac-sigs { display: flex; gap: 4px; flex-wrap: wrap; }
 .ac-conn { font-size: var(--fs-sm); color: var(--text-2); line-height: 1.35; margin-top: 6px; }
 .ac-matched { font-family: var(--mono); font-size: var(--fs-xs); color: var(--cyan); margin-top: 3px; }
@@ -848,11 +848,12 @@ table.network-table td { padding: 10px 12px; vertical-align: middle; font-size: 
 .net-count-cell { font-family: var(--mono); color: var(--text-2); white-space: nowrap; }
 .network-side { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: var(--sp-4); max-height: 700px; overflow-y: auto; }
 .network-side h3 { font-size: var(--fs-md); margin-bottom: 10px; }
-#network-firm-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
+#network-firm-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); grid-auto-rows: 1fr; align-items: stretch; gap: 8px; }
 #network-firm-list .net-side-sub { grid-column: 1 / -1; margin-bottom: 0; }
-.net-firm-row { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; width: 100%; text-align: left; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r-sm); padding: 7px 10px; cursor: pointer; color: var(--text); font-family: var(--sans); font-size: var(--fs-sm); }
+.net-firm-row { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 2px; width: 100%; height: 100%; min-height: 52px; box-sizing: border-box; text-align: left; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r-sm); padding: 7px 10px; cursor: pointer; color: var(--text); font-family: var(--sans); font-size: var(--fs-sm); overflow: hidden; }
 .net-firm-row:hover { border-color: var(--accent); }
-.net-firm-row .sub { font-size: var(--fs-2xs); color: var(--text-3); }
+.net-firm-row span:not(.sub) { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.net-firm-row .sub { font-size: var(--fs-2xs); color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
 .net-side-sub { font-size: var(--fs-xs); color: var(--text-3); margin-bottom: 10px; }
 @media (max-width: 900px) {
   .network-layout { grid-template-columns: 1fr; }
@@ -1164,10 +1165,10 @@ table.network-table td { padding: 10px 12px; vertical-align: middle; font-size: 
     margin-top:2px;
 }
 
-/* stats grid clarity */
-.ac-stats{display:flex; flex-direction:row; gap:10px; justify-content:space-between;
+/* stats grid clarity — three stats on a single row */
+.ac-stats{
     display:grid;
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:repeat(3,1fr);
     gap:10px;
     margin-top:6px;
 }
@@ -1283,12 +1284,8 @@ table.network-table td { padding: 10px 12px; vertical-align: middle; font-size: 
   </div>
 </div>
 
-<div>
-        <div class="sidebar-section-title"></div>
-        
-<!-- insights-row removed; replaced by hero -->
 <!-- ── OUTREACH PIPELINE ── -->
-      <div>
+      <div class="sidebar-section">
         <div class="sidebar-section-title">Outreach Pipeline</div>
         <div class="pipeline">
           <div class="pipeline-head">
@@ -1304,7 +1301,7 @@ table.network-table td { padding: 10px 12px; vertical-align: middle; font-size: 
         </div>
       </div>
 
-      <div>
+      <div class="sidebar-section">
         <div class="sidebar-section-title">Sort</div>
         <select id="db-sort" class="sidebar-select">
           <option value="enrich">Priority (default)</option>
@@ -1314,7 +1311,7 @@ table.network-table td { padding: 10px 12px; vertical-align: middle; font-size: 
         </select>
       </div>
 
-      <div>
+      <div class="sidebar-section">
         <div class="sidebar-section-title">View</div>
         <div class="view-toggle vertical">
           <button id="view-cards-btn" class="active" onclick="setView('cards')" data-tip="Card view">
@@ -1335,7 +1332,6 @@ table.network-table td { padding: 10px 12px; vertical-align: middle; font-size: 
           </button>
         </div>
       </div>
-
     </div>
   </aside>
 
@@ -2023,6 +2019,13 @@ function hideLoginGate() {
   const gate = document.getElementById('login-gate');
   if(gate) gate.hidden = true;
   document.body.classList.remove('gate-open');
+  // The app renders underneath the gate while it's up (data can finish
+  // loading before the password is entered), but some browsers don't repaint
+  // content that changed while occluded until something forces a reflow.
+  // Re-run the current view's render pass right after the gate closes so the
+  // grid/table/network view reflects the data immediately instead of only
+  // appearing after the user manually switches views.
+  requestAnimationFrame(() => { try { renderDB(); } catch(e) {} });
 }
 function logOut() {
   clearCachedEnrichPassword();
@@ -2076,11 +2079,13 @@ function refreshEnrichStats() {
   document.getElementById('d-enrich').textContent = fmtN(dbData.filter(a=>effectivePriority(a)==='HIGH').length);
   refreshContactedStat();
   updatePipeline();
+  syncHeroStats(dbData, lastStats);
 }
 function refreshContactedStat() {
   const el = document.getElementById('d-contacted');
   if(el) el.textContent = fmtN(dbData.filter(a=>isContacted(a.ein)).length);
   updatePipeline();
+  syncHeroStats(dbData, lastStats);
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -2253,6 +2258,7 @@ function loadData(data) {
   document.getElementById('d-schc').textContent   = fmtN(s.has_schedule_c       || dbData.filter(a=>(a.service_providers||[]).length>0).length);
   document.getElementById('d-schdh').textContent  = fmtN(s.has_schedule_d_h     || dbData.filter(a=>(a.investments||[]).length>0).length);
   refreshContactedStat();
+  syncHeroStats(dbData, s);
   document.getElementById('hdr-status').innerHTML = `<span>${dbData.length.toLocaleString()} allocators loaded</span>`;
 
   // Enrichment priority panel
