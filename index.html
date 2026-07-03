@@ -503,13 +503,6 @@ body[data-view="table"] #cards-per-row-toggle { display: none; }
 /* — header: avatar + name/plan + priority badge — */
 .ac-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 11px; }
 .ac-head-left { display: flex; align-items: flex-start; gap: 10px; min-width: 0; flex: 1 1 auto; }
-.ac-avatar {
-  flex-shrink: 0; width: 32px; height: 32px; border-radius: 9px;
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--mono); font-weight: 700; font-size: var(--fs-sm);
-  background: color-mix(in srgb, var(--card-accent) 16%, var(--surface-2)); color: var(--card-accent);
-  border: 1px solid color-mix(in srgb, var(--card-accent) 40%, transparent);
-}
 .ac-name-wrap { min-width: 0; }
 .ac-name { font-weight: 700; font-size: var(--fs-md); line-height: 1.3; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ac-plan { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-3); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px; }
@@ -918,6 +911,16 @@ table.network-table td { padding: 10px 12px; vertical-align: middle; font-size: 
   .map-layout { grid-template-columns: 1fr; }
   .net-side { position: static; width: auto; margin-top: var(--sp-3); }
 }
+/* ── custom tooltip (replaces native title= browser tooltips) ── */
+#app-tooltip {
+  position: fixed; z-index: 900; pointer-events: none;
+  background: var(--raised); border: 1px solid var(--border-2); border-radius: var(--r-sm);
+  padding: 6px 9px; font-size: var(--fs-xs); font-family: var(--sans); color: var(--text);
+  box-shadow: var(--shadow-md); max-width: 280px; line-height: 1.4;
+  opacity: 0; transform: translateY(4px); transition: opacity var(--t-fast), transform var(--t-fast);
+  white-space: pre-line;
+}
+#app-tooltip.visible { opacity: 1; transform: translateY(0); }
 </style>
 </head>
 <body>
@@ -945,18 +948,18 @@ table.network-table td { padding: 10px 12px; vertical-align: middle; font-size: 
 
 <!-- ── HEADER ── -->
 <header>
-  <button class="logo" id="sidebar-toggle-btn" title="Toggle sidebar">
+  <button class="logo" id="sidebar-toggle-btn" data-tip="Toggle sidebar">
     <img class="logo-mark" src="https://www.9at.com/assets/images/logo.svg" alt="9AT">
     <span class="logo-word">Intelligence Platform</span>
   </button>
   <div class="header-right">
     <span class="hdr-status" id="hdr-status"><span class="dot"></span>No data loaded</span>
-    <button class="icon-btn" id="prefs-btn" title="Preferences">
+    <button class="icon-btn" id="prefs-btn" data-tip="Preferences">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
     </button>
     <button class="hdr-btn" id="glossary-btn">? Glossary</button>
     <button class="hdr-btn primary" id="enrich-open-btn" style="display:none">★ Enrichment Priority <span id="enrich-count" class="hdr-btn-badge">— firms</span></button>
-    <button class="hdr-btn danger" id="logout-btn" title="Log out of this device">⏻ Log Out</button>
+    <button class="hdr-btn danger" id="logout-btn" data-tip="Log out of this device">⏻ Log Out</button>
   </div>
 </header>
 
@@ -1011,19 +1014,19 @@ table.network-table td { padding: 10px 12px; vertical-align: middle; font-size: 
       <div>
         <div class="sidebar-section-title">View</div>
         <div class="view-toggle vertical">
-          <button id="view-cards-btn" class="active" onclick="setView('cards')" title="Card view">
+          <button id="view-cards-btn" class="active" onclick="setView('cards')" data-tip="Card view">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
             Cards
           </button>
-          <button id="view-table-btn" onclick="setView('table')" title="Table view">
+          <button id="view-table-btn" onclick="setView('table')" data-tip="Table view">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
             Table
           </button>
-          <button id="view-network-btn" onclick="setView('network')" title="Relationship network view">
+          <button id="view-network-btn" onclick="setView('network')" data-tip="Relationship network view">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="5" cy="6" r="2.2"/><circle cx="19" cy="6" r="2.2"/><circle cx="12" cy="12" r="2.2"/><circle cx="5" cy="18" r="2.2"/><circle cx="19" cy="18" r="2.2"/><line x1="6.8" y1="7.2" x2="10.3" y2="10.7"/><line x1="17.2" y1="7.2" x2="13.7" y2="10.7"/><line x1="10.3" y1="13.3" x2="6.8" y2="16.8"/><line x1="13.7" y1="13.3" x2="17.2" y2="16.8"/></svg>
             Network
           </button>
-          <button id="view-map-btn" onclick="setView('map')" title="Geography / territory view">
+          <button id="view-map-btn" onclick="setView('map')" data-tip="Geography / territory view">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 20l-6-3V4l6 3 6-3 6 3v13l-6-3-6 3z"/><line x1="9" y1="7" x2="9" y2="20"/><line x1="15" y1="4" x2="15" y2="17"/></svg>
             Territory
           </button>
@@ -1103,9 +1106,9 @@ table.network-table td { padding: 10px 12px; vertical-align: middle; font-size: 
   <div class="result-bar">
     <div class="result-count" id="db-count"></div>
     <div class="result-actions">
-      <button class="hdr-btn small" id="reset-filters-btn" title="Clear search and all filters" onclick="resetFilters()">↺ Reset Filters</button>
-      <button class="hdr-btn small" id="copy-emails-btn" title="Copy every email address in the current filtered view">⧉ Copy Emails</button>
-      <button class="hdr-btn small" id="export-csv-btn" title="Export the current filtered view as CSV">⇩ Export CSV</button>
+      <button class="hdr-btn small" id="reset-filters-btn" data-tip="Clear search and all filters" onclick="resetFilters()">↺ Reset Filters</button>
+      <button class="hdr-btn small" id="copy-emails-btn" data-tip="Copy every email address in the current filtered view">⧉ Copy Emails</button>
+      <button class="hdr-btn small" id="export-csv-btn" data-tip="Export the current filtered view as CSV">⇩ Export CSV</button>
     </div>
   </div>
   <div class="pagination" id="db-pagination"></div>
@@ -1156,11 +1159,11 @@ table.network-table td { padding: 10px 12px; vertical-align: middle; font-size: 
           <div class="pref-hint">Brand color only — status colors never change</div>
         </div>
         <div class="swatch-row" id="pref-accent-options">
-          <span class="swatch" data-val="emerald" style="background:#2de89a" onclick="setAccent('emerald')" title="Emerald"></span>
-          <span class="swatch" data-val="azure" style="background:#4d8dff" onclick="setAccent('azure')" title="Azure"></span>
-          <span class="swatch" data-val="violet" style="background:#a685ff" onclick="setAccent('violet')" title="Violet"></span>
-          <span class="swatch" data-val="amber" style="background:#ffb454" onclick="setAccent('amber')" title="Amber"></span>
-          <span class="swatch" data-val="rose" style="background:#ff7a94" onclick="setAccent('rose')" title="Rose"></span>
+          <span class="swatch" data-val="emerald" style="background:#2de89a" onclick="setAccent('emerald')" data-tip="Emerald"></span>
+          <span class="swatch" data-val="azure" style="background:#4d8dff" onclick="setAccent('azure')" data-tip="Azure"></span>
+          <span class="swatch" data-val="violet" style="background:#a685ff" onclick="setAccent('violet')" data-tip="Violet"></span>
+          <span class="swatch" data-val="amber" style="background:#ffb454" onclick="setAccent('amber')" data-tip="Amber"></span>
+          <span class="swatch" data-val="rose" style="background:#ff7a94" onclick="setAccent('rose')" data-tip="Rose"></span>
         </div>
       </div>
       <div class="pref-row">
@@ -1202,6 +1205,7 @@ table.network-table td { padding: 10px 12px; vertical-align: middle; font-size: 
 </div>
 
 <!-- ── IN-APP DIALOG (replaces native alert()/prompt()) ── -->
+<div id="app-tooltip"></div>
 <div class="overlay" id="dialog-overlay">
   <div class="gbox dbox">
     <div class="ghead"><h2 id="dialog-title">—</h2></div>
@@ -1806,7 +1810,7 @@ function updatePipeline() {
     const n = buckets[key]||0;
     if(!n) return '';
     const pct = n/total*100;
-    return `<div class="pipeline-seg ${cls}" style="flex-basis:${pct}%" title="${key.replace(/_/g,' ')}: ${fmtN(n)} (${pct.toFixed(1)}%)"></div>`;
+    return `<div class="pipeline-seg ${cls}" style="flex-basis:${pct}%" data-tip="${key.replace(/_/g,' ')}: ${fmtN(n)} (${pct.toFixed(1)}%)"></div>`;
   }).join('');
 
   if(legendEl) {
@@ -2120,7 +2124,7 @@ function heatBand(score) {
 function heatThermometer(a) {
   const score = heatScore(a);
   const band  = heatBand(score);
-  return `<div class="heat-therm" data-band="${band.cls}" title="Outreach heat: ${score}/100 (${band.label}) — blends signal tier, data completeness, and readiness">
+  return `<div class="heat-therm" data-band="${band.cls}" data-tip="Outreach heat: ${score}/100 (${band.label}) — blends signal tier, data completeness, and readiness">
     <div class="heat-bulb"></div>
     <div class="heat-tube"><div class="heat-fill" style="height:${score}%"></div></div>
     <span class="heat-num num">${score}</span>
@@ -2311,7 +2315,8 @@ function renderMapView(rows) {
       ? 'var(--surface-2)'
       : `color-mix(in srgb, var(--accent) ${Math.round(14+intensity*76)}%, var(--surface-2))`;
     const sel = _mapSelectedState === code ? ' selected' : '';
-    return `<path class="map-state${sel}" data-state="${code}" d="${geo.d}" fill="${fill}" onclick="selectMapState('${code}')"><title>${esc(STATE_NAMES[code]||code)}: ${total} allocator${total!==1?'s':''}${data&&data.withSignal?`, ${data.withSignal} with 9AT signal`:''}</title></path>`;
+    const tip = `${esc(STATE_NAMES[code]||code)}: ${total} allocator${total!==1?'s':''}${data&&data.withSignal?`, ${data.withSignal} with 9AT signal`:''}`;
+    return `<path class="map-state${sel}" data-state="${code}" data-tip="${tip}" d="${geo.d}" fill="${fill}" onclick="selectMapState('${code}')"></path>`;
   }).join('');
 
   // State abbreviation labels, skipped for the small New-England cluster
@@ -2401,12 +2406,9 @@ function renderDBCard(a) {
     sigBlock = `<div class="ac-sigs"><span class="ac-nosig">No 9AT signal</span></div>`;
   }
 
-  const initials = (a.firm_name||'?').trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase().slice(0,2);
-
   return `<div class="alloc-card${tierCls}${contacted?' contacted':''}" onclick="openDrawer('${esc(a.ein)}')">
     <div class="ac-head">
       <div class="ac-head-left">
-        <div class="ac-avatar">${esc(initials)}</div>
         <div class="ac-name-wrap">
           <div class="ac-name">${esc(a.firm_name||'—')}</div>
           <div class="ac-plan">${esc(a.plan_name||'')}</div>
@@ -2507,7 +2509,7 @@ function renderDBTableRow(a) {
     <td class="dt-loc">${ICON_PIN}${esc(a.location)||'—'}</td>
     <td class="dt-num num">${a.participants ? fmtN(a.participants) : '—'}</td>
     <td class="dt-check" onclick="event.stopPropagation()">
-      <input type="checkbox" ${contacted?'checked':''} onchange="toggleContacted('${esc(a.ein)}', this.checked)" title="Mark contacted">
+      <input type="checkbox" ${contacted?'checked':''} onchange="toggleContacted('${esc(a.ein)}', this.checked)" data-tip="Mark contacted">
     </td>
   </tr>`;
 }
@@ -2664,7 +2666,7 @@ function renderEnrichPanel() {
 function epRowStatusHtml(ein) {
   if(wasAiEnriched(ein) && !aiHasEmail(ein)) {
     return `<span class="ep-status" data-status-for="${esc(ein)}">
-      <button class="ep-status-btn ep-status-err" onclick="enrichOneFromPanel('${esc(ein)}')" title="AI enrichment ran but found no usable email">⚠ No email · Retry</button>
+      <button class="ep-status-btn ep-status-err" onclick="enrichOneFromPanel('${esc(ein)}')" data-tip="AI enrichment ran but found no usable email">⚠ No email · Retry</button>
     </span>`;
   }
   return `<span class="ep-status" data-status-for="${esc(ein)}">
@@ -2754,9 +2756,9 @@ function setEpRowStatus(ein, state, message) {
     const row = el.closest('.ep-row');
     if(row) row.classList.add('ep-done');
   } else if(state === 'no-email') {
-    el.innerHTML = `<button class="ep-status-btn ep-status-err" onclick="enrichOneFromPanel('${esc(ein)}')" title="Search completed but no usable email was found">⚠ No email · Retry</button>`;
+    el.innerHTML = `<button class="ep-status-btn ep-status-err" onclick="enrichOneFromPanel('${esc(ein)}')" data-tip="Search completed but no usable email was found">⚠ No email · Retry</button>`;
   } else if(state === 'err') {
-    el.innerHTML = `<button class="ep-status-btn ep-status-err" onclick="enrichOneFromPanel('${esc(ein)}')" title="${esc(message||'')}">✗ Retry</button>`;
+    el.innerHTML = `<button class="ep-status-btn ep-status-err" onclick="enrichOneFromPanel('${esc(ein)}')" data-tip="${esc(message||'')}">✗ Retry</button>`;
   }
 }
 
@@ -3001,7 +3003,7 @@ function renderContactsSection(ein, ref, contacts) {
     <div class="dsec-title">
       ${ICON_USERS} Investment Decision-Makers <span class="dsec-badge">${contacts.length} contact${contacts.length!==1?'s':''}</span>
       <button class="enrich-btn" id="enrich-btn" onclick="runEnrich('${esc(ein)}')">⚡ Enrich</button>
-      ${(enrich && !aiHasEmail(ein)) ? `<span class="ebadge ep-ENRICHED_NO_EMAIL" style="margin-left:6px" title="AI enrichment ran but found no usable email">⚠ NO EMAIL</span>` : ''}
+      ${(enrich && !aiHasEmail(ein)) ? `<span class="ebadge ep-ENRICHED_NO_EMAIL" style="margin-left:6px" data-tip="AI enrichment ran but found no usable email">⚠ NO EMAIL</span>` : ''}
     </div>
     <div id="enrich-status-area"></div>`;
 
@@ -3021,7 +3023,7 @@ function renderContactsSection(ein, ref, contacts) {
       html += `<div class="contact-card">
         <div class="cc-name">${esc(c.name)}</div>
         ${c.title?`<div class="cc-title">${esc(c.title)}</div>`:''}
-        ${c.email?`<div class="cc-row copyable" onclick="copyEmail(this,'${esc(c.email).replace(/'/g,"\\'")}')" title="Click to copy">${ICON_MAIL}${esc(c.email)} <span class="copy-hint">copy</span></div>`:''}
+        ${c.email?`<div class="cc-row copyable" onclick="copyEmail(this,'${esc(c.email).replace(/'/g,"\\'")}')" data-tip="Click to copy">${ICON_MAIL}${esc(c.email)} <span class="copy-hint">copy</span></div>`:''}
         ${c.phone?`<div class="cc-row" style="color:var(--text-3)">${ICON_PHONE}${esc(c.phone)}</div>`:''}
         ${flagHtml}
       </div>`;
@@ -3036,7 +3038,7 @@ function renderContactsSection(ein, ref, contacts) {
       html += `<div class="contact-card ai-found">
         <div class="cc-name">${esc(c.name)}${confidenceBadge(c.confidence)}${contactTypeBadge(c.contact_type)}</div>
         ${c.title?`<div class="cc-title">${esc(c.title)}</div>`:''}
-        ${c.email?`<div class="cc-row copyable" onclick="copyEmail(this,'${esc(c.email).replace(/'/g,"\\'")}')" title="Click to copy">${ICON_MAIL}${esc(c.email)} <span class="copy-hint">copy</span></div>`:''}
+        ${c.email?`<div class="cc-row copyable" onclick="copyEmail(this,'${esc(c.email).replace(/'/g,"\\'")}')" data-tip="Click to copy">${ICON_MAIL}${esc(c.email)} <span class="copy-hint">copy</span></div>`:''}
         ${c.phone?`<div class="cc-row" style="color:var(--text-3)">${ICON_PHONE}${esc(c.phone)}</div>`:''}
         ${(!c.email && !c.phone && c.contact_notes)?`<div class="cc-source">${esc(c.contact_notes)}</div>`:''}
         ${c.source?`<div class="cc-source">Source: ${esc(c.source)}</div>`:''}
@@ -3312,6 +3314,46 @@ function openDrawer(ein) {
 
 document.getElementById('drawer-close').addEventListener('click',()=>document.getElementById('drawer-overlay').classList.remove('open'));
 document.getElementById('drawer-overlay').addEventListener('click',e=>{ if(e.target===document.getElementById('drawer-overlay')) document.getElementById('drawer-overlay').classList.remove('open'); });
+
+// ── Custom tooltip (replaces native browser title= tooltips) ────────────────
+// Any element with a data-tip="..." attribute gets a themed tooltip instead
+// of the OS-native one. Uses event delegation so it works for content
+// rendered after page load (cards, table rows, map states, etc).
+(function () {
+  const tip = document.getElementById('app-tooltip');
+  let activeEl = null;
+
+  function place(e) {
+    const pad = 12;
+    let x = e.clientX + pad;
+    let y = e.clientY + pad;
+    const rect = tip.getBoundingClientRect();
+    if (x + rect.width > window.innerWidth - 8) x = e.clientX - rect.width - pad;
+    if (y + rect.height > window.innerHeight - 8) y = e.clientY - rect.height - pad;
+    tip.style.left = Math.max(8, x) + 'px';
+    tip.style.top = Math.max(8, y) + 'px';
+  }
+
+  document.addEventListener('mouseover', e => {
+    const el = e.target.closest('[data-tip]');
+    if (!el || el === activeEl) return;
+    activeEl = el;
+    tip.textContent = el.getAttribute('data-tip');
+    tip.classList.add('visible');
+    place(e);
+  });
+  document.addEventListener('mousemove', e => {
+    if (activeEl) place(e);
+  });
+  document.addEventListener('mouseout', e => {
+    const el = e.target.closest('[data-tip]');
+    if (!el || el !== activeEl) return;
+    if (el.contains(e.relatedTarget)) return;
+    activeEl = null;
+    tip.classList.remove('visible');
+  });
+  document.addEventListener('scroll', () => { activeEl = null; tip.classList.remove('visible'); }, true);
+})();
 
 // Apply the loaded prefs (accent/density/motion already set pre-paint; this
 // also syncs the view-toggle buttons and any prefs-panel UI) now that the
