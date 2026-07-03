@@ -845,7 +845,7 @@ body.gate-open { overflow: hidden; }
 /* Two-column layout: table of shared connections on the left, a sticky
    detail panel of firms for the selected connection on the right — mirrors
    the territory view's map + state-list pattern. */
-.network-layout { display: grid; grid-template-columns: minmax(0,1fr) 320px; gap: var(--sp-4); align-items: start; }
+.network-layout { display: grid; grid-template-columns: minmax(280px, 420px) minmax(0,1fr); gap: var(--sp-4); align-items: start; }
 .network-table-wrap { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r-md); overflow: hidden; }
 table.network-table { width: 100%; border-collapse: collapse; }
 table.network-table thead th {
@@ -863,7 +863,9 @@ table.network-table td { padding: 10px 12px; vertical-align: middle; font-size: 
 .net-count-cell { font-family: var(--mono); color: var(--text-2); }
 .network-side { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: var(--sp-4); max-height: 700px; overflow-y: auto; }
 .network-side h3 { font-size: var(--fs-md); margin-bottom: 10px; }
-.net-firm-row { display: flex; justify-content: space-between; align-items: center; width: 100%; text-align: left; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r-sm); padding: 7px 10px; margin-bottom: 6px; cursor: pointer; color: var(--text); font-family: var(--sans); font-size: var(--fs-sm); }
+#network-firm-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
+#network-firm-list .net-side-sub { grid-column: 1 / -1; margin-bottom: 0; }
+.net-firm-row { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; width: 100%; text-align: left; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r-sm); padding: 7px 10px; cursor: pointer; color: var(--text); font-family: var(--sans); font-size: var(--fs-sm); }
 .net-firm-row:hover { border-color: var(--accent); }
 .net-firm-row .sub { font-size: var(--fs-2xs); color: var(--text-3); }
 .net-side-sub { font-size: var(--fs-xs); color: var(--text-3); margin-bottom: 10px; }
