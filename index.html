@@ -219,10 +219,10 @@ body.light .icon-btn .ico-moon { display: block; }
 .sidebar {
   width: 280px; flex-shrink: 0; border-right: 1px solid var(--border);
   background: var(--surface); position: sticky; top: 53px;
-  height: calc(100vh - 53px); overflow-y: auto;
+  height: calc(100vh - 53px); overflow-y: auto; overflow-x: hidden;
   transition: width var(--t-med) var(--ease), min-width var(--t-med) var(--ease);
 }
-.sidebar-inner { width: 280px; padding: 1rem 1.1rem 2rem; display: flex; flex-direction: column; gap: 1.15rem; }
+.sidebar-inner { width: 100%; padding: 1rem 1.1rem 2rem; display: flex; flex-direction: column; gap: 1.15rem; box-sizing: border-box; }
 body.sidebar-collapsed .sidebar { width: 0; overflow: hidden; }
 
 .sidebar-section-title {
@@ -264,6 +264,9 @@ main { display: block; }
 .stat:hover { background: var(--surface-2); }
 .stat:active { transform: scale(0.98); }
 .stat:focus-visible { outline-offset: -2px; }
+.stat.active { background: var(--accent-dim); }
+.stat.active .stat-label { color: var(--accent); }
+.stat.active::before { opacity: 1; height: 3px; background: var(--accent); }
 .stat::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--stat-accent, var(--border-2)); opacity: 0.85; }
 .stat-label { font-family: var(--mono); font-size: var(--fs-2xs); text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3); font-weight: 600; }
 .stat-value { font-size: var(--fs-2xl); font-weight: 600; letter-spacing: -0.02em; font-family: var(--mono); color: var(--text-2); }
@@ -387,7 +390,6 @@ select { cursor: pointer; -webkit-appearance: none; appearance: none; padding-ri
   background-repeat: no-repeat; background-position: right 8px center; }
 select option { background: var(--surface-2); color: var(--text); }
 .ctrl-label { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-3); white-space: nowrap; }
-.ctrl-divider { width: 1px; align-self: stretch; background: var(--border); margin: 0 2px; }
 
 .view-toggle { display: flex; border: 1px solid var(--border-2); border-radius: var(--r-sm); overflow: hidden; flex-shrink: 0; }
 .view-toggle button { display: flex; align-items: center; gap: 5px; font-family: var(--mono); font-size: var(--fs-2xs); font-weight: 600; padding: var(--ctrl-pad-y) 10px; background: var(--surface-2); color: var(--text-3); border: none; cursor: pointer; transition: all var(--t-fast); border-right: 1px solid var(--border-2); }
@@ -479,13 +481,12 @@ body[data-view="table"] #cards-per-row-toggle { display: none; }
 .alloc-card {
   --card-accent: var(--border-2);
   background: var(--surface-2); border: 1px solid var(--border); position: relative;
-  border-left: 3px solid var(--card-accent);
   border-radius: var(--r-md); padding: var(--card-pad); cursor: pointer;
   display: flex; flex-direction: column;
   transition: border-color var(--t-fast), background var(--t-fast), transform var(--t-fast), box-shadow var(--t-fast);
-  content-visibility: auto; contain-intrinsic-size: 0 190px;
+  content-visibility: auto; contain-intrinsic-size: 0 260px;
 }
-.alloc-card:hover { border-color: var(--border-2); border-left-color: var(--card-accent); background: var(--surface-3); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.alloc-card:hover { border-color: var(--border-2); background: var(--surface-3); transform: translateY(-1px); box-shadow: var(--shadow-md); }
 .alloc-card:active { transform: translateY(0); }
 .alloc-card.tier1 { --card-accent: var(--success); }
 .alloc-card.tier2 { --card-accent: var(--cyan); }
@@ -592,6 +593,8 @@ table.db-table td { padding: 10px 12px; vertical-align: top; font-size: var(--fs
 .dsec-badge { font-size: var(--fs-2xs); padding: 1px 6px; border-radius: 4px; background: var(--surface-3); color: var(--text-3); font-weight: 500; text-transform: none; letter-spacing: 0; }
 .dsec-title.toggle { cursor: pointer; user-select: none; transition: color var(--t-fast); }
 .dsec-title.toggle:hover { color: var(--text-2); }
+button.dsec-title { width: 100%; background: none; border: none; font: inherit; color: inherit; text-align: left; padding: 0; }
+button.dsec-title:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
 .dsec-chevron { margin-left: auto; flex-shrink: 0; transition: transform var(--t-fast) var(--ease); color: var(--text-4); }
 .dsec.collapsed .dsec-title.toggle { margin-bottom: 0; }
 .dsec.collapsed .dsec-chevron { transform: rotate(-90deg); }
@@ -660,6 +663,20 @@ table.db-table td { padding: 10px 12px; vertical-align: top; font-size: var(--fs
 .empty-state h2 { font-size: var(--fs-md); color: var(--text-2); margin-bottom: 10px; font-family: var(--mono); font-weight: 600; }
 .empty-state p { font-family: var(--mono); font-size: var(--fs-sm); line-height: 2.1; max-width: 440px; margin: 0 auto; }
 .empty-state code { background: var(--surface-2); border: 1px solid var(--border-2); border-radius: 4px; padding: 1px 6px; font-size: var(--fs-xs); color: var(--success); }
+.empty-state-tech { margin-top: 14px; font-size: var(--fs-2xs); color: var(--text-4); line-height: 1.7; }
+
+/* ============================================================
+   LOADING SKELETON — shown until the first fetch resolves
+   ============================================================ */
+.skel-grid { padding: var(--sp-4) 1.75rem 3rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: var(--grid-gap); }
+.skel-card {
+  height: 190px; border-radius: var(--r-md); border: 1px solid var(--border);
+  background: linear-gradient(100deg, var(--surface-2) 30%, var(--surface-3) 50%, var(--surface-2) 70%);
+  background-size: 200% 100%; animation: skel-shimmer 1.6s ease-in-out infinite;
+}
+@keyframes skel-shimmer { 0% { background-position: 150% 0; } 100% { background-position: -50% 0; } }
+[data-motion="reduced"] .skel-card { animation: none; background-position: 0 0; }
+@media (prefers-reduced-motion: reduce) { .skel-card { animation: none; background-position: 0 0; } }
 
 /* ============================================================
    OVERLAYS (glossary / preferences / enrich popup share this shell)
@@ -679,6 +696,63 @@ table.db-table td { padding: 10px 12px; vertical-align: top; font-size: var(--fs
 .grow:last-child { margin-bottom: 0; }
 .gterm { font-family: var(--mono); font-size: var(--fs-sm); font-weight: 600; color: var(--cyan); }
 .gdef { font-size: var(--fs-sm); color: var(--text-2); line-height: 1.55; }
+
+/* ============================================================
+   LOGIN GATE — full-page screen shown before the app is usable
+   ============================================================ */
+.login-gate {
+  position: fixed; inset: 0; z-index: 500; display: flex; align-items: center; justify-content: center;
+  background:
+    radial-gradient(60% 55% at 50% 0%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 70%),
+    var(--bg);
+  padding: 6vh 5vw;
+}
+.login-gate[hidden] { display: none; }
+.login-card {
+  width: 380px; max-width: 100%; display: flex; flex-direction: column; align-items: center;
+  animation: pop-in var(--t-med) var(--ease);
+}
+.login-logo {
+  width: 56px; height: 56px; object-fit: contain; margin-bottom: 1.1rem;
+  filter: drop-shadow(0 4px 18px color-mix(in srgb, var(--accent) 35%, transparent));
+}
+.login-title { font-size: var(--fs-xl); font-weight: 700; letter-spacing: -0.01em; margin-bottom: 4px; }
+.login-sub { font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-3); text-align: center; margin-bottom: 1.8rem; line-height: 1.6; }
+.login-form { width: 100%; display: flex; flex-direction: column; gap: 10px; }
+.login-field-wrap { position: relative; width: 100%; }
+.login-field-wrap svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-4); pointer-events: none; width: 14px; height: 14px; }
+.login-input {
+  width: 100%; background: var(--surface-2); border: 1.5px solid var(--border-2); border-radius: var(--r-md);
+  color: var(--text); font-family: var(--mono); font-size: var(--fs-md); padding: 12px 14px 12px 36px; outline: none;
+  transition: border-color var(--t-fast), background var(--t-fast), box-shadow var(--t-fast);
+}
+.login-input:focus { border-color: var(--accent); background: var(--surface-3); box-shadow: 0 0 0 3px var(--accent-dim); }
+.login-input::placeholder { color: var(--text-4); }
+.login-submit {
+  width: 100%; margin-top: 4px; padding: 12px 14px; border-radius: var(--r-md); border: 1px solid var(--accent);
+  background: var(--accent); color: var(--accent-ink); font-family: var(--mono); font-size: var(--fs-sm); font-weight: 700;
+  letter-spacing: 0.02em; cursor: pointer; transition: filter var(--t-fast), transform var(--t-fast);
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.login-submit:hover { filter: brightness(1.08); }
+.login-submit:active { transform: translateY(1px); }
+.login-submit:disabled { opacity: 0.6; cursor: default; filter: none; }
+.login-error {
+  display: none; font-family: var(--mono); font-size: var(--fs-xs); color: var(--danger);
+  background: var(--danger-dim); border: 1px solid color-mix(in srgb, var(--danger) 40%, transparent);
+  border-radius: var(--r-sm); padding: 8px 11px; margin-top: 2px;
+}
+.login-error.show { display: block; }
+.login-spinner {
+  width: 13px; height: 13px; border-radius: 50%; border: 2px solid color-mix(in srgb, var(--accent-ink) 35%, transparent);
+  border-top-color: var(--accent-ink); animation: login-spin 0.7s linear infinite; display: none; flex-shrink: 0;
+}
+.login-submit.loading .login-spinner { display: inline-block; }
+.login-submit.loading .login-submit-label { opacity: 0.85; }
+@keyframes login-spin { to { transform: rotate(360deg); } }
+.login-foot { margin-top: 1.6rem; font-family: var(--mono); font-size: 10px; color: var(--text-4); text-align: center; letter-spacing: 0.03em; }
+@media (prefers-reduced-motion: reduce) { .login-card { animation: none; } .login-spinner { animation: none; } }
+body.gate-open { overflow: hidden; }
 
 /* ── preferences panel ── */
 .pref-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
@@ -728,13 +802,38 @@ table.db-table td { padding: 10px 12px; vertical-align: top; font-size: var(--fs
 }
 @media (max-width: 520px) {
   .insights-row { grid-template-columns: repeat(2, 1fr); }
-  .controls { flex-direction: column; align-items: stretch; }
+  .controls { flex-direction: column; align-items: stretch; gap: 6px; }
   .controls select { width: 100%; }
-  .ctrl-divider { display: none; }
+  .controls .ctrl-label { margin-top: 4px; }
+  .controls .ctrl-label:first-of-type { margin-top: 0; }
+  .result-bar { flex-direction: column; align-items: stretch; gap: 8px; }
+  .result-actions { display: flex; gap: 8px; }
+  .result-actions .hdr-btn { flex: 1; justify-content: center; }
 }
 </style>
 </head>
 <body>
+
+<!-- ── LOGIN GATE — blocks the app until the correct password is entered ── -->
+<div class="login-gate" id="login-gate">
+  <div class="login-card">
+    <img class="login-logo" src="https://www.9at.com/assets/images/logo.svg" alt="9AT">
+    <div class="login-title">9AT Intelligence Platform</div>
+    <div class="login-sub">Enter your password to continue</div>
+    <form class="login-form" id="login-form">
+      <div class="login-field-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <input type="password" class="login-input" id="login-password" placeholder="Password" autocomplete="current-password" required>
+      </div>
+      <div class="login-error" id="login-error">Incorrect password. Try again.</div>
+      <button type="submit" class="login-submit" id="login-submit">
+        <span class="login-spinner"></span>
+        <span class="login-submit-label">Enter</span>
+      </button>
+    </form>
+    <div class="login-foot">Access is valid for 8 hours on this device</div>
+  </div>
+</div>
 
 <!-- ── HEADER ── -->
 <header>
@@ -748,6 +847,7 @@ table.db-table td { padding: 10px 12px; vertical-align: top; font-size: var(--fs
     </button>
     <button class="hdr-btn" id="glossary-btn">? Glossary</button>
     <button class="hdr-btn primary" id="enrich-open-btn" style="display:none">★ Enrichment Priority <span id="enrich-count" class="hdr-btn-badge">— firms</span></button>
+    <button class="hdr-btn" id="logout-btn" title="Log out of this device">⏻ Log Out</button>
   </div>
 </header>
 
@@ -762,13 +862,13 @@ table.db-table td { padding: 10px 12px; vertical-align: top; font-size: var(--fs
       <div>
         <div class="sidebar-section-title">Overview</div>
         <div class="insights-row">
-          <button type="button" class="stat" onclick="statClick('total')"><span class="stat-label">Total Allocators</span><span class="stat-value num" id="d-total">—</span></button>
-          <button type="button" class="stat" onclick="statClick('at9')"><span class="stat-label">With 9AT Signal</span><span class="stat-value green num" id="d-at9">—</span></button>
-          <button type="button" class="stat" onclick="statClick('ready')"><span class="stat-label">Ready to Outreach</span><span class="stat-value green num" id="d-ready">—</span></button>
-          <button type="button" class="stat" onclick="statClick('enrich')"><span class="stat-label">Needs Enrichment</span><span class="stat-value yellow num" id="d-enrich">—</span></button>
-          <button type="button" class="stat" onclick="statClick('schc')"><span class="stat-label">Has Sched C Data</span><span class="stat-value cyan num" id="d-schc">—</span></button>
-          <button type="button" class="stat" onclick="statClick('schdh')"><span class="stat-label">Has Sched D/H</span><span class="stat-value purple num" id="d-schdh">—</span></button>
-          <button type="button" class="stat" onclick="statClick('contacted')"><span class="stat-label">Contacted</span><span class="stat-value green num" id="d-contacted">—</span></button>
+          <button type="button" class="stat" data-stat="total" onclick="statClick('total')"><span class="stat-label">Total Allocators</span><span class="stat-value num" id="d-total">—</span></button>
+          <button type="button" class="stat" data-stat="at9" onclick="statClick('at9')"><span class="stat-label">With 9AT Signal</span><span class="stat-value green num" id="d-at9">—</span></button>
+          <button type="button" class="stat" data-stat="ready" onclick="statClick('ready')"><span class="stat-label">Ready to Outreach</span><span class="stat-value green num" id="d-ready">—</span></button>
+          <button type="button" class="stat" data-stat="enrich" onclick="statClick('enrich')"><span class="stat-label">Needs Enrichment</span><span class="stat-value yellow num" id="d-enrich">—</span></button>
+          <button type="button" class="stat" data-stat="schc" onclick="statClick('schc')"><span class="stat-label">Has Sched C Data</span><span class="stat-value cyan num" id="d-schc">—</span></button>
+          <button type="button" class="stat" data-stat="schdh" onclick="statClick('schdh')"><span class="stat-label">Has Sched D/H</span><span class="stat-value purple num" id="d-schdh">—</span></button>
+          <button type="button" class="stat" data-stat="contacted" onclick="statClick('contacted')"><span class="stat-label">Contacted</span><span class="stat-value green num" id="d-contacted">—</span></button>
         </div>
       </div>
 
@@ -851,12 +951,12 @@ table.db-table td { padding: 10px 12px; vertical-align: top; font-size: var(--fs
     <span class="ctrl-label">9AT Signal</span>
     <select id="db-filter-signal">
       <option value="all">All firms</option>
-      <option value="any9at">Has 9AT signal</option>
-      <option value="tier1">Tier 1 only</option>
-      <option value="schedule_c">Schedule C</option>
-      <option value="schedule_d">Schedule D</option>
-      <option value="schedule_h">Schedule H</option>
+      <option value="any9at">Has 9AT signal (any)</option>
+      <option value="tier1">Tier 1 signal only</option>
       <option value="direct">Direct match</option>
+      <option value="schedule_c">Via Schedule C match</option>
+      <option value="schedule_d">Via Schedule D match</option>
+      <option value="schedule_h">Via Schedule H match</option>
       <option value="none9at">No 9AT signal</option>
     </select>
     <span class="ctrl-label">Enrich</span>
@@ -868,13 +968,13 @@ table.db-table td { padding: 10px 12px; vertical-align: top; font-size: var(--fs
       <option value="LOW">Low priority</option>
       <option value="SKIP">Skip</option>
     </select>
-    <span class="ctrl-label">Has</span>
+    <span class="ctrl-label">Filing Data</span>
     <select id="db-filter-data">
-      <option value="all">Any data</option>
-      <option value="schc">Schedule C data</option>
-      <option value="schdh">Schedule D/H data</option>
-      <option value="email">Email contact</option>
-      <option value="contact">Any contact</option>
+      <option value="all">Any filing data</option>
+      <option value="schc">Has Schedule C filing</option>
+      <option value="schdh">Has Schedule D/H filing</option>
+      <option value="contact">Has any contact info</option>
+      <option value="email">Has email specifically</option>
     </select>
     <span class="ctrl-label">Outreach</span>
     <select id="db-filter-outreach">
@@ -886,15 +986,25 @@ table.db-table td { padding: 10px 12px; vertical-align: top; font-size: var(--fs
   <div class="result-bar">
     <div class="result-count" id="db-count"></div>
     <div class="result-actions">
+      <button class="hdr-btn small" id="reset-filters-btn" title="Clear search and all filters" onclick="resetFilters()">↺ Reset Filters</button>
       <button class="hdr-btn small" id="copy-emails-btn" title="Copy every email address in the current filtered view">⧉ Copy Emails</button>
       <button class="hdr-btn small" id="export-csv-btn" title="Export the current filtered view as CSV">⇩ Export CSV</button>
     </div>
   </div>
   <div class="pagination" id="db-pagination"></div>
   <div id="db-table-wrap">
-    <div class="empty-state">
-      <h2>// no data loaded</h2>
-      <p>Couldn't load <code>9at_intelligence.json</code>. Make sure it's in the same folder as this page and reload.</p>
+    <div class="skel-grid" id="initial-skeleton" aria-hidden="true">
+      <div class="skel-card"></div>
+      <div class="skel-card"></div>
+      <div class="skel-card"></div>
+      <div class="skel-card"></div>
+      <div class="skel-card"></div>
+      <div class="skel-card"></div>
+    </div>
+    <div class="empty-state" id="initial-empty-state" style="display:none">
+      <h2>No data loaded yet</h2>
+      <p>We couldn't find the allocator database for this page. If this keeps happening, check with whoever set up this workspace, or try reloading.</p>
+      <p class="empty-state-tech">Technical detail: expected <code>9at_intelligence.json</code> in the same folder as this page.</p>
     </div>
   </div>
   <div class="pagination" id="db-pagination-bottom"></div>
@@ -1224,6 +1334,12 @@ function applyPrefs() {
 }
 
 // ── Stat tile clicks — jump to the filtered slice of the database ──────────
+let activeStatFilter = null;
+function updateStatActiveUI() {
+  document.querySelectorAll('.stat[data-stat]').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-stat') === activeStatFilter);
+  });
+}
 function statClick(which) {
   const sigF      = document.getElementById('db-filter-signal');
   const enrichF   = document.getElementById('db-filter-enrich');
@@ -1239,11 +1355,34 @@ function statClick(which) {
     case 'schdh':     dataF.value = 'schdh'; break;
     case 'contacted': outreachF.value = 'contacted'; break;
   }
+  activeStatFilter = which;
+  updateStatActiveUI();
   [sigF, enrichF, dataF, outreachF].forEach(syncXddLabel);
   dbPage = 1;
   renderDB();
   if (window.innerWidth <= 860) closeSidebar();
 }
+// Clears every filter/search input and returns to the unfiltered view.
+function resetFilters() {
+  document.getElementById('db-search').value = '';
+  document.getElementById('db-filter-signal').value = 'all';
+  document.getElementById('db-filter-enrich').value = 'all';
+  document.getElementById('db-filter-data').value = 'all';
+  document.getElementById('db-filter-outreach').value = 'all';
+  activeStatFilter = null;
+  updateStatActiveUI();
+  ['db-filter-signal','db-filter-enrich','db-filter-data','db-filter-outreach']
+    .forEach(id => syncXddLabel(document.getElementById(id)));
+  dbPage = 1;
+  renderDB();
+}
+// Any manual change to a filter/search input (not via a stat tile) means the
+// current view no longer corresponds 1:1 to a stat tile, so clear the
+// active-tile highlight.
+['db-search','db-filter-signal','db-filter-enrich','db-filter-data','db-filter-outreach'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', () => { activeStatFilter = null; updateStatActiveUI(); });
+});
 
 function setView(view) {
   prefs.view = view;
@@ -1388,8 +1527,12 @@ function setContacted(ein, val) {
 }
 loadContacted();
 
-// ── Enrichment password caching ─────────────────────────────────────────────
-// Ask for the password once per browser, then reuse it until it expires.
+// ── Site login gate + password caching ──────────────────────────────────────
+// A single password now gates the whole app (not just AI enrichment). It's
+// asked once at the login screen, verified against the same backend that
+// enrichment calls already use (ENRICH_WORKER_URL), then cached for 8 hours
+// and reused as the password sent to that worker — so enrichment stays
+// protected server-side exactly as before, with no behavior change there.
 const ENRICH_PW_KEY = '9at_enrich_pw_v1';
 const ENRICH_PW_TTL_MS = 8 * 60 * 60 * 1000; // 8 hours
 
@@ -1408,15 +1551,96 @@ function setCachedEnrichPassword(pw) {
 function clearCachedEnrichPassword() {
   try { localStorage.removeItem(ENRICH_PW_KEY); } catch {}
 }
-// Returns a password (from cache or by asking), or null if the user cancels.
+// Returns the cached password for AI enrichment calls, or null if the
+// session has expired (which also means the login gate should be showing).
 async function getEnrichPassword() {
   const cached = getCachedEnrichPassword();
   if(cached) return cached;
-  const pw = await showPrompt('Enter password to run AI enrichment.\nYou won\'t be asked again on this device for 8 hours.', { password: true, title: 'AI Enrichment', required: true, requiredMessage: 'Password required.' });
-  if(pw === null) return null;
-  setCachedEnrichPassword(pw);
-  return pw;
+  showLoginGate();
+  return null;
 }
+
+// Verifies a password against the real backend before letting anyone into
+// the app. Uses the same worker that AI enrichment already calls, with a
+// no-op-flagged request so it only checks auth without running enrichment.
+// TODO: point this at a dedicated auth-check endpoint if/when one exists —
+// today it reuses ENRICH_WORKER_URL since that's the only endpoint that
+// actually knows the real password.
+async function verifySitePassword(pw) {
+  try {
+    const res = await fetch(ENRICH_WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: pw, authCheckOnly: true }),
+    });
+    if(res.status === 401 || res.status === 403) return false;
+    return res.ok || res.status === 400; // 400 = auth passed but request shape rejected, which is fine for a pure auth check
+  } catch {
+    return null; // network/server error — can't confirm either way
+  }
+}
+
+// ── Login gate UI ────────────────────────────────────────────────────────
+function showLoginGate() {
+  const gate = document.getElementById('login-gate');
+  if(!gate) return;
+  gate.hidden = false;
+  document.body.classList.add('gate-open');
+  const input = document.getElementById('login-password');
+  if(input) { input.value = ''; setTimeout(() => input.focus(), 50); }
+  const err = document.getElementById('login-error');
+  if(err) err.classList.remove('show');
+}
+function hideLoginGate() {
+  const gate = document.getElementById('login-gate');
+  if(gate) gate.hidden = true;
+  document.body.classList.remove('gate-open');
+}
+function logOut() {
+  clearCachedEnrichPassword();
+  showLoginGate();
+}
+document.getElementById('logout-btn')?.addEventListener('click', logOut);
+
+document.getElementById('login-form')?.addEventListener('submit', async e => {
+  e.preventDefault();
+  const input = document.getElementById('login-password');
+  const err = document.getElementById('login-error');
+  const btn = document.getElementById('login-submit');
+  const pw = (input?.value || '').trim();
+  err.classList.remove('show');
+  err.textContent = 'Incorrect password. Try again.';
+  if(!pw) return;
+  btn.classList.add('loading');
+  btn.disabled = true;
+  const result = await verifySitePassword(pw);
+  btn.classList.remove('loading');
+  btn.disabled = false;
+  if(result === true) {
+    setCachedEnrichPassword(pw);
+    hideLoginGate();
+  } else if(result === false) {
+    err.classList.add('show');
+    input.select();
+  } else {
+    err.textContent = "Couldn't reach the server to verify your password. Check your connection and try again.";
+    err.classList.add('show');
+  }
+});
+
+// Gate the app immediately on load if there's no valid cached session, and
+// re-show it automatically the moment the 8-hour session expires (checked
+// periodically so a long-idle tab gets kicked back to the login screen
+// without needing a reload).
+(function initLoginGate() {
+  if(getCachedEnrichPassword()) hideLoginGate();
+  else showLoginGate();
+  setInterval(() => {
+    if(document.getElementById('login-gate').hidden === false) return;
+    if(!getCachedEnrichPassword()) showLoginGate();
+  }, 30 * 1000);
+})();
+
 
 // ── Shared stat refresh (used after single or batch enrichment) ────────────
 function refreshEnrichStats() {
@@ -1552,6 +1776,8 @@ function refreshAllHay() {
 
 // ── Load combined JSON ────────────────────────────────────────────────────────
 function loadData(data) {
+  const skel = document.getElementById('initial-skeleton');
+  if (skel) skel.remove();
   dbData  = data.allocators || [];
   dbIndex = {};
   dbData.forEach(a => { dbIndex[a.ein] = a; });
@@ -1791,7 +2017,7 @@ function renderDB() {
     `Showing ${(start+1).toLocaleString()}–${Math.min(start+PAGE_SIZE,rows.length).toLocaleString()} of ${rows.length.toLocaleString()} allocators`;
 
   if(!rows.length) {
-    document.getElementById('db-table-wrap').innerHTML = `<div class="empty-state">${ICON_EMPTY}<h2>// no results</h2><p>Try adjusting filters.</p></div>`;
+    document.getElementById('db-table-wrap').innerHTML = `<div class="empty-state">${ICON_EMPTY}<h2>No matching allocators</h2><p>Try adjusting your search or filters.</p><button type="button" class="hdr-btn small" style="margin-top:14px" onclick="resetFilters()">↺ Reset Filters</button></div>`;
     document.getElementById('db-pagination').innerHTML = '';
     document.getElementById('db-pagination-bottom').innerHTML = '';
     return;
@@ -2445,7 +2671,7 @@ function openDrawer(ein) {
   const rels = ref.at9_relationships||[];
   if(rels.length) {
     html += `<div class="dsec collapsed">
-      <div class="dsec-title toggle" onclick="toggleDsec(this)">${ICON_LINK} 9AT Relationship Map <span class="dsec-badge">${rels.length} signal${rels.length!==1?'s':''}</span>${ICON_CHEVRON}</div>
+      <button type="button" class="dsec-title toggle" onclick="toggleDsec(this)" aria-expanded="false">${ICON_LINK} 9AT Relationship Map <span class="dsec-badge">${rels.length} signal${rels.length!==1?'s':''}</span>${ICON_CHEVRON}</button>
       <div class="dsec-content">
       <table class="sig-table">`;
     rels.forEach(r => {
@@ -2466,7 +2692,7 @@ function openDrawer(ein) {
   const sps = ref.service_providers||[];
   if(sps.length) {
     html += `<div class="dsec collapsed">
-      <div class="dsec-title toggle" onclick="toggleDsec(this)">${ICON_DOLLAR} Service Providers <span class="dsec-badge">Schedule C · ${sps.length} providers</span>${ICON_CHEVRON}</div>
+      <button type="button" class="dsec-title toggle" onclick="toggleDsec(this)" aria-expanded="false">${ICON_DOLLAR} Service Providers <span class="dsec-badge">Schedule C · ${sps.length} providers</span>${ICON_CHEVRON}</button>
       <div class="dsec-content">
       <table class="sig-table">`;
     sps.slice(0,20).forEach(sp => {
@@ -2491,7 +2717,7 @@ function openDrawer(ein) {
   const invs = ref.investments||[];
   if(invs.length) {
     html += `<div class="dsec collapsed">
-      <div class="dsec-title toggle" onclick="toggleDsec(this)">${ICON_TREND} Fund Holdings & Managers <span class="dsec-badge">Sched D/H · ${invs.length} entries</span>${ICON_CHEVRON}</div>
+      <button type="button" class="dsec-title toggle" onclick="toggleDsec(this)" aria-expanded="false">${ICON_TREND} Fund Holdings & Managers <span class="dsec-badge">Sched D/H · ${invs.length} entries</span>${ICON_CHEVRON}</button>
       <div class="dsec-content">
       <table class="sig-table">`;
     invs.slice(0,20).forEach(inv => {
@@ -2524,7 +2750,7 @@ function openDrawer(ein) {
 
   if(hasSchedData) {
     html += `<div class="dsec collapsed">
-      <div class="dsec-title toggle" onclick="toggleDsec(this)">${ICON_TABLE} Raw Schedule Data <span class="dsec-badge">loaded</span>${ICON_CHEVRON}</div>
+      <button type="button" class="dsec-title toggle" onclick="toggleDsec(this)" aria-expanded="false">${ICON_TABLE} Raw Schedule Data <span class="dsec-badge">loaded</span>${ICON_CHEVRON}</button>
       <div class="dsec-content">`;
     const hasSC = sched.schedule_c?.item1?.length || sched.schedule_c?.item2?.length || sched.schedule_c?.item3?.length;
     if(hasSC) {
@@ -2567,7 +2793,12 @@ applyPrefs();
 fetch('9at_intelligence.json').then(r=>r.ok?r.json():Promise.reject()).then(d=>{
   loadData(d);
   reconcileEnrichedFirms();
-}).catch(()=>{});
+}).catch(()=>{
+  const skel = document.getElementById('initial-skeleton');
+  if (skel) skel.remove();
+  const empty = document.getElementById('initial-empty-state');
+  if (empty) empty.style.display = '';
+});
 
 // Load enrichment.json (AI-found contacts) alongside the main data file.
 // Soft-fails if the file doesn't exist yet (e.g. before the first Enrich run).
@@ -2654,6 +2885,7 @@ document.addEventListener('keydown', e => {
 // ── "/" focuses search when focus isn't already in an input ────────────────
 document.addEventListener('keydown', e => {
   if (e.key !== '/') return;
+  if (document.getElementById('login-gate')?.hidden === false) return;
   const tag = (document.activeElement && document.activeElement.tagName) || '';
   if (tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA') return;
   e.preventDefault();
@@ -2742,7 +2974,10 @@ document.getElementById('dialog-overlay').addEventListener('click', e => {
 // Contacts section has no .toggle class / onclick, so it's unaffected.
 function toggleDsec(headerEl) {
   const sec = headerEl.closest('.dsec');
-  if (sec) sec.classList.toggle('collapsed');
+  if (sec) {
+    sec.classList.toggle('collapsed');
+    headerEl.setAttribute('aria-expanded', sec.classList.contains('collapsed') ? 'false' : 'true');
+  }
 }
 
 // Apply saved theme now that the toggle + prefs panel exist, and refresh the
