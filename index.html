@@ -45,9 +45,9 @@ html { -webkit-text-size-adjust: 100%; }
   --danger:  #ff6b6b; --danger-dim:  rgba(255,107,107,.14);
 
   /* — accent (user-selectable brand color; see [data-accent]) — */
-  --accent: #2de89a;
-  --accent-dim: rgba(45,232,154,.14);
-  --accent-ink: #06110c;
+  --accent: #FDD533;
+  --accent-dim: rgba(253,213,51,.16);
+  --accent-ink: #1a1400;
 
   /* — type — */
   --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
@@ -67,6 +67,7 @@ html { -webkit-text-size-adjust: 100%; }
 }
 
 /* — accent palettes — */
+[data-accent="gold"]    { --accent:#FDD533; --accent-dim:rgba(253,213,51,.16); --accent-ink:#1a1400; }
 [data-accent="emerald"] { --accent:#2de89a; --accent-dim:rgba(45,232,154,.14); --accent-ink:#06110c; }
 [data-accent="azure"]   { --accent:#4d8dff; --accent-dim:rgba(77,141,255,.16); --accent-ink:#07101f; }
 [data-accent="violet"]  { --accent:#a685ff; --accent-dim:rgba(166,133,255,.17); --accent-ink:#0d0a1c; }
@@ -1237,9 +1238,6 @@ table.network-table td { padding: 10px 12px; vertical-align: middle; font-size: 
   </button>
   <div class="header-right">
     <span class="hdr-status" id="hdr-status"><span class="dot"></span>No data loaded</span>
-    <button class="icon-btn" id="prefs-btn" data-tip="Preferences">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-    </button>
     <button class="hdr-btn" id="glossary-btn">? Glossary</button>
     <button class="hdr-btn danger" id="logout-btn" data-tip="Log out of this device">⏻ Log Out</button>
   </div>
@@ -1435,61 +1433,7 @@ table.network-table td { padding: 10px 12px; vertical-align: middle; font-size: 
   </div>
 </div>
 
-<!-- ── PREFERENCES ── -->
-<div class="overlay" id="prefs-overlay">
-  <div class="gbox">
-    <div class="ghead"><h2>⚙ Preferences</h2><button class="gclose" id="prefs-close">✕</button></div>
-    <div class="gsec">
-      <div class="pref-row">
-        <div>
-          <div class="pref-label">Accent color</div>
-          <div class="pref-hint">Brand color only — status colors never change</div>
-        </div>
-        <div class="swatch-row" id="pref-accent-options">
-          <span class="swatch" data-val="emerald" style="background:#2de89a" onclick="setAccent('emerald')" data-tip="Emerald"></span>
-          <span class="swatch" data-val="azure" style="background:#4d8dff" onclick="setAccent('azure')" data-tip="Azure"></span>
-          <span class="swatch" data-val="violet" style="background:#a685ff" onclick="setAccent('violet')" data-tip="Violet"></span>
-          <span class="swatch" data-val="amber" style="background:#ffb454" onclick="setAccent('amber')" data-tip="Amber"></span>
-          <span class="swatch" data-val="rose" style="background:#ff7a94" onclick="setAccent('rose')" data-tip="Rose"></span>
-        </div>
-      </div>
-      <div class="pref-row">
-        <div>
-          <div class="pref-label">Density</div>
-          <div class="pref-hint">Comfortable or compact spacing</div>
-        </div>
-        <div class="pref-options" id="pref-density-options">
-          <button class="pref-pill" data-val="comfortable" onclick="setDensity('comfortable')">Comfortable</button>
-          <button class="pref-pill" data-val="compact" onclick="setDensity('compact')">Compact</button>
-        </div>
-      </div>
-      <div class="pref-row">
-        <div>
-          <div class="pref-label">Motion</div>
-          <div class="pref-hint">Force-reduce animations regardless of OS setting</div>
-        </div>
-        <div class="pref-options" id="pref-motion-options">
-          <button class="pref-pill" data-val="system" onclick="setMotion('system')">System</button>
-          <button class="pref-pill" data-val="reduced" onclick="setMotion('reduced')">Reduced</button>
-        </div>
-      </div>
-      <div class="pref-row">
-        <div>
-          <div class="pref-label">Default view</div>
-          <div class="pref-hint">Cards or dense table</div>
-        </div>
-        <div class="pref-options" id="pref-view-options">
-          <button class="pref-pill" data-val="cards" onclick="setView('cards')">Cards</button>
-          <button class="pref-pill" data-val="table" onclick="setView('table')">Table</button>
-        </div>
-      </div>
-      <div class="pref-row">
-        <span class="pref-hint">Preferences are saved locally in this browser.</span>
-        <button class="pref-reset" onclick="resetPrefs()">Reset to defaults</button>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 <!-- ── IN-APP DIALOG (replaces native alert()/prompt()) ── -->
 <div id="app-tooltip"></div>
@@ -1580,7 +1524,7 @@ let dbVersion = 0;
 // verbatim" list has to change shape.
 // ══════════════════════════════════════════════════════════════════════════════
 const PREFS_KEY = '9at_prefs_v1';
-const PREFS_DEFAULT = { theme:'dark', accent:'emerald', density:'comfortable', motion:'system', view:'cards', cardsPerRow:'auto', sidebarCollapsed:false };
+const PREFS_DEFAULT = { theme:'dark', accent:'gold', density:'comfortable', motion:'system', view:'cards', cardsPerRow:'auto', sidebarCollapsed:false };
 function loadPrefs() {
   try { return Object.assign({}, PREFS_DEFAULT, JSON.parse(localStorage.getItem(PREFS_KEY) || '{}')); }
   catch { return { ...PREFS_DEFAULT }; }
@@ -3729,15 +3673,7 @@ function resetPrefs() {
   renderDB();
 }
 
-// ── Preferences overlay ──────────────────────────────────────────────────────
-document.getElementById('prefs-btn').addEventListener('click', () => {
-  document.getElementById('prefs-overlay').classList.add('open');
-  updatePrefsPanelUI();
-});
-document.getElementById('prefs-close').addEventListener('click', () => document.getElementById('prefs-overlay').classList.remove('open'));
-document.getElementById('prefs-overlay').addEventListener('click', e => {
-  if (e.target === document.getElementById('prefs-overlay')) document.getElementById('prefs-overlay').classList.remove('open');
-});
+
 
 // ── Glossary overlay ─────────────────────────────────────────────────────────
 document.getElementById('glossary-btn').addEventListener('click', () => document.getElementById('glossary-overlay').classList.add('open'));
@@ -3752,7 +3688,6 @@ document.addEventListener('keydown', e => {
   const dialog   = document.getElementById('dialog-overlay');
   const drawer   = document.getElementById('drawer-overlay');
   const enrich   = document.getElementById('enrich-overlay');
-  const prefsOv  = document.getElementById('prefs-overlay');
   const glossary = document.getElementById('glossary-overlay');
   if (dialog.classList.contains('open')) {
     const cancelBtn = document.getElementById('dialog-cancel');
@@ -3760,7 +3695,6 @@ document.addEventListener('keydown', e => {
   }
   else if (drawer.classList.contains('open'))   drawer.classList.remove('open');
   else if (enrich.classList.contains('open'))   enrich.classList.remove('open');
-  else if (prefsOv.classList.contains('open'))  prefsOv.classList.remove('open');
   else if (glossary.classList.contains('open')) glossary.classList.remove('open');
 });
 
