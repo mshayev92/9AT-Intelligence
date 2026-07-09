@@ -306,10 +306,8 @@ main { display: block; }
 .pipeline-seg.seg-noemail { background: var(--danger); }
 .pipeline-seg.seg-low { background: var(--info); }
 .pipeline-seg.seg-skip { background: var(--border-2); }
-.pipeline-legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 9px; }
-.pl-item { display: flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-3); }
-.pl-swatch { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
-.pl-item b { color: var(--text-2); font-weight: 600; }
+.hero-pipeline-bar { height: 10px; border-radius: 999px; margin: 10px 0; box-shadow: none; }
+.hero-pipeline-bar .pipeline-seg { cursor: pointer; }
 .pipeline-progress-wrap { margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border); display: flex; align-items: center; gap: 10px; }
 .pipeline-progress-label { font-family: var(--mono); font-size: var(--fs-2xs); color: var(--text-3); white-space: nowrap; }
 .pipeline-progress-track { flex: 1; height: 6px; border-radius: 4px; background: var(--surface-3); overflow: hidden; }
@@ -1058,21 +1056,6 @@ table.network-table td { padding: 10px 12px; vertical-align: middle; font-size: 
   letter-spacing:.12em;
 }
 
-.hero-bar-wrap{
-  height:10px;
-  background:rgba(255,255,255,.05);
-  border-radius:999px;
-  overflow:hidden;
-  margin:10px 0;
-}
-
-.hero-bar{
-  height:100%;
-  width:0%;
-  background:linear-gradient(90deg,var(--accent),#7CFFB2);
-  transition:width .4s ease;
-}
-
 .hero-substats{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -1282,15 +1265,19 @@ table.network-table td { padding: 10px 12px; vertical-align: middle; font-size: 
     <div class="hero-label">Total Allocators</div>
   </div>
 
-  <div class="hero-bar-wrap">
-    <div class="hero-bar" id="hero-bar"></div>
-  </div>
+  <div class="pipeline-bar hero-pipeline-bar" id="pipeline-bar"></div>
 
   <div class="hero-substats">
     <div><span id="hero-ready">—</span><label>Ready</label></div>
     <div><span id="hero-high">—</span><label>High</label></div>
     <div><span id="hero-email">—</span><label>No Email</label></div>
     <div><span id="hero-contacted">—</span><label>Contacted</label></div>
+  </div>
+
+  <div class="pipeline-progress-wrap">
+    <span class="pipeline-progress-label">Ready firms contacted</span>
+    <div class="pipeline-progress-track"><div class="pipeline-progress-fill" id="pipeline-progress-fill" style="width:0%"></div></div>
+    <span class="pipeline-progress-num num" id="pipeline-progress-num">0 / 0</span>
   </div>
 </div>
 
@@ -1300,23 +1287,6 @@ table.network-table td { padding: 10px 12px; vertical-align: middle; font-size: 
           <span>★ Enrichment Priority</span>
           <span id="enrich-count" class="sidebar-enrich-count">— firms</span>
         </button>
-      </div>
-
-<!-- ── OUTREACH PIPELINE ── -->
-      <div class="sidebar-section">
-        <div class="sidebar-section-title">Outreach Pipeline</div>
-        <div class="pipeline">
-          <div class="pipeline-head">
-            <span class="pipeline-note">Every allocator, bucketed by enrichment status</span>
-          </div>
-          <div class="pipeline-bar" id="pipeline-bar"></div>
-          <div class="pipeline-legend" id="pipeline-legend"></div>
-          <div class="pipeline-progress-wrap">
-            <span class="pipeline-progress-label">Ready firms contacted</span>
-            <div class="pipeline-progress-track"><div class="pipeline-progress-fill" id="pipeline-progress-fill" style="width:0%"></div></div>
-            <span class="pipeline-progress-num num" id="pipeline-progress-num">0 / 0</span>
-          </div>
-        </div>
       </div>
 
       <div class="sidebar-section">
@@ -2123,28 +2093,23 @@ const PIPELINE_SEGS = [
 ];
 function updatePipeline() {
   const barEl = document.getElementById('pipeline-bar');
-  const legendEl = document.getElementById('pipeline-legend');
   const fillEl = document.getElementById('pipeline-progress-fill');
   const numEl  = document.getElementById('pipeline-progress-num');
   if(!barEl) return;
-  if(!dbData.length) { barEl.innerHTML=''; if(legendEl) legendEl.innerHTML=''; if(fillEl) fillEl.style.width='0%'; if(numEl) numEl.textContent='0 / 0'; return; }
+  if(!dbData.length) { barEl.innerHTML=''; if(fillEl) fillEl.style.width='0%'; if(numEl) numEl.textContent='0 / 0'; return; }
 
   const buckets = {READY:0, HIGH:0, ENRICHED_NO_EMAIL:0, LOW:0, SKIP:0};
   dbData.forEach(a => { const p = effectivePriority(a); buckets[p] = (buckets[p]||0)+1; });
   const total = dbData.length;
 
-  barEl.innerHTML = PIPELINE_SEGS.map(([cls,key]) => {
+  // Segmented bar: each segment's data-tip is the hover-revealed breakdown
+  // (label, count, share of book) — this replaces the old always-on legend.
+  barEl.innerHTML = PIPELINE_SEGS.map(([cls,key,label]) => {
     const n = buckets[key]||0;
     if(!n) return '';
     const pct = n/total*100;
-    return `<div class="pipeline-seg ${cls}" style="flex-basis:${pct}%" data-tip="${key.replace(/_/g,' ')}: ${fmtN(n)} (${pct.toFixed(1)}%)"></div>`;
+    return `<div class="pipeline-seg ${cls}" style="flex-basis:${pct}%" data-tip="${label}: ${fmtN(n)} (${pct.toFixed(1)}%)"></div>`;
   }).join('');
-
-  if(legendEl) {
-    legendEl.innerHTML = PIPELINE_SEGS.map(([cls,key,label,cvar]) =>
-      `<span class="pl-item"><span class="pl-swatch" style="background:var(${cvar})"></span>${label} <b class="num">${fmtN(buckets[key]||0)}</b></span>`
-    ).join('');
-  }
 
   const readyCount = buckets.READY||0;
   const contactedReady = dbData.filter(a => effectivePriority(a)==='READY' && isContacted(a.ein)).length;
@@ -2152,6 +2117,8 @@ function updatePipeline() {
     fillEl.style.width = (readyCount ? contactedReady/readyCount*100 : 0) + '%';
     numEl.textContent = `${fmtN(contactedReady)} / ${fmtN(readyCount)}`;
   }
+
+  return buckets;
 }
 
 // ── Enrichment priority popup state ─────────────────────────────────────────
@@ -2250,11 +2217,6 @@ function syncHeroStats(dbData, s){
     set('hero-high', high);
     set('hero-email', noEmail);
     set('hero-contacted', contacted);
-
-    const bar = document.getElementById('hero-bar');
-    if(bar && total>0){
-      bar.style.width = Math.round((ready/total)*100) + '%';
-    }
   }catch(e){console.log(e);}
 }
 
